@@ -5,29 +5,38 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
 
 <BaseLayout title="Resume" sideBarActiveItemID="cv">
   <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Profile</div>
-  </div>
-
-  <div class="mb-10 text-justify">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </div>
-
   <div class="mb-5">
     <div class="text-3xl w-full font-bold">Education</div>
   </div>
 
   <div class="time-line-container grid gap-4 mb-10">
     <TimeLineElement
-      title="Title Name"
-      subtitle="[start year] to [end year] at [Study Center Name], [City], [Country]"
-    />
+    title="Bachelor - Game Programming"
+    subtitle="2021 to 2024 at SAE-Institute, Geneva, Switzerland">
+    <ul class="list-disc mx-6">
+      <li>Game creation (Unity, Unreal, C++)</li>
+      <li>Physics Programming</li>
+      <li>Networking</li>
+      <li>Optimisation</li>
+      <li>Graphics Programming</li>
+    </ul>
+    </TimeLineElement>
     <TimeLineElement
-      title="Title Name"
-      subtitle="[start year] to [end year] at [Study Center Name], [City], [Country]"
-    />
+      title="Federal Brevet - Diagnostician"
+      subtitle="2019 to 2020 at UPSA-VD, Yverdon-les-Bain, Switzerland">
+    </TimeLineElement>
+    <TimeLineElement
+      title="Federal Capacity Certification (CFC) - Mecatronics"
+      subtitle="2014 to 2019 at EPSIC, Lausanne, Switzerland">
+    </TimeLineElement>
+    <TimeLineElement
+      title="Gymnasium Diploma - Economics, Commerce, Marketing and Law"
+      subtitle="2009 to 2013 at Gymnase de la Cité, Provence & Bugnon, Lausanne, Switzerland">
+    </TimeLineElement>
+    <TimeLineElement
+      title="Secondary Certificat - General"
+      subtitle="2004 to 2009 at Isabelle-de-Montolieu, Lausanne, Switzerland">
+    </TimeLineElement>
   </div>
 
   <div class="mb-5">
@@ -36,26 +45,33 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
 
   <div class="time-line-container mb-10">
     <TimeLineElement
-      title="Job Title at Project or Company Name"
-      subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
-    >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+      title="Game Programmer"
+      subtitle="From 2021 to Mai 2021 at Dama Dama Games, Lausanne, Switzerland">
+      Explicative text... Unity Shader Graph, marketing tools
     </TimeLineElement>
     <TimeLineElement
-      title="Job Title at Project or Company Name"
-      subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
-    >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+      title="Mecatronics Engineer"
+      subtitle="From August 2019 to 2021 at MAN Truck & Bus, Bussigny, Switzerland">
+      Explicative text...
     </TimeLineElement>
     <TimeLineElement
-      title="Job Title at Project or Company Name"
-      subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
-    >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+      title="Receptionist"
+      subtitle="From 2019 to August 2019 at LARAG SA, Echandens, Switzerland">
+      Explicative text...
+    </TimeLineElement>
+    <TimeLineElement
+      title="Mecatronics Apprentice"
+      subtitle="From 2014 to 2019 at LARAG SA, Echandens, Switzerland">
+      Explicative text...
+    </TimeLineElement>
+    <TimeLineElement
+      title="Diverse IT & commercial work experiences"
+      subtitle="From 2008 to 2014, Switzerland & England">
+      Explicative text...
     </TimeLineElement>
   </div>
 
-  <div class="mb-5">
+  <!-- <div class="mb-5">
     <div class="text-3xl w-full font-bold">Certifications</div>
   </div>
 
@@ -66,27 +82,39 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
     <li>
       <a href="#" target="_blank"> Certification Name (with link)</a>
     </li>
-  </ul>
+  </ul> -->
 
   <div class="mb-5">
     <div class="text-3xl w-full font-bold">Skills</div>
   </div>
-
   <ul class="list-disc md:columns-5 columns-2 mx-6">
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
+    <li>C++</li>
+    <li>C#</li>
+    <li>Python</li>
+    <li>x86_63 ASM</li>
+    <li>SIMD</li>
+    <li>Unity</li>
+    <li>Unreal Engine</li>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>PHP</li>
+    <li>SQL</li>
+    <li>Git</li>
+    <li>Perforce</li>
+    <li>Trello</li>
+    <li>Miro</li>
+    <li>Adobe After Effect</li>
+    <li>Office Suite</li>
   </ul>
+  &nbsp;
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Languages</div>
+  </div>
+  <ul class="list-disc md:columns-5 columns-2 mx-6">
+    <li>French (Native)</li>
+    <li>English (Native)</li>
+    <li>German (B1)</li>
+    <li>Italian (B1)</li>
+  </ul>
+
 </BaseLayout>
