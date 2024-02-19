@@ -20,8 +20,7 @@ interface Props {
 const { page } = Astro.props;
 
 page.data.sort(
-	(a: ProjectSchema, b: ProjectSchema) =>
-		a.data.order - b.data.order
+	(a: ProjectSchema, b: ProjectSchema) => a.data.order - b.data.order,
 );
 ---
 
@@ -32,20 +31,18 @@ page.data.sort(
 
 	<ul>
 		{
-			page.data
-				.sort()
-				.map((project: ProjectSchema) => (
-					<>
-						<HorizontalCard
-							title={project.data.title}
-							img={project.data.heroImage}
-							desc={project.data.description}
-							url={"/projects/" + project.slug}
-							target="_self"
-						/>
-						<div class="divider my-0" />
-					</>
-				))
+			page.data.sort().map((project: ProjectSchema) => (
+				<>
+					<HorizontalCard
+						title={project.data.title}
+						img={project.data.heroImage}
+						desc={project.data.description}
+						url={"/projects/" + project.slug}
+						target="_self"
+					/>
+					<div class="divider my-0" />
+				</>
+			))
 		}
 	</ul>
 </BaseLayout>

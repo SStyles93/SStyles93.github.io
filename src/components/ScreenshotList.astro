@@ -1,0 +1,44 @@
+---
+import { Picture, Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+export interface Props {
+    screenshots?: string[];
+    containerClasses?: string;
+    imageClasses?: string;
+}
+
+const {
+    screenshots = [],
+    containerClasses = "flex flex-wrap justify-around",
+    imageClasses = "w-72",
+} = Astro.props as Props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/**/*.{jpeg,jpg,png,gif,avif,webp}",
+);
+
+screenshots.forEach((screenshot) => {
+    if (!images[screenshot]) {
+        throw new Error(
+            `"${screenshot}" does not exist in glob: "/src/assets/**/*.{jpeg,jpg,png,gif,avif,webp}"`,
+        );
+    }
+});
+---
+
+<div class={containerClasses}>
+    {
+        screenshots.map((screenshot) => {
+            return (
+                <div data-lightbox="true">
+                    <Image
+                        src={images[screenshot]()}
+                        alt="Screenshot of the project"
+                        class={imageClasses}
+                    />
+                </div>
+            );
+        })
+    }
+</div>

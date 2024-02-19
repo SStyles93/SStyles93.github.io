@@ -1,0 +1,39 @@
+---
+title: "SynthCity"
+description: "A Synthwave game made during the LvlUp GameJam"
+creationDate: "Feb 21 2021"
+order: 2
+heroImage: "/src/assets/synthcity/SynthCityGame.gif"
+screenshots:
+    [
+        "/src/assets/synthcity/SynthCityIntro.png",
+        "/src/assets/synthcity/SynthCityMenu.png",
+        "/src/assets/synthcity/SynthCityMap.png",
+        "/src/assets/synthcity/SynthCityGame.gif",
+    ]
+teamSize: 5
+timeFrame: "2 days"
+toolUsed: "C#/Unity"
+---
+
+import Button from "../../components/Button.astro";
+
+This game was made with **[Unity](https://unity.com/)** during a **2 days GameJam** at the **Fribourg** in **Switzerland**.
+It was my first experience with Unity and during the game jam I discovered how to program and create simple visual effects using Unity's **[Shader Graph](https://docs.unity3d.com/Manual/shader-graph.html)**
+
+
+## What I learned
+<ul class="list-disc mx-6">
+<li>Unity</li>
+<li>ShaderGraph</li>
+</ul>
+
+<a href="https://tobler0ne.itch.io/synth-city" target="_blank" class="btn btn-outline ml-5">
+        Itch.io Page
+</a>
+
+## Screenshots
+
+import ScreenshotList from "../../components/ScreenshotList.astro";
+
+<ScreenshotList screenshots={frontmatter.screenshots} imageClasses="w-full" />
