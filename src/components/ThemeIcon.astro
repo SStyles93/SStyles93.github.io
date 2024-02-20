@@ -1,4 +1,4 @@
----
+<!-- ---
 
 ---
 
@@ -54,11 +54,11 @@ const theme = (() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         return "dark";
     }
-    return "lofi";
+    return "light";
 })();
 
-if (theme === "lofi") {
-    document.querySelector("html")?.setAttribute("data-theme", "lofi");
+if (theme === "light") {
+    document.querySelector("html")?.setAttribute("data-theme", "light");
 } else {
     document.querySelector("html")?.setAttribute("data-theme", "dark");
 }
@@ -70,14 +70,10 @@ const handleToggleClick = () => {
     element.classList.toggle("dark");
 
     const isDark = element.classList.contains("dark");
-    localStorage.setItem("theme", isDark ? "dark" : "lofi");
-
-    document
-        .querySelector("html")
-        ?.setAttribute("data-theme", isDark ? "dark" : "lofi");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
 };
 
 document
     .getElementById("themeToggle")
     .addEventListener("click", handleToggleClick);
-</script>
+</script> -->
