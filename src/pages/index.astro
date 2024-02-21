@@ -4,7 +4,7 @@ import HorizontalCard from "../components/HorizontalCard.astro";
 import { getCollection } from "astro:content";
 
 const projects = (await getCollection("projects")).sort(
-	(a, b) => a.data.order.valueOf() - b.data.order.valueOf()
+	(a, b) => a.data.order.valueOf() - b.data.order.valueOf(),
 );
 const MAX_PROJECTS = 3;
 const shownProjects = projects.slice(0, MAX_PROJECTS - 1);
@@ -12,54 +12,69 @@ const lastProject = projects[MAX_PROJECTS - 1];
 ---
 
 <BaseLayout sideBarActiveItemID="home">
-  <div class="pb-12 mt-5">
-    <div class="text-xl py-1">Hey there 👋</div>
-    <div class="text-5xl">I'm <b>Samuel Styles</b></div>
-    <div class="text-3xl py-3">a <b>Game Programmer</b> and <b>Graphics Programming</b> enthusiast!</div>
-    <div class="py-2">
-      <text class="text-lg">
-        I am currently doing a <b>Bachelor's degree</b> at <a href="https://www.sae.edu/ch-ge/"><b>SAE Institute</b></a> and working on other projects on the side.<br> 
-        I am also and working as <b>head of programming</b> at <a href="https://styles-studio.com/"><b>StylesStudio</b></a>.
-      </text>
-    </div>
-    <div class="mt-8">
-      <a href="https://www.linkedin.com/in/samuel-styles/" target="_blank" class="btn btn-outline ml-5">
-        Let's Connect
-      <a href="https://SStyles93.github.io/blog" target="_blank" class="btn btn-outline ml-5">
-        My blogs
-      </a>
-    </div>
-  </div>
-
-  <div>
-    <div class="text-3xl w-full font-bold mb-2">My last projects {"</>"}</div>
-  </div>
-  {
-		shownProjects.map((project) => (
-			<>
+	<div class="pb-12 mt-5">
+		<div class="text-xl py-1">Hey there 👋</div>
+		<div class="text-5xl">I'm <b>Samuel Styles</b></div>
+		<div class="text-3xl py-3">
+			a <b>Game Programmer</b> and <b>Graphics Programming</b> enthusiast!
+		</div>
+		<div class="py-2">
+			<text class="text-lg">
+				I am currently doing a <b>Bachelor's degree</b> at <a
+					href="https://www.sae.edu/ch-ge/"><b>SAE Institute</b></a
+				> and working on other projects on the side.<br />
+				I am also and working as <b>head of programming</b> at <a
+					href="https://styles-studio.com/"><b>StylesStudio</b></a
+				>.
+			</text>
+		</div>
+		<div class="mt-8">
+			<a
+				href="https://www.linkedin.com/in/samuel-styles/"
+				target="_blank"
+				class="btn btn-outline ml-5"
+			>
+				Let's Connect
+				<a
+					href="https://SStyles93.github.io/blog"
+					target="_blank"
+					class="btn btn-outline ml-5"
+				>
+					My blogs
+				</a>
+			</a>
+		</div>
+		<br />
+		<div>
+			<div class="text-3xl w-full font-bold mb-2">Last projects</div>
+		</div>
+		{
+			shownProjects.map((project) => (
+				<>
+					<HorizontalCard
+						title={project.data.title}
+						img={project.data.heroImage}
+						desc={project.data.description}
+						url={"/projects/" + project.slug}
+						target="_self"
+					/>
+					<div class="divider my-0" />
+				</>
+			))
+		}
+		{
+			(
 				<HorizontalCard
-					title={project.data.title}
-					img={project.data.heroImage}
-					desc={project.data.description}
-					url={"/projects/" + project.slug}
+					title={lastProject.data.title}
+					img={lastProject.data.heroImage}
+					desc={lastProject.data.description}
+					url={"/projects/" + lastProject.slug}
 					target="_self"
 				/>
-				<div class="divider my-0" />
-			</>
-		))
-	}
-	{
-		(
-			<HorizontalCard
-				title={lastProject.data.title}
-				img={lastProject.data.heroImage}
-				desc={lastProject.data.description}
-				url={"/projects/" + lastProject.slug}
-				target="_self"
-			/>
-		)
-	}
-	<div class="mt-8">
-		<a class="btn" href="/projects">See more...</a>
+			)
+		}
+		<div class="mt-8">
+			<a class="btn" href="/projects">See more...</a>
+		</div>
 	</div>
 </BaseLayout>
