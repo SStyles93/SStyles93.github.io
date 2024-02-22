@@ -1,0 +1,53 @@
+---
+title: "Billy The Zombie"
+description: "A 2D twinstick shooter where you play a little Zombie who has to survive in a devastated city.
+Upgrade you're arms (wepons) and fight your way through."
+creationDate: "Jun 09 2022"
+order: 0
+heroImage: "/src/assets/billythezombie/BillythezombieIntro.gif"
+screenshots:
+    [
+        "/src/assets/billythezombie/BillythezombieUpdate.gif",
+        "/src/assets/billythezombie/BillythezombieGame.gif",
+
+    ]
+teamSize: 2
+timeFrame: "1 month"
+toolUsed: "C#/Unity"
+---
+
+import Button from "../../components/Button.astro";
+
+Billy the Zombie was a game I made for a game design exam at the SAE-Insitute.
+For that exam I had to create a GDD (Game Design Document) and program the entire game from A to Z.
+
+During that module that lasted **one month**, I was able to **implement**:
+- **A\* pathfinding** algorithm for **three** type of **ennemies**
+- **Binary Sapce Partitionning** algorithm
+- An **Upgrade system** with **four** type of **weapons**
+- A **Currency system**
+- The **User input** and the corresponding **UI**
+- A **Wave system** with **gates** opennning according to the reached level
+- An introduction **cinematic**
+- A Start, pause and end **menu**
+
+
+## What I learned
+<ul class="list-disc mx-6">
+<li>Unity</li>
+<li>C#</li>
+<li>Pathfinding Algorithms (A*, Dijksrta)</li>
+<li>PCG Algorithms</li>
+</ul>
+
+<div class="flex">
+	<Button href="https://sstyles.itch.io/billythezombie">Try on Itch.io</Button>
+    <Button href="https://github.com/SStyles93/SAE921-GPA4300-CSharp-Summative-BillyTheZombie">Access GitHub Page</Button>
+    <Button href="https://sstyles93.github.io/blog/posts/ProceduralGeneration/">Read Blog</Button>
+</div>
+
+## Screenshots
+
+import ScreenshotList from "../../components/ScreenshotList.astro";
+
+<ScreenshotList screenshots={frontmatter.screenshots} imageClasses="w-full" />
