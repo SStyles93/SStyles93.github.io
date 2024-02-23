@@ -1,0 +1,45 @@
+---
+title: "Rasterizer - An optimized CPU Rasterizer"
+description: "A Rasterizer built from scratch. Starting with a naive implementation 
+and building on it to obtain an optimized version"
+creationDate: "Apr 11 2023"
+order: 0
+heroImage: "/src/assets/rasterizer/RenderScene.png"
+screenshots:
+    [
+        "/src/assets/rasterizer/MeshMaxTimeOpti.png",
+        "/src/assets/rasterizer/RasterizerFlags.png",
+        "/src/assets/rasterizer/ThirdGraph.png",
+        "/src/assets/rasterizer/RenderScene.png",
+    ]
+teamSize: 1
+timeFrame: "3 month"
+toolUsed: "C++/Glm/OMP"
+---
+
+import Button from "../../components/Button.astro";
+
+During my second year of bachelor’s degree in Game Programming, 
+one of the modules we studied was about optimization; 
+What tools we had to measure, profile, understand and in the end optimize our programs 
+for them to be more efficient and use less energy to be run.
+
+## What I learned
+<ul class="list-disc mx-6">
+<li>C++</li>
+<li>Computer Graphics</li>
+<li>Optimization</li>
+<li>Multithreading</li>
+<li>Algorithms</li>
+</ul>
+
+<div class="flex">
+    <Button href="https://github.com/SStyles93/5204-Optimization">Access GitHub Page</Button>
+    <Button href="https://sstyles93.github.io/blog/posts/RasterizerOptimization/">Read Blog</Button>
+</div>
+
+## Screenshots
+
+import ScreenshotList from "../../components/ScreenshotList.astro";
+
+<ScreenshotList screenshots={frontmatter.screenshots} imageClasses="w-full" />
