@@ -4,12 +4,19 @@ description: "A little game made during my second year at the SAE-Institute duri
 creationDate: "Nov 02 2022"
 order: 0
 heroImage: "/src/assets/catfight/CatfightGame.gif"
+screenshots:
+    [
+        "/src/assets/catfight/RpshIntro.png",
+        "/src/assets/catfight/RpshG1.png",
+        "/src/assets/catfight/RpshG2.png",
+    ]
 teamSize: 1
 timeFrame: "1 month"
 toolUsed: "C++/SFML"
 ---
 
 import Button from "../../components/Button.astro";
+import ScreenshotList from "../../components/ScreenshotList.astro";
 
 During my second year of bachelor’s degree in Game Programming, one of the modules we had to study was Networking. 
 For that module we had to present a multiplayer game project based on an 
@@ -20,6 +27,21 @@ First, we started with a small **chat** application to learn how networking work
 For that app, I used [Dear ImGui](https://github.com/ocornut/imgui) for the user 
 interface and [SFML](https://www.sfml-dev.org/) to be able to use sockets.
 
+Then we had to do a **turn-based game**. The game I decided to implement was **Rock-Paper-Scissors** but with a funny turn.  
+<img src={"/src/assets/catfight/RpshG1.png"} alt="Rock-Paper-Scissors-Hand Game" />
+At the end I decided to call the game "Rock-Paper-Scissors-**Hand**" that would transform to "Rock-Paper-Scissors-**Stump**"
+if a player used **scissors** **against** a **hand**.
+
+After having fun with that little game, I started implementing **CatFight**.  
+
+<img src={"/src/assets/catfight/CatFightGame.gif"} alt="CatFight Game" width="100%"/>
+
+You can **read more** on my **blog post** about or **checkout the repository** on my **Github Page** with the buttons below
+
+<div class="flex">
+    <Button href="https://sstyles93.github.io/blog/posts/RollbackBlogpost/">Read Blog</Button>
+    <Button href="https://github.com/SStyles93/SAE921-GPR5100-Network">Access GitHub Page</Button>
+</div>
 
 ## What I learned
 <ul class="list-disc mx-6">
@@ -31,13 +53,4 @@ interface and [SFML](https://www.sfml-dev.org/) to be able to use sockets.
 <li>ECS architecture</li>
 </ul>
 
-<div class="flex">
-    <Button href="https://github.com/SStyles93/SAE921-GPR5100-Network">Access GitHub Page</Button>
-    <Button href="https://sstyles93.github.io/blog/posts/RollbackBlogpost/">Read Blog</Button>
-</div>
 
-{/* ## Screenshots
-
-import ScreenshotList from "../../components/ScreenshotList.astro";
-
-<ScreenshotList screenshots={frontmatter.screenshots} imageClasses="w-full" /> */}
