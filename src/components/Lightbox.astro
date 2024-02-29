@@ -1,0 +1,105 @@
+---
+// Based on : https://github.com/JulianCataldo/web-garden/tree/develop/app/Lightbox
+---
+
+<div class="app-lightbox">
+    <div class="portal"></div>
+</div>
+
+<script>
+    function setupLightbox() {
+        const lbTriggers = document.querySelectorAll('[data-lightbox="true"]');
+        const lightbox = document.querySelector(".app-lightbox");
+        const portal = lightbox?.querySelector(".portal");
+
+        // eslint-disable-next-line no-restricted-syntax
+        for (const trig of lbTriggers) {
+            trig.addEventListener("click", () => {
+                if (portal === null || portal === undefined) {
+                    return;
+                }
+
+                portal.innerHTML = trig.innerHTML;
+
+                setTimeout(() => {
+                    // Adapt size attribute dynamically
+                    const img = portal.querySelectorAll("img")[0];
+                    const ratio = img.naturalWidth / img.naturalHeight;
+
+                    img.sizes = `${window.innerHeight * ratio}px`;
+                }, 352);
+                lightbox?.classList.add("is-active");
+                document.documentElement.classList.add("scrollIsLocked");
+            });
+        }
+
+        lightbox?.addEventListener("click", () => {
+            lightbox.classList.remove("is-active");
+            document.documentElement.classList.remove("scrollIsLocked");
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                lightbox?.classList.remove("is-active");
+                document.documentElement.classList.remove("scrollIsLocked");
+            }
+        });
+    }
+
+    setupLightbox();
+
+    document.addEventListener(
+        "astro:after-swap",
+        () => {
+            setupLightbox();
+        },
+        { once: false },
+    );
+</script>
+
+<style lang="scss">
+    .app-lightbox {
+        position: fixed;
+        top: 0;
+        z-index: 99999;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        cursor: zoom-out;
+        background-color: var(--bg-color, hsl(0, 0%, 0%, 0.85));
+        opacity: 0;
+        transition: opacity 0.35s;
+
+        &.is-active {
+            pointer-events: initial;
+            opacity: 1;
+        }
+    }
+
+    :global([data-lightbox]) {
+        cursor: zoom-in;
+    }
+
+    .portal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        // TODO: map speed to API
+        transition:
+            opacity 0.35s,
+            transform 0.35s;
+        transform: scale(0.2);
+
+        :global(img) {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .is-active & {
+            transform: scale(1);
+        }
+    }
+</style>
