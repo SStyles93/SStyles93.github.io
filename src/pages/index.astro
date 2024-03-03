@@ -23,8 +23,8 @@ const shownProjects = projects.slice(0, MAX_PROJECTS - 1);
 		<div class="text-xl py-1">Hey there 👋</div>
 		<div class="text-5xl">I'm <b>Samuel Styles</b></div>
 		<div class="text-3xl py-3">
-			a <b>Game Programmer</b><br/>
-			and <b>Graphics Programming</b> enthusiast!
+			a <b>Game Programmer</b><br />
+			 and <b>Graphics Programming</b> enthusiast!
 		</div>
 		<div class="py-2">
 			<text class="text-lg">
@@ -33,41 +33,42 @@ const shownProjects = projects.slice(0, MAX_PROJECTS - 1);
 				> and working on other projects on the side.<br />
 				 I am also and working as <b>head of programming</b> at <a
 					href="https://styles-studio.com/"><b>StylesStudio</b></a
-				>.
+				>
 			</text>
 		</div>
 		<br />
 		<div class="text-2xl w-full mb-2">
-		<b>Use the buttons below to see</b>
-		</div>
-		<br/>
-		<div class="flex">
-			<Button href="https://SStyles93.github.io/projects">Projects</Button>
-			<Button href="https://SStyles93.github.io/cv">CV </Button>
-			<Button href="https://SStyles93.github.io/blog">Blog</Button>
-		</div>
+			<b>Use the buttons below to see</b>
 		</div>
 		<br />
-		<div>
-			<div class="text-3xl w-full font-bold mb-2">Last projects</div>
+		<div class="flex">
+			<Button href="https://SStyles93.github.io/projects">
+				Projects
+			</Button>
+			<Button href="https://SStyles93.github.io/cv">CV</Button>
+			<Button href="https://SStyles93.github.io/blog">Blog</Button>
 		</div>
-		{
-			shownProjects.map((project) => (
-				<>
-					<HorizontalCard
-						title={project.data.title}
-						img={project.data.heroImage}
-						desc={project.data.description}
-						url={"/projects/" + project.slug}
-						target="_self"
-					/>
-					<div class="divider my-0" />
-				</>
-			))
-		}
+	</div>
+	<br />
+	<div>
+		<div class="text-3xl w-full font-bold mb-2">Last projects</div>
+	</div>
+	{
+		shownProjects.map((project) => (
+			<>
+				<HorizontalCard
+					title={project.data.title}
+					img={project.data.heroImage}
+					desc={project.data.description}
+					url={"/projects/" + project.slug}
+					target="_self"
+				/>
+				<div class="divider my-0" />
+			</>
+		))
+	}
 
-		<div class="mt-8">
-			<a class="btn btn-outline ml-5" href="/projects">See more...</a>
-		</div>
+	<div class="mt-8">
+		<a class="btn btn-outline ml-5" href="/projects">See more...</a>
 	</div>
 </BaseLayout>
