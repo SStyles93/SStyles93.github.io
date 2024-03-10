@@ -3,6 +3,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import TimeLineElement from "../components/cv/TimeLine.astro";
 ---
 
+<style>
+  a {
+    text-decoration: underline;
+  }
+</style>
+
 <BaseLayout title="Resume" sideBarActiveItemID="cv">
   <div class="mb-5">
     <div class="mb-5">
@@ -78,15 +84,16 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
         subtitle="From September 2023 to September 2024 at SAE-Institute, Geneva, Switzerland"
       >
         In my third year at the SAE Institute Geneva, I assumed the challenging
-        role of a producer for two specialized projects. In this capacity, I not only delved into the technical
-        intricacies of Unreal Engine but also took on the crucial responsibility
-        of orchestrating the entire production cycle.<br /> As the producer, my responsibilities
-        included meticulously organizing project schedules, defining key milestones,
-        and ensuring the teams adhered to timelines to meet project deadlines. Acting
-        as a pivot between different departments, I facilitated seamless communication
-        and collaboration among game programmers, artists, and audio engineers. This
-        coordination was essential to maintain a cohesive vision across the teams
-        and guarantee the successful execution of the projects.
+        role of a producer for two specialized projects. In this capacity, I not
+        only delved into the technical intricacies of Unreal Engine but also
+        took on the crucial responsibility of orchestrating the entire
+        production cycle.<br /> As the producer, my responsibilities included meticulously
+        organizing project schedules, defining key milestones, and ensuring the teams
+        adhered to timelines to meet project deadlines. Acting as a pivot between
+        different departments, I facilitated seamless communication and collaboration
+        among game programmers, artists, and audio engineers. This coordination was
+        essential to maintain a cohesive vision across the teams and guarantee the
+        successful execution of the projects.
       </TimeLineElement>
       <TimeLineElement
         title="Head of Programming"
@@ -129,8 +136,8 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
         title="Receptionist"
         subtitle="From August 2018 to 2019 at LARAG SA, Echandens, Switzerland"
       >
-        Once my training was done, I briefly took on a role in the client
-        reception sector due to being recognized as a person with good
+        While I was finishing my training, I briefly took on a role in the
+        client reception sector due to being recognized as a person with good
         communication skills and language proficiency. <br />
         In this position, I had the opportunity to enhance my social skills and proved
         to be highly valuable. It was during this time that I discovered my aptitude
@@ -161,47 +168,105 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
       </TimeLineElement>
     </div>
 
-    <!-- <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Certifications</div>
-  </div>
-
-  <ul class="list-disc mx-6 mb-10 grid gap-2">
-    <li>
-      <a href="#" target="_blank"> Certification Name (with link)</a>
-    </li>
-    <li>
-      <a href="#" target="_blank"> Certification Name (with link)</a>
-    </li>
-  </ul> -->
+    <div class="mb-5">
+      <div class="text-3xl w-full font-bold">Ogranizations</div>
+    </div>
+    <div class="time-line-container mb-10">
+      <TimeLineElement
+        title="RGB Conference"
+        subtitle="Staff, From 2023 to Today"
+      >
+        <ul class="list-disc mx-6">
+          <li>Reception</li>
+          <li>Organization</li>
+        </ul>
+        &nbsp;
+      </TimeLineElement>
+      <TimeLineElement
+        title="Swiss Game Academy (SGA)"
+        subtitle="Board Member, From 2023 to Today"
+      >
+        <ul class="list-disc mx-6">
+          <li>Organization</li>
+          <li>Presentation</li>
+          <li>Public speech</li>
+          <li>Game publishing</li>
+          <li>Steamworks</li>
+          <li>Teaching</li>
+        </ul>
+        &nbsp;
+      </TimeLineElement>
+      <TimeLineElement
+        title="Swiss Game Center (SGC)"
+        subtitle="Honorary Member, From 2023 to Today"
+      >
+        &nbsp;
+      </TimeLineElement>
+      <TimeLineElement
+        title="Swiss Game Developers Association"
+        subtitle="Member, From 2022 to Today"
+      >
+        <ul class="list-disc mx-6">
+          <li>Booth preparation</li>
+          <li>Communication (FR-EN)</li>
+          <li>Marketing</li>
+          <li>Organization</li>
+          <li>Presentation</li>
+        </ul>
+        &nbsp;
+      </TimeLineElement>
+    </div>
 
     <div class="mb-5">
       <div class="text-3xl w-full font-bold">Skills</div>
     </div>
     <ul class="list-disc md:columns-5 columns-2 mx-6">
-      <li>C++</li>
-      <li>C#</li>
-      <li>Python</li>
       <li>x86_63 ASM</li>
       <li>SIMD</li>
+      <li>C++</li>
+      <li>C#</li>
+      <li>GLSL</li>
+      <li>HLSL</li>
+      <li>Python</li>
+      <li>SQL</li>
+      <li>HTML</li>
+      <li>CSS</li>
+    </ul>
+    &nbsp;
+    <ul class="list-disc md:columns-5 columns-2 mx-6">
       <li>Unity</li>
       <li>Shader Graph</li>
+      <li>Git</li>
       <li>Unreal Engine</li>
       <li>Material System</li>
-      <li>HLSL</li>
-      <li>GLSL</li>
-      <li>OpenGL</li>
-      <li>DirectX 12</li>
-      <li>Git</li>
       <li>Perforce</li>
+      <li>OpenGL</li>
       <li>Trello</li>
       <li>Miro</li>
       <li>Adobe After Effect</li>
       <li>Office Suite</li>
-      <li>HTML</li>
-      <li>CSS</li>
-      <li>SQL</li>
     </ul>
     &nbsp;
+
+    <div class="mb-5">
+      <div class="text-3xl w-full font-bold">Soft Skills</div>
+    </div>
+    <ul class="list-disc md:columns-5 columns-2 mx-6">
+      <li>Adaptability</li>
+      <li>Empathy</li>
+      <li>Collaboration</li>
+      <li>Communication</li>
+      <li>Conflict resolution</li>
+      <li>Creativity</li>
+      <li>Leadership</li>
+      <li>Open-mindedness</li>
+      <li>Patience</li>
+      <li>Problem-solving</li>
+      <li>Teamwork</li>
+      <li>Time management</li>
+    </ul>
+    &nbsp;
+
     <div class="mb-5">
       <div class="text-3xl w-full font-bold">Languages</div>
     </div>
