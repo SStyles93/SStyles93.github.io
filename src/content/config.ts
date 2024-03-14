@@ -6,6 +6,7 @@ const projectCollection = defineCollection({
 		description: z.string(),
 		creationDate: z.coerce.date(),
 		order: z.number(),
+		pinned: z.boolean().default(false),
 		heroImage: image(),
 		teamSize: z.number().optional(),
 		timeFrame: z.string().optional(),

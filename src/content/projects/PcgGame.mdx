@@ -4,13 +4,6 @@ description: "A game project made at the SAE-Institute to implement the principl
 creationDate: "Jun 02 2022"
 order: 0
 heroImage: "/src/assets/pcg/PcgMenu.png"
-screenshots:
-    [
-        "/src/assets/pcg/PcgGame.gif",
-        "/src/assets/pcg/PcgGame1.gif",
-        "/src/assets/pcg/PcgGame2.gif",
-        "/src/assets/pcg/PcgGame3.gif",
-    ]
 teamSize: 2
 timeFrame: "1 week"
 toolUsed: "C#/Unity"
@@ -20,6 +13,18 @@ import Button from "../../components/Button.astro";
 
 This little game was a project I worked on for **one week** during my **first year** of **bachelor's degree**
 to learn and integrate **procedural generation**.
+
+
+<div class="grid place-items-center">
+<iframe 
+width="560" height="315" 
+src="https://www.youtube.com/embed/CZorZnQlfL0?si=8ioB4iImg-uzfHuf&autoplay=1&autohide=1&mute=1&modestbranding=1&playsinline=1" 
+title="YouTube video player" 
+frameborder="0" 
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+allowfullscreen>
+</iframe>
+</div>
 
 The **goal** of the game is to **find** a **golden coin** that gives access to the **boss room** and **defeat** the **boss** inside.  
 Every time the game is played, the **generation of rooms** is done and a different layout is created.
@@ -36,9 +41,3 @@ Every time the game is played, the **generation of rooms** is done and a differe
     <Button href="https://github.com/SStyles93/SAE921-GPR4400-CSharp-PCG">Access GitHub Page</Button>
     <Button href="https://sstyles93.github.io/blog/posts/ProceduralGeneration/">Read Blog</Button>
 </div>
-
-## Gifs
-
-import ScreenshotList from "../../components/ScreenshotList.astro";
-
-<ScreenshotList screenshots={frontmatter.screenshots} imageClasses="w-full" />

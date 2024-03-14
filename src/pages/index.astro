@@ -5,15 +5,17 @@ import { getCollection } from "astro:content";
 import dayjs from "dayjs";
 import Button from "../components/Button.astro";
 
-const projects = (await getCollection("projects")).sort((a, b) => {
-	if (a.data.order === b.data.order) {
-		const aDate = dayjs(a.data.creationDate);
-		const bDate = dayjs(b.data.creationDate);
-		return bDate - aDate;
-	}
-	return a.data.order - b.data.order;
-});
-const MAX_PROJECTS = 4;
+const projects = (await getCollection("projects"))
+	.filter((project) => project.data.pinned)
+	.sort((a, b) => {
+		if (a.data.order === b.data.order) {
+			const aDate = dayjs(a.data.creationDate);
+			const bDate = dayjs(b.data.creationDate);
+			return bDate - aDate;
+		}
+		return a.data.order - b.data.order;
+	});
+const MAX_PROJECTS = 5;
 const shownProjects = projects.slice(0, MAX_PROJECTS - 1);
 // const lastProject = projects[MAX_PROJECTS - 1];
 ---
@@ -24,14 +26,14 @@ const shownProjects = projects.slice(0, MAX_PROJECTS - 1);
 		<div class="text-5xl">I'm <b>Samuel Styles</b></div>
 		<div class="text-3xl py-3">
 			a <b>Game Programmer</b><br />
-			 and <b>Graphics Programming</b> enthusiast!
+			and <b>Graphics Programming</b> enthusiast!
 		</div>
 		<div class="py-2">
 			<text class="text-lg">
 				I am currently doing a <b>Bachelor's degree</b> at <a
 					href="https://www.sae.edu/ch-ge/"><b>SAE Institute</b></a
 				> and working on other projects on the side.<br />
-				 I am also and working as <b>head of programming</b> at <a
+				I am also and working as <b>head of programming</b> at <a
 					href="https://styles-studio.com/"><b>StylesStudio</b></a
 				>
 			</text>
@@ -51,7 +53,7 @@ const shownProjects = projects.slice(0, MAX_PROJECTS - 1);
 	</div>
 	<br />
 	<div>
-		<div class="text-3xl w-full font-bold mb-2">Last projects</div>
+		<div class="text-3xl w-full font-bold mb-2">Projects</div>
 	</div>
 	{
 		shownProjects.map((project) => (

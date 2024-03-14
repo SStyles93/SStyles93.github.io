@@ -20,6 +20,11 @@ At the end of the module we had to create a game **in a week** with what we had 
 
 **[SFML](https://www.sfml-dev.org/)** was used for the rendering and **[Box2D](https://box2d.org/)** for the physics.
 
+
+import ScreenshotList from "../../components/ScreenshotList.astro";
+
+<ScreenshotList screenshots={frontmatter.screenshots} imageClasses="w-full" />
+
 For this project I went **a step further** than what was asked for the module by 
 integrating a **scoring system** that would keep track of the players last score locally.
 
@@ -37,9 +42,3 @@ integrating a **scoring system** that would keep track of the players last score
 	</Button>
 	<Button href="https://github.com/SStyles93/SAE921-GPR4100-CPlusPlus-Class-Box2D">Access GitHub Page</Button>
 </div>
-
-## Game footage
-
-import ScreenshotList from "../../components/ScreenshotList.astro";
-
-<ScreenshotList screenshots={frontmatter.screenshots} imageClasses="w-full" />

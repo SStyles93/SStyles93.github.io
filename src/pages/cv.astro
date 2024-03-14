@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TimeLineElement from "../components/cv/TimeLine.astro";
+import Button from "../components/Button.astro";
 ---
 
 <style>
@@ -10,11 +11,14 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
 </style>
 
 <BaseLayout title="Resume" sideBarActiveItemID="cv">
+  <div class="flex">
+    <Button href="/pdf/Samuel_Styles_CV.pdf">PDF Version</Button>
+  </div>
+  &nbsp;
   <div class="mb-5">
     <div class="mb-5">
       <div class="text-3xl w-full font-bold">Education</div>
     </div>
-
     <div class="time-line-container grid gap-4 mb-10">
       <TimeLineElement
         title="Bachelor - Game Programming"
@@ -183,8 +187,14 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
         &nbsp;
       </TimeLineElement>
       <TimeLineElement
+        title="Swiss Game Center (SGC)"
+        subtitle="Honorary Member, From 2023 to Today"
+      >
+        &nbsp;
+      </TimeLineElement>
+      <TimeLineElement
         title="Swiss Game Academy (SGA)"
-        subtitle="Board Member, From 2023 to Today"
+        subtitle="Board Member, From 2022 to Today"
       >
         <ul class="list-disc mx-6">
           <li>Organization</li>
@@ -197,14 +207,8 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
         &nbsp;
       </TimeLineElement>
       <TimeLineElement
-        title="Swiss Game Center (SGC)"
-        subtitle="Honorary Member, From 2023 to Today"
-      >
-        &nbsp;
-      </TimeLineElement>
-      <TimeLineElement
         title="Swiss Game Developers Association"
-        subtitle="Member, From 2022 to Today"
+        subtitle="Member, From 2021 to Today"
       >
         <ul class="list-disc mx-6">
           <li>Booth preparation</li>
