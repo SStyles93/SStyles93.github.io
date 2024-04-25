@@ -64,6 +64,9 @@ const shownProjects = projects.slice(0, MAX_PROJECTS - 1);
 					desc={project.data.description}
 					url={"/projects/" + project.slug}
 					target="_self"
+					teamSize={project.data.teamSize}
+					timeFrame={project.data.timeFrame}
+					toolUsed={project.data.toolUsed}
 				/>
 				<div class="divider my-0" />
 			</>
