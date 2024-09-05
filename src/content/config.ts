@@ -27,7 +27,7 @@ const blogCollection = defineCollection({
 
 export const collections = {
 	'projects': projectCollection,
-	'blogs': blogCollection,
+	'blogs': blogCollection
 }
 
 export type ProjectSchema = CollectionEntry<"projects">;
