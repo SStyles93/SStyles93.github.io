@@ -19,7 +19,7 @@ The name of the project is called SubCaelo, a Pod-Racer multiplayer game created
 [Unreal Engine 5](https://www.unrealengine.com/en-US/unreal-engine-5).
 The reference we had for gameplay/visuals was the following:
 
-![Pod racer reference](../../assets/blogs/tool/PodRacerRef.png)
+![Pod racer reference](/src/assets/blogs/tool/PodRacerRef.png)
 
 Since we were working for a team, we were given different subjects to work on. 
 The subject I chose was character animation.
@@ -32,7 +32,7 @@ This was of course not a tool "per se" but was validated by the team and the tea
 
 My first step was to understand the project and get familiar with the player character (APodPawn).
 
-![PodPawn game object](../../assets/blogs/tool/PodPawn.png)
+![PodPawn game object](/src/assets/blogs/tool/PodPawn.png)
 
 Since the player was not done in [blueprint](https://docs.unrealengine.com/5.0/en-US/blueprints-visual-scripting-in-unreal-engine/), 
 I had to dive in the C++ file used to create the player and understand it.
@@ -127,7 +127,7 @@ In the end the ".h" and result looked like this:
 
 ```
 
-![Pod racer components](../../assets/blogs/tool/Components.png)
+![Pod racer components](/src/assets/blogs/tool/Components.png)
 
 ```c++
 	//Body basic rotation
@@ -146,7 +146,7 @@ In the end the ".h" and result looked like this:
 	UPROPERTY(EditAnywhere, Category = "Object Dynamic Rotation")
 		FRotator PropellersMaxRotation = { 50.0f, 50.0f, 50.0f};
 ```
-![Pod racer dynamic rotations](../../assets/blogs/tool/DynamicRotations.png) 
+![Pod racer dynamic rotations](/src/assets/blogs/tool/DynamicRotations.png) 
 
 ## Game feel improvement
 
@@ -168,7 +168,7 @@ UPROPERTY(EditAnywhere, Category = "Camera Values")
 		float MinFOV = 65.0f;
 ```
 
-![Pod racer camera values](../../assets/blogs/tool/CameraValues.png) 
+![Pod racer camera values](/src/assets/blogs/tool/CameraValues.png) 
 
 and in the ".cpp" file the different methods:
 
@@ -306,7 +306,7 @@ and the camera/body rotation version:
 Thanks to the exposed properties the game designers would be able 
 to change all values in order to modify them according to their will directly in the "Detail" window of the editor.
 
-![Detail Window](../../assets/blogs/tool/Result.png) 
+![Detail Window](/src/assets/blogs/tool/Result.png) 
 
 ## Conclusion
 
