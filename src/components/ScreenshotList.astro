@@ -15,13 +15,13 @@ const {
 } = Astro.props as Props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/assets/**/*.{jpeg,jpg,png,gif,avif,webp}",
+    "/src/assets/**/**/*.{jpeg,jpg,png,gif,avif,webp}",
 );
 
 screenshots.forEach((screenshot) => {
     if (!images[screenshot]) {
         throw new Error(
-            `"${screenshot}" does not exist in glob: "/src/assets/**/*.{jpeg,jpg,png,gif,avif,webp}"`,
+            `"${screenshot}" does not exist in glob: "/src/assets/**/**/*.{jpeg,jpg,png,gif,avif,webp}"`,
         );
     }
 });
