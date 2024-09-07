@@ -1,0 +1,65 @@
+---
+const { title, img, desc, url, badge, tags, target, creationDate } =
+	Astro.props;
+import { Image } from "astro:assets";
+---
+
+<div
+	class="rounded-lg bg-base-100 hover:shadow-xl transition ease-in-out hover:scale-[102%]"
+>
+	<a href={url} target={target}>
+		<div class="hero-content flex-col md:flex-row">
+			{
+				img && (
+					<Image
+						src={img}
+						widths={[240, 540, 720, img.width]}
+						sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${img.width}px`}
+						alt={title}
+						class:list={[
+							"max-w-full",
+							"md:max-w-[13rem]",
+							"rounded-lg",
+						]}
+					/>
+				)
+			}
+			<div class="grow w-full">
+				<h1 class="text-xl font-bold">
+					{title}
+					{
+						badge && (
+							<div class="badge badge-secondary mx-2">
+								{badge}
+							</div>
+						)
+					}
+				</h1>
+				<p class="py-1 text-1xl">{desc}</p>
+				<div class="card-actions justify-end">
+					{
+						tags &&
+							tags.map((tag: string) => (
+								<div class="badge badge-outline">{tag}</div>
+							))
+					}
+				</div>
+				<div class="flex items-center justify-center">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 448 512"
+						fill="currentColor"
+						class="mr-2"
+					>
+						<path
+							d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z"
+							stroke="currentColor"></path>
+					</svg>
+					<span class="mr-6">{creationDate}</span>
+				</div>
+			</div>
+		</div>
+	</a>
+</div>

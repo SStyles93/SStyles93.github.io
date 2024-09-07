@@ -48,6 +48,9 @@ page.data.sort((a: ProjectSchema, b: ProjectSchema) => {
 						teamSize={project.data.teamSize}
 						timeFrame={project.data.timeFrame}
 						toolUsed={project.data.toolUsed}
+						creationDate={dayjs(project.data.creationDate).format(
+							"MMMM YYYY",
+						)}
 					/>
 					<div class="divider my-0" />
 				</>

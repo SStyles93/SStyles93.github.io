@@ -9,6 +9,7 @@ import { Image } from "astro:assets";
 		src={props.src}
 		widths={[240, 540, 720, props.src.width]}
 		sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${props.src.width}px`}
+		inferSize={true}
 		alt={props.alt}
 		class="w-full"
 	/>
