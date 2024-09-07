@@ -15,7 +15,7 @@ The purpose of the module was to simulate what was, for some, a first work exper
 
 For this module I had the opportunity to work as a Graphic Programmer on two game projects made in the Unreal Engine 5.3.
 The project that demanded the most work in terms of shader creation was first first know as "The Project Girl & Kitty".
-![Project Girl & Kitty Scene render](../../assets/blogs/ueshaderwork/GK_Map_01.PNG)
+![Project Girl & Kitty Scene render](../../assets/blogs/ueshaderwork/GK_Map_01.png)
 
 For both project we had a limited production time, roughly 8 months, with a team of 27 people.
 The tasks I worked on were the following:
@@ -110,7 +110,7 @@ The necessity to have a dynamic outline, that reacted to the players position an
 interactable objects, brought me to create this "Coloured_Outline" Shader.
 Using the `Fresnel`, `Time` & `Sine` Nodes I first created an "Emissive" effect.
 
-![MF_Coloured_Outline](../../assets/blogs/ueshaderwork/MF_Outline_Colour.PNG)  
+![MF_Coloured_Outline](../../assets/blogs/ueshaderwork/MF_Outline_Colour.png)  
 
 The `Enable_Outline` parameter (float) is used in the C++ code to activate it or not. I first tried using a `Static bool` 
 parameter but after research, since it is static, you can not modify it in code thus rendering it's activation impossible. 
@@ -118,7 +118,7 @@ parameter but after research, since it is static, you can not modify it in code 
 The MF_Outline is the base function used to create the outline of objects. It colors every part of an object that has a normal 
 direction, according to the camera's position, with a value superior to the `Outline_Thickness`.
 
-![MF_Outline](../../assets/blogs/ueshaderwork/MF_Outline.PNG)  
+![MF_Outline](../../assets/blogs/ueshaderwork/MF_Outline.png)  
 
 #### C++ code
 
@@ -219,14 +219,14 @@ to it. The idea was to give the artist the possibility to change its color in a 
 The distortion function was a function that just took the `Time`, `Panner` and `VertexNormalWS` nodes with a 
 Normal map in a `TextureParameter2D` node to deform the object.
 
-![Distortion MF](../../assets/blogs/ueshaderwork/MF_Distortion.PNG)  
+![Distortion MF](../../assets/blogs/ueshaderwork/MF_Distortion.png)  
 
 The only specificity was to multiply the `R` and `G` channels by the `Distortion_Power`, that was controlled in the C++ code, 
 so that the effect could be enabled or not.
 
 To use it I had to branch it to world position offset in the object's material node.
 
-![Distortion MF Use](../../assets/blogs/ueshaderwork/Distortion_Use.PNG)  
+![Distortion MF Use](../../assets/blogs/ueshaderwork/Distortion_Use.png)  
 
 #### C++ code
 
@@ -349,46 +349,46 @@ The last dynamic shader I did was to be able to have magical plants growing when
 For the shader, I created a material function that took the `V` Coordinates (Y axis) from the textures' 
 `UV` (`TextCoord[0]`) with the `Mask` node and then applied a condition (`if` node) to check if the coordinated where below a certain value.  
 
-![Fade material function](../../assets/blogs/ueshaderwork/MF_Fade.PNG)  
+![Fade material function](../../assets/blogs/ueshaderwork/MF_Fade.png)  
 
 Then the material function was linked to a material's Opacity Mask. The material's Blend Mode just had to be set to `Masked`.
 
 Fade material function link | Material parameter
 :-----:|:-----:
-![Fade material function link](../../assets/blogs/ueshaderwork/MF_Fade_Use.PNG) | ![Material parameter](../../assets/blogs/ueshaderwork/MF_Fade_Condition.PNG)  
+![Fade material function link](../../assets/blogs/ueshaderwork/MF_Fade_Use.png) | ![Material parameter](../../assets/blogs/ueshaderwork/MF_Fade_Condition.png)  
 
 #### Blueprint code
 
 As for the previous shaders, I had to create the code to activate the fading effect. The only difference was that, 
 due to the diversity of possible plants, I had to manually select the meshes on which the effect has going to be applied. 
 For that reason I created the same `Begin()` function but in blueprint.  
-![Fade Even Begin](../../assets/blogs/ueshaderwork/MF_Fade_DynMat.PNG)  
+![Fade Even Begin](../../assets/blogs/ueshaderwork/MF_Fade_DynMat.png)  
 
 The `Create Dynamic Fade Material` function replicated what had been done in the previous C++ codes 
 using a [Blueprint Function Library](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/ProgrammingWithCPP/BlueprintFunctionLibraries/).
 
-![Create dynamic mat function](../../assets/blogs/ueshaderwork/MF_Fade_DynMatFunction.PNG)  
+![Create dynamic mat function](../../assets/blogs/ueshaderwork/MF_Fade_DynMatFunction.png)  
 
 The next step was to code the detection. To be sure that only the player could activate it with the main character, 
 I checked by tag if the colliding element was effectively the player.  
 I also exposed a variable of type `Trigger Base` that gave the possibility to assign a trigger from outside the blueprint.
 
-![Collision detection](../../assets/blogs/ueshaderwork/MF_Fade_CollisionDetection.PNG)  
+![Collision detection](../../assets/blogs/ueshaderwork/MF_Fade_CollisionDetection.png)  
 
 That gave the possibility to select a trigger directly in the editor, for multiple objects at the same time and not have to change a 
 collider inside this blueprint.
 
-![Collision selection](../../assets/blogs/ueshaderwork/MF_Fade_CollisionSelection.PNG)  
+![Collision selection](../../assets/blogs/ueshaderwork/MF_Fade_CollisionSelection.png)  
 
 Since this was a plant, the effect wouldn't have been visually pleasing if every material was activated at the same time. 
 For that reason I had to sequence the activation with this part of the node:
 
-![Sequenced activation](../../assets/blogs/ueshaderwork/MF_Fade_Sequence.PNG)  
+![Sequenced activation](../../assets/blogs/ueshaderwork/MF_Fade_Sequence.png)  
 
 First of all, when the trigger was activated, the first element in my `DynMats` array would update its `Fade_Amount` value 
 according to the [Timeline](https://docs.unrealengine.com/5.3/en-US/timelines-in-unreal-engine/).
 
-![UETimeline](../../assets/blogs/ueshaderwork/MF_Fade_Timeline.PNG)  
+![UETimeline](../../assets/blogs/ueshaderwork/MF_Fade_Timeline.png)  
 
 Then, when finished, the `Mat_Index` was incremented and the next material was updated with the same logic until 
 there were no more material to update.
@@ -397,15 +397,15 @@ there were no more material to update.
 
 The last element of the blueprint I coded was lighting and emissive. Inspired by the same process I made an array of lights
 
-![Light Array](../../assets/blogs/ueshaderwork/MF_Fade_Light.PNG)  
+![Light Array](../../assets/blogs/ueshaderwork/MF_Fade_Light.png)  
 
 and set their intensity, with a few control variables, once all meshes had appeared.
 
-![Light Set](../../assets/blogs/ueshaderwork/MF_Fade_LightSet.PNG)  
+![Light Set](../../assets/blogs/ueshaderwork/MF_Fade_LightSet.png)  
 
 Finally I set an emissive on the petals to correspond to the enlightenment.
 
-![Emissive Set](../../assets/blogs/ueshaderwork/MF_Fade_EmissiveSet.PNG)  
+![Emissive Set](../../assets/blogs/ueshaderwork/MF_Fade_EmissiveSet.png)  
 
 #### Result
 

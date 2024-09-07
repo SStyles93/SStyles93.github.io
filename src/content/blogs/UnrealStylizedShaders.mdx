@@ -16,7 +16,7 @@ For this project I had the opportunity to work as a Graphic Programmer on two ga
 
 Project Girl & Kitty | Project VR
 :-----:|:-----:
-![Project Girl & Kitty](../../assets/blogs/ueshaderwork/GK_Map_01.PNG "GK_First_Map") | ![Project VR](../../assets/blogs/ueshaderwork/VR_Map_01.PNG)
+![Project Girl & Kitty](../../assets/blogs/ueshaderwork/GK_Map_01.png "GK_First_Map") | ![Project VR](../../assets/blogs/ueshaderwork/VR_Map_01.png)
 
 For both project we had a limited production time, roughly 8 months, with a team of 27 people.
 
@@ -33,7 +33,7 @@ specific shaders. For that reason, the focus will be emphasized on the research,
 
 The first elements to acknowledge is the art direction. One of the references given for the art style was "Dordogne"
 
-![Dordogne in game footage](../../assets/blogs/ueshaderwork/Dordogne.PNG) 
+![Dordogne in game footage](../../assets/blogs/ueshaderwork/Dordogne.png) 
 
 The only problem was that compared to Dordogne, a game made with hand-painted textures by 
 "[Un je ne sais quoi](https://unjenesaisquoi.fr/)" a professional french studio, we didn't have as much time and would risk 
@@ -50,14 +50,14 @@ In this section the following shaders will be exposed and detailed:
 - [Water shader](#water-shader)  
 
 Multiple iterations were done before being validated by the "Art Director", the head of the Game Art section.
-![Shader Iterations](../../assets/blogs/ueshaderwork/GK_Iterations.PNG) 
+![Shader Iterations](../../assets/blogs/ueshaderwork/GK_Iterations.png) 
 
 ### Stepped cell shading
 #### Cell shading function
 Since a major part of stylized games use cell shading, that was the first shader I tried to produce.
 After multiple tests using sequenced unreal `if` nodes, I finally created a custom [HLSL](https://en.wikipedia.org/wiki/High-Level_Shader_Language) shader using the [Custom unreal node](https://docs.unrealengine.com/5.2/en-US/custom-material-expressions-in-unreal-engine/).
 
-![Cell Shader Material Function](../../assets/blogs/ueshaderwork/MF_CellShade.PNG) 
+![Cell Shader Material Function](../../assets/blogs/ueshaderwork/MF_CellShade.png) 
 
 In this material function (MF_) I get the SkyAtmosphereLightDirection and do a dot product with the `VertexNormalWS` 
 (see [Coordinates Expressions](https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/Materials/ExpressionReference/Coordinates/)) 
@@ -65,11 +65,11 @@ to set a multiplication value of the BaseColor according to the position of the 
 
 The node requires to explicitly add the `LightDirection`, `Basecolor` and `Steps` variables to the custom node.
 
-![Cell Shading Variables](../../assets/blogs/ueshaderwork/MF_CellShade_Var.PNG "50%")
+![Cell Shading Variables](../../assets/blogs/ueshaderwork/MF_CellShade_Var.png "50%")
 
 To use this material function it is necessary to branch the function as shown below:
 
-![How to use the Material Function](../../assets/blogs/ueshaderwork/MF_CellShade_Use.PNG) 
+![How to use the Material Function](../../assets/blogs/ueshaderwork/MF_CellShade_Use.png) 
 
 The variables to input are:
 - `BaseColor`: The object's color/texture
@@ -109,18 +109,18 @@ The current step's value is then incremented by `Tstep`. When the `for` loop has
 #### Result
 The result of this node used with plane white (1.0, 1.0, 1.0, 1.0) and 3 steps is the following:
 
-![Material Function result](../../assets/blogs/ueshaderwork/MF_CellShade_Result.PNG) 
+![Material Function result](../../assets/blogs/ueshaderwork/MF_CellShade_Result.png) 
 
 ### Watercolor shader
 #### Watercolor function
 This shader had the principle task of replicating a watercolor effect on the assets in local/world space.
 After multiple trials the final version of my shader was transformed in a material function to simplify it's modification.
 
-![Watercolor Material Function](../../assets/blogs/ueshaderwork/MF_Watercolor.PNG) 
+![Watercolor Material Function](../../assets/blogs/ueshaderwork/MF_Watercolor.png) 
 
 This function gave the user the ability to change the watercolor effect of each material instance that used this material function.
 
-![watercolor shader use](../../assets/blogs/ueshaderwork/MF_Watercolor_Params.PNG) 
+![watercolor shader use](../../assets/blogs/ueshaderwork/MF_Watercolor_Params.png) 
 
 The different parameters are the following:
 - `Metalness & Roughness`: Value between 0 and 1 to define these values.
@@ -132,7 +132,7 @@ The `Second_` values are used with a Noise material function to give the diffusi
 
 #### Noise function
 The use of a noise function was the key element to have a "spreading" effect of both colors declared before
-![Noise Material Function](../../assets/blogs/ueshaderwork/MF_Noise.PNG) 
+![Noise Material Function](../../assets/blogs/ueshaderwork/MF_Noise.png) 
 
 The Noise parameters are the following: 
 - `Noise_Scale_X & _Y`: Used to scale the given noise.
@@ -141,11 +141,11 @@ The Noise parameters are the following:
 - `Invert_Noise`: Inverts the black and white values of the Noise texture.
 
 To use it in a Material, the `MF_Noise` is given as an alpha to a `Lerp` with the `BaseColors`.
-![Watercolor Use](../../assets/blogs/ueshaderwork/Watercolor_Use.PNG) 
+![Watercolor Use](../../assets/blogs/ueshaderwork/Watercolor_Use.png) 
 
 #### Result
 The final result gives some sort of a color "spread" that is one of the key elements in the watercolor style.
-![Boat with watercolor shader](../../assets/blogs/ueshaderwork/GK_Render.PNG) 
+![Boat with watercolor shader](../../assets/blogs/ueshaderwork/GK_Render.png) 
 
 ### Rim Shader
 Since Dordogne has a specific outline on the characters that depends of the light source, I decided to create the same function in Unreal.
@@ -156,13 +156,13 @@ Since Dordogne has a specific outline on the characters that depends of the ligh
 It was accomplished by using a `Fresnel Node` and subtracting it with the inverse of the dot between the light source and the 
 `VertexNormalWS` (vertex normal world space) node.
 
-![Rim material function](../../assets/blogs/ueshaderwork/MF_Rim.PNG) 
+![Rim material function](../../assets/blogs/ueshaderwork/MF_Rim.png) 
 
 To use it, connected it to either the `BaseColor` or the `Emissive Color`.
 
 BaseColor | Emissive Color
 :-----:|:-----:
-![Rim function use BC](../../assets/blogs/ueshaderwork/MF_Rim_Use.PNG)  | ![Rim function use EC](../../assets/blogs/ueshaderwork/MF_Rim_Use1.PNG) 
+![Rim function use BC](../../assets/blogs/ueshaderwork/MF_Rim_Use.png)  | ![Rim function use EC](../../assets/blogs/ueshaderwork/MF_Rim_Use1.png) 
 
 #### Result
 The final result connected to the `Emissive Color` of a plane white material was the following:
@@ -183,7 +183,7 @@ node and multiplied each output with `Path_Tiling_X` and `Path_Tiling_Y` (2 expo
 [append](https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/Materials/ExpressionReference/VectorOps/) them back together. 
 That gave the possibility to scale the terrain's texture.
 
-![Virtual Texturing Path base](../../assets/blogs/ueshaderwork/VT_Path.PNG) 
+![Virtual Texturing Path base](../../assets/blogs/ueshaderwork/VT_Path.png) 
 
 The same logic was applied to the grass layer.  
 The `Landscape Coordinates`, after modification, were used as input for UVs of the `BaseColor` and the `Normal` of each layer.
@@ -202,7 +202,7 @@ node was to clamp all values between `0` and `1`.
 
 For the `Normal` (_n), the only variable was the `Intensity` (inverted again) that was connected to a `FlattenNormal` node.
 
-![Virtual Texturing Grass base](../../assets/blogs/ueshaderwork/VT_Grass.PNG) 
+![Virtual Texturing Grass base](../../assets/blogs/ueshaderwork/VT_Grass.png) 
 
 The output was then injected in a 
 [Make Material Attribute](https://docs.unrealengine.com/5.0/en-US/material-attributes-expressions-in-unreal-engine/) node.
@@ -215,37 +215,37 @@ The [Break Material Attributes](https://docs.unrealengine.com/5.0/en-US/material
 node that followed was used to connect the material output to the master node but also to connect it simultaneously to the 
 [Runtime Virtual Texture Output](https://docs.unrealengine.com/5.0/en-US/runtime-virtual-texturing-in-unreal-engine/).
 
-![Virtual Texturing make material](../../assets/blogs/ueshaderwork/VT_MakeMAT.PNG) 
+![Virtual Texturing make material](../../assets/blogs/ueshaderwork/VT_MakeMAT.png) 
 
 That `Runtime Virtual Texture Output` node took all the parameters from the `Break Material Attributes` node except from the `Normal` 
 that was translated from [Tangent Space](https://en.wikipedia.org/wiki/Tangent_space) to 
 [World Space](https://learnopengl.com/Getting-started/Coordinate-Systems#:~:text=The%20coordinates%20in%20world%20space,preferably%20in%20a%20realistic%20fashion) 
 and the `WorldHeight` that took the `Y` axis of the `Absolute World Position` with a `Mask` node.
 
-![Virtual Texturing Run-time VirtualTexturing](../../assets/blogs/ueshaderwork/VT_RTVT.PNG) 
+![Virtual Texturing Run-time VirtualTexturing](../../assets/blogs/ueshaderwork/VT_RTVT.png) 
 
 #### Grass Material
 
 To have and interactive grass effect I started by creating a material with all the basics that my previous materials contained and 
 adding a wind "function" that took divers variables for wind boost, weight, speed, direction, and so on... 
 
-![Grass material wind](../../assets/blogs/ueshaderwork/M_Grass.PNG) 
+![Grass material wind](../../assets/blogs/ueshaderwork/M_Grass.png) 
 
 The specificity of this material is its transformation from `Tangent Space` to `World Space` and back again, 
 integrating the terrain blending between.
 
-![Grass material general overview](../../assets/blogs/ueshaderwork/VT_MatGeneral.PNG) 
+![Grass material general overview](../../assets/blogs/ueshaderwork/VT_MatGeneral.png) 
 
 For the blending, the material takes the `Virtual Texture`'s parameters and will blend them according to the 
 `VirtualBlendHeight` and `VirtualFalloff` parameters.
 
 Grass material texture blend | Grass material height blend
 :-----:|:-----:
-![Grass material texture blend](../../assets/blogs/ueshaderwork/VT_Mat.PNG) | ![Grass material height blend](../../assets/blogs/ueshaderwork/VT_MatBlend.PNG)
+![Grass material texture blend](../../assets/blogs/ueshaderwork/VT_Mat.png) | ![Grass material height blend](../../assets/blogs/ueshaderwork/VT_MatBlend.png)
 
 The last part of the material is just breaking every material attribute and re-assigning them to the master node.
 
-![Grass material break and assign](../../assets/blogs/ueshaderwork/VT_MatGeneral2.PNG "50%")
+![Grass material break and assign](../../assets/blogs/ueshaderwork/VT_MatGeneral2.png "50%")
 
 #### Setup, integration and use
 
@@ -255,21 +255,21 @@ that had to be created per map, and [Landscape Layers](https://docs.unrealengine
 
 Material Instance creation | Landscape Layers
 :-----:|:-----:
-![Material Instance creation](../../assets/blogs/ueshaderwork/M_Landscape.PNG) | ![Landscape Layers](../../assets/blogs/ueshaderwork/M_Landscape_Layer.PNG)
+![Material Instance creation](../../assets/blogs/ueshaderwork/M_Landscape.png) | ![Landscape Layers](../../assets/blogs/ueshaderwork/M_Landscape_Layer.png)
 
 Then, I just followed the Unreal documentation to setup my maps.  
 From the Landscape creation and connecting the Layers
 
 Landscape creation | Landscape Layer connection
 :-----:|:-----:
-![Landscape creation](../../assets/blogs/ueshaderwork/M_Landscape_Creation.PNG) | ![Landscape Layer connection](../../assets/blogs/ueshaderwork/M_Landscape_Layer_Plug.PNG)
+![Landscape creation](../../assets/blogs/ueshaderwork/M_Landscape_Creation.png) | ![Landscape Layer connection](../../assets/blogs/ueshaderwork/M_Landscape_Layer_Plug.png)
 
 To the [Runtime Virtual Texture Volume](https://docs.unrealengine.com/5.0/en-US/runtime-virtual-texturing-in-unreal-engine/) 
 that was bound to the Landscape and finally painting the Map
 
 Runtime Virtual Texture Volume | Landscape Painting
 :-----:|:-----:
-![Runtime Virtual Texture Volume](../../assets/blogs/ueshaderwork/M_Landscape_VT.PNG) | ![Landscape Painting](../../assets/blogs/ueshaderwork/M_Landscape_Draw.PNG)
+![Runtime Virtual Texture Volume](../../assets/blogs/ueshaderwork/M_Landscape_VT.png) | ![Landscape Painting](../../assets/blogs/ueshaderwork/M_Landscape_Draw.png)
 
 #### Result
 Thanks to all this process and the materials previously created the level artists were able to create landscapes and 
@@ -281,42 +281,42 @@ paint them with their desired texture, integrate foliage in the scene and modify
 
 One of the game mechanics was the ability to use a boat and navigate on water, 
 for that reason I created a water material that you can overview below.
-![Water material](../../assets/blogs/ueshaderwork/M_Water.PNG) 
+![Water material](../../assets/blogs/ueshaderwork/M_Water.png) 
 
 #### Water color
 The base color component of it was a `Lerp` between two exposed colors with a 
 [Depth Fade](https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/Materials/ExpressionReference/Depth/#depthfade) 
 node in the `Alpha` chanel. That enabled a transition between the lighter and darker parts of the water.
-![Water material colour](../../assets/blogs/ueshaderwork/M_Water_Colour.PNG) 
+![Water material colour](../../assets/blogs/ueshaderwork/M_Water_Colour.png) 
 
 #### Shorelines
 To simulate stylized shorelines a `DistanceToNearestSurface` node was used with the `AbsoluteWorldPosition` node so that the 
 intersection of meshes would be detected and create lines on the water plane at a defined distance. 
 A `Time` node was then used to be able to change their position on the water plane.
-![Water material shoreline distance](../../assets/blogs/ueshaderwork/M_Water_Shoreline.PNG) 
+![Water material shoreline distance](../../assets/blogs/ueshaderwork/M_Water_Shoreline.png) 
 
 So that the shoreline wouldn't be static two identic distortion functions where created taking different noise textures and parameters, 
 those parameters are self explanatory. The only specificity was the 
 [panner](https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/Materials/HowTo/AnimatingUVCoords/#pannernodebreakdown) node 
 that gave me the possibility to displace UV's without creating a node or function for that.
-![Water material shoreline distortion 1&2](../../assets/blogs/ueshaderwork/M_Water_ColourDistortion.PNG) 
+![Water material shoreline distortion 1&2](../../assets/blogs/ueshaderwork/M_Water_ColourDistortion.png) 
 
 #### Normal distortion
 At that point the shorelines were acceptable but the water did not have any kind of movement to it, for that reason 
 I created a distortion effect of the normal taking the previously generated noise from the shoreline distortion. 
 Different parameters where exposed to be able to control the effect from material instances.
-![Water material normal distortion](../../assets/blogs/ueshaderwork/M_Water_NormalDistortion.PNG) 
+![Water material normal distortion](../../assets/blogs/ueshaderwork/M_Water_NormalDistortion.png) 
 
 #### Tweaking iterations
 Due to a lack of time, a big part of the shader was just iterations of multiple shoreline assembly until the result was pleasing. 
 For that reason I am not going to go in depth in this part of the node. With the previous parts any replication can be adapted according 
 to preferences.
-![Water material tweaking](../../assets/blogs/ueshaderwork/M_Water_Tweaking.PNG) 
+![Water material tweaking](../../assets/blogs/ueshaderwork/M_Water_Tweaking.png) 
 
 The final part of the node was assembled with two `Lerp` nodes that took in account the shorelines, 
 one for the base color and the other for the opacity chanel with again a `Depth Fade` node. 
 The normal distortion was just directly connected to the master node. 
-![Water material master node](../../assets/blogs/ueshaderwork/M_Water_MasterNode.PNG) 
+![Water material master node](../../assets/blogs/ueshaderwork/M_Water_MasterNode.png) 
 
 #### Result
 The shader probably could have been much better, taking the movement of objects in consideration per example, 
@@ -333,7 +333,7 @@ a diffusion of color between objects in a scene. To accomplish that effect a sim
 [Kuwahara](https://en.wikipedia.org/wiki/Kuwahara_filter) filter effect in screen space.  
 The Unreal Engine material node looked like this:
 
-![Kuwahara filter node in UnrealEngine 5.3](../../assets/blogs/ueshaderwork/GK_KuwaharaNode.PNG) 
+![Kuwahara filter node in UnrealEngine 5.3](../../assets/blogs/ueshaderwork/GK_KuwaharaNode.png) 
 
 #### HLSL code
 The HLSL code was the following:
@@ -396,7 +396,7 @@ return col;
 To use it, we just had to create a [PostProcessVolume](https://docs.unrealengine.com/5.0/en-US/post-process-effects-in-unreal-engine/) 
 in the scene and plug it in "Rendering Features -> Post Process Materials -> Array"
 
-![Kuwahara filter use](../../assets/blogs/ueshaderwork/GK_PP_use.PNG) 
+![Kuwahara filter use](../../assets/blogs/ueshaderwork/GK_PP_use.png) 
 
 #### Result
 Here you can see the result of the post processing shader being used:
