@@ -19,13 +19,13 @@ graphics programming.
 
 For that module, I was introduced to [OpenGL](https://www.opengl.org/) and followed some steps of the [LearnOpenGL](https://learnopengl.com/) web site. After that I had to put all my knowledge together in order to render a complete scene as showed below.
 
-![]({{ site.baseurl }}/images/opengl/scene1.PNG "Scene"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/scene1.png "Scene"){: width="100%"}
 
 ## The first Triangle
 
 At the beginning of the project, I was introduced to the basic concepts of graphical programming, I had to implement the C++ code and [shaders](https://en.wikipedia.org/wiki/Shader) to render a simple triangle on my screen.
 
-![]({{ site.baseurl }}/images/opengl/triangle.PNG "Triangle"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/triangle.png "Triangle"){: width="100%"}
 
 To do so I used [GLEW](https://glew.sourceforge.net/), [GLM](https://github.com/g-truc/glm) for mathematics, and [SDL2](https://www.libsdl.org/) for windows and events in my engine.  
 
@@ -37,13 +37,13 @@ Once the challenge of understanding and being able to draw my first triangle on 
 
 With all these concepts accumulated in one project, the result was the following:  
 
-![]({{ site.baseurl }}/images/opengl/cube.PNG "Cube"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/cube.png "Cube"){: width="100%"}
 
 ## Models
 
 Drawing cubes and lights was already a good first step into the computer graphics world. The next and obvious step to take was to implement model loading in a scene and then in my project. To do so I used [ASSIMP](https://github.com/assimp/assimp), an asset importer library.
 
-![]({{ site.baseurl }}/images/opengl/backpack.PNG "backpack"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/backpack.png "backpack"){: width="100%"}
 
 As you can see, where cubes where relatively easy to draw with their 36 triangles composing 6 faces. Loading a model composed of a lot of meshes sometimes can be quite frustrating.
 
@@ -54,23 +54,23 @@ With all that done, I started to discover the beauty of what was possible using 
 
 I implemented, with different scenes, the concepts of [DepthBuffers](https://en.wikipedia.org/wiki/Z-buffering) and [StencilBuffers](https://en.wikipedia.org/wiki/Stencil_buffer).
 
-![]({{ site.baseurl }}/images/opengl/stencil.PNG "stencil"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/stencil.png "stencil"){: width="100%"}
 
 I also tried [blending](https://learnopengl.com/Advanced-OpenGL/Blending) that gave me the possibility to blend between transparent and coloured objects.  
 
-![]({{ site.baseurl }}/images/opengl/blend.PNG "blend"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/blend.png "blend"){: width="100%"}
 
 One other trick was to use `glEnable(GL_CULL_FACE);` that enabled [FaceCulling](https://en.wikipedia.org/wiki/Back-face_culling) with `glCullFace(GL_BACK);` that would cull the back faces and `glFrontFace(GL_CCW);` that would define how (in vertex order) a front face is defined. In this case `GL_CCW` stands for Counter Clock-Wise as opposite to `GL_CW` Clock-Wise.
 
 With the use of the DepthBuffer I was also able to add a [SkyBox](https://en.wikipedia.org/wiki/Skybox_(video_games)) to my scene. Of course the principle of [CubeMapping](https://en.wikipedia.org/wiki/Cube_mapping) was necessary to render it.
 
-![]({{ site.baseurl }}/images/opengl/skybox.PNG "SkyBox"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/skybox.png "SkyBox"){: width="100%"}
 
 ## Instancing
 
 One very useful technique in computer graphics is [instancing](https://en.wikipedia.org/wiki/Geometry_instancing). 
 
-![]({{ site.baseurl }}/images/opengl/instancing.PNG "Instancing"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/instancing.png "Instancing"){: width="100%"}
 
 That part was very interesting but with that technique I had to adapt the way I sent information through my pipeline. 
 First I had to create a `ModelMatrix` struct:  
@@ -163,11 +163,11 @@ As you can see I use a `std::span<T>` so that I can directly get the `amount` of
 
 After instancing, that honestly took a certain time and a good mental workaround, I continued my learning by implementing [ShadowMapping](https://learnopengl.com/Advanced-Lighting/Shadows/Shadow-Mapping) 
 
-![]({{ site.baseurl }}/images/opengl/shadow1.PNG "ShadowMapping"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/shadow1.png "ShadowMapping"){: width="100%"}
 
 used to render shadows from a directional light and [PointShadows](https://learnopengl.com/Advanced-Lighting/Shadows/Point-Shadows)
 
-![]({{ site.baseurl }}/images/opengl/shadow2.PNG "PointShadows"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/shadow2.png "PointShadows"){: width="100%"}
 
 to render shadows from point lights.
 
@@ -175,7 +175,7 @@ to render shadows from point lights.
 
 One of the modern techniques used in computer graphics is [DeferredRendering](https://learnopengl.com/Advanced-Lighting/Deferred-Shading). It is useful because, basically, you render all the geometry in a FrameBuffer with two shaders (vertex and fragment), commonly called the "Geometry pass", and then send all the data to the two other shaders, the "Lighting pass", thus saving the calculations of light for all pixels per object.
 
-![]({{ site.baseurl }}/images/opengl/deferredShading.PNG "Deferred Shading"){: width="100%"}  
+![]({{ site.baseurl }}/images/opengl/deferredShading.png "Deferred Shading"){: width="100%"}  
 
 The implementation of the deferred rendering required to change the way the pipeline was functioning. Where in forward rendering we used to have two shaders (vertex & fragment) the deferred rendering required a buffer (gBuffer) and four shaders.  
 Here the setting of the FrameBuffer:  
@@ -283,7 +283,7 @@ With that done I got this nice result:
 The problem here was that since my other shaders weren't initially intended for PBR, they did not assign the correct textures and ended up using the objects positions as BaseColor.
 Once that problem solved I was able to render 1000 backpacks with instancing, in deferred rendering, with PBR and forward rendering of light cubes.
 
-![]({{ site.baseurl }}/images/opengl/deferredPbr.PNG "DeferredPBR"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/deferredPbr.png "DeferredPBR"){: width="100%"}
 
 
 ## SSAO
@@ -316,7 +316,7 @@ Here you can see the SSAO result and the blurring of that one:
 
 SSAO | SSAO Blur
 :-----:|:-----:
-![]({{ site.baseurl }}/images/opengl/SSAO.PNG "SSAO"){: width="100%"} | ![]({{ site.baseurl }}/images/opengl/SSAO1.PNG "SSAO1"){: width="100%"}  
+![]({{ site.baseurl }}/images/opengl/SSAO.png "SSAO"){: width="100%"} | ![]({{ site.baseurl }}/images/opengl/SSAO1.png "SSAO1"){: width="100%"}  
 
 and the final result:  
 
@@ -360,6 +360,6 @@ I think overall that learning OpenGL was really a fun experience. Sometimes it w
 Unfortunately when an exam is at stake giving in something, even if it is not as good as it could be, is better than doing better but giving nothing in the end.  
 My only regret on this project is to not have had more time.
 
-![]({{ site.baseurl }}/images/opengl/lastScene.PNG "LastScene"){: width="100%"}
+![]({{ site.baseurl }}/images/opengl/lastScene.png "LastScene"){: width="100%"}
 
 The entire project can be found [here](https://github.com/SStyles93/opengl-scene).

@@ -2,7 +2,7 @@
 title: "Procedural Generation - binary space partitioning"
 description: "Procedural generation done in Unity using the Binary Space Partitioning (BSP)"
 order: 0
-heroImage: "/src/assets/blogs/pcg/picture20.png"
+heroImage: "../../assets/blogs/pcg/picture20.png"
 creationDate: "Jun 03 2022"
 ---
 
@@ -65,7 +65,7 @@ a Graph is. Basically, a graph is a structure of objects called "Nodes"
 where some of them are paired to others. The pairing of two objects will
 create a "Link".
 
-![Graph Example](/src/assets/blogs/pcg/picture1.png)
+![Graph Example](../../assets/blogs/pcg/picture1.png)
 
 There are different types of graphs: non-directed graphs, directed
 graphs, weighted graphs. All of them are used in different ways for
@@ -76,7 +76,7 @@ that tree there is generally a "Root" node, the starting point, normal
 nodes that follow and at the end of each branch a "Leaf", a node with no
 child under it.
 
-![Tree Example](/src/assets/blogs/pcg/picture2.png)
+![Tree Example](../../assets/blogs/pcg/picture2.png)
 
 ### Graph Theory - search algorithms (BFS & DFS)
 
@@ -95,7 +95,7 @@ searching through the graph.
 
 Basically, this is the output of a BFS on a tree:
 
-![BFS Tree](/src/assets/blogs/pcg/picture3.png)
+![BFS Tree](../../assets/blogs/pcg/picture3.png)
 
 The other way of searching through the graph is the DFS (Deapth First
 Search).
@@ -107,7 +107,7 @@ known as "LIFO" (Last In First Out), that means that the last object to
 go in will be the first to be processed. The output of a DFS search will
 look like this:
 
-![DFS Tree](/src/assets/blogs/pcg/picture4.png)
+![DFS Tree](../../assets/blogs/pcg/picture4.png)
 
 ### Neighbours
 
@@ -123,7 +123,7 @@ processed cell and the ones in diagonal. for the same given example
 \[0,0\] the Moore's Neighbours are the following :
 \[0,1\],\[1,1\],\[1,0\],\[1,-1\],\[0,-1\],\[-1,-1\],\[-1,0\],\[-1,1\]
 
-![Moore / Von Neumann Neighbours ](/src/assets/blogs/pcg/picture5.png)
+![Moore / Von Neumann Neighbours ](../../assets/blogs/pcg/picture5.png)
 
 Note that all these neighbours are described in a clockwise order on a
 two dimensional grid. It is not necessary to respect that order
@@ -191,20 +191,20 @@ One of these tools is a function called "OnGizmoDraw", it gives the
 ability to draw simple shapes and actually see what is happening with
 the code.
 
-![](/src/assets/blogs/pcg/picture6.png)
+![](../../assets/blogs/pcg/picture6.png)
 
 Another set of tools I used was the Unity 2D Package, it was essential
 to my game since it was made in 2D, with it came the TileMap and
 RuleTile who were very useful tools to simplify my coding journey and
 not have to "hardcode" every tile placement rule.
 
-![](/src/assets/blogs/pcg/picture7.png)
+![](../../assets/blogs/pcg/picture7.png)
 
 Basically thanks to these tools, I just needed to create areas and
 rooms, and paint tiles on different layers in order to accomplish my
 maps without having to worry about what goes where.
 
-![](/src/assets/blogs/pcg/picture8.png) 
+![](../../assets/blogs/pcg/picture8.png) 
 
 ## Deep dive in the code
 
@@ -219,7 +219,7 @@ done. For that reason I used a "BoundsInt" , basically an area created
 in unity and rounded to Ints. Then I applied that area's size to the
 different tilemaps
 
-![](/src/assets/blogs/pcg/picture9.png) 
+![](../../assets/blogs/pcg/picture9.png) 
 
 After that I had to create the background for my game. Since the game
 takes place in an earth-like world, I generated a map filled with water.
@@ -229,16 +229,16 @@ water tiles. To do so, I went through all the positions of the area on
 the X and Y axis and added them to a HashSet (List that only includes
 one unique example of an object).
 
-![](/src/assets/blogs/pcg/picture10.png) 
+![](../../assets/blogs/pcg/picture10.png) 
 
 Once that was done I created a method to paint on a tilemap, at every
 position in a given position HashSet, a desired tile.
 
-![](/src/assets/blogs/pcg/picture11.png) 
+![](../../assets/blogs/pcg/picture11.png) 
 
  The result was the following:
 
-![](/src/assets/blogs/pcg/picture12.png) 
+![](../../assets/blogs/pcg/picture12.png) 
 
 That was the easy part. Once the water was created I had to get on
 creating rooms. 
@@ -248,7 +248,7 @@ creating rooms.
 That is where the BSP comes in. As explained higher up it is used to
 split areas, the code I made for this is the following:
 
-![](/src/assets/blogs/pcg/picture13.png) 
+![](../../assets/blogs/pcg/picture13.png) 
 
 Here the "area1" and "area2" are temporary variables (BoundsInt) created
 in order to store the data of the two areas resulting from the split of
@@ -269,18 +269,18 @@ either HORIZONTAL(0) or VERTICAL(1)), a float (ratio for the split) and
 two outputs of type BoundsInt (area1 and area2). The method looks like
 this :
 
-![](/src/assets/blogs/pcg/picture14.png) 
+![](../../assets/blogs/pcg/picture14.png) 
 
 And the result was the following:
 
-![](/src/assets/blogs/pcg/picture15.png) 
+![](../../assets/blogs/pcg/picture15.png) 
 
 Once the Areas were split, I wanted to fill them with rooms separated
 from each other, otherwise the BSP would have had no sense. In order to
 do so, I took all the areas from the "AreaList" and shrunk them by the
 desired amount (Int "roomShrink") and added them to a RoomList.
 
-![](/src/assets/blogs/pcg/picture16.png) 
+![](../../assets/blogs/pcg/picture16.png) 
 
 After I managed to create my shrinked rooms I just had to get all the
 positions with the previous "GetTileFromPosition" method and add them to
@@ -289,7 +289,7 @@ a list of positions.
 I finally had my rooms, created with a binary space partitioning
 algorithm.
 
-![](/src/assets/blogs/pcg/picture17.png) 
+![](../../assets/blogs/pcg/picture17.png) 
 
 
 That was already a nice part of the job done, but obviously without any
@@ -310,7 +310,7 @@ earlier. 
 
 The methods were the following:
 
-![](/src/assets/blogs/pcg/picture18.png) 
+![](../../assets/blogs/pcg/picture18.png) 
 
 This method takes as parameters a list of Vector2Ints (roomCenters),
 choses randomly one of them and gets the closest center from that room
@@ -319,7 +319,7 @@ to the other ones.
 At the end it will add the room connection to the room connections
 HashSet and remove it from the room centers list.
 
-![](/src/assets/blogs/pcg/picture19.png) 
+![](../../assets/blogs/pcg/picture19.png) 
 
 The "OneRoomConnection" is a method made to create the path between two
 rooms. It adds positions to the room until the destination is met.
@@ -332,7 +332,7 @@ fill the rooms and corridors with tiles.
 
 The final result looks like this:
 
-![](/src/assets/blogs/pcg/picture20.png) 
+![](../../assets/blogs/pcg/picture20.png) 
 
 ## Summary
 
