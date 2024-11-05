@@ -11,18 +11,27 @@
     "astro": "astro"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@astrojs/mdx": "^3.1.9",
     "@astrojs/rss": "^4.0.9",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.2",
     "astro": "^4.16.9",
     "daisyui": "^4.12.10",
+=======
+    "@astrojs/mdx": "^3.1.8",
+    "@astrojs/rss": "^4.0.9",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.2",
+    "astro": "^4.16.5",
+    "daisyui": "^4.12.13",
+>>>>>>> 8786059eb31ed1e53cda6a777350319b09438649
     "dayjs": "^1.11.13",
     "sharp": "^0.33.5",
-    "tailwindcss": "^3.4.10"
+    "tailwindcss": "^3.4.14"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
-    "sass": "^1.78.0"
+    "sass": "^1.79.5"
   }
 }
