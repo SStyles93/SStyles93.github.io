@@ -36,7 +36,7 @@ specific shaders. For that reason, the focus will be emphasized on the research,
 
 The first elements to acknowledge is the art direction. One of the references given for the art style was "Dordogne"
 
-![Dordogne in game footage](/src/assets/blogs/ueshaderwork/Dordogne.png) 
+![Dordogne in game footage](/src/assets/blogs/ueshaderwork/Dordogne.png)
 
 The only problem was that compared to Dordogne, a game made with hand-painted textures by 
 "[Un je ne sais quoi](https://unjenesaisquoi.fr/)" a professional french studio, we didn't have as much time and would risk 
