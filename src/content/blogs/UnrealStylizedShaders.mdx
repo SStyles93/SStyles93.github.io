@@ -9,6 +9,7 @@ teamSize: 31
 timeFrame: "6 month"
 toolUsed: "C++/Unreal/HLSL"
 ---
+import {Image} from 'astro:assets';
 import ue01 from "/src/assets/blogs/ueshaderwork/GK_Map_01.png"
 import ue02 from "/src/assets/blogs/ueshaderwork/VR_Map_01.png"
 
@@ -21,11 +22,12 @@ For this project I had the opportunity to work as a Graphic Programmer on two ga
 
 Project Girl & Kitty | Project VR
 :-----:|:-----:
-![Project Girl & Kitty](ue01 "GK_First_Map") | ![Project VR](ue02)
+<Image src={ue01} alt="Project Gril & Kitty" title="GK First Map"/>
 
 For both project we had a limited production time, roughly 8 months, with a team of 27 people.
+{/*![Project Girl & Kitty](ue01 "GK_First_Map") | ![Project VR](ue02)
 
-{/*The tasks I worked on were the following:
+The tasks I worked on were the following:
 - Creation of [shaders](https://en.wikipedia.org/wiki/Shader) and functions to replicate a watercolor style
 - Graphic tools for the artists
 - Asset integration, colorization, test and review
