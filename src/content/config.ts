@@ -1,5 +1,6 @@
 import { z, defineCollection, type CollectionEntry } from "astro:content";
 
+
 const projectCollection = defineCollection({
 	schema: ({ image }) => z.object({
 		title: z.string(),
@@ -22,6 +23,9 @@ const blogCollection = defineCollection({
 		order: z.number(),
 		pinned: z.boolean().default(false),
 		heroImage: image(),
+		teamSize: z.number().optional(),
+		timeFrame: z.string().optional(),
+		toolUsed: z.string().optional(),
 	})
 });
 
