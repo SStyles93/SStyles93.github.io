@@ -9,9 +9,8 @@ teamSize: 31
 timeFrame: "6 month"
 toolUsed: "C++/Unreal/HLSL"
 ---
-import {Image} from 'astro:assets';
-import ue01 from "/src/assets/blogs/ueshaderwork/GK_Map_01.png"
-import ue02 from "/src/assets/blogs/ueshaderwork/VR_Map_01.png"
+import * as images from "/src/assets/blogs";
+
 
  ## Contextualization
 During the last year of bachelor's degree in Game Programming at the SAE-Institute, the students of the 
@@ -22,7 +21,7 @@ For this project I had the opportunity to work as a Graphic Programmer on two ga
 
 Project Girl & Kitty | Project VR
 :-----:|:-----:
-<Image src={ue01} alt="Project Gril & Kitty" title="GK First Map"/>
+<Image src={images.ueshaderwork_GK_Map_01_png} alt="Project Gril & Kitty" title="GK First Map"/>
 
 For both project we had a limited production time, roughly 8 months, with a team of 27 people.
 {/*![Project Girl & Kitty](ue01 "GK_First_Map") | ![Project VR](ue02)
