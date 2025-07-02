@@ -2,12 +2,12 @@
 title: "CatFight - Animation System in an ECS multiplayer Rollback project"
 description: "Creation of an animation system in multiplayer game with ECS and rollback."
 order: 0
-heroImage: "../../assets/blogs/rollback/Gameplay.gif"
+heroImage: "/src/assets/blogs/rollback/Gameplay.gif"
 creationDate: "Nov 01 2022"
 ---
-
+import {Image} from "astro:assets";
+import * as images from "/src/assets/blogs";
 import Button from "../../components/Button.astro";
-import ScreenshotList from "../../components/ScreenshotList.astro";
 
 ## Contextualisation
 
@@ -19,7 +19,7 @@ For that module we had to present a multiplayer game project based on an
 Since we only had a limited amount of time, we were given a “template” project on which we had to build our game and change/add elements to fit our needs. 
 At first the project was a simple battleship shooter and it looked like this.
 
-![Basic Project](../../assets/blogs/rollback/BasicProject.png)
+<Image src={images.rollback_BasicProject_png} alt="Basic Project" class="w-full"/>
 
 From that “template” project I decided to do an action game where entities engaged in a fight by throwing projectiles at each other.
 
@@ -139,7 +139,7 @@ void AnimationManager::LoadTexture(const std::string_view path, Animation& anima
 With that method it was very easy to add animations to my AnimationManager.
 Basically, I just needed to create a folder with the same name as the contained sprites and add a sprite index for each sprite
 
-![Folder hierarchy](../../assets/blogs/rollback/Loading.png) 
+<Image src={images.rollback_Loading_png} alt="Folder hierarchy" class="w-full"/> 
 
 and then load them in the newly created Animation of the AnimationManager.
 
@@ -262,7 +262,7 @@ To do that I had to set it in the PlayerCharacterManager.
 
 At the end the result looks like this
 
-![Gameplay](../../assets/blogs/rollback/Gameplay.gif) 
+<Image src={images.rollback_Gameplay_gif} alt="Gameplay" class="w-full"/> 
 
 ## Conclusion
 

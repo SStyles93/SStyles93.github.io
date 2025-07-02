@@ -1,10 +1,12 @@
 ---
 title: "Post-Mortem Projects GK & VR - Specialization Projects"
 description: "Post-Mortem of the 3rd Year bachelor projects"
-heroImage: "src/assets/blogs/projectproducing/PP_Intro.gif"
+heroImage: "/src/assets/blogs/projectproducing/PP_Intro.gif"
 order: 0
 creationDate: "Feb 18 2024"
 ---
+import {Image} from "astro:assets";
+import * as images from "/src/assets/blogs";
 
 # Post-Mortem Project GK
 ## Context
@@ -79,15 +81,15 @@ The first references where:
 - Amelicart: an illustrator 
 - Dordogne: a french watercolour game
 
-![Art references of Amelicart and Dordogne](../../assets/blogs/postmortemgk/Art_ref.png)
+<Image src={images.postmortemgk_Art_ref_png} alt="Art references of Amelicart and Dordogne" class="w-full"/>
   
 - Tunic: a stylized isometric adventure game
 
-![Tunic in game screenshots](../../assets/blogs/postmortemgk/Art_ref2.png)
+<Image src={images.postmortemgk_Art_ref2_png} alt="Tunic in game screenshots" class="w-full"/>
 
 For the interface Carto and Dordogne where suggested.
 
-![Carto and Dordogne user interface examples](../../assets/blogs/postmortemgk/Art_ref3.png)
+<Image src={images.postmortemgk_Art_ref3_png} alt="Carto and Dordogne user interface examples" class="w-full"/>
 
 The final decision was made by Nicolas Vallée, the head of the game art section.
 
@@ -98,7 +100,7 @@ _Sky: Children of the Light_ and _Ratchet & Clank_ and
 finally, for the environment, it is inspired by _NiBiRu: Age of
 Secrets_ and _Black Mirror_.
 
-![VR Concept art](../../assets/blogs/postmortemgk/VR_Concept.png)
+<Image src={images.postmortemgk_VR_Concept_png} alt="VR Concept art" class="w-full"/>
 
 ### Production Tools
 #### Project GK

@@ -1,13 +1,15 @@
 ---
 title: "Project Producing - Specialization Projects"
 description: "Organizing the teams work, preparing meetings, resolving conflicts, all the tasks relative to game production in a team composed of 30 people will be exposed in this blog."
-heroImage: "../../assets/blogs/projectproducing/PP_Intro.gif"
+heroImage: "/src/assets/blogs/projectproducing/PP_Intro.gif"
 order: 0
 creationDate: "Jan 26 2024"
 teamSize: 31
 timeFrame: "6 month"
 toolUsed: "Scrum/Excel/Trello/Miro"
 ---
+import {Image} from "astro:assets";
+import * as images from "/src/assets/blogs";
 
 ## Contextualization
 
@@ -24,7 +26,7 @@ At the beginning, all the students were teamed up and had to present 8 game pitc
 
 GK Pitch front page | VR Pitch front page
 :-----:|:-----:
-![Pitch Girl and Kitty](../../assets/blogs/projectproducing/GK_Pitch.png) | ![Pitch project VR](../../assets/blogs/projectproducing/VR_Pitch.png) 
+<Image src={images.projectproducing_GK_Pitch_png} alt="Pitch Girl and Kitty" class="w-full"/> | <Image src={images.projectproducing_VR_Pitch_png} alt="Pitch project VR" class="w-full"/> 
 
 Once the pitches were presented, two game art students (one per project) were designated to create the 
 concept art that would later be used to guide the artistic production. The concept art references and work was 
@@ -32,7 +34,7 @@ finished and presented for the beginning of July.
 
 Concept Girl and Kitty | Concept project VR
 :-----:|:-----:
-![Concept Girl and Kitty](../../assets/blogs/projectproducing/GK_Concept.png) | ![Concept project VR](../../assets/blogs/projectproducing/VR_Concept.png)
+<Image src={images.projectproducing_GK_Concept_png} alt="Concept Girl and Kitty" class="w-full"/> | <Image src={images.projectproducing_VR_Concept_png} alt="Concept project VR" class="w-full"/>
 
 The game design was defined and improved in parallel by the game programmers. Two prototypes were created in parallel.
 
@@ -50,7 +52,7 @@ The project united the Game Programming, Game Art and Audio Engineering sections
 without accounting the external people that gave us master classes.  
 The organization chart is the following
 
-![Editor render](../../assets/blogs/projectproducing/Prod_Teams.png)
+<Image src={images.projectproducing_Prod_Teams_png} alt="Editor render" class="w-full"/>
 
 The hierarchy was layed out from left to right. The stakeholders to whom we were accountable are placed on the left. Since I was producer, I was responsible for presenting the work done by the teams to them. Then, for each project, a product owner was nominated per project to follow the work and define the tasks according to the general objectives previously defined. The programmers were dispatched on the two projects according to necessities. The game artists were assigned to one project or the other. For the audio engineering section, we had two leads that would organize and dispatch work for both projects.
 
@@ -62,13 +64,13 @@ This part of the blog is and overview and brief exposition of the tools we used 
 
 #### Unreal Engine 5.3
 The game engine we had to use was [Unreal Engine 5.3](https://www.unrealengine.com/en-US/blog/unreal-engine-5-3-is-now-available). The obligation came from Elias Farhan, the head of game programming. Since Unreal is vastly used in the game industry it probably was a wise decision.
-![UnrealEngine5.3](../../assets/blogs/projectproducing/UE5.png) 
+<Image src={images.projectproducing_UE5_png} alt="UnrealEngine5.3" class="w-full"/> 
 
 #### Perforce
 Initially we wanted to setup [Perforce](https://www.perforce.com/) for both projects ot be able to work together, 
 have version control and be able to lock file and avoid having a destructive workflow or too many merge conflicts.
 
-![Perforce environment](../../assets/blogs/projectproducing/Perforce.png) 
+<Image src={images.projectproducing_Perforce_png} alt="Perforce environment" class="w-full"/> 
 
 The problem was that, due to our internet provider, we couldn't set it up and finally installed [GitLab](#gitlab) on a self-hosted server.
 
@@ -76,12 +78,12 @@ The problem was that, due to our internet provider, we couldn't set it up and fi
 
 The self-hosting of [GitLab](https://about.gitlab.com/) was done by [Fabian Huber](https://www.fabianhbr.ch/) and the process is
  explained in one of his blogs that you can find [here](https://blog.stowy.ch/posts/devops-specialisation-projects/).
-![Gitlab server](../../assets/blogs/projectproducing/Gitlab.png) 
+<Image src={images.projectproducing_Gitlab_png} alt="Gitlab server" class="w-full"/> 
 
 #### Nextcould
 [Nextcloud](https://nextcloud.com/) was used for the team to transfer files, specifically the artists' assets. 
 Once again the server was self-hosted and setup by Fabian. The details are explained [here](https://blog.stowy.ch/posts/devops-specialisation-projects/#nextcloud).
-![Nextcloud server](../../assets/blogs/projectproducing/Nextcloud.png) 
+<Image src={images.projectproducing_Nextcloud_png} alt="Nextcloud server" class="w-full"/> 
 
 
 #### NAS
@@ -93,7 +95,7 @@ and a WesternDigital [My Book Duo](https://www.westerndigital.com/products/exter
 The framework I used was [OpenMediaVault](https://www.openmediavault.org/) and the server was accessed 
 by [Styles Studio](https://styles-studio.com/)' s domain name. I also added the [SSH](https://en.wikipedia.org/wiki/Secure_Shell) 
 and [SSL](https://en.wikipedia.org/wiki/Transport_Layer_Security#SSL_1.0,_2.0,_and_3.0) protocols to access the server in a more secure way.
-![NAS tools](../../assets/blogs/projectproducing/NAS.png) 
+<Image src={images.projectproducing_NAS_png} alt="NAS tools" class="w-full"/> 
 
 The last tool used regarding this server was [WinSCP](https://winscp.net/eng/index.php) to manage files in a more user-friendly way.
 I also had to create the accounts and everything related to user identification.
@@ -113,7 +115,7 @@ banks or personal recordings.
 To facilitate the integration to UnrealEngine they used [Wwise](https://www.audiokinetic.com/en/products/wwise/) and, since we 
 couldn't have perforce, transmitted their work to us with a USB key.
 
-![Wwise environment](../../assets/blogs/projectproducing/Wwise.png) 
+<Image src={images.projectproducing_Wwise_png} alt="Wwise environment" class="w-full"/> 
 
 ### Artistic tools
 
@@ -124,22 +126,22 @@ and [Maya](https://www.autodesk.com/products/maya/overview?term=1-YEAR&tab=subsc
 
 3DS Max environment | Maya environment
 :-----:|:-----:
-![3DS Max environment](../../assets/blogs/projectproducing/3dsmax.png "") | ![Maya environment](../../assets/blogs/projectproducing/Maya.png)
+<Image src={images.projectproducing_3dsmax_png} alt="3DS Max environment" class="w-full"/> | <Image src={images.projectproducing_Maya_png} alt="Maya environment" class="w-full"/>
 
 #### ZBrush
 In some cases [Zbrush](https://www.maxon.net/en/zbrush) was used for organic modeling or sculpting.
 
-![Zbrush environment](../../assets/blogs/projectproducing/Zbrush.png) 
+<Image src={images.projectproducing_Zbrush_png} alt="Zbrush environment" class="w-full"/> 
 
 Some examples of its use was for one of the characters in the project Girl and Kitty
 
 Girl Wireframe | Girl Mesh
 :-----:|:-----:
-![Girl Wireframe](../../assets/blogs/projectproducing/Girl.png) | ![Girl Mesh](../../assets/blogs/projectproducing/Girl2.png)
+<Image src={images.projectproducing_Girl_png} alt="Girl Wireframe" class="w-full"/> | <Image src={images.projectproducing_Girl2_png} alt="Girl Mesh" class="w-full"/>
 
 or for one of the humanoid assets the project VR.
 
-![VR cadaver character](../../assets/blogs/projectproducing/Cadaver.png)
+<Image src={images.projectproducing_Cadaver_png} alt="VR cadaver character" class="w-full"/>
 
 
 #### Substance Painter & Designer
@@ -148,7 +150,7 @@ For the project VR, the artists used [Substance Painter](https://www.adobe.com/p
 
 Substance Painter environment | Substance Designer environment
 :-----:|:-----:
-![Substance Painter environment](../../assets/blogs/projectproducing/SubstancePainter.png "") | ![Substance Designer environment](../../assets/blogs/projectproducing/SubstanceDesigner.png)
+<Image src={images.projectproducing_SubstancePainter_png} alt="Substance Painter environment" class="w-full"/> | <Image src={images.projectproducing_SubstanceDesigner_png} alt="Substance Designer environment" class="w-full"/>
 
 For the project Girl & Kitty, the texturing was done in Unreal Engine 5, for more information about that process you can read 
 the blog post made about it [here](https://sstyles93.github.io/blog/posts/UnrealStylizedShaders/#contextualization)
@@ -165,7 +167,7 @@ One of the utilities of having a common drive was to store google slides. Since 
 improvements done on the project, it was useful to be able to store our slides in a common folder. In general the product 
 owners or myself were responsible for their creation.
 
-![Weekly presentation](../../assets/blogs/projectproducing/Drive_weekly.png)
+<Image src={images.projectproducing_Drive_weekly_png} alt="Weekly presentation" class="w-full"/>
 
 To keep everything as clear a possible our work was always exposed with the same hierarchy: 
 General Production, Project Girl and Kitty and then the Project VR. With screenshots and bullet points for every member of the projects.
@@ -176,7 +178,7 @@ these folders contained all the necessary resources created or found by the memb
 
 VR Folder and content | GK Folder and content
 :-----:|:-----:
-![VR Folder and content](../../assets/blogs/projectproducing/VR_Folder.png "") | ![GK Folder and content](../../assets/blogs/projectproducing/GK_Folder.png)
+<Image src={images.projectproducing_VR_Folder_png} alt="VR Folder and content" class="w-full"/> | <Image src={images.projectproducing_GK_Folder_png} alt="GK Folder and content" class="w-full"/>
 
 #### Example folder & archives 
 These folder contained all the documents received from William Marié to help us organize the production, 
@@ -184,13 +186,13 @@ pitch examples we used as references and all documents that were outdated.
 
 Example Folder | Archives Folder
 :-----:|:-----:
-![Example Folder](../../assets/blogs/projectproducing/Example_Folder.png) | ![Archives Folder](../../assets/blogs/projectproducing/Archives_Folder.png)
+<Image src={images.projectproducing_Example_Folder_png} alt="Example Folder" class="w-full"/> | <Image src={images.projectproducing_Archives_Folder_png} alt="Archives Folder" class="w-full"/>
 
 #### Admin folder
 This folder was probably the most used by the product owners and myself. It contained all the documents related to the two projects 
 and their management.
 
-![Admin Folder](../../assets/blogs/projectproducing/Admin_Folder.png)
+<Image src={images.projectproducing_Admin_Folder_png} alt="Admin Folder" class="w-full"/>
 
 The different documents were the following:
 - Risks: Potential problems we could have encountered and the way we could ideally fix them.
@@ -202,7 +204,7 @@ The different documents were the following:
 ### Trello
 [Trello](https://trello.com/en) was one of the tools we used as a task tracker. We had three board, one per project and an administrative.
 
-![Trello workspaces](../../assets/blogs/projectproducing/Trello_general.png)
+<Image src={images.projectproducing_Trello_general_png} alt="Trello workspaces" class="w-full"/>
 
 These boards were, at the beginning used by everyone. We had made categories to sort the different stages of work:
 - Backlog: The work that was emitted by a product owner but not yet assigned.
@@ -214,7 +216,7 @@ These boards were, at the beginning used by everyone. We had made categories to 
 Once the process was done and a task had effectively been validated, it was generally updated on the different 
 Backlogs and stored in the Trello archives.
 
-![Trello Girl and Kitty board](../../assets/blogs/projectproducing/Trello_board.png)
+<Image src={images.projectproducing_Trello_board_png} alt="Trello Girl and Kitty board" class="w-full"/>
 
 At the beginning we all used trello but in the end, the game artists and sound 
 engineers found it more convenient to use an Excels list (see [Project folders](#project-folders)).
@@ -222,18 +224,18 @@ engineers found it more convenient to use an Excels list (see [Project folders](
 ### Miro
 [Miro](https://miro.com/) was tool we used to design and do brainstorming. We had three boards, one per project and one for administrative work. 
 
-![Miro workspaces](../../assets/blogs/projectproducing/Miro_workspaces.png)
+<Image src={images.projectproducing_Miro_workspaces_png} alt="Miro workspaces" class="w-full"/>
 
 Since it is an online broadcasted whiteboard, we could all work together: draw, write and expose our ideas in a more graphical way.
 
-![Miro VR board](../../assets/blogs/projectproducing/Miro_board.png)
+<Image src={images.projectproducing_Miro_board_png} alt="Miro VR board" class="w-full"/>
 
 It ended up being really useful when designing the game flow, mechanics and enigma ideas.
 
 ### Discord
 To communicate on a more daily basis we used [discord](https://discord.com/).
 
-![Projects Discord](../../assets/blogs/projectproducing/Discord.png)
+<Image src={images.projectproducing_Discord_png} alt="Projects Discord" class="w-full"/>
 
 The different canal created where the following:
 - General: for general notifications about the projects.

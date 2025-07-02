@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "imgindex": "node scripts/generate-image-index.mjs"
+    "img:index": "node scripts/generate-image-index.mjs",
+    "img:replacemdx": "node scripts/replace-images-cli.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.9",
