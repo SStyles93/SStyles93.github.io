@@ -9,7 +9,7 @@ teamSize: 1
 timeFrame: "3 months"
 toolUsed: "C++/Tracy"
 ---
-import {Image} from "astro:assets";
+import MdImage from "../../components/MdImage.astro";
 import * as images from "/src/assets/blogs";
 import Button from "../../components/Button.astro";
 
@@ -50,17 +50,17 @@ I first implemented the simplified version of the rasterizer
 called [Hello, Triangle!](https://tayfunkayhan.wordpress.com/2018/11/24/rasterization-in-one-weekend-part-i/), 
 in that part I rendered a simple triangle.  
 
-<Image src={images.rasterizer_RenderTriangle_png} alt="Triangle Render" class="w-full"/> 
+<MdImage src={images.rasterizer_RenderTriangle_png} alt="Triangle Render" class="w-full"/> 
 
 Then the second part [Go 3D](https://tayfunkayhan.wordpress.com/2018/12/16/rasterization-in-one-weekend-part-ii/) 
 that introduced all the concepts relative to 3D space.
 
-<Image src={images.rasterizer_RenderCube_png} alt="Cubes Render" class="w-full"/> 
+<MdImage src={images.rasterizer_RenderCube_png} alt="Cubes Render" class="w-full"/> 
 
 And finally, the last part [Go Wild!](https://tayfunkayhan.wordpress.com/2018/12/30/rasterization-in-one-weekend-part-iii/) 
 that in terms allowed me to add elements such as loading objects and handling textures.
 
-<Image src={images.rasterizer_RenderScene_png} alt="Scene Render" class="w-full"/> 
+<MdImage src={images.rasterizer_RenderScene_png} alt="Scene Render" class="w-full"/> 
 
 One of the objects I added to the project was 
 [The survival guitar backpack](https://sketchfab.com/3d-models/survival-guitar-backpack-799f8c4511f84fab8c3f12887f7e6b36) 
@@ -115,14 +115,14 @@ Google Test and then Tracy so that I could visually see and analyse where the bo
 The first noticeable point was the fact that my program was only using one CPU thread. 
 At that point I already knew and did not need to actually see it but still, I was happy to see the results Tracy gave me.
 
-<Image src={images.rasterizer_RasterizerWithoutOMP_png} alt="Rasterizer Without OMP" class="w-full"/> 
+<MdImage src={images.rasterizer_RasterizerWithoutOMP_png} alt="Rasterizer Without OMP" class="w-full"/> 
 
 So, after some research I stumbled upon [OpenMP](https://en.wikipedia.org/wiki/OpenMP), 
 basically a library that enables multithreading with simple 
 [#pragmas](https://learn.microsoft.com/fr-fr/cpp/preprocessor/pragma-directives-and-the-pragma-keyword?view=msvc-170), 
 the result was not only nice to see in Tracy but would turn out to be really effective.
 
-<Image src={images.rasterizer_RasterizerWithOMP_png} alt="Rasterizer With OMP" class="w-full"/> 
+<MdImage src={images.rasterizer_RasterizerWithOMP_png} alt="Rasterizer With OMP" class="w-full"/> 
 
 As you can see my program went from using a unique core of my CPU (Main thread) 
 to using the 6 cores available (12 threads, main thread + 11 threads). 
@@ -145,7 +145,7 @@ That was quite an improvement but, 1h20 to render a Scene was not ideal, I had t
 Looking at the code and thinking about its functionality it was easy to understand that looping over all the pixels in the screen space for ~260k triangles was not optimal; the higher the resolution got, the slower the program would finish its job.  
 For that reason, I implemented a bounding box around each triangle so that I could save time by only looping over the pixels contained in the bounding boxes.
 
-<Image src={images.rasterizer_TriangleBoundingBox_png} alt="Triangle Bounding Box" class="w-full"/> 
+<MdImage src={images.rasterizer_TriangleBoundingBox_png} alt="Triangle Bounding Box" class="w-full"/> 
 
 To do so, I had to modify some parts of my code, first I implemented the bounding boxes coordinates:
 
@@ -282,7 +282,7 @@ And finally the `MinTime(time_in_seconds)` was to insure that there would be eno
 
 The first benchmark results where the following:
 
-<Image src={images.rasterizer_BM_BBTri_NoParams_png} alt="BM_BBTri_NoParams" class="w-full"/> 
+<MdImage src={images.rasterizer_BM_BBTri_NoParams_png} alt="BM_BBTri_NoParams" class="w-full"/> 
 
 The result was looking quite good but I still had bottlenecks that had to be dealt with.
 
@@ -291,13 +291,13 @@ The result was looking quite good but I still had bottlenecks that had to be dea
 One of the bottlenecks I noticed by profiling with Tracy was that the Triangle calculations where always stopped per mesh. 
 That meant that some threads stopped working and would wait for the next mesh to be processed before starting a new work.
 
-<Image src={images.rasterizer_RasterizerNoParams_png} alt="Rasterizer With No Params" class="w-full"/> 
+<MdImage src={images.rasterizer_RasterizerNoParams_png} alt="Rasterizer With No Params" class="w-full"/> 
 
 For that reason, I started to look into the [OMP parameters](https://www.ibm.com/docs/en/xl-c-aix/13.1.2?topic=processing-pragma-omp) 
 and after multiple profiling sessions, I found that if I multithreaded the pixels looping (per triangle) 
 instead of the entire triangle transformation it went a little bit faster and the threads wouldn't wait for work.
 
-<Image src={images.rasterizer_RasterizerParams_png} alt="Rasterizer With Params" class="w-full"/> 
+<MdImage src={images.rasterizer_RasterizerParams_png} alt="Rasterizer With Params" class="w-full"/> 
 
 To obtain that result the modifications where the following:
 
@@ -318,7 +318,7 @@ work where the amount of chunks are dynamically defined.
 
 With that little modification, my program went from 26 seconds to 20 and the benchmark results where the following: 
 
-<Image src={images.rasterizer_BM_BBTri_Params_png} alt="BM BBTri Params" class="w-full"/> 
+<MdImage src={images.rasterizer_BM_BBTri_Params_png} alt="BM BBTri Params" class="w-full"/> 
 
 ## Incremental Edge Function
 
@@ -326,7 +326,7 @@ After the previous steps, I was blocked and didn't know what I could do to optim
 So, I went back to Tracy and looked where my program spent the most time and found that some of my meshes where really 
 slow to be processed (slowest 1.23 seconds)
 
-<Image src={images.rasterizer_MeshMaxTime_png} alt="Mesh Max Time" class="w-full"/> 
+<MdImage src={images.rasterizer_MeshMaxTime_png} alt="Mesh Max Time" class="w-full"/> 
 
 So, I had to find a way to optimize calculations. That is when I found this course from 
 [MIT](https://www.mit.edu/) on 
@@ -364,12 +364,12 @@ value was higher than 0 and just return the value of the calculation directly. T
 the Edge for each pixel `(Xn,Yn)` we calculate it just once per Y line `(X0,Yn)` and after each X loop we move the edges of our function 
 so that we get a result for all the X pixels without calculating the edge again.
 
-<Image src={images.rasterizer_MeshMaxTimeOpti_png} alt="Mesh Max Time Opti" class="w-full"/> 
+<MdImage src={images.rasterizer_MeshMaxTimeOpti_png} alt="Mesh Max Time Opti" class="w-full"/> 
 
 As you can see, the biggest mesh in my scene went from 1.23 seconds to 586.79 milliseconds. 
 My program's execution time, with this optimization, went from 20 seconds to 14 and the benchmark's results were the following:
 
-<Image src={images.rasterizer_IncrementalEdgeFunction_png} alt="BM Incremental Edge Func" class="w-full"/> 
+<MdImage src={images.rasterizer_IncrementalEdgeFunction_png} alt="BM Incremental Edge Func" class="w-full"/> 
 
 Taking in account that the loading of the objects takes ~2 seconds and that the .png writing takes ~6 seconds. 
 The core of my program takes roughly 6 seconds to rasterize my scene. We also have to take in account that the program is 
@@ -409,7 +409,7 @@ For other compilers:
 
 After running a final benchmark I ended up with these values:  
 
-<Image src={images.rasterizer_RasterizerFlags_png} alt="BM Rasterizer Flags" class="w-full"/> 
+<MdImage src={images.rasterizer_RasterizerFlags_png} alt="BM Rasterizer Flags" class="w-full"/> 
 
 ## Optimization Graph
 
@@ -418,20 +418,20 @@ was running out and I had to wrap up my project to deliver it on time. Neverthel
 of my work in each state of the program, with sensibly different objects and different resolutions. 
 So, I did a benchmark for each state preceding the introduction of benchmarking to my project and assembled the values in a graph:
 
-<Image src={images.rasterizer_FirstGraph_png} alt="FirstGraph" class="w-full"/> 
+<MdImage src={images.rasterizer_FirstGraph_png} alt="FirstGraph" class="w-full"/> 
 
 As you can see, if I use the benchmarks values for all states of optimization in my graph, 
 we can bearly see anything except that the "BM_TransformBackpack/n" is already significantly impacted by the implementation 
 of OpenMP and that the "BM_TransformScene/n" doesn't even give values before that point. For those reasons, 
 but also because basically the earlier stages of benchmarking weren't initially intended, we are going to take them out of the graph.
 
-<Image src={images.rasterizer_SecondGraph_png} alt="SecondGraph" class="w-full"/> 
+<MdImage src={images.rasterizer_SecondGraph_png} alt="SecondGraph" class="w-full"/> 
 
 Here, we can see quite clearly that at high density of pixels and triangles the optimizations seem to be more effective. 
 The problem is that the difference in scale makes it hard to read, so we are also going to take out the benchmarks running at 
 improbable resolutions (BM_TransformObject/3) and we finally get a "readable" graph.
 
-<Image src={images.rasterizer_ThirdGraph_png} alt="ThirdGraph" class="w-full"/> 
+<MdImage src={images.rasterizer_ThirdGraph_png} alt="ThirdGraph" class="w-full"/> 
 
 (Note that these benchmarks where run on a portable computer with a 6 Core Intel i7 9750H running at 2.6 GHz and 32 GB of RAM)
 

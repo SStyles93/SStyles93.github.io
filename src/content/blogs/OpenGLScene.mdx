@@ -9,7 +9,7 @@ teamSize: 1
 timeFrame: "3 months"
 toolUsed: "C++/OpenGL"
 ---
-import {Image} from "astro:assets";
+import MdImage from "../../components/MdImage.astro";
 import * as images from "/src/assets/blogs";
 
 ## Contextualisation
@@ -20,7 +20,7 @@ graphics programming.
 
 For that module, I was introduced to [OpenGL](https://www.opengl.org/) and followed some steps of the [LearnOpenGL](https://learnopengl.com/) web site. After that I had to put all my knowledge together to render a complete scene as showed below.
 
-<Image src={images.opengl_lastScene_png} alt="LastScene" class="w-full"/> 
+<MdImage src={images.opengl_lastScene_png} alt="LastScene" class="w-full"/> 
 
 To do so, I went through a lot of testing and created a lot of different scenes. All of them can be found [here](https://github.com/SStyles93/opengl-scene).  
 Note that this is not (at all) an example of clean code, with abstractions, optimisations and good C++ practices. It was done with a limited amount of time and had to be ended well before all the features I would of liked where implemented.
@@ -29,7 +29,7 @@ Note that this is not (at all) an example of clean code, with abstractions, opti
 
 Since this is a graphical topic, The best way to get into the scene is probably to do a graph that resumes the flow.
 
-<Image src={images.opengl_SceneFlow_png} alt="SceneFlow" class="w-full"/> 
+<MdImage src={images.opengl_SceneFlow_png} alt="SceneFlow" class="w-full"/> 
 
 As shown above, the scene initialises all the data needed in the `Begin()`, updates all the values in the `Update()` and finished by destroying all buffers in the `End()`.
 
@@ -68,7 +68,7 @@ void ModelMatrices::SetObject(glm::vec3 position, glm::vec3 rotationAxis,float a
 
 Afterwards I had to generate and set all the framebuffers used along by pipeline. The first I set was the ShadowMap buffer, basically a depthbuffer from the "camera" point of view of the directionnal light.  
 
-<Image src={images.opengl_ShadowMap_png} alt="ShadowMap" class="w-full"/> 
+<MdImage src={images.opengl_ShadowMap_png} alt="ShadowMap" class="w-full"/> 
 
 Then the "gBuffer" used to apply [DeferredRendering](https://learnopengl.com/Advanced-Lighting/Deferred-Shading); its implementation required to change the way the pipeline was functioning at the beginning. Where in forward rendering we used to have two shaders (vertex & fragment) the deferred rendering required a buffer (gBuffer) and four shaders.  
 Here the setting of the FrameBuffer:  
@@ -199,7 +199,7 @@ void main()
 
 ```
 
-<Image src={images.opengl_separateARM_png} alt="separateARM" class="w-full"/>
+<MdImage src={images.opengl_separateARM_png} alt="separateARM" class="w-full"/>
 
 or combining them together as one texture with an other fragment shader:  
 
@@ -244,7 +244,7 @@ After the geometry pass has written in the buffer, the SSAO pass is called takin
 
 SSAO | SSAO Blur
 :-----:|:-----:
-<Image src={images.opengl_SSAO_png} alt="SSAO" class="w-full"/>  | <Image src={images.opengl_SSAO1_png} alt="SSAO1" class="w-full"/>  
+<MdImage src={images.opengl_SSAO_png} alt="SSAO" class="w-full"/>  | <MdImage src={images.opengl_SSAO1_png} alt="SSAO1" class="w-full"/>  
 
 Then the Light pass is called and calculates all the lighting for every object but only once!  
 
@@ -299,7 +299,7 @@ After that being done, the rendering of boxes to show light positions is done, t
 
 Downsample | Upsample
 :-----:|:-----:
-<Image src={images.opengl_downsampling_png} alt="downsample" class="w-full"/>  | <Image src={images.opengl_upsampling_png} alt="upsample" class="w-full"/>
+<MdImage src={images.opengl_downsampling_png} alt="downsample" class="w-full"/>  | <MdImage src={images.opengl_upsampling_png} alt="upsample" class="w-full"/>
 
 The last feature I implemented in the scene, that was called by the engine's `Run`, was some GUIs with [ImGui](https://github.com/ocornut/imgui). The idea was to give the possibility to the user to play a bit with some elements is my scene.
 
@@ -343,6 +343,6 @@ I think overall that learning OpenGL was really a fun experience. Sometimes it w
 
 That being said I am still very proud of what I was able to create during this journey discovering OpenGL.
 
-<Image src={images.opengl_scene1_png} alt="LastScene" class="w-full"/> 
+<MdImage src={images.opengl_scene1_png} alt="LastScene" class="w-full"/> 
 
 The entire project can be found [here](https://github.com/SStyles93/opengl-scene).

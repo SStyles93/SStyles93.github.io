@@ -8,7 +8,7 @@ teamSize: 1
 timeFrame: "5 days"
 toolUsed: "C++/UE5"
 ---
-import {Image} from "astro:assets";
+import MdImage from "../../components/MdImage.astro";
 import * as images from "/src/assets/blogs";
 import Button from "../../components/Button.astro";
 import Video from "../../components/Video.astro";
@@ -23,7 +23,7 @@ The name of the project is called SubCaelo, a Pod-Racer multiplayer game created
 [Unreal Engine 5](https://www.unrealengine.com/en-US/unreal-engine-5).
 The reference we had for gameplay/visuals was the following:
 
-<Image src={images.tool_PodRacerRef_png} alt="Pod racer reference" class="w-full"/>
+<MdImage src={images.tool_PodRacerRef_png} alt="Pod racer reference" class="w-full"/>
 
 Since we were working for a team, we were given different subjects to work on. 
 The subject I chose was character animation.
@@ -36,7 +36,7 @@ This was of course not a tool "per se" but was validated by the team and the tea
 
 My first step was to understand the project and get familiar with the player character (APodPawn).
 
-<Image src={images.tool_PodPawn_png} alt="PodPawn game object" class="w-full"/>
+<MdImage src={images.tool_PodPawn_png} alt="PodPawn game object" class="w-full"/>
 
 Since the player was not done in [blueprint](https://docs.unrealengine.com/5.0/en-US/blueprints-visual-scripting-in-unreal-engine/), 
 I had to dive in the C++ file used to create the player and understand it.
@@ -131,7 +131,7 @@ In the end the ".h" and result looked like this:
 
 ```
 
-<Image src={images.tool_Components_png} alt="Pod racer components" class="w-full"/>
+<MdImage src={images.tool_Components_png} alt="Pod racer components" class="w-full"/>
 
 ```c++
 	//Body basic rotation
@@ -150,7 +150,7 @@ In the end the ".h" and result looked like this:
 	UPROPERTY(EditAnywhere, Category = "Object Dynamic Rotation")
 		FRotator PropellersMaxRotation = { 50.0f, 50.0f, 50.0f};
 ```
-<Image src={images.tool_DynamicRotations_png} alt="Pod racer dynamic rotations" class="w-full"/> 
+<MdImage src={images.tool_DynamicRotations_png} alt="Pod racer dynamic rotations" class="w-full"/> 
 
 ## Game feel improvement
 
@@ -172,7 +172,7 @@ UPROPERTY(EditAnywhere, Category = "Camera Values")
 		float MinFOV = 65.0f;
 ```
 
-<Image src={images.tool_CameraValues_png} alt="Pod racer camera values" class="w-full"/> 
+<MdImage src={images.tool_CameraValues_png} alt="Pod racer camera values" class="w-full"/> 
 
 and in the ".cpp" file the different methods:
 
@@ -310,7 +310,7 @@ and the camera/body rotation version:
 Thanks to the exposed properties the game designers would be able 
 to change all values in order to modify them according to their will directly in the "Detail" window of the editor.
 
-<Image src={images.tool_Result_png} alt="Detail Window" class="w-full"/> 
+<MdImage src={images.tool_Result_png} alt="Detail Window" class="w-full"/> 
 
 ## Conclusion
 

@@ -1,7 +1,7 @@
 ---
 title: Unreal Engine - Renaming Tool
 description: "Explanation of a script made to rename and organize Unreal Engine projects"
-heroImage: ""
+heroImage: "/src/assets/blogs/uepython/UeConsole.png"
 order: 0
 creationDate : "Nov 10 2024"
 teamSize: 1
@@ -9,7 +9,8 @@ timeFrame: "2 days"
 toolUsed: "Python/UE5"
 ---
 
-
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/blogs";
 
 ## Introduction
 
@@ -20,13 +21,22 @@ For that reason I decided to create a script that would automatically rename obj
 
 ## Installation
 
-https://dev.epicgames.com/documentation/en-us/unreal-engine/scripting-the-editor-using-python?application_version=4.27
+For the installation it is possible to follow Unreal Engines documentation about [scripting with python](https://dev.epicgames.com/documentation/en-us/unreal-engine/scripting-the-editor-using-python?application_version=4.27).
+It gives a basic understanding of how to procede.
 
-C:\Program Files\Epic Games\UE_5.3\Engine\Plugins\Experimental\PythonScriptPlugin\Content\Python
+To avoid having to call a script with its absolute path it is possible to "drag and drop" it in the Engines folder.
+Following the "normal" installation it should be located in the following path:  
+_C:\Program Files\Epic Games\UE\_\{version}\Engine\Plugins\Experimental\PythonScriptPlugin\Content\Python_
 
 ## Renaming script
 
-### Code
+As stated previously, the idea is to rename all the selected objects and replace particles of their name.
+
+<MdImage src={images.uepython_UeMats_png} alt="Unreal Engine materials with bad naming"/>
+
+To do so it is possible to use the code given below
+
+#### Code
 
 ```python
 import unreal
@@ -39,13 +49,17 @@ def rename_assets(search_pattern, replace_pattern):
     editor_util = unreal.EditorUtilityLibrary()
     string_lib = unreal.StringLibrary()
 
+    # gets all the assets selected in editor
     selected_assets = editor_util.get_selected_assets()
+    # gets the number of assets
     num_assets = len(selected_assets)
 
     replaced = 0
 
+    # logs the amount of assets selected
     unreal.log("Selected {} asset/s".format(num_assets))
 
+    # renames the assets
     for asset in selected_assets:
         asset_name = system_lib.get_object_name(asset)
 
@@ -58,15 +72,24 @@ def rename_assets(search_pattern, replace_pattern):
             unreal.log("Replaced {} with {}".format(asset_name, replaced_name))
         else:
             unreal.log("{} did not match the search pattern, was skipped".format(asset_name))
-
+    
     unreal.log("Repalced {} of {} assets".format(replaced, num_assets))
 
-
+# function call definition
 rename_assets(sys.argv[1], sys.argv[2])
 ```
 
-## Consolidation script
+With this code placed in the correct folder (see: [Installation](#installation)) it is possible 
+to run it by typing: "rename_asset.py \{the search patterns}\ \{the replacement\}" in the console after selecting the object to operate on.
 
+<MdImage src={images.uepython_UeConsole_png} alt="UE Materials & Python Console"/>
+
+The Result should be the following:
+
+<MdImage src={images.uepython_UeConsole2_png} alt="UE Materials & Python Console"/>
+
+## Consolidation script
+This second script uses the "consolidate_assets" for Unreal Engine, it is used to merge duplicate objects contained in folder
 ### Code
 ```python
 import unreal

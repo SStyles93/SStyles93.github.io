@@ -221,6 +221,9 @@ export declare const images: {
   tool_Result_png: string;
   tothetmoonandback_ToTheMoonAndBack_Game_gif: string;
   tothetmoonandback_ToTheMoonAndBack_Menu_png: string;
+  uepython_UeConsole_png: string;
+  uepython_UeConsole2_png: string;
+  uepython_UeMats_png: string;
   ueshaderwork_Distortion_Use_gif: string;
   ueshaderwork_Distortion_Use_png: string;
   ueshaderwork_dordogne_jpg: string;
