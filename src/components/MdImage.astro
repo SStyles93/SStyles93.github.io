@@ -6,7 +6,7 @@ const props = Astro.props;
 <div data-lightbox="true">
 	<Image
 		src={props.src}
-		widths={[240, 540, 720, props.widths]}
+		widths={[240, 540, 720, 1600, props.widths]}
 		sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px`}
 		alt={props.alt}
 		class="w-full"
