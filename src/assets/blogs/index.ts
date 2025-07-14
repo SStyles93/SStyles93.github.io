@@ -184,6 +184,9 @@ export { default as projectproducing_VR_Folder_png } from "./projectproducing/VR
 export { default as projectproducing_VR_Pitch_png } from "./projectproducing/VR_Pitch.png";
 export { default as projectproducing_Wwise_png } from "./projectproducing/Wwise.png";
 export { default as projectproducing_Zbrush_png } from "./projectproducing/Zbrush.png";
+export { default as quiztrainer_quiztrainer_png } from "./quiztrainer/quiztrainer.png";
+export { default as quiztrainer_quiztrainier_1_png } from "./quiztrainer/quiztrainier_1.png";
+export { default as quiztrainer_quiztrainier_2_png } from "./quiztrainer/quiztrainier_2.png";
 export { default as rasterizer_BM_BBTri_NoParams_png } from "./rasterizer/BM_BBTri_NoParams.png";
 export { default as rasterizer_BM_BBTri_Params_png } from "./rasterizer/BM_BBTri_Params.png";
 export { default as rasterizer_FirstGraph_png } from "./rasterizer/FirstGraph.png";

@@ -187,6 +187,9 @@ export declare const images: {
   projectproducing_VR_Pitch_png: string;
   projectproducing_Wwise_png: string;
   projectproducing_Zbrush_png: string;
+  quiztrainer_quiztrainer_png: string;
+  quiztrainer_quiztrainier_1_png: string;
+  quiztrainer_quiztrainier_2_png: string;
   rasterizer_BM_BBTri_NoParams_png: string;
   rasterizer_BM_BBTri_Params_png: string;
   rasterizer_FirstGraph_png: string;

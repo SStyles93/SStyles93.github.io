@@ -1,0 +1,1194 @@
+---
+title: "Quiz Trainer"
+description: "A Simple web tool to train for exams"
+creationDate: "Jul 14 2025"
+order: 0
+pinned: false
+heroImage: "/src/assets/projects/quiztrainer/quiztrainer.png"
+teamSize: 1
+timeFrame: "1 day"
+toolUsed: "HTML/CSS/JavaScript"
+---
+import Button from "../../components/Button.astro";
+import Dropdown from "../../components/Dropdown.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/blogs";
+
+#
+<div class="flex">
+        <Button href="/quiz-trainer/quizztrainer.html">Go to QuizTrainer</Button>
+</div>
+
+
+## Why ?
+During my time at [Lab4Tech](https://www.lab4tech.ch/), I was training to obtain different certifications like the  
+**C++** [CLA](https://cppinstitute.org/cla) & [CPP](https://cppinstitute.org/cpp) and the [Unity Professional Programmer](https://unity.com/products/unity-certifications/professional-programmer).
+
+The only problem was that the question pool was so little, it made it impossible to truly train on a vast amout of questions.
+
+## How ?
+To resolve that problem, I decided to create a simple but usefull web page what would intake a [Json](https://en.wikipedia.org/wiki/JSON) file [(Json Doc. Here)](https://www.json.org/json-en.html) and produce an interactive Quiz.
+
+To do so, I used an [AI](https://en.wikipedia.org/wiki/Artificial_intelligence) [chatbot](https://en.wikipedia.org/wiki/Chatbot) and fed it with questions. Once it was fed with a pannel of more or less 50 questions.
+
+I asked it to output a pannel of 100 questions in a Json format (.json) based on what I had given it.
+
+With that done, I created:
+- An [HTML](https://en.wikipedia.org/wiki/HTML) page: for the the website's placement [HTML Code](###html-code-(.html))
+- A [CSS](https://en.wikipedia.org/wiki/CSS) script to make that page a little prettier: [CSS Code](###css-code-(.css))
+- A [JavaScript](https://en.wikipedia.org/wiki/JavaScript) script (.js) for it's functionality: [JavaScript Code](###javascript-code-(.js))
+
+## Limitations
+The only limitation for the moment (14 July 2025) is the format of the Json file.
+For the program to recognize the Json it has to have the following elements:
+```Json
+[
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {"ANY OTHER QUESTION ADDED"},
+  {"ANY OTHER QUESTION ADDED"},
+  {...}
+]
+```
+Knowing this program/webpage was built in one day, there are multiple possibilities of improvments like:
+- Saving the current session
+- Improving the Quiz, with randomness in the question order
+- Adding mutliple choices, and other type of questions
+
+Given my objectives, I do not plan on improving this tool for the moment.
+
+## Result
+Once finished, the basic version allowed me to train on multiple choise questions without being limited.
+<MdImage src={images.quiztrainer_quiztrainier_1_png} alt="Example of Quiz" class="w-full"/>_Quiz Trainer showing an exmaple quiz_
+<MdImage src={images.quiztrainer_quiztrainier_2_png} alt="Example of Quiz" class="w-full"/>_Quiz Trainer showing the answer and explanation_
+
+
+### Original Code
+<Dropdown title="See HTML Code Block">
+### HTML Code (.html)
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Trainer - Interactive Learning Platform</title>
+    <link rel="stylesheet" href="/public/quiz-trainer/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-brain"></i> Quiz Trainer</h1>
+            <p>Upload your JSON file and start practicing questions</p>
+        </header>
+
+        <!-- Upload Section -->
+        <section id="upload-section" class="upload-section">
+            <div class="upload-area" id="upload-area">
+                <div class="upload-content">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <h3>Upload Your Quiz JSON File</h3>
+                    <p>Drag and drop your JSON file here or click to browse</p>
+                    <input type="file" id="file-input" accept=".json" hidden>
+                    <button class="upload-btn" onclick="document.getElementById('file-input').click()">
+                        <i class="fas fa-folder-open"></i> Choose File
+                    </button>
+                </div>
+            </div>
+            <div class="file-info" id="file-info" style="display: none;">
+                <div class="file-details">
+                    <i class="fas fa-file-alt"></i>
+                    <span id="file-name"></span>
+                    <span id="question-count"></span>
+                </div>
+                <button class="start-btn" id="start-quiz">
+                    <i class="fas fa-play"></i> Start Quiz
+                </button>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz-section" class="quiz-section" style="display: none;">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span id="current-question">1</span> of <span id="total-questions">0</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="score-info">
+                    Score: <span id="current-score">0</span>/<span id="attempted-questions">0</span>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="question-card">
+                <div class="question-header">
+                    <h2>Question <span id="question-number">1</span></h2>
+                </div>
+                <div class="question-content">
+                    <div id="question-text"></div>
+                </div>
+                
+                <!-- Answer Choices -->
+                <div class="choices-container" id="choices-container">
+                    <!-- Choices will be dynamically generated -->
+                </div>
+
+                <!-- Feedback Section -->
+                <div class="feedback-section" id="feedback-section" style="display: none;">
+                    <div class="feedback-content">
+                        <div class="feedback-header">
+                            <i id="feedback-icon"></i>
+                            <span id="feedback-title"></span>
+                        </div>
+                        <div class="explanation" id="explanation"></div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="navigation">
+                    <button class="nav-btn" id="prev-btn" disabled>
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <button class="nav-btn primary" id="next-btn" disabled>
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="results-section" style="display: none;">
+            <div class="results-card">
+                <div class="results-header">
+                    <i class="fas fa-trophy"></i>
+                    <h2>Quiz Complete!</h2>
+                </div>
+                <div class="results-content">
+                    <div class="score-circle">
+                        <div class="score-text">
+                            <span id="final-score">0</span>%
+                        </div>
+                    </div>
+                    <div class="results-details">
+                        <div class="result-item">
+                            <span class="label">Correct Answers:</span>
+                            <span id="correct-count">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Total Questions:</span>
+                            <span id="total-count">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Accuracy:</span>
+                            <span id="accuracy">0%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="results-actions">
+                    <button class="action-btn" id="restart-quiz">
+                        <i class="fas fa-redo"></i> Restart Quiz
+                    </button>
+                    <button class="action-btn secondary" id="upload-new">
+                        <i class="fas fa-upload"></i> Upload New File
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="/public/quiz-trainer/script.js"></script>
+</body>
+</html>
+```
+</Dropdown>
+<Dropdown title="See CSS Code Block">
+
+### CSS Code (.css)
+```CSS
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Upload Section */
+.upload-section {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.upload-area {
+    border: 3px dashed #667eea;
+    border-radius: 15px;
+    padding: 60px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    border-color: #764ba2;
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.upload-area.dragover {
+    border-color: #764ba2;
+    background: rgba(102, 126, 234, 0.1);
+    transform: scale(1.02);
+}
+
+.upload-icon {
+    font-size: 4rem;
+    color: #667eea;
+    margin-bottom: 20px;
+}
+
+.upload-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.upload-content p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+.upload-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.upload-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* File Info */
+.file-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.file-details {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.file-details i {
+    color: #667eea;
+    font-size: 1.5rem;
+}
+
+.start-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.start-btn:hover {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
+/* Quiz Section */
+.quiz-section {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+/* Progress Bar */
+.progress-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 15px;
+}
+
+.progress-info, .score-info {
+    font-weight: 600;
+    color: #333;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    margin: 0 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+/* Question Card */
+.question-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.question-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.question-header h2 {
+    font-size: 1.5rem;
+}
+
+.question-content {
+    padding: 30px;
+}
+
+#question-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+/* Code Blocks */
+pre {
+    background: #2d3748 !important;
+    border-radius: 10px !important;
+    padding: 20px !important;
+    margin: 20px 0 !important;
+    overflow-x: auto;
+}
+
+code {
+    font-family: 'Fira Code', 'Consolas', monospace !important;
+    font-size: 0.9rem !important;
+}
+
+/* Choices */
+.choices-container {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.choice {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.choice:hover {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+    transform: translateY(-2px);
+}
+
+.choice.selected {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.choice.correct {
+    border-color: #28a745;
+    background: rgba(40, 167, 69, 0.1);
+}
+
+.choice.incorrect {
+    border-color: #dc3545;
+    background: rgba(220, 53, 69, 0.1);
+}
+
+.choice-letter {
+    background: #667eea;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.choice.correct .choice-letter {
+    background: #28a745;
+}
+
+.choice.incorrect .choice-letter {
+    background: #dc3545;
+}
+
+.choice-text {
+    flex: 1;
+    font-size: 1.1rem;
+}
+
+/* Feedback Section */
+.feedback-section {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-left: 5px solid #667eea;
+}
+
+.feedback-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.feedback-section.correct {
+    border-left-color: #28a745;
+    background: rgba(40, 167, 69, 0.05);
+}
+
+.feedback-section.incorrect {
+    border-left-color: #dc3545;
+    background: rgba(220, 53, 69, 0.05);
+}
+
+.feedback-section.correct .feedback-header {
+    color: #28a745;
+}
+
+.feedback-section.incorrect .feedback-header {
+    color: #dc3545;
+}
+
+.explanation {
+    color: #555;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+/* Navigation */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.nav-btn {
+    padding: 15px 30px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+    flex: 1;
+    max-width: 200px;
+}
+
+.nav-btn:hover:not(:disabled) {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.nav-btn.primary {
+    background: #667eea;
+    color: white;
+}
+
+.nav-btn.primary:hover:not(:disabled) {
+    background: #764ba2;
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Results Section */
+.results-section {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.results-header {
+    margin-bottom: 40px;
+}
+
+.results-header i {
+    font-size: 4rem;
+    color: #ffd700;
+    margin-bottom: 20px;
+}
+
+.results-header h2 {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.results-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    margin-bottom: 40px;
+}
+
+.score-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(#667eea 0deg, #764ba2 360deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.score-circle::before {
+    content: '';
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    background: white;
+    border-radius: 50%;
+}
+
+.score-text {
+    position: relative;
+    z-index: 1;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.results-details {
+    text-align: left;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 1.2rem;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-weight: 600;
+    color: #555;
+}
+
+.results-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.action-btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.action-btn:not(.secondary) {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.action-btn.secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .upload-section, .quiz-section, .results-section {
+        padding: 20px;
+    }
+    
+    .progress-container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .progress-bar {
+        margin: 0;
+        width: 100%;
+    }
+    
+    .results-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .results-actions {
+        flex-direction: column;
+    }
+    
+    .navigation {
+        flex-direction: column;
+    }
+    
+    .nav-btn {
+        max-width: none;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.question-card, .feedback-section {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #667eea;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+```
+</Dropdown>
+<Dropdown title="See CSS Code Block">
+
+### JavaScript Code (.js)
+```JavaScript
+// @ts-nocheck
+// Quiz Trainer Application
+class QuizTrainer {
+    constructor() {
+        this.questions = [];
+        this.currentQuestionIndex = 0;
+        this.userAnswers = [];
+        this.score = 0;
+        this.isAnswered = false;
+        
+        this.initializeEventListeners();
+    }
+
+    initializeEventListeners() {
+        // File upload events
+        const fileInput = document.getElementById('file-input');
+        const uploadArea = document.getElementById('upload-area');
+        
+        fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
+        
+        // Drag and drop events
+        uploadArea.addEventListener('dragover', (e) => this.handleDragOver(e));
+        uploadArea.addEventListener('dragleave', (e) => this.handleDragLeave(e));
+        uploadArea.addEventListener('drop', (e) => this.handleFileDrop(e));
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        // Quiz control events
+        document.getElementById('start-quiz').addEventListener('click', () => this.startQuiz());
+        document.getElementById('prev-btn').addEventListener('click', () => this.previousQuestion());
+        document.getElementById('next-btn').addEventListener('click', () => this.nextQuestion());
+        document.getElementById('restart-quiz').addEventListener('click', () => this.restartQuiz());
+        document.getElementById('upload-new').addEventListener('click', () => this.uploadNewFile());
+    }
+
+    handleDragOver(e) {
+        e.preventDefault();
+        document.getElementById('upload-area').classList.add('dragover');
+    }
+
+    handleDragLeave(e) {
+        e.preventDefault();
+        document.getElementById('upload-area').classList.remove('dragover');
+    }
+
+    handleFileDrop(e) {
+        e.preventDefault();
+        document.getElementById('upload-area').classList.remove('dragover');
+        
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            this.processFile(files[0]);
+        }
+    }
+
+    handleFileSelect(e) {
+        const file = e.target.files[0];
+        if (file) {
+            this.processFile(file);
+        }
+    }
+
+    processFile(file) {
+        if (!file.name.toLowerCase().endsWith('.json')) {
+            this.showError('Please select a valid JSON file.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const jsonData = JSON.parse(e.target.result);
+                this.validateAndLoadQuestions(jsonData, file.name);
+            } catch (error) {
+                this.showError('Invalid JSON file. Please check the file format.');
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    validateAndLoadQuestions(data, fileName) {
+        // Validate JSON structure
+        if (!Array.isArray(data)) {
+            this.showError('JSON file must contain an array of questions.');
+            return;
+        }
+
+        // Validate each question
+        for (let i = 0; i < data.length; i++) {
+            const question = data[i];
+            if (!question.question || !question.choices || !question.correct_answer || !question.explanation) {
+                this.showError(`Invalid question format at index ${i}. Each question must have: question, choices, correct_answer, and explanation.`);
+                return;
+            }
+        }
+
+        this.questions = data;
+        this.showFileInfo(fileName, data.length);
+    }
+
+    showFileInfo(fileName, questionCount) {
+        document.getElementById('file-name').textContent = fileName;
+        document.getElementById('question-count').textContent = `${questionCount} questions`;
+        document.getElementById('file-info').style.display = 'flex';
+    }
+
+    showError(message) {
+        alert(message); // In a production app, you'd want a better error display
+    }
+
+    startQuiz() {
+        if (this.questions.length === 0) return;
+
+        this.currentQuestionIndex = 0;
+        this.userAnswers = new Array(this.questions.length).fill(null);
+        this.score = 0;
+        this.isAnswered = false;
+
+        document.getElementById('upload-section').style.display = 'none';
+        document.getElementById('quiz-section').style.display = 'block';
+        document.getElementById('results-section').style.display = 'none';
+
+        this.updateQuizInfo();
+        this.displayQuestion();
+    }
+
+    updateQuizInfo() {
+        document.getElementById('current-question').textContent = this.currentQuestionIndex + 1;
+        document.getElementById('total-questions').textContent = this.questions.length;
+        
+        const progress = ((this.currentQuestionIndex + 1) / this.questions.length) * 100;
+        document.getElementById('progress-fill').style.width = `${progress}%`;
+        
+        // Update score
+        const attemptedCount = this.userAnswers.filter(answer => answer !== null).length;
+        document.getElementById('current-score').textContent = this.score;
+        document.getElementById('attempted-questions').textContent = attemptedCount;
+    }
+
+    displayQuestion() {
+        const question = this.questions[this.currentQuestionIndex];
+        const userAnswer = this.userAnswers[this.currentQuestionIndex];
+        
+        document.getElementById('question-number').textContent = this.currentQuestionIndex + 1;
+        
+        // Display question text with code highlighting
+        const questionElement = document.getElementById('question-text');
+        questionElement.innerHTML = this.formatQuestionText(question.question);
+        
+        // Highlight code blocks
+        Prism.highlightAllUnder(questionElement);
+        
+        // Display choices
+        this.displayChoices(question.choices, userAnswer, question.correct_answer);
+        
+        // Show feedback if question was already answered
+        if (userAnswer !== null) {
+            this.showFeedback(userAnswer === question.correct_answer, question.explanation);
+            this.isAnswered = true;
+        } else {
+            this.hideFeedback();
+            this.isAnswered = false;
+        }
+        
+        this.updateNavigation();
+    }
+
+    formatQuestionText(text) {
+        // Convert code blocks to proper HTML with syntax highlighting
+        return text.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
+            const language = lang || 'cpp';
+            return `<pre><code class="language-${language}">${this.escapeHtml(code.trim())}</code></pre>`;
+        });
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    displayChoices(choices, userAnswer, correctAnswer) {
+        const container = document.getElementById('choices-container');
+        container.innerHTML = '';
+        
+        Object.entries(choices).forEach(([letter, text]) => {
+            const choiceElement = document.createElement('div');
+            choiceElement.className = 'choice';
+            choiceElement.dataset.choice = letter;
+            
+            // Add selection state
+            if (userAnswer === letter) {
+                choiceElement.classList.add('selected');
+            }
+            
+            // Add correct/incorrect state if answered
+            if (userAnswer !== null) {
+                if (letter === correctAnswer) {
+                    choiceElement.classList.add('correct');
+                } else if (letter === userAnswer && letter !== correctAnswer) {
+                    choiceElement.classList.add('incorrect');
+                }
+            }
+            
+            choiceElement.innerHTML = `
+                <div class="choice-letter">${letter}</div>
+                <div class="choice-text">${text}</div>
+            `;
+            
+            // Add click event only if not answered
+            if (userAnswer === null) {
+                choiceElement.addEventListener('click', () => this.selectAnswer(letter));
+            }
+            
+            container.appendChild(choiceElement);
+        });
+    }
+
+    selectAnswer(selectedChoice) {
+        if (this.isAnswered) return;
+        
+        const question = this.questions[this.currentQuestionIndex];
+        const isCorrect = selectedChoice === question.correct_answer;
+        
+        // Update user answers
+        this.userAnswers[this.currentQuestionIndex] = selectedChoice;
+        
+        // Update score
+        if (isCorrect) {
+            this.score++;
+        }
+        
+        // Update choice display
+        this.displayChoices(question.choices, selectedChoice, question.correct_answer);
+        
+        // Show feedback
+        this.showFeedback(isCorrect, question.explanation);
+        
+        this.isAnswered = true;
+        this.updateQuizInfo();
+        this.updateNavigation();
+    }
+
+    showFeedback(isCorrect, explanation) {
+        const feedbackSection = document.getElementById('feedback-section');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const explanationElement = document.getElementById('explanation');
+        
+        feedbackSection.style.display = 'block';
+        feedbackSection.className = `feedback-section ${isCorrect ? 'correct' : 'incorrect'}`;
+        
+        if (isCorrect) {
+            feedbackIcon.className = 'fas fa-check-circle';
+            feedbackTitle.textContent = 'Correct!';
+        } else {
+            feedbackIcon.className = 'fas fa-times-circle';
+            feedbackTitle.textContent = 'Incorrect';
+        }
+        
+        explanationElement.textContent = explanation;
+    }
+
+    hideFeedback() {
+        document.getElementById('feedback-section').style.display = 'none';
+    }
+
+    updateNavigation() {
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        prevBtn.disabled = this.currentQuestionIndex === 0;
+        
+        if (this.currentQuestionIndex === this.questions.length - 1) {
+            nextBtn.textContent = 'Finish Quiz';
+            nextBtn.innerHTML = 'Finish Quiz <i class="fas fa-flag-checkered"></i>';
+        } else {
+            nextBtn.innerHTML = 'Next <i class="fas fa-chevron-right"></i>';
+        }
+        
+        // Enable next button if question is answered or if we're navigating back
+        nextBtn.disabled = !this.isAnswered && this.userAnswers[this.currentQuestionIndex] === null;
+    }
+
+    previousQuestion() {
+        if (this.currentQuestionIndex > 0) {
+            this.currentQuestionIndex--;
+            this.displayQuestion();
+            this.updateQuizInfo();
+        }
+    }
+
+    nextQuestion() {
+        if (this.currentQuestionIndex < this.questions.length - 1) {
+            this.currentQuestionIndex++;
+            this.displayQuestion();
+            this.updateQuizInfo();
+        } else {
+            this.finishQuiz();
+        }
+    }
+
+    finishQuiz() {
+        this.showResults();
+    }
+
+    showResults() {
+        const totalQuestions = this.questions.length;
+        const correctAnswers = this.score;
+        const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+        
+        document.getElementById('quiz-section').style.display = 'none';
+        document.getElementById('results-section').style.display = 'block';
+        
+        document.getElementById('final-score').textContent = percentage;
+        document.getElementById('correct-count').textContent = correctAnswers;
+        document.getElementById('total-count').textContent = totalQuestions;
+        document.getElementById('accuracy').textContent = `${percentage}%`;
+        
+        // Animate score circle
+        this.animateScoreCircle(percentage);
+    }
+
+    animateScoreCircle(percentage) {
+        const circle = document.querySelector('.score-circle');
+        const degrees = (percentage / 100) * 360;
+        
+        // Create gradient based on score
+        let color1, color2;
+        if (percentage >= 80) {
+            color1 = '#28a745';
+            color2 = '#20c997';
+        } else if (percentage >= 60) {
+            color1 = '#ffc107';
+            color2 = '#fd7e14';
+        } else {
+            color1 = '#dc3545';
+            color2 = '#e83e8c';
+        }
+        
+        circle.style.background = `conic-gradient(${color1} 0deg, ${color2} ${degrees}deg, #e9ecef ${degrees}deg, #e9ecef 360deg)`;
+    }
+
+    restartQuiz() {
+        this.startQuiz();
+    }
+
+    uploadNewFile() {
+        document.getElementById('upload-section').style.display = 'block';
+        document.getElementById('quiz-section').style.display = 'none';
+        document.getElementById('results-section').style.display = 'none';
+        document.getElementById('file-info').style.display = 'none';
+        document.getElementById('file-input').value = '';
+        
+        this.questions = [];
+        this.currentQuestionIndex = 0;
+        this.userAnswers = [];
+        this.score = 0;
+        this.isAnswered = false;
+    }
+}
+
+// Initialize the application when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new QuizTrainer();
+});
+
+// Add some utility functions for better UX
+document.addEventListener('keydown', (e) => {
+    // Allow keyboard navigation
+    if (document.getElementById('quiz-section').style.display === 'block') {
+        if (e.key === 'ArrowLeft') {
+            document.getElementById('prev-btn').click();
+        } else if (e.key === 'ArrowRight') {
+            document.getElementById('next-btn').click();
+        } else if (['a', 'b', 'c', 'd'].includes(e.key.toLowerCase())) {
+            const choice = e.key.toUpperCase();
+            const choiceElement = document.querySelector(`[data-choice="${choice}"]`);
+            if (choiceElement && !choiceElement.classList.contains('selected')) {
+                choiceElement.click();
+            }
+        }
+    }
+});
+
+// Prevent accidental page refresh during quiz
+window.addEventListener('beforeunload', (e) => {
+    if (document.getElementById('quiz-section').style.display === 'block') {
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
+```
+</Dropdown>
