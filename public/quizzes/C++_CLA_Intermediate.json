@@ -1,0 +1,1270 @@
+[
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "float",
+      "B": "char",
+      "C": "long",
+      "D": "int"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "*",
+      "B": "new",
+      "C": "+",
+      "D": "/"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 1);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "`*(arr + 1)` accesses the element at index 1, which is 2."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "bool",
+      "B": "long",
+      "C": "std::string",
+      "D": "float"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 5;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 5 to 'ref' changes 'a' to 5, so output is 5."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "+",
+      "B": "*",
+      "C": "sizeof",
+      "D": "-"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 1);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "`*(arr + 1)` accesses the element at index 1, which is 2."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "double",
+      "B": "char",
+      "C": "float",
+      "D": "long"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "*",
+      "B": "new",
+      "C": "?:",
+      "D": "+"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 0);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "`*(arr + 0)` accesses the element at index 0, which is 1."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "std::vector",
+      "B": "int",
+      "C": "long",
+      "D": "double"
+    },
+    "correct_answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "+",
+      "B": "%",
+      "C": "-",
+      "D": "*"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 2);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "`*(arr + 2)` accesses the element at index 2, which is 3."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "bool",
+      "B": "float",
+      "C": "std::string",
+      "D": "int"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 5;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 5 to 'ref' changes 'a' to 5, so output is 5."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "/",
+      "B": "*",
+      "C": "%",
+      "D": "->"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 0);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "`*(arr + 0)` accesses the element at index 0, which is 1."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "std::string",
+      "B": "int",
+      "C": "std::vector",
+      "D": "float"
+    },
+    "correct_answer": [
+      "B",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "*",
+      "B": "+",
+      "C": "sizeof",
+      "D": "new"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 2);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "`*(arr + 2)` accesses the element at index 2, which is 3."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "char",
+      "B": "int",
+      "C": "bool",
+      "D": "std::vector"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 5;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 5 to 'ref' changes 'a' to 5, so output is 5."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "->",
+      "B": "%",
+      "C": "sizeof",
+      "D": "*"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 0);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "`*(arr + 0)` accesses the element at index 0, which is 1."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "char",
+      "B": "bool",
+      "C": "std::vector",
+      "D": "float"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "->",
+      "B": "new",
+      "C": "*",
+      "D": "%"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 2);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "`*(arr + 2)` accesses the element at index 2, which is 3."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "std::string",
+      "B": "bool",
+      "C": "char",
+      "D": "float"
+    },
+    "correct_answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "->",
+      "B": "/",
+      "C": "-",
+      "D": "*"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 1);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "`*(arr + 1)` accesses the element at index 1, which is 2."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "std::vector",
+      "B": "char",
+      "C": "long",
+      "D": "float"
+    },
+    "correct_answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 5;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 5 to 'ref' changes 'a' to 5, so output is 5."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "/",
+      "B": "sizeof",
+      "C": "+",
+      "D": "-"
+    },
+    "correct_answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 2);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "`*(arr + 2)` accesses the element at index 2, which is 3."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "int",
+      "B": "double",
+      "C": "std::string",
+      "D": "long"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "new",
+      "B": "sizeof",
+      "C": "+",
+      "D": "-"
+    },
+    "correct_answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 1);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "`*(arr + 1)` accesses the element at index 1, which is 2."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "bool",
+      "B": "float",
+      "C": "char",
+      "D": "std::vector"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "->",
+      "B": "new",
+      "C": "-",
+      "D": "+"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 0);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "`*(arr + 0)` accesses the element at index 0, which is 1."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "bool",
+      "B": "std::string",
+      "C": "int",
+      "D": "std::vector"
+    },
+    "correct_answer": [
+      "A",
+      "C"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "?:",
+      "B": "%",
+      "C": "new",
+      "D": "+"
+    },
+    "correct_answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 2);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "`*(arr + 2)` accesses the element at index 2, which is 3."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "long",
+      "B": "std::vector",
+      "C": "bool",
+      "D": "double"
+    },
+    "correct_answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "%",
+      "B": "new",
+      "C": "/",
+      "D": "?:"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 1);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "`*(arr + 1)` accesses the element at index 1, which is 2."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "bool",
+      "B": "long",
+      "C": "std::vector",
+      "D": "float"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "*",
+      "B": "-",
+      "C": "?:",
+      "D": "+"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 2);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "`*(arr + 2)` accesses the element at index 2, which is 3."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "std::string",
+      "B": "char",
+      "C": "std::vector",
+      "D": "double"
+    },
+    "correct_answer": [
+      "B",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "?:",
+      "B": "%",
+      "C": "new",
+      "D": "-"
+    },
+    "correct_answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 0);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "`*(arr + 0)` accesses the element at index 0, which is 1."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "bool",
+      "B": "double",
+      "C": "float",
+      "D": "long"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 5;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 5 to 'ref' changes 'a' to 5, so output is 5."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "sizeof",
+      "B": "%",
+      "C": "*",
+      "D": "+"
+    },
+    "correct_answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 2);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "`*(arr + 2)` accesses the element at index 2, which is 3."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "char",
+      "B": "bool",
+      "C": "double",
+      "D": "float"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 5;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 5 to 'ref' changes 'a' to 5, so output is 5."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "sizeof",
+      "B": "->",
+      "C": "+",
+      "D": "%"
+    },
+    "correct_answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 2);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "`*(arr + 2)` accesses the element at index 2, which is 3."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "long",
+      "B": "char",
+      "C": "double",
+      "D": "std::string"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 5;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 5 to 'ref' changes 'a' to 5, so output is 5."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "-",
+      "B": "/",
+      "C": "+",
+      "D": "->"
+    },
+    "correct_answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 0);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "`*(arr + 0)` accesses the element at index 0, which is 1."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  },
+  {
+    "question": "Which of the following are fundamental data types in C++?",
+    "choices": {
+      "A": "char",
+      "B": "std::vector",
+      "C": "bool",
+      "D": "long"
+    },
+    "correct_answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ fundamental data types include int, char, double, float, bool, and long. std::string and std::vector are from the STL."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "Which of the following operators can be overloaded in C++?",
+    "choices": {
+      "A": "sizeof",
+      "B": "->",
+      "C": "%",
+      "D": "+"
+    },
+    "correct_answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "C++ allows overloading of most operators like +, -, *, /, %, ->, and new. 'sizeof' and '?:' cannot be overloaded."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int arr[] = {1, 2, 3};\n    cout << *(arr + 1);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "`*(arr + 1)` accesses the element at index 1, which is 2."
+  },
+  {
+    "question": "Which C++ principle is violated if a class does not have a virtual destructor but is intended to be used polymorphically?",
+    "choices": {
+      "A": "RAII",
+      "B": "Liskov Substitution Principle",
+      "C": "Open/Closed Principle",
+      "D": "Rule of Three"
+    },
+    "correct_answer": "B",
+    "explanation": "Without a virtual destructor, deleting a derived object through a base pointer causes undefined behavior, violating the Liskov Substitution Principle."
+  }
+]
