@@ -13,12 +13,20 @@ import Button from "../../components/Button.astro";
 import Dropdown from "../../components/Dropdown.astro";
 import MdImage from "../../components/MdImage.astro";
 import * as images from "/src/assets/blogs";
+import {SocialShare} from "astro-social-share";
 
-#
-<div class="flex">
-        <Button href="/quiztrainer">Go to QuizTrainer</Button>
+<br/>
+<div class="flex justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+    </svg>
+        <Button href="/quiztrainer">
+        Go to QuizTrainer
+        </Button> 
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+    </svg>
 </div>
-
 
 ## Why ?
 During my time at [Lab4Tech](https://www.lab4tech.ch/), I was training to obtain different certifications like the  
@@ -775,3 +783,8 @@ class QuizTrainer {
 new QuizTrainer();
 ```
 </Dropdown>
+
+<SocialShare
+    description="Quiz Trainer is an online tool to train for exams, input .Json -> Get a Quiz"
+    title="QuizTrainer"
+/>

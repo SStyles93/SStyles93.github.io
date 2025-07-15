@@ -23,6 +23,9 @@ importers:
       astro:
         specifier: ^4.16.18
         version: 4.16.18(rollup@4.44.1)(sass@1.89.2)(typescript@5.8.3)
+      astro-social-share:
+        specifier: ^2.2.0
+        version: 2.2.0
       daisyui:
         specifier: ^4.12.23
         version: 4.12.24(postcss@8.5.6)
@@ -782,6 +785,9 @@ packages:
   astring@1.9.0:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
+
+  astro-social-share@2.2.0:
+    resolution: {integrity: sha512-Z5ebhO6Yw4GLggw7wsTahdpS0f4pf/XuVjQlBpWZ0zyt0cKaVrlG/+u6RzrzN9B2t27wxp90XiosZNwvBZqA+Q==}
 
   astro@4.16.18:
     resolution: {integrity: sha512-G7zfwJt9BDHEZwlaLNvjbInIw2hPryyD654314KV/XT34pJU6SfN1S+mWa8RAkALcZNJnJXCJmT3JXLQStD3Lw==}
@@ -2889,6 +2895,8 @@ snapshots:
   array-iterate@2.0.1: {}
 
   astring@1.9.0: {}
+
+  astro-social-share@2.2.0: {}
 
   astro@4.16.18(rollup@4.44.1)(sass@1.89.2)(typescript@5.8.3):
     dependencies:

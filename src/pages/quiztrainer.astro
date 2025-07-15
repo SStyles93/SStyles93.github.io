@@ -37,7 +37,9 @@
                     <h3>Upload Your Quiz File</h3>
                     <p>Drag and drop your JSON file here or click to browse.</p>
                     <input type="file" id="file-input" accept=".json" hidden>
-                    <button class="upload-btn" onclick="document.getElementById('file-input' ).click()">
+                    <button class="upload-btn" onclick="
+                        // @ts-ignore
+                        document.getElementById('file-input' ).click()">
                         <i class="fas fa-folder-open"></i> Choose File
                     </button>
                 </div>
