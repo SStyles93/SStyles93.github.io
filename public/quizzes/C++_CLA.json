@@ -1,0 +1,1110 @@
+[
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+  },
+  {
+    "question": "What does the following code output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nvoid func(int x) {\n    cout << x << \" \";\n}\n\nint main() {\n    int arr[] = {1, 2, 3};\n    for (int i : arr) {\n        func(i);\n    }\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1 2 3",
+      "B": "3 2 1",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "The range-based for loop iterates over each element in order, printing 1 2 3."
+  },
+  {
+    "question": "Consider the following class:\n\n```cpp\nclass A {\npublic:\n    virtual void foo() { cout << \"A\"; }\n};\n\nclass B : public A {\npublic:\n    void foo() override { cout << \"B\"; }\n};\n\nint main() {\n    A* ptr = new B();\n    ptr->foo();\n    return 0;\n}\n```\n\nWhat will be printed when running this program?",
+    "choices": {
+      "A": "A",
+      "B": "B",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "Virtual function call resolves to B::foo() because ptr points to a B object."
+  },
+  {
+    "question": "What is the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 1;\n    int* p = &x;\n    *p = 5;\n    cout << x;\n    return 0;\n}\n```\n",
+    "choices": {
+      "A": "1",
+      "B": "5",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "Pointer 'p' points to 'x'. Changing *p changes x's value to 5."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nvoid foo(int &x) {\n    x += 5;\n}\n\nint main() {\n    int a = 3;\n    foo(a);\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "3",
+      "B": "5",
+      "C": "8",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "Passing 'a' by reference lets foo modify the original variable, adding 5 to 3 gives 8."
+  },
+  {
+    "question": "What will the following program output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 10;\n    int b = 3;\n    cout << a / b << \" \" << a % b;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "3 1",
+      "B": "3.33 1",
+      "C": "3 0",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "Integer division 10/3 = 3 and remainder 10%3 = 1."
+  },
+  {
+    "question": "What does the following snippet print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 5;\n    if (x = 0) {\n        cout << \"Zero\";\n    } else {\n        cout << \"Non-zero\";\n    }\n    return 0;\n}\n```",
+    "choices": {
+      "A": "Zero",
+      "B": "Non-zero",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "The condition 'x = 0' assigns 0 to x and evaluates to false, so else branch executes printing 'Non-zero'."
+  },
+  {
+    "question": "What is the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int i = 0;\n    cout << ++i << \" \" << i++ << \" \" << i;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "0 1 2",
+      "B": "1 1 2",
+      "C": "1 0 1",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "++i increments before use (1), i++ uses current value (1), then increments, so final i is 2."
+  },
+  {
+    "question": "What will the output be?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    const int x = 10;\n    int* p = (int*)&x;\n    *p = 20;\n    cout << x;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "10",
+      "B": "20",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "D",
+    "explanation": "Modifying a const variable through a casted pointer causes undefined behavior."
+  },
+  {
+    "question": "What will this program print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    char c = 'A';\n    cout << ++c;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "A",
+      "B": "B",
+      "C": "66",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "Incrementing 'A' (ASCII 65) results in 'B' (ASCII 66), so 'B' is printed."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int x = 10;\n    int* p = &x;\n    int** pp = &p;\n    **pp = 20;\n    cout << x;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "10",
+      "B": "20",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "**pp dereferences the pointer to pointer to modify x to 20."
+  },
+  {
+    "question": "What is the size of a bool variable in C++ on most systems?\n",
+    "choices": {
+      "A": "1 byte",
+      "B": "2 bytes",
+      "C": "4 bytes",
+      "D": "Depends on compiler"
+    },
+    "correct_answer": "A",
+    "explanation": "Most implementations use 1 byte for bool."
+  },
+  {
+    "question": "What does this code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 1;\n    int b = 2;\n    cout << (a > b ? a : b);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "0",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "The conditional operator returns the greater of a and b, which is 2."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int i = 5;\n    cout << i-- << \" \" << i;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5 5",
+      "B": "4 4",
+      "C": "5 4",
+      "D": "4 5"
+    },
+    "correct_answer": "C",
+    "explanation": "i-- returns 5 then decrements i to 4."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 0; i < 3; ++i) {\n        cout << i << \" \";\n    }\n    return 0;\n}\n```",
+    "choices": {
+      "A": "0 1 2 ",
+      "B": "1 2 3 ",
+      "C": "0 1 2 3 ",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "Loop prints 0 1 2 with spaces."
+  },
+  {
+    "question": "What will be printed?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint x = 5;\n\nvoid foo() {\n    static int y = 10;\n    y++;\n    cout << y << \" \";\n}\n\nint main() {\n    foo();\n    foo();\n    foo();\n    return 0;\n}\n```",
+    "choices": {
+      "A": "11 11 11 ",
+      "B": "11 12 13 ",
+      "C": "10 10 10 ",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "Static variable y retains value between calls and increments each time."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 10;\n    int b = 20;\n    swap(a, b);\n    cout << a << \" \" << b;\n    return 0;\n}\n\nvoid swap(int &x, int &y) {\n    int temp = x;\n    x = y;\n    y = temp;\n}\n```",
+    "choices": {
+      "A": "10 20",
+      "B": "20 10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "C",
+    "explanation": "swap function is defined after main without a prior declaration, causing compilation error."
+  },
+  {
+    "question": "What does the 'constexpr' keyword do?\n",
+    "choices": {
+      "A": "Declares a variable as constant at runtime",
+      "B": "Forces compile-time evaluation",
+      "C": "Declares a variable as static",
+      "D": "Disables optimization"
+    },
+    "correct_answer": "B",
+    "explanation": "'constexpr' requires that the value be computed at compile time."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 1;\n    int y = ++x + x++;\n    cout << y;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "3",
+      "B": "4",
+      "C": "5",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "D",
+    "explanation": "Modifying and reading 'x' multiple times without sequence points leads to undefined behavior."
+  },
+  {
+    "question": "What will this print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    char s[] = \"Hello\";\n    cout << sizeof(s);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "6",
+      "C": "7",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "Sizeof includes the null terminator, so size is 6."
+  },
+  {
+    "question": "What happens when you compile this?\n\n```cpp\nint main() {\n    int x = 5;\n    int& y;\n    y = x;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "Compiles successfully",
+      "B": "Compilation error",
+      "C": "Runtime error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "Reference must be initialized when declared."
+  },
+  {
+    "question": "What will be output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 1;\n    int* p = &a;\n    p++;\n    cout << *p;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "Compilation error",
+      "C": "Undefined behavior",
+      "D": "0"
+    },
+    "correct_answer": "C",
+    "explanation": "Pointer p points beyond valid memory, dereferencing it is undefined."
+  },
+  {
+    "question": "What does this code output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 7;\n    cout << (x & 1);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "7",
+      "B": "0",
+      "C": "1",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "Bitwise AND with 1 returns the least significant bit, which is 1 for 7."
+  },
+  {
+    "question": "What is the result of this expression?\n\n```cpp\nint x = 10;\nint y = ++x + ++x;\n```\n",
+    "choices": {
+      "A": "22",
+      "B": "23",
+      "C": "Undefined behavior",
+      "D": "21"
+    },
+    "correct_answer": "C",
+    "explanation": "Modifying 'x' twice without sequence points leads to undefined behavior."
+  },
+  {
+    "question": "What does this code output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nvoid foo(int x = 10) {\n    cout << x;\n}\n\nint main() {\n    foo();\n    foo(20);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "10 20",
+      "B": "20 10",
+      "C": "Compilation error",
+      "D": "10 10"
+    },
+    "correct_answer": "A",
+    "explanation": "Function foo uses default argument 10 if no parameter is given."
+  },
+  {
+    "question": "What happens when you compile this?\n\n```cpp\nint main() {\n    int* p = nullptr;\n    *p = 5;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "Compilation error",
+      "B": "Runtime crash",
+      "C": "Outputs 5",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "Dereferencing nullptr causes runtime crash (segmentation fault)."
+  },
+  {
+    "question": "What will be the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int arr[3] = {1, 2, 3};\n    cout << *(arr + 1);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "Pointer arithmetic: arr + 1 points to second element, value 2."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5;\n    int b = 10;\n    if (a > b) {\n        cout << \"a\";\n    } else if (a < b) {\n        cout << \"b\";\n    } else {\n        cout << \"equal\";\n    }\n    return 0;\n}\n```",
+    "choices": {
+      "A": "a",
+      "B": "b",
+      "C": "equal",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "a < b is true, so 'b' is printed."
+  },
+  {
+    "question": "What does this print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 3; i > 0; --i) {\n        cout << i << \" \";\n    }\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1 2 3 ",
+      "B": "3 2 1 ",
+      "C": "3 2 1 0 ",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "Loop counts down from 3 to 1."
+  },
+  {
+    "question": "What will be output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nvoid print(int x) {\n    cout << x << \" \";\n}\n\nint main() {\n    int arr[] = {1, 2, 3};\n    for (auto x : arr) {\n        print(x);\n    }\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1 2 3 ",
+      "B": "3 2 1 ",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "Range-based for loop prints elements in order."
+  },
+  {
+    "question": "What does the code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 5;\n    cout << (x == 5 ? \"yes\" : \"no\");\n    return 0;\n}\n```",
+    "choices": {
+      "A": "yes",
+      "B": "no",
+      "C": "5",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "x == 5 is true, so \"yes\" is printed."
+  },
+  {
+    "question": "What will this code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 5;\n    cout << x++ << \" \" << ++x;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5 7",
+      "B": "6 7",
+      "C": "5 6",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "x++ prints 5 then increments to 6; ++x increments to 7 then prints."
+  },
+  {
+    "question": "What does this code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    const int x = 5;\n    cout << x;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "0",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "Printing a const int works normally."
+  },
+  {
+    "question": "What will this output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5, b = 10;\n    a = b;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "a is assigned b's value, so a becomes 10."
+  },
+  {
+    "question": "What is the value of x after this code?\n\n```cpp\nint x = 5;\nint &ref = x;\nref = 10;\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "Reference ref changes x's value to 10."
+  },
+  {
+    "question": "What does this output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 2;\n    int b = 3;\n    cout << a * b << endl;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "6",
+      "C": "23",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "Multiplication of 2 and 3 is 6."
+  },
+  {
+    "question": "What does this print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 10;\n    if (x > 5) {\n        cout << \"Greater\";\n    } else {\n        cout << \"Smaller\";\n    }\n    return 0;\n}\n```",
+    "choices": {
+      "A": "Greater",
+      "B": "Smaller",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "x is greater than 5, so \"Greater\" is printed."
+  },
+  {
+    "question": "What is printed?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 0;\n    cout << ++x << \" \" << x++ << endl;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "0 1",
+      "B": "1 1",
+      "C": "1 0",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "++x increments first to 1, x++ prints 1 then increments."
+  },
+  {
+    "question": "What will be output by the following code?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5;\n    int *p = &a;\n    *p = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "*p modifies a, so a becomes 10."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 5;\n    int y = x << 1;\n    cout << y;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "10",
+      "B": "2",
+      "C": "6",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "Left shift by 1 multiplies x by 2, so 5 << 1 = 10."
+  },
+  {
+    "question": "What is the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nvoid func(int x) {\n    cout << x << \" \";\n}\n\nint main() {\n    int arr[] = {1, 2, 3};\n    for (int i = 0; i < 3; ++i) {\n        func(arr[i]);\n    }\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1 2 3 ",
+      "B": "3 2 1 ",
+      "C": "1 1 1 ",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "The loop calls func for each element, printing them in order."
+  },
+  {
+    "question": "What will this code output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 10;\n    int y = 3;\n    cout << x % y;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "3",
+      "C": "0",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "10 % 3 is 1 (remainder)."
+  },
+  {
+    "question": "What is the result of this expression?\n\n```cpp\nbool b = (5 > 3) && (2 < 1);\ncout << b;\n```",
+    "choices": {
+      "A": "true",
+      "B": "false",
+      "C": "1",
+      "D": "0"
+    },
+    "correct_answer": "D",
+    "explanation": "5 > 3 is true, 2 < 1 is false, so b is false, printed as 0."
+  },
+  {
+    "question": "What does this code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 1;\n    int b = 2;\n    a += b;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "a += b adds b to a, so a becomes 3."
+  },
+  {
+    "question": "Which of the following declares a pointer to constant int?\n",
+    "choices": {
+      "A": "\\\"const int* p;\\\",",
+      "B": "\\\"int* const p;\\\",",
+      "C": "\\\"const int* const p;\\\",",
+      "D": "\\\"int* p;\\\""
+    },
+    "correct_answer": "A",
+    "explanation": "const int* p means p points to an int that can't be modified."
+  },
+  {
+    "question": "What will the following code output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 10;\n    int& ref = a;\n    ref = 20;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "10",
+      "B": "20",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "Reference ref modifies a, so a becomes 20."
+  },
+  {
+    "question": "What will this print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 10;\n    if (x > 5) {\n        cout << \"Yes\";\n    } else {\n        cout << \"No\";\n    }\n    return 0;\n}\n```",
+    "choices": {
+      "A": "Yes",
+      "B": "No",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "x is greater than 5, so \"Yes\" is printed."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 5;\n    int y = x++ + ++x;\n    cout << y;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "11",
+      "B": "12",
+      "C": "Undefined behavior",
+      "D": "10"
+    },
+    "correct_answer": "C",
+    "explanation": "Modifying and reading 'x' multiple times without sequence points causes undefined behavior."
+  },
+  {
+    "question": "What is the output of the following code?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nvoid foo(int x = 5) {\n    cout << x << \" \";\n}\n\nint main() {\n    foo();\n    foo(10);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5 10 ",
+      "B": "10 5 ",
+      "C": "5 5 ",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "foo() uses default parameter 5, foo(10) uses passed argument."
+  },
+  {
+    "question": "What is the output of this program?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    char c = 'A';\n    cout << (int)c;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "A",
+      "B": "65",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "'A' ASCII code is 65, cast to int outputs 65."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int arr[] = {1, 2, 3, 4};\n    cout << sizeof(arr) / sizeof(arr[0]);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "3",
+      "B": "4",
+      "C": "16",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "sizeof(arr) gives total bytes; dividing by element size gives number of elements (4)."
+  },
+  {
+    "question": "What is the value of 'a' after this code?\n\n```cpp\nint a = 5;\nint* p = &a;\n*p = 10;\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "Pointer dereference sets 'a' to 10."
+  },
+  {
+    "question": "Which of the following is true about references in C++?\n",
+    "choices": {
+      "A": "They can be reseated to refer to another variable.",
+      "B": "They must be initialized when declared.",
+      "C": "They can be null.",
+      "D": "They use more memory than pointers."
+    },
+    "correct_answer": "B",
+    "explanation": "References must be initialized on declaration and cannot be changed."
+  },
+  {
+    "question": "What is the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int i = 0;\n    while (i < 3) {\n        cout << i++ << \" \";\n    }\n    return 0;\n}\n```",
+    "choices": {
+      "A": "0 1 2 ",
+      "B": "1 2 3 ",
+      "C": "0 1 2 3 ",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "Prints i then increments, from 0 to 2."
+  },
+  {
+    "question": "What will this code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 5;\n    cout << --x << \" \" << x--;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "4 4",
+      "B": "4 5",
+      "C": "5 4",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "--x decrements to 4 then prints; x-- prints 4 then decrements."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    bool b = true;\n    cout << b;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "true",
+      "B": "false",
+      "C": "1",
+      "D": "0"
+    },
+    "correct_answer": "C",
+    "explanation": "bool printed as int outputs 1 for true."
+  },
+  {
+    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    const int x = 10;\n    int y = const_cast<int&>(x);\n    y = 20;\n    cout << x << \" \" << y;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "10 20",
+      "B": "20 20",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "D",
+    "explanation": "Modifying a const variable via const_cast causes undefined behavior."
+  },
+  {
+    "question": "What will this code output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nvoid f(int x) {\n    cout << x << \" \";\n}\n\nint main() {\n    f(1);\n    f(2);\n    f(3);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1 2 3 ",
+      "B": "3 2 1 ",
+      "C": "6 ",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "Calls print 1 2 3 with spaces."
+  },
+  {
+    "question": "What will this print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 3;\n    int y = ++x * 5;\n    cout << y;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "15",
+      "B": "20",
+      "C": "18",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "++x increments x to 4, then multiplies by 5 = 20."
+  },
+  {
+    "question": "Which operator is used to allocate memory dynamically in C++?\n",
+    "choices": {
+      "A": "malloc",
+      "B": "alloc",
+      "C": "new",
+      "D": "calloc"
+    },
+    "correct_answer": "C",
+    "explanation": "new operator dynamically allocates memory."
+  },
+  {
+    "question": "What does the following code output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5;\n    int* p = &a;\n    *p = 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "10",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "Pointer dereference sets 'a' to 10."
+  },
+  {
+    "question": "What does this code snippet print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 1;\n    int b = 2;\n    int c = 3;\n    int d = (a, b, c);\n    cout << d;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "C",
+    "explanation": "Comma operator evaluates left to right and returns rightmost value."
+  },
+  {
+    "question": "What is the output of the following code?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 3;\n    int b = 4;\n    cout << (a & b);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "0",
+      "B": "3",
+      "C": "4",
+      "D": "7"
+    },
+    "correct_answer": "A",
+    "explanation": "3 & 4 is 0 in bitwise AND."
+  },
+  {
+    "question": "What will this code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 10;\n    x /= 2;\n    cout << x;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "20",
+      "C": "10",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "x /= 2 divides x by 2, so x = 5."
+  },
+  {
+    "question": "Which of these statements is true about the 'auto' keyword?\n",
+    "choices": {
+      "A": "It declares a variable without a type.",
+      "B": "It automatically deduces the variable type from the initializer.",
+      "C": "It is used only for functions.",
+      "D": "It makes variables global."
+    },
+    "correct_answer": "B",
+    "explanation": "'auto' lets compiler infer type from initializer."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 1;\n    int b = 2;\n    cout << (a == b);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "0",
+      "C": "true",
+      "D": "false"
+    },
+    "correct_answer": "B",
+    "explanation": "a == b is false, printed as 0."
+  },
+  {
+    "question": "What is the output of the following?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5;\n    int* p = nullptr;\n    if (p == nullptr) {\n        cout << \"Null\";\n    } else {\n        cout << \"Not null\";\n    }\n    return 0;\n}\n```",
+    "choices": {
+      "A": "Null",
+      "B": "Not null",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "p is nullptr, so \"Null\" is printed."
+  },
+  {
+    "question": "Which operator has the highest precedence?\n",
+    "choices": {
+      "A": "+",
+      "B": "*",
+      "C": "&&",
+      "D": "="
+    },
+    "correct_answer": "B",
+    "explanation": "Multiplication (*) has higher precedence than addition (+), logical AND (&&), or assignment (=)."
+  },
+  {
+    "question": "What will this code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 1;\n    a = a << 2;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "1",
+      "B": "2",
+      "C": "4",
+      "D": "8"
+    },
+    "correct_answer": "D",
+    "explanation": "Shifting left by 2 multiplies by 4, so 1 << 2 = 4."
+  },
+  {
+    "question": "Which of these is a valid C++ comment?\n",
+    "choices": {
+      "A": "/* This is a comment */",
+      "B": "// This is a comment",
+      "C": "# This is a comment",
+      "D": "A and B"
+    },
+    "correct_answer": "D",
+    "explanation": "C++ supports /* */ block comments and // line comments."
+  },
+  {
+    "question": "What is the result of this expression?\n\n```cpp\nint x = 5;\nint y = 2;\ncout << (x / y);\n```",
+    "choices": {
+      "A": "2.5",
+      "B": "2",
+      "C": "3",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "Integer division truncates, so 5/2 = 2."
+  },
+  {
+    "question": "What will this output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 0;\n    for (int i = 0; i < 5; ++i) {\n        a += i;\n    }\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "10",
+      "B": "15",
+      "C": "5",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "Sum of 0+1+2+3+4 = 10."
+  },
+  {
+    "question": "What is the value of x after this code?\n\n```cpp\nint x = 5;\nx *= 3 + 2;\n```",
+    "choices": {
+      "A": "25",
+      "B": "15",
+      "C": "35",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "Multiplication has lower precedence than addition, so x *= (3+2) → x = 5*5 = 25."
+  },
+  {
+    "question": "Which of these will correctly delete dynamically allocated memory for an int pointer p?\n",
+    "choices": {
+      "A": "delete p;",
+      "B": "free(p);",
+      "C": "delete[] p;",
+      "D": "delete p[];"
+    },
+    "correct_answer": "A",
+    "explanation": "'delete' is used to free memory allocated with 'new'. 'delete[]' is for arrays."
+  },
+  {
+    "question": "What is the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 7;\n    cout << (a & 1);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "0",
+      "B": "1",
+      "C": "7",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "Bitwise AND with 1 gives 1 if number is odd, 0 if even. 7 is odd, so output is 1."
+  },
+  {
+    "question": "Which of the following correctly declares a function pointer for a function returning void and taking int?\n",
+    "choices": {
+      "A": "\\\"void (*fp)(int);\\\",\\n      \"B\": \\\"int (*fp)(void);\\\",\\n      \"C\": \\\"void *fp(int);\\\",\\n      \"D\": \\\"void fp(int);\\\"\""
+    },
+    "correct_answer": "A",
+    "explanation": "Correct syntax for function pointer to void(int)."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int i = 1;\n    cout << ++i << \" \" << i++;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "2 2",
+      "B": "2 1",
+      "C": "1 2",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "A",
+    "explanation": "++i increments then prints 2; i++ prints 2 then increments."
+  },
+  {
+    "question": "Which header is required to use std::vector?\n",
+    "choices": {
+      "A": "<vector>",
+      "B": "<array>",
+      "C": "<list>",
+      "D": "<deque>"
+    },
+    "correct_answer": "A",
+    "explanation": "std::vector is defined in <vector>."
+  },
+  {
+    "question": "What is the output of this code snippet?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 3;\n    int y = 4;\n    cout << (x ^ y);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "7",
+      "B": "1",
+      "C": "0",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "Bitwise XOR of 3 (011) and 4 (100) is 7 (111)."
+  },
+  {
+    "question": "Which of the following is not a valid C++ storage class specifier?\n",
+    "choices": {
+      "A": "auto",
+      "B": "register",
+      "C": "mutable",
+      "D": "extern"
+    },
+    "correct_answer": "C",
+    "explanation": "'mutable' is a type qualifier, not a storage class."
+  },
+  {
+    "question": "What does this code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5;\n    cout << (a == 5 ? \"Yes\" : \"No\");\n    return 0;\n}\n```",
+    "choices": {
+      "A": "Yes",
+      "B": "No",
+      "C": "5",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "Ternary operator returns \"Yes\" if a equals 5."
+  },
+  {
+    "question": "What is printed by this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 0;\n    for (int i = 0; i < 3; i++) {\n        x += i;\n    }\n    cout << x;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "3",
+      "B": "6",
+      "C": "0",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "Sum of 0 + 1 + 2 = 3."
+  },
+  {
+    "question": "Which keyword makes a member function accessible even without an object instance?\n",
+    "choices": {
+      "A": "virtual",
+      "B": "static",
+      "C": "const",
+      "D": "inline"
+    },
+    "correct_answer": "B",
+    "explanation": "Static member functions belong to the class, not instances."
+  },
+  {
+    "question": "What does this code output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5;\n    int* p = &a;\n    *p = *p + 10;\n    cout << a;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "15",
+      "C": "10",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "Pointer dereference modifies 'a', increasing it by 10."
+  },
+  {
+    "question": "Which container guarantees fast insertion and deletion anywhere but no random access?\n",
+    "choices": {
+      "A": "std::vector",
+      "B": "std::list",
+      "C": "std::deque",
+      "D": "std::array"
+    },
+    "correct_answer": "B",
+    "explanation": "std::list is a doubly-linked list supporting fast insertion/removal."
+  },
+  {
+    "question": "What is the output?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 4;\n    int b = a++ + ++a;\n    cout << b;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "9",
+      "B": "10",
+      "C": "Undefined behavior",
+      "D": "8"
+    },
+    "correct_answer": "C",
+    "explanation": "Modifying 'a' multiple times without sequence points is undefined behavior."
+  },
+  {
+    "question": "Which of the following is NOT a valid cast in C++?\n",
+    "choices": {
+      "A": "static_cast",
+      "B": "dynamic_cast",
+      "C": "reinterpret_cast",
+      "D": "convert_cast"
+    },
+    "correct_answer": "D",
+    "explanation": "'convert_cast' is not a valid C++ cast."
+  },
+  {
+    "question": "Which of these is true about constexpr?\n",
+    "choices": {
+      "A": "Defines a variable that can change at runtime.",
+      "B": "Defines a constant expression evaluated at compile time.",
+      "C": "Is the same as const.",
+      "D": "Is used for pointers only."
+    },
+    "correct_answer": "B",
+    "explanation": "constexpr guarantees compile-time evaluation."
+  },
+  {
+    "question": "Which of these is a valid way to declare a string in C++?\n",
+    "choices": {
+      "A": "char str[] = \"Hello\";",
+      "B": "std::string str = \"Hello\";",
+      "C": "Both A and B",
+      "D": "None of the above"
+    },
+    "correct_answer": "C",
+    "explanation": "Both char array and std::string are valid."
+  },
+  {
+    "question": "What is the size of an empty struct in C++?\n",
+    "choices": {
+      "A": "0 bytes",
+      "B": "1 byte",
+      "C": "Depends on compiler",
+      "D": "Undefined"
+    },
+    "correct_answer": "B",
+    "explanation": "Empty structs have size 1 to ensure unique addresses."
+  },
+  {
+    "question": "Which of the following is true about virtual functions?\n",
+    "choices": {
+      "A": "They allow runtime polymorphism.",
+      "B": "They must be defined in the base class.",
+      "C": "They cannot be overridden.",
+      "D": "They are faster than non-virtual functions."
+    },
+    "correct_answer": "A",
+    "explanation": "Virtual functions enable runtime method overriding."
+  },
+  {
+    "question": "What will this code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 5;\n    cout << (a && 0);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "0",
+      "B": "1",
+      "C": "5",
+      "D": "Compilation error"
+    },
+    "correct_answer": "A",
+    "explanation": "Logical AND with 0 is 0 (false)."
+  },
+  {
+    "question": "What is the effect of the 'const' keyword before a function parameter?\n",
+    "choices": {
+      "A": "Parameter cannot be modified inside the function.",
+      "B": "Parameter is passed by reference.",
+      "C": "Parameter is always copied.",
+      "D": "Parameter is optional."
+    },
+    "correct_answer": "A",
+    "explanation": "'const' ensures parameter is read-only inside the function."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 10;\n    int& ref = x;\n    ref = 20;\n    cout << x;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "10",
+      "B": "20",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "Reference ref modifies x, so x becomes 20."
+  },
+  {
+    "question": "What is the output of the following?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 1;\n    cout << (x++ == 1);\n    return 0;\n}\n```",
+    "choices": {
+      "A": "0",
+      "B": "1",
+      "C": "Compilation error",
+      "D": "Undefined behavior"
+    },
+    "correct_answer": "B",
+    "explanation": "Post-increment returns value before increment, so x++ == 1 is true."
+  },
+  {
+    "question": "Which STL container provides constant time insertion at the end and fast random access?\n",
+    "choices": {
+      "A": "std::list",
+      "B": "std::vector",
+      "C": "std::set",
+      "D": "std::map"
+    },
+    "correct_answer": "B",
+    "explanation": "std::vector supports fast insertion at end and random access."
+  },
+  {
+    "question": "What does the following code print?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    bool b = 5;\n    cout << b;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "5",
+      "B": "1",
+      "C": "0",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "Any non-zero integer converts to bool true, printed as 1."
+  },
+  {
+    "question": "Which of the following will correctly create a constant pointer to an int?\n",
+    "choices": {
+      "A": "int* const p;",
+      "B": "const int* p;",
+      "C": "int const* p;",
+      "D": "const int* const p;"
+    },
+    "correct_answer": "A",
+    "explanation": "int* const p means pointer is const, pointee is modifiable."
+  },
+  {
+    "question": "Which operator is used to access a member of a structure through a pointer?\n",
+    "choices": {
+      "A": ".",
+      "B": "->",
+      "C": "*",
+      "D": "&"
+    },
+    "correct_answer": "B",
+    "explanation": "The '->' operator accesses member via pointer."
+  },
+  {
+    "question": "Which keyword is used to define a template in C++?\n",
+    "choices": {
+      "A": "template",
+      "B": "generic",
+      "C": "typename",
+      "D": "type"
+    },
+    "correct_answer": "A",
+    "explanation": "'template' declares templates for generic programming."
+  },
+  {
+    "question": "What is the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    char c = 'A';\n    cout << (int)c;\n    return 0;\n}\n```",
+    "choices": {
+      "A": "A",
+      "B": "65",
+      "C": "0",
+      "D": "Compilation error"
+    },
+    "correct_answer": "B",
+    "explanation": "Character 'A' has ASCII code 65."
+  }
+]

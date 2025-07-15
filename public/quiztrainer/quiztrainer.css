@@ -37,8 +37,8 @@ body {
     opacity: 0.9;
 }
 
-/* Upload Section */
-.upload-section {
+/* Setup Section */
+.setup-section {
     background: white;
     border-radius: 20px;
     padding: 40px;
@@ -47,10 +47,69 @@ body {
     transition: all 0.3s ease;
 }
 
+.server-selection {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.server-selection h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.server-selection p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.select-container {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#quiz-select {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.divider {
+    text-align: center;
+    font-weight: bold;
+    color: #aaa;
+    margin: 30px 0;
+    position: relative;
+}
+
+.divider::before, .divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #ddd;
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+/* Upload Section */
 .upload-area {
     border: 3px dashed #667eea;
     border-radius: 15px;
-    padding: 60px 20px;
+    padding: 40px 20px;
     text-align: center;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -68,30 +127,29 @@ body {
 }
 
 .upload-icon {
-    font-size: 4rem;
+    font-size: 3rem;
     color: #667eea;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .upload-content h3 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-bottom: 10px;
     color: #333;
 }
 
 .upload-content p {
     color: #666;
-    margin-bottom: 30px;
-    font-size: 1.1rem;
+    margin-bottom: 20px;
 }
 
 .upload-btn {
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
     border: none;
-    padding: 15px 30px;
+    padding: 12px 25px;
     border-radius: 50px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
@@ -102,37 +160,82 @@ body {
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
-/* File Info */
+/* File Info & Options */
 .file-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background: #f8f9fa;
     padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
+    border-radius: 15px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
 }
 
 .file-details {
+    font-weight: bold;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .file-details i {
     color: #667eea;
-    font-size: 1.5rem;
+}
+
+.quiz-options {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.option-item label {
+    font-weight: 500;
+}
+
+#question-amount {
+    width: 80px;
+    padding: 8px 12px; /* Increased padding for better touch-friendliness */
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Slightly more rounded corners */
+    font-size: 1rem;   /* Ensure font size is readable */
+    font-weight: 500;
+    
+    /* --- The key changes are here --- */
+    background-color: #ffffff; /* White background */
+    color: #333333;           /* Dark text color */
+}
+
+#question-amount:focus {
+    outline: none;
+    border-color: #667eea; /* Highlight with the primary theme color on focus */
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); /* Add a soft glow */
+}
+
+
+#question-count {
+    color: #555;
 }
 
 .start-btn {
     background: #28a745;
     color: white;
     border: none;
-    padding: 12px 25px;
+    padding: 15px 40px;
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 600;
+    font-size: 1.2rem;
 }
 
 .start-btn:hover {
@@ -485,6 +588,54 @@ code {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
+/* Contribution Section */
+.contribution-section {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: -10px; /* Slightly overlap with the section above */
+    margin-bottom: 40px;
+    text-align: center;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contribution-content h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.contribution-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+.contribution-content code {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 3px 6px;
+    border-radius: 5px;
+    font-family: 'Fira Code', 'Consolas', monospace;
+}
+
+.contribution-content a {
+    color: #ffd700; /* A bright, noticeable color for the link */
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contribution-content a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
@@ -495,7 +646,7 @@ code {
         font-size: 2rem;
     }
     
-    .upload-section, .quiz-section, .results-section {
+    .setup-section, .quiz-section, .results-section {
         padding: 20px;
     }
     

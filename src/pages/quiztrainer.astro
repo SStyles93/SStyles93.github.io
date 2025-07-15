@@ -13,31 +13,69 @@
         <!-- Header -->
         <header class="header">
             <h1><i class="fas fa-brain"></i> Quiz Trainer</h1>
-            <p>Upload your JSON file and start practicing questions</p>
+            <p>Select a quiz from the server or upload your own JSON file to start practicing.</p>
         </header>
 
-        <!-- Upload Section -->
-        <section id="upload-section" class="upload-section">
+        <!-- Setup Section -->
+        <section id="setup-section" class="setup-section">
+            <!-- Server File Selection -->
+            <div class="server-selection">
+                <h3><i class="fas fa-server"></i> Select a Quiz</h3>
+                <p>Choose from quizzes available on the server.</p>
+                <div class="select-container">
+                    <select id="quiz-select">
+                        <option value="">Loading quizzes...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="divider">OR</div>
+
+            <!-- Upload Section -->
             <div class="upload-area" id="upload-area">
                 <div class="upload-content">
                     <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                    <h3>Upload Your Quiz JSON File</h3>
-                    <p>Drag and drop your JSON file here or click to browse</p>
+                    <h3>Upload Your Quiz File</h3>
+                    <p>Drag and drop your JSON file here or click to browse.</p>
                     <input type="file" id="file-input" accept=".json" hidden>
-                    <button class="upload-btn" onclick="document.getElementById('file-input').click()">
+                    <button class="upload-btn" onclick="document.getElementById('file-input' ).click()">
                         <i class="fas fa-folder-open"></i> Choose File
                     </button>
                 </div>
             </div>
+
+            <!-- Quiz Options and Start -->
             <div class="file-info" id="file-info" style="display: none;">
                 <div class="file-details">
                     <i class="fas fa-file-alt"></i>
                     <span id="file-name"></span>
-                    <span id="question-count"></span>
+                </div>
+                <div class="quiz-options">
+                    <div class="option-item">
+                        <input type="checkbox" id="randomize-questions">
+                        <label for="randomize-questions">Randomize Questions</label>
+                    </div>
+                    <div class="option-item">
+                        <label for="question-amount">Number of Questions:</label>
+                        <input type="number" id="question-amount" min="1">
+                        <span id="question-count"></span>
+                    </div>
                 </div>
                 <button class="start-btn" id="start-quiz">
                     <i class="fas fa-play"></i> Start Quiz
                 </button>
+            </div>
+        </section>
+
+        <!-- === Contributor Section === -->
+        <section id="contribution-section" class="contribution-section">
+            <div class="contribution-content">
+                <h3><i class="fas fa-hands-helping"></i> Want to Contribute a Quiz?</h3>
+                <p>
+                    If you have created a high-quality quiz in the correct <code>.json</code> format, you can share it with us! 
+                    Email your file <a href="mailto:samuel.styles93@gmail.com">HERE</a>.
+                    After a review, we may add it to the official list for everyone to enjoy.
+                </p>
             </div>
         </section>
 
@@ -126,7 +164,7 @@
                         <i class="fas fa-redo"></i> Restart Quiz
                     </button>
                     <button class="action-btn secondary" id="upload-new">
-                        <i class="fas fa-upload"></i> Upload New File
+                        <i class="fas fa-undo"></i> Back to Setup
                     </button>
                 </div>
             </div>
