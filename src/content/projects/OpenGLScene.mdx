@@ -51,3 +51,10 @@ Unfortunately my **only regret** was to **not** have enough time to **refactor**
 import ScreenshotList from "../../components/ScreenshotList.astro";
 
 <ScreenshotList screenshots={frontmatter.screenshots} imageClasses="w-full" /> */}
+
+import {SocialShare} from "astro-social-share";
+
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/>

@@ -25,3 +25,10 @@ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; pic
 allowfullscreen>
 </iframe>
 </div>
+
+import {SocialShare} from "astro-social-share";
+
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/>

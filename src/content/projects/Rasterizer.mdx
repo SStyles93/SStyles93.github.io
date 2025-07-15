@@ -47,3 +47,10 @@ The **entire process** is explained in my blog post that you can find [HERE](htt
 //import ScreenshotList from "../../components/ScreenshotList.astro";
 
 <ScreenshotList screenshots={frontmatter.screenshots} imageClasses="w-full" /> */}
+
+import {SocialShare} from "astro-social-share";
+
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/>

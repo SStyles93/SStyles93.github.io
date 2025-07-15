@@ -788,3 +788,10 @@ new QuizTrainer();
     description="Quiz Trainer is an online tool to train for exams, input .Json -> Get a Quiz"
     title="QuizTrainer"
 />
+
+import {SocialShare} from "astro-social-share";
+
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/>

@@ -44,6 +44,6 @@ allowfullscreen>
 import {SocialShare} from "astro-social-share";
 
 <SocialShare
-    description="Quiz Trainer is an online tool to train for exams, input .Json -> Get a Quiz"
-    title="QuizTrainer"
+    description={frontmatter.description}
+    title={frontmatter.title}
 />
