@@ -470,7 +470,7 @@
       "C": "4",
       "D": "2"
     },
-    "correct_answer": "6",
+    "correct_answer": "A",
     "explanation": "Binary representation of 5 is `00000101`. Binary representation of 3 is `00000011`. Performing XOR (exclusive OR) bit by bit: `00000101 ^ 00000011 = 00000110`, which is 6 in decimal."
   }
 
