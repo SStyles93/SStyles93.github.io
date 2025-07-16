@@ -170,7 +170,7 @@
       "A": "`const int MAX_VALUE = 100;`",
       "B": "`int const MAX_VALUE = 100;`",
       "C": "`#define MAX_VALUE 100`",
-      "D": "All of the above."
+      "D": "All of them."
     },
     "correct_answer": "D",
     "explanation": "All three options are valid ways to declare a constant integer. `const int` and `int const` are syntactically equivalent for declaring a constant variable. `#define` is a preprocessor directive that performs text substitution before compilation."
@@ -319,7 +319,7 @@
       "A": "`for` loop",
       "B": "`while` loop",
       "C": "`do-while` loop",
-      "D": "All of the above"
+      "D": "All of them"
     },
     "correct_answer": "C",
     "explanation": "A `do-while` loop executes its body at least once before checking the condition. `for` and `while` loops check the condition before the first iteration."
@@ -645,7 +645,7 @@
       "A": "`catch`",
       "B": "`throw`",
       "C": "`try`",
-      "D": "All of the above."
+      "D": "All of them."
     },
     "correct_answer": "D",
     "explanation": "Exception handling in C++ uses `try` to enclose code that might throw an exception, `throw` to signal an exception, and `catch` to handle the exception."
@@ -670,7 +670,7 @@
       "A": "`double_var = (double)int_var;`",
       "B": "`double_var = static_cast<double>(int_var);`",
       "C": "`double_var = int_var;` (implicit conversion)",
-      "D": "All of the above."
+      "D": "All of them."
     },
     "correct_answer": "D",
     "explanation": "All options are valid ways to convert an `int` to a `double`. Option A is C-style casting, Option B is C++ `static_cast`, and Option C is implicit type conversion, which is safe for `int` to `double`."
@@ -1507,7 +1507,7 @@
       "A": "`for (int x : data) { /* ... */ }`",
       "B": "`for (int i = 0; i < data.size(); i++) { /* ... */ }`",
       "C": "`for (auto it = data.begin(); it != data.end(); ++it) { /* ... */ }`",
-      "D": "All of the above."
+      "D": "All of them."
     },
     "correct_answer": "D",
     "explanation": "All three options are valid ways to iterate through a `std::vector`. Option A is a C++11 range-based for loop, Option B is a traditional index-based loop, and Option C uses iterators."
