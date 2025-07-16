@@ -66,17 +66,6 @@
     "explanation": "The `main` function is a special function in C++ that serves as the entry point for program execution. When a C++ program is run, the operating system calls the `main` function."
   },
   {
-    "question": "Which of the following is a valid way to declare and initialize an integer variable in C++?",
-    "choices": {
-      "A": "`int x = 10;`",
-      "B": "`integer x = 10;`",
-      "C": "`x = 10;`",
-      "D": "`let x = 10;`"
-    },
-    "correct_answer": "A",
-    "explanation": "In C++, a variable is declared with its type followed by the variable name. The correct syntax is `type variable_name = value;`."
-  },
-  {
     "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\";\n    return 0;\n}\n```",
     "choices": {
       "A": "Hello, World!",
@@ -86,17 +75,6 @@
     },
     "correct_answer": "A",
     "explanation": "The code uses `std::cout` to print the string \"Hello, World!\" to the standard output. No newline character is printed after the string."
-  },
-  {
-    "question": "Which operator is used for addition in C++?",
-    "choices": {
-      "A": "+",
-      "B": "-",
-      "C": "*",
-      "D": "/"
-    },
-    "correct_answer": "A",
-    "explanation": "The `+` operator is used for addition, `-` for subtraction, `*` for multiplication, and `/` for division."
   },
   {
     "question": "What is the difference between a declaration and a definition in C++?",
