@@ -11,17 +11,6 @@
     "explanation": "A compiler is a special program that translates a high-level language (like C++) into a lower-level language (like machine code) that the computer can understand and execute directly."
   },
   {
-    "question": "What is the purpose of the `int main()` function in a C++ program?",
-    "choices": {
-      "A": "It is the entry point of the program.",
-      "B": "It is a function that is executed at the end of the program.",
-      "C": "It is a function that is used to declare all the variables.",
-      "D": "It is a function that is used to handle errors."
-    },
-    "correct_answer": "A",
-    "explanation": "The `main` function is a special function in C++ that serves as the entry point for program execution. When a C++ program is run, the operating system calls the `main` function."
-  },
-  {
     "question": "Which of the following is a valid way to declare and initialize an integer variable in C++?",
     "choices": {
       "A": "`int x = 10;`",
