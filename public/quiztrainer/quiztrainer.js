@@ -22,11 +22,11 @@ class QuizTrainer {
         uploadArea.addEventListener('dragleave', (e) => this.handleDragLeave(e));
         uploadArea.addEventListener('drop', (e) => this.handleFileDrop(e));
         
-        document.getElementById('start-quiz').addEventListener('click', () => this.startQuiz());
+        document.getElementById('start-quiz').addEventListener('click', () => this.startQuiz(false)); // Initial start
         document.getElementById('submit-answer-btn').addEventListener('click', () => this.submitAnswer());
         document.getElementById('prev-btn').addEventListener('click', () => this.previousQuestion());
         document.getElementById('next-btn').addEventListener('click', () => this.nextQuestion());
-        document.getElementById('restart-quiz').addEventListener('click', () => this.restartQuiz());
+        document.getElementById('restart-quiz').addEventListener('click', () => this.restartQuiz()); // Calls the new restart logic
         document.getElementById('upload-new').addEventListener('click', () => this.resetToSetup());
     }
 
@@ -112,7 +112,11 @@ class QuizTrainer {
     prepareQuizQuestions() {
         let prepared = [...this.allQuestions];
         if (document.getElementById('randomize-questions').checked) {
-            prepared.sort(() => Math.random() - 0.5);
+            // Use the modern and more effective Fisher-Yates shuffle
+            for (let i = prepared.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [prepared[i], prepared[j]] = [prepared[j], prepared[i]];
+            }
         }
         const amount = parseInt(document.getElementById('question-amount').value, 10);
         if (!isNaN(amount) && amount > 0 && amount < prepared.length) {
@@ -121,9 +125,14 @@ class QuizTrainer {
         this.questions = prepared;
     }
 
-    startQuiz() {
+
+    startQuiz(isRestart = false) {
         if (this.allQuestions.length === 0) return this.showError("No quiz loaded.");
-        this.prepareQuizQuestions();
+        
+        if (!isRestart) {
+            this.prepareQuizQuestions();
+        }
+
         if (this.questions.length === 0) return this.showError("Invalid number of questions.");
 
         this.currentQuestionIndex = 0;
@@ -242,12 +251,12 @@ class QuizTrainer {
     }
 
     validateAnswer(userSelection, correctAnswers) {
-        if (Array.isArray(correctAnswers)) {
-            // Multi-choice validation
-            return userSelection.length === correctAnswers.length && userSelection.every(choice => correctAnswers.includes(choice));
-        }
-        // Single-choice validation
-        return userSelection.length === 1 && userSelection[0] === correctAnswers;
+        const correct = Array.isArray(correctAnswers) ? correctAnswers : [correctAnswers];
+        // Sort both arrays for consistent comparison
+        const sortedUserSelection = [...userSelection].sort();
+        const sortedCorrectAnswers = [...correct].sort();
+
+        return sortedUserSelection.length === sortedCorrectAnswers.length && sortedUserSelection.every((value, index) => value === sortedCorrectAnswers[index]);
     }
 
     updateQuizInfo() {
@@ -274,8 +283,6 @@ class QuizTrainer {
         nextBtn.innerHTML = (this.currentQuestionIndex === this.questions.length - 1) ? 'Finish Quiz <i class="fas fa-flag-checkered"></i>' : 'Next <i class="fas fa-chevron-right"></i>';
     }
 
-    // --- START OF MISSING FUNCTIONS ---
-
     showFeedback(isCorrect, explanation) {
         const feedbackSection = document.getElementById('feedback-section');
         const feedbackIcon = document.getElementById('feedback-icon');
@@ -293,8 +300,6 @@ class QuizTrainer {
     hideFeedback() {
         document.getElementById('feedback-section').style.display = 'none';
     }
-
-    // --- END OF MISSING FUNCTIONS ---
 
     previousQuestion() {
         if (this.currentQuestionIndex > 0) {
@@ -333,7 +338,10 @@ class QuizTrainer {
         circle.style.background = `conic-gradient(${color1} 0deg, ${color2} ${degrees}deg, #e9ecef ${degrees}deg, #e9ecef 360deg)`;
     }
 
-    restartQuiz() { this.startQuiz(); }
+    // MODIFIED: Calls startQuiz with the 'true' flag
+    restartQuiz() { 
+        this.startQuiz(); 
+    }
 
     resetToSetup() {
         document.getElementById('setup-section').style.display = 'block';
@@ -344,6 +352,7 @@ class QuizTrainer {
         document.getElementById('file-input').value = '';
         document.getElementById('quiz-select').value = '';
         this.allQuestions = [];
+        this.questions = []; // Clear the selected questions
     }
 
     showError(message) { alert(`Error: ${message}`); }
@@ -362,5 +371,5 @@ class QuizTrainer {
     }
 }
 
-// Initialize the application now that the DOM is ready (due to the 'defer' attribute on the script tag)
+// Initialize the application
 new QuizTrainer();
