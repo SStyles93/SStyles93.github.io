@@ -22,12 +22,25 @@ class QuizTrainer {
         uploadArea.addEventListener('dragleave', (e) => this.handleDragLeave(e));
         uploadArea.addEventListener('drop', (e) => this.handleFileDrop(e));
         
-        document.getElementById('start-quiz').addEventListener('click', () => this.startQuiz(false)); // Initial start
+        document.getElementById('start-quiz').addEventListener('click', () => this.startQuiz(false));
         document.getElementById('submit-answer-btn').addEventListener('click', () => this.submitAnswer());
         document.getElementById('prev-btn').addEventListener('click', () => this.previousQuestion());
         document.getElementById('next-btn').addEventListener('click', () => this.nextQuestion());
-        document.getElementById('restart-quiz').addEventListener('click', () => this.restartQuiz()); // Calls the new restart logic
+        document.getElementById('restart-quiz').addEventListener('click', () => this.restartQuiz());
         document.getElementById('upload-new').addEventListener('click', () => this.resetToSetup());
+
+        // --- NEW: Event listener for the foldout toggle ---
+        document.getElementById('options-toggle').addEventListener('click', (e) => {
+            e.currentTarget.classList.toggle('active');
+            document.getElementById('options-panel').classList.toggle('active');
+        });
+    }
+
+    shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
     }
 
     async fetchQuizFiles() {
@@ -111,12 +124,9 @@ class QuizTrainer {
 
     prepareQuizQuestions() {
         let prepared = [...this.allQuestions];
+        // Check if the question randomization checkbox is ticked
         if (document.getElementById('randomize-questions').checked) {
-            // Use the modern and more effective Fisher-Yates shuffle
-            for (let i = prepared.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [prepared[i], prepared[j]] = [prepared[j], prepared[i]];
-            }
+            this.shuffleArray(prepared);
         }
         const amount = parseInt(document.getElementById('question-amount').value, 10);
         if (!isNaN(amount) && amount > 0 && amount < prepared.length) {
@@ -125,11 +135,9 @@ class QuizTrainer {
         this.questions = prepared;
     }
 
-
     startQuiz(isRestart = false) {
         if (this.allQuestions.length === 0) return this.showError("No quiz loaded.");
         
-
         if (!isRestart) {
             this.prepareQuizQuestions();
         }
@@ -151,11 +159,33 @@ class QuizTrainer {
     displayQuestion() {
         this.selectedChoices = [];
         this.isAnswered = false;
-        const question = this.questions[this.currentQuestionIndex];
+        const question = JSON.parse(JSON.stringify(this.questions[this.currentQuestionIndex]));
         const userAnswer = this.userAnswers[this.currentQuestionIndex];
 
         document.getElementById('question-number').textContent = this.currentQuestionIndex + 1;
         
+        // Re-introduce the conditional check for answer shuffling
+        if (document.getElementById('randomize-answers').checked) {
+            let choicesArray = Object.entries(question.choices);
+            this.shuffleArray(choicesArray);
+
+            const originalCorrectKeys = Array.isArray(question.correct_answer) ? question.correct_answer : [question.correct_answer];
+            const correctTexts = originalCorrectKeys.map(key => question.choices[key]);
+
+            const newChoices = {};
+            const newCorrectKeys = [];
+            choicesArray.forEach(([originalKey, text], index) => {
+                const newKey = String.fromCharCode(65 + index);
+                newChoices[newKey] = text;
+                if (correctTexts.includes(text)) {
+                    newCorrectKeys.push(newKey);
+                }
+            });
+
+            question.choices = newChoices;
+            question.correct_answer = Array.isArray(question.correct_answer) ? newCorrectKeys : newCorrectKeys[0];
+        }
+
         const isMultiChoice = Array.isArray(question.correct_answer);
         document.getElementById('question-type-info').textContent = isMultiChoice ? "(Select all that apply)" : "(Select one answer)";
         
@@ -168,13 +198,13 @@ class QuizTrainer {
         if (userAnswer !== null) {
             this.isAnswered = true;
             const isCorrect = this.validateAnswer(userAnswer, question.correct_answer);
-            this.showFeedback(isCorrect, question.explanation);
+            this.showFeedback(isCorrect, this.questions[this.currentQuestionIndex].explanation);
         } else {
             this.hideFeedback();
         }
         
         this.updateQuizInfo();
-        this.updateNavigation();
+        this.updateNavigation(question);
     }
 
     displayChoices(question, userAnswer) {
@@ -207,14 +237,14 @@ class QuizTrainer {
             `;
             
             if (userAnswer === null) {
-                choiceElement.addEventListener('click', () => this.handleChoiceClick(letter, isMultiChoice));
+                choiceElement.addEventListener('click', () => this.handleChoiceClick(letter, isMultiChoice, question));
             }
             
             container.appendChild(choiceElement);
         });
     }
 
-    handleChoiceClick(selectedChoice, isMultiChoice) {
+    handleChoiceClick(selectedChoice, isMultiChoice, question) {
         if (this.isAnswered) return;
 
         if (isMultiChoice) {
@@ -230,30 +260,30 @@ class QuizTrainer {
             document.getElementById('submit-answer-btn').disabled = this.selectedChoices.length === 0;
         } else {
             this.selectedChoices = [selectedChoice];
-            this.submitAnswer();
+            this.submitAnswer(question);
         }
     }
 
-    submitAnswer() {
+    submitAnswer(question) {
         if (this.isAnswered || this.selectedChoices.length === 0) return;
 
-        const question = this.questions[this.currentQuestionIndex];
+        const currentQuestion = question || JSON.parse(JSON.stringify(this.questions[this.currentQuestionIndex]));
+        
         const userSelection = [...this.selectedChoices].sort();
         this.userAnswers[this.currentQuestionIndex] = userSelection;
         
-        const isCorrect = this.validateAnswer(userSelection, question.correct_answer);
+        const isCorrect = this.validateAnswer(userSelection, currentQuestion.correct_answer);
         if (isCorrect) this.score++;
         
         this.isAnswered = true;
-        this.displayChoices(question, userSelection);
-        this.showFeedback(isCorrect, question.explanation);
+        this.displayChoices(currentQuestion, userSelection);
+        this.showFeedback(isCorrect, this.questions[this.currentQuestionIndex].explanation);
         this.updateQuizInfo();
-        this.updateNavigation();
+        this.updateNavigation(currentQuestion);
     }
 
     validateAnswer(userSelection, correctAnswers) {
         const correct = Array.isArray(correctAnswers) ? correctAnswers : [correctAnswers];
-        // Sort both arrays for consistent comparison
         const sortedUserSelection = [...userSelection].sort();
         const sortedCorrectAnswers = [...correct].sort();
 
@@ -270,8 +300,7 @@ class QuizTrainer {
         document.getElementById('attempted-questions').textContent = attemptedCount;
     }
 
-    updateNavigation() {
-        const question = this.questions[this.currentQuestionIndex];
+    updateNavigation(question) {
         const isMultiChoice = Array.isArray(question.correct_answer);
         const submitBtn = document.getElementById('submit-answer-btn');
         
@@ -340,7 +369,7 @@ class QuizTrainer {
     }
 
     restartQuiz() { 
-        this.startQuiz(); 
+        this.startQuiz(true); 
     }
 
     resetToSetup() {
@@ -352,7 +381,7 @@ class QuizTrainer {
         document.getElementById('file-input').value = '';
         document.getElementById('quiz-select').value = '';
         this.allQuestions = [];
-        this.questions = []; // Clear the selected questions
+        this.questions = [];
     }
 
     showError(message) { alert(`Error: ${message}`); }
