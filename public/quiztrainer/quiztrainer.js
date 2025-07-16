@@ -8,7 +8,9 @@ class QuizTrainer {
         this.score = 0;
         this.isAnswered = false;
         this.selectedChoices = [];
-        this.currentChoicesMap = {};
+
+        this.bindEventListeners();
+        this.fetchQuizFiles();
     }
 
     bindEventListeners() {
@@ -20,19 +22,12 @@ class QuizTrainer {
         uploadArea.addEventListener('dragleave', (e) => this.handleDragLeave(e));
         uploadArea.addEventListener('drop', (e) => this.handleFileDrop(e));
         
-        document.getElementById('start-quiz').addEventListener('click', () => this.startQuiz(false));
+        document.getElementById('start-quiz').addEventListener('click', () => this.startQuiz(false)); // Initial start
         document.getElementById('submit-answer-btn').addEventListener('click', () => this.submitAnswer());
         document.getElementById('prev-btn').addEventListener('click', () => this.previousQuestion());
         document.getElementById('next-btn').addEventListener('click', () => this.nextQuestion());
-        document.getElementById('restart-quiz').addEventListener('click', () => this.restartQuiz());
+        document.getElementById('restart-quiz').addEventListener('click', () => this.restartQuiz()); // Calls the new restart logic
         document.getElementById('upload-new').addEventListener('click', () => this.resetToSetup());
-    }
-
-    shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
     }
 
     async fetchQuizFiles() {
@@ -117,8 +112,11 @@ class QuizTrainer {
     prepareQuizQuestions() {
         let prepared = [...this.allQuestions];
         if (document.getElementById('randomize-questions').checked) {
-            // MODIFIED: Use the new robust shuffle function
-            this.shuffleArray(prepared);
+            // Use the modern and more effective Fisher-Yates shuffle
+            for (let i = prepared.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [prepared[i], prepared[j]] = [prepared[j], prepared[i]];
+            }
         }
         const amount = parseInt(document.getElementById('question-amount').value, 10);
         if (!isNaN(amount) && amount > 0 && amount < prepared.length) {
@@ -127,9 +125,11 @@ class QuizTrainer {
         this.questions = prepared;
     }
 
+
     startQuiz(isRestart = false) {
         if (this.allQuestions.length === 0) return this.showError("No quiz loaded.");
         
+
         if (!isRestart) {
             this.prepareQuizQuestions();
         }
@@ -163,12 +163,11 @@ class QuizTrainer {
         questionElement.innerHTML = this.formatQuestionText(question.question);
         Prism.highlightAllUnder(questionElement);
         
-        this.displayAndMapChoices(question, userAnswer);
+        this.displayChoices(question, userAnswer);
         
         if (userAnswer !== null) {
             this.isAnswered = true;
-            const correctAnswers = this.getRemappedCorrectAnswers();
-            const isCorrect = this.validateAnswer(userAnswer, correctAnswers);
+            const isCorrect = this.validateAnswer(userAnswer, question.correct_answer);
             this.showFeedback(isCorrect, question.explanation);
         } else {
             this.hideFeedback();
@@ -178,34 +177,21 @@ class QuizTrainer {
         this.updateNavigation();
     }
 
-    displayAndMapChoices(question, userAnswer) {
-        const { choices } = question;
+    displayChoices(question, userAnswer) {
+        const { choices, correct_answer } = question;
         const container = document.getElementById('choices-container');
         container.innerHTML = '';
+        const isMultiChoice = Array.isArray(correct_answer);
 
-        let originalKeys = Object.keys(choices);
-        this.shuffleArray(originalKeys);
-
-        this.currentChoicesMap = {};
-        originalKeys.forEach((originalKey, index) => {
-            const newKey = String.fromCharCode(65 + index);
-            this.currentChoicesMap[newKey] = {
-                originalKey: originalKey,
-                text: choices[originalKey]
-            };
-        });
-
-        const correctAnswers = this.getRemappedCorrectAnswers();
-        const isMultiChoice = correctAnswers.length > 1;
-
-        Object.entries(this.currentChoicesMap).forEach(([newKey, choiceData]) => {
+        Object.entries(choices).forEach(([letter, text]) => {
             const choiceElement = document.createElement('div');
             choiceElement.className = 'choice';
-            choiceElement.dataset.choice = newKey;
+            choiceElement.dataset.choice = letter;
 
             if (userAnswer !== null) {
-                const isCorrectChoice = correctAnswers.includes(newKey);
-                const wasSelected = userAnswer.includes(newKey);
+                const correctAnswers = isMultiChoice ? correct_answer : [correct_answer];
+                const isCorrectChoice = correctAnswers.includes(letter);
+                const wasSelected = userAnswer.includes(letter);
 
                 if (isCorrectChoice) choiceElement.classList.add('correct');
                 if (wasSelected && !isCorrectChoice) choiceElement.classList.add('incorrect');
@@ -213,32 +199,19 @@ class QuizTrainer {
             }
             
             const indicatorType = isMultiChoice ? 'checkbox' : 'letter';
-            const indicatorContent = isMultiChoice ? '<i class="fas fa-check"></i>' : newKey;
+            const indicatorContent = isMultiChoice ? '<i class="fas fa-check"></i>' : letter;
             
             choiceElement.innerHTML = `
                 <div class="choice-indicator ${indicatorType}">${indicatorContent}</div>
-                <div class="choice-text">${this.escapeHtml(choiceData.text)}</div>
+                <div class="choice-text">${this.escapeHtml(text)}</div>
             `;
             
             if (userAnswer === null) {
-                choiceElement.addEventListener('click', () => this.handleChoiceClick(newKey, isMultiChoice));
+                choiceElement.addEventListener('click', () => this.handleChoiceClick(letter, isMultiChoice));
             }
             
             container.appendChild(choiceElement);
         });
-    }
-
-    getRemappedCorrectAnswers() {
-        const originalCorrect = this.questions[this.currentQuestionIndex].correct_answer;
-        const correctAnswers = Array.isArray(originalCorrect) ? originalCorrect : [originalCorrect];
-        
-        const remappedCorrect = [];
-        Object.entries(this.currentChoicesMap).forEach(([newKey, choiceData]) => {
-            if (correctAnswers.includes(choiceData.originalKey)) {
-                remappedCorrect.push(newKey);
-            }
-        });
-        return remappedCorrect;
     }
 
     handleChoiceClick(selectedChoice, isMultiChoice) {
@@ -264,23 +237,25 @@ class QuizTrainer {
     submitAnswer() {
         if (this.isAnswered || this.selectedChoices.length === 0) return;
 
+        const question = this.questions[this.currentQuestionIndex];
         const userSelection = [...this.selectedChoices].sort();
         this.userAnswers[this.currentQuestionIndex] = userSelection;
         
-        const correctAnswers = this.getRemappedCorrectAnswers();
-        const isCorrect = this.validateAnswer(userSelection, correctAnswers);
+        const isCorrect = this.validateAnswer(userSelection, question.correct_answer);
         if (isCorrect) this.score++;
         
         this.isAnswered = true;
-        this.displayAndMapChoices(this.questions[this.currentQuestionIndex], userSelection);
-        this.showFeedback(isCorrect, this.questions[this.currentQuestionIndex].explanation);
+        this.displayChoices(question, userSelection);
+        this.showFeedback(isCorrect, question.explanation);
         this.updateQuizInfo();
         this.updateNavigation();
     }
 
     validateAnswer(userSelection, correctAnswers) {
+        const correct = Array.isArray(correctAnswers) ? correctAnswers : [correctAnswers];
+        // Sort both arrays for consistent comparison
         const sortedUserSelection = [...userSelection].sort();
-        const sortedCorrectAnswers = [...correctAnswers].sort();
+        const sortedCorrectAnswers = [...correct].sort();
 
         return sortedUserSelection.length === sortedCorrectAnswers.length && sortedUserSelection.every((value, index) => value === sortedCorrectAnswers[index]);
     }
@@ -296,8 +271,8 @@ class QuizTrainer {
     }
 
     updateNavigation() {
-        const correctAnswers = this.getRemappedCorrectAnswers();
-        const isMultiChoice = correctAnswers.length > 1;
+        const question = this.questions[this.currentQuestionIndex];
+        const isMultiChoice = Array.isArray(question.correct_answer);
         const submitBtn = document.getElementById('submit-answer-btn');
         
         submitBtn.style.display = (isMultiChoice && !this.isAnswered) ? 'inline-block' : 'none';
@@ -365,7 +340,7 @@ class QuizTrainer {
     }
 
     restartQuiz() { 
-        this.startQuiz(true); 
+        this.startQuiz(); 
     }
 
     resetToSetup() {
@@ -377,7 +352,7 @@ class QuizTrainer {
         document.getElementById('file-input').value = '';
         document.getElementById('quiz-select').value = '';
         this.allQuestions = [];
-        this.questions = [];
+        this.questions = []; // Clear the selected questions
     }
 
     showError(message) { alert(`Error: ${message}`); }
