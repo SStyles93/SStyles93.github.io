@@ -813,10 +813,10 @@
     "choices": {
       "A": "A copy constructor is used for object initialization, while an assignment operator is used for object assignment.",
       "B": "A copy constructor is called when an object is created, while an assignment operator is called when an existing object is assigned a new value.",
-      "C": "Both A and B.",
+      "C": "None of these statments",
       "D": "There is no difference; they are interchangeable."
     },
-    "correct_answer": "C",
+    "correct_answer": ["A","B"],
     "explanation": "A copy constructor is a special constructor that creates a new object as a copy of an existing object. It's called during initialization (e.g., `MyClass obj2 = obj1;`). An assignment operator (`operator=`) is used to assign the value of one existing object to another existing object (e.g., `obj2 = obj1;`). Both are crucial for proper deep copying when a class manages dynamic memory."
   },
   {
@@ -839,9 +839,9 @@
       "A": "`int count;`",
       "B": "`static int count;` (inside class declaration)",
       "C": "`static int MyClass::count;` (outside class definition)",
-      "D": "Both B and C."
+      "D": "`static count (int)`"
     },
-    "correct_answer": "D",
+    "correct_answer": ["B", "C"],
     "explanation": "Static member variables are declared inside the class definition using the `static` keyword (B) and must be defined (initialized) outside the class definition in the global scope (C). This ensures that there is only one copy of the static member shared by all objects of the class."
   },
   {
