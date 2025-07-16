@@ -3,6 +3,8 @@ class QuizTrainer {
     constructor() {
         this.allQuestions = [];
         this.questions = [];
+        // --- NEW: This will store the shuffled state for each question ---
+        this.questionStates = []; 
         this.currentQuestionIndex = 0;
         this.userAnswers = [];
         this.score = 0;
@@ -29,7 +31,6 @@ class QuizTrainer {
         document.getElementById('restart-quiz').addEventListener('click', () => this.restartQuiz());
         document.getElementById('upload-new').addEventListener('click', () => this.resetToSetup());
 
-        // --- NEW: Event listener for the foldout toggle ---
         document.getElementById('options-toggle').addEventListener('click', (e) => {
             e.currentTarget.classList.toggle('active');
             document.getElementById('options-panel').classList.toggle('active');
@@ -124,7 +125,6 @@ class QuizTrainer {
 
     prepareQuizQuestions() {
         let prepared = [...this.allQuestions];
-        // Check if the question randomization checkbox is ticked
         if (document.getElementById('randomize-questions').checked) {
             this.shuffleArray(prepared);
         }
@@ -146,6 +146,8 @@ class QuizTrainer {
 
         this.currentQuestionIndex = 0;
         this.userAnswers = new Array(this.questions.length).fill(null);
+        // --- MODIFIED: Initialize the state cache ---
+        this.questionStates = new Array(this.questions.length).fill(null);
         this.score = 0;
 
         document.getElementById('setup-section').style.display = 'none';
@@ -159,52 +161,59 @@ class QuizTrainer {
     displayQuestion() {
         this.selectedChoices = [];
         this.isAnswered = false;
-        const question = JSON.parse(JSON.stringify(this.questions[this.currentQuestionIndex]));
-        const userAnswer = this.userAnswers[this.currentQuestionIndex];
+        let questionState = this.questionStates[this.currentQuestionIndex];
 
-        document.getElementById('question-number').textContent = this.currentQuestionIndex + 1;
-        
-        // Re-introduce the conditional check for answer shuffling
-        if (document.getElementById('randomize-answers').checked) {
-            let choicesArray = Object.entries(question.choices);
-            this.shuffleArray(choicesArray);
+        // --- MODIFIED: Generate and cache the question state if it doesn't exist ---
+        if (!questionState) {
+            const originalQuestion = this.questions[this.currentQuestionIndex];
+            questionState = JSON.parse(JSON.stringify(originalQuestion)); // Deep copy
 
-            const originalCorrectKeys = Array.isArray(question.correct_answer) ? question.correct_answer : [question.correct_answer];
-            const correctTexts = originalCorrectKeys.map(key => question.choices[key]);
+            if (document.getElementById('randomize-answers').checked) {
+                let choicesArray = Object.entries(questionState.choices);
+                this.shuffleArray(choicesArray);
 
-            const newChoices = {};
-            const newCorrectKeys = [];
-            choicesArray.forEach(([originalKey, text], index) => {
-                const newKey = String.fromCharCode(65 + index);
-                newChoices[newKey] = text;
-                if (correctTexts.includes(text)) {
-                    newCorrectKeys.push(newKey);
-                }
-            });
+                const originalCorrectKeys = Array.isArray(originalQuestion.correct_answer) ? originalQuestion.correct_answer : [originalQuestion.correct_answer];
+                const correctTexts = originalCorrectKeys.map(key => originalQuestion.choices[key]);
 
-            question.choices = newChoices;
-            question.correct_answer = Array.isArray(question.correct_answer) ? newCorrectKeys : newCorrectKeys[0];
+                const newChoices = {};
+                const newCorrectKeys = [];
+                choicesArray.forEach(([originalKey, text], index) => {
+                    const newKey = String.fromCharCode(65 + index);
+                    newChoices[newKey] = text;
+                    if (correctTexts.includes(text)) {
+                        newCorrectKeys.push(newKey);
+                    }
+                });
+
+                questionState.choices = newChoices;
+                questionState.correct_answer = Array.isArray(originalQuestion.correct_answer) ? newCorrectKeys : newCorrectKeys[0];
+            }
+            // Cache the newly generated state
+            this.questionStates[this.currentQuestionIndex] = questionState;
         }
 
-        const isMultiChoice = Array.isArray(question.correct_answer);
+        const userAnswer = this.userAnswers[this.currentQuestionIndex];
+        document.getElementById('question-number').textContent = this.currentQuestionIndex + 1;
+        
+        const isMultiChoice = Array.isArray(questionState.correct_answer);
         document.getElementById('question-type-info').textContent = isMultiChoice ? "(Select all that apply)" : "(Select one answer)";
         
         const questionElement = document.getElementById('question-text');
-        questionElement.innerHTML = this.formatQuestionText(question.question);
+        questionElement.innerHTML = this.formatQuestionText(questionState.question);
         Prism.highlightAllUnder(questionElement);
         
-        this.displayChoices(question, userAnswer);
+        this.displayChoices(questionState, userAnswer);
         
         if (userAnswer !== null) {
             this.isAnswered = true;
-            const isCorrect = this.validateAnswer(userAnswer, question.correct_answer);
-            this.showFeedback(isCorrect, this.questions[this.currentQuestionIndex].explanation);
+            const isCorrect = this.validateAnswer(userAnswer, questionState.correct_answer);
+            this.showFeedback(isCorrect, questionState.explanation);
         } else {
             this.hideFeedback();
         }
         
         this.updateQuizInfo();
-        this.updateNavigation(question);
+        this.updateNavigation(questionState);
     }
 
     displayChoices(question, userAnswer) {
@@ -237,14 +246,14 @@ class QuizTrainer {
             `;
             
             if (userAnswer === null) {
-                choiceElement.addEventListener('click', () => this.handleChoiceClick(letter, isMultiChoice, question));
+                choiceElement.addEventListener('click', () => this.handleChoiceClick(letter, isMultiChoice));
             }
             
             container.appendChild(choiceElement);
         });
     }
 
-    handleChoiceClick(selectedChoice, isMultiChoice, question) {
+    handleChoiceClick(selectedChoice, isMultiChoice) {
         if (this.isAnswered) return;
 
         if (isMultiChoice) {
@@ -260,26 +269,25 @@ class QuizTrainer {
             document.getElementById('submit-answer-btn').disabled = this.selectedChoices.length === 0;
         } else {
             this.selectedChoices = [selectedChoice];
-            this.submitAnswer(question);
+            this.submitAnswer();
         }
     }
 
-    submitAnswer(question) {
+    submitAnswer() {
         if (this.isAnswered || this.selectedChoices.length === 0) return;
 
-        const currentQuestion = question || JSON.parse(JSON.stringify(this.questions[this.currentQuestionIndex]));
-        
+        const questionState = this.questionStates[this.currentQuestionIndex];
         const userSelection = [...this.selectedChoices].sort();
         this.userAnswers[this.currentQuestionIndex] = userSelection;
         
-        const isCorrect = this.validateAnswer(userSelection, currentQuestion.correct_answer);
+        const isCorrect = this.validateAnswer(userSelection, questionState.correct_answer);
         if (isCorrect) this.score++;
         
         this.isAnswered = true;
-        this.displayChoices(currentQuestion, userSelection);
-        this.showFeedback(isCorrect, this.questions[this.currentQuestionIndex].explanation);
+        this.displayChoices(questionState, userSelection);
+        this.showFeedback(isCorrect, questionState.explanation);
         this.updateQuizInfo();
-        this.updateNavigation(currentQuestion);
+        this.updateNavigation(questionState);
     }
 
     validateAnswer(userSelection, correctAnswers) {
@@ -382,6 +390,7 @@ class QuizTrainer {
         document.getElementById('quiz-select').value = '';
         this.allQuestions = [];
         this.questions = [];
+        this.questionStates = []; // Clear the cache
     }
 
     showError(message) { alert(`Error: ${message}`); }
