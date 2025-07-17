@@ -250,7 +250,7 @@
       "D": "t = &fun(*t, \"2\"); cout << *t;"
     },
     "correct_answer": [ "A", "B", "C" ],
-    "explanation": "A, B, and C all result in concatenating the string \"1\" with \"2\" to produce \"12\", which is then printed. A uses the pointer `t` to dereference `s`. B uses `s` directly. C modifies `s` first and then prints it. D is incorrect because you cannot take the address of a temporary rvalue returned by a function."
+    "explanation": "cout << fun(*t, \"2\");,\n cout << fun(s, \"2\");,\n and  = fun(s, \"2\"); cout << s; all result in concatenating the string \"1\" with \"2\" to produce \"12\", which is then printed.\n`cout << fun(*t, \"2\");` uses the pointer `t` to dereference `s`.\n`cout << fun(s, \"2\");` uses `s` directly.\ns = fun(s, \"2\"); cout << s; modifies `s` first and then prints it.\n`t = &fun(*t, \"2\"); cout << *t;` is incorrect because you cannot take the address of a temporary rvalue returned by a function."
   },
   {
     "question": "What is the output of the following snippet?\n\n```cpp\n#include <iostream>\nusing namespace std;\nchar max(char x, char y) {\n    if (x > y) return y;\n    else return x;\n}\nint main() {\n    char chr = max('a', 'z');\n    cout << chr;\n    return 0;\n}\n```",
