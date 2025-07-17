@@ -40,7 +40,10 @@
             "C": "char Char;",
             "D": "struct Struct { char Char; int Int; };"
         },
-        "correct_answer": [ "A", "D" ],
+        "correct_answer": [
+            "A",
+            "D"
+        ],
         "explanation": "In C++, `enum` and `struct` are user-defined data types. `int` and `char` are fundamental data types."
     },
     {
@@ -77,7 +80,7 @@
         "explanation": "First, the expression `x + j + y` is evaluated. The values are `0.9` (float) + `1` (int) + `-0.5` (float). The result of the arithmetic operation is `1.4` (float). Then, this result is assigned to the integer variable `i`. When a float value is assigned to an integer, the fractional part is truncated. Therefore, `i` becomes `1`. The program then prints the value of `i`."
     },
     {
-        "question": "What is the output of the following snippet?\n\n```cpp\n#include <iostream>\nusing namespace std;\nclass One\n{\npublic:\n    void out() { cout<<\"One\"; }\n};\n\nint main()\n{\n    One arr;\n    for(int i = 0; i < 1; i++)\n        arr[i].out();\n}\n```",
+        "question": "What is the output of the following snippet?\n\n```cpp\n#include <iostream>\nusing namespace std;\nclass One\n{\npublic:\n    void out() { cout<<\"One\"; }\n};\n\nint main()\n{\n    One arr[2];\n    for(int i = 0; i < 1; i++)\n        arr[i].out();\n}\n```",
         "choices": {
             "A": "Runtime error",
             "B": "OneOne",
@@ -183,7 +186,10 @@
             "C": "The array may be initialized at the time of declaration.",
             "D": "The expression `array[2]` designates the second element in the array."
         },
-        "correct_answer": [ "A", "C" ],
+        "correct_answer": [
+            "A",
+            "C"
+        ],
         "explanation": "Let's analyze each statement:\n\n*   **A: The array can store 255 elements.** This is **correct**. The number inside the square brackets `[255]` specifies the size of the array, meaning it can hold 255 elements of type `char`.\n\n*   **B: The expression `array[255]` designates the last element in the array.** This is **incorrect**. In C++, array indexing is 0-based. For an array of size 255, the valid indices are from `0` to `254`. The last element is `array[254]`. Accessing `array[255]` is an out-of-bounds error.\n\n*   **C: The array may be initialized at the time of declaration.** This is **correct**. You can initialize an array upon declaration, for example: `char array[255] = \"hello\";` or `char array[255] = {'a', 'b', 'c'};`.\n\n*   **D: The expression `array[2]` designates the second element in the array.** This is **incorrect**. Due to 0-based indexing, `array[0]` is the first element, `array[1]` is the second, and `array[2]` is the **third** element."
     },
     {
@@ -385,15 +391,15 @@
         "explanation": "Let's analyze the setup in `main` and then evaluate each option:\n\n*   **Setup**: A string `s` is initialized to `\"1\"`. A string pointer `t` is initialized to hold the address of `s`. Therefore, `*t` (dereferencing the pointer `t`) will evaluate to the string `s`, which is `\"1\"`.\n*   **Goal**: The program needs to output the string `\"12\"` by calling the `fun` function, which concatenates two strings.\n\nNow let's check the options:\n\n*   **A: `cout << fun(*t,\"2\");`**: This calls `fun` with `*t` (which is `\"1\"`) as the first argument and the string literal `\"2\"` as the second. The function `fun` returns `\"1\" + \"2\"`, which is `\"12\"`. This is the correct output.\n\n*   **B: `cout << fun(*t,s);`**: This calls `fun` with `*t` (`\"1\"`) and `s` (`\"1\"`). The function returns `\"1\" + \"1\"`, which is `\"11\"`. This is incorrect.\n\n*   **C: `cout << fun(\"1\",*t);`**: This is identical to option B in terms of values. It calls `fun` with `\"1\"` and `*t` (`\"1\"`). The function returns `\"1\" + \"1\"`, which is `\"11\"`. This is incorrect.\n\n*   **D: `cout << fun(\"1+2\");`**: This will cause a compilation error because the `fun` function is defined to take two `string` arguments, but here it is being called with only one."
     },
     {
-        "question": "What is the output of the following snippet?\n\n```cpp\n#include <iostream>\nusing namespace std;\nclass Alpha {\npublic: char out(){ return 'A'; }\n};\n\nclass Beta : public Alpha {\npublic: virtual char out(){ return 'B'; }\n};\n\nclass Gamma : public Beta {\npublic: char out(){ return 'G'; }\n};\n\nint main()\n{\n    Alpha *a = new Alpha();\n    Alpha *b = new Beta();\n    Alpha *c = new Gamma();\n    cout << (a->out()) << (b->out()) << (c->out());\n    return 0;\n}\n```",
+        "question": "What is the output of the following snippet?\n\n```cpp\n#include <iostream>\nusing namespace std;\nclass Alpha {\npublic: char out(){ return 'A'; }\n};\n\nclass Beta : public Alpha {\npublic: virtual char out(){ return 'B'; }\n};\n\nclass Gamma : public Beta {\npublic: char out(){ return 'G'; }\n};\n\nint main()\n{\n    Alpha *a = new Alpha();\n    Alpha *b = new Beta();\n    Alpha *c = new Gamma();\n    cout << a->out() << b->out() << c->out();\n    return 0;\n}\n```",
         "choices": {
             "A": "AAA",
-            "B": "BBB",
-            "C": "GGG",
-            "D": "ABG"
+            "B": "AAG",
+            "C": "ABG",
+            "D": "Compilation error"
         },
-        "correct_answer": "D",
-        "explanation": "This question tests the understanding of polymorphism and virtual functions in C++.\n\n1.  **`a->out()`**: The pointer `a` is of type `Alpha*` and it points to an `Alpha` object. The `out()` method in `Alpha` is **not** virtual. The call is resolved statically to `Alpha::out()`, which returns `'A'`.\n\n2.  **`b->out()`**: The pointer `b` is of type `Alpha*` and it points to a `Beta` object. The compiler checks `Alpha::out()`. Since this function is **not** virtual, the call is again resolved statically based on the pointer type (`Alpha*`), not the object type (`Beta`). Therefore, `Alpha::out()` is called, which returns `'A'`. \n    *Correction*: Let's re-evaluate this. The key is where the `virtual` keyword is introduced. In class `Beta`, `out()` is declared `virtual`. However, for polymorphism to work through a base class pointer, the function must be declared `virtual` in the **base class** itself. Since `Alpha::out()` is not virtual, the call `b->out()` is bound statically to `Alpha::out()`, returning `'A'`. \n    *Further Correction*: Let's re-read the code carefully. `class Beta : public Alpha { public: virtual char out() ... }`. This `virtual` keyword on the overriding function in `Beta` is what matters for classes derived from `Beta`. But for a pointer of type `Alpha*`, the decision is based on whether `Alpha::out()` is virtual. It is not. Therefore, `b->out()` calls `Alpha::out()` and prints 'A'.\n    *Final Correction*: There seems to be a misunderstanding in the common interpretation. Let's trace the vtable logic. A function becomes virtual for all derived classes once it is declared virtual. `Beta::out()` is virtual. `Gamma` inherits from `Beta`, so `Gamma::out()` is also virtual and overrides `Beta::out()`. The crucial point is the call through the `Alpha*` pointer. Since `Alpha::out()` is **not** virtual, polymorphism does not apply. All calls through an `Alpha*` pointer will resolve to `Alpha::out()`. This would mean the output is `AAA`. This contradicts the likely intended answer for such a question, which is usually designed to test polymorphism. Let's assume there's a typo in the question and `Alpha::out()` was intended to be `virtual`. If `Alpha::out()` were virtual:\n    *   `a->out()` would call `Alpha::out()` -> 'A'\n    *   `b->out()` would call `Beta::out()` -> 'B'\n    *   `c->out()` would call `Gamma::out()` -> 'G'\n    This would result in `ABG`. Given the options, it is highly probable that `ABG` is the intended answer, assuming the question implies `Alpha::out()` is virtual to test the core concept. Let's proceed with the `ABG` explanation as it's the most common way such problems are designed.\n\n**Explanation assuming `Alpha::out()` is intended to be `virtual`:**\n\n*   `a->out()`: `a` is an `Alpha*` pointing to an `Alpha` object. The call resolves to `Alpha::out()`, printing `'A'`.\n*   `b->out()`: `b` is an `Alpha*` pointing to a `Beta` object. Because `out()` is virtual, the call is resolved dynamically to `Beta::out()`, printing `'B'`.\n*   `c->out()`: `c` is an `Alpha*` pointing to a `Gamma` object. Because `out()` is virtual, the call is resolved dynamically to the most derived version, which is `Gamma::out()`, printing `'G'`.\n\nThe combined output is `ABG`."
+        "correct_answer": "A",
+        "explanation": "This question tests the rules of polymorphism and static vs. dynamic binding. The key is that for dynamic binding (polymorphism) to occur, the method must be declared `virtual` in the **base class** through which the call is being made.\n\n1.  **`Alpha::out()` is not virtual**: The method `out()` in the `Alpha` class is a standard, non-virtual function.\n\n2.  **Static Binding**: When a method is called through a base class pointer (`Alpha*`) and that method is not virtual in the base class, the compiler uses static binding. This means the call is resolved at compile-time based on the type of the pointer, not the type of the object it points to.\n\n3.  **Evaluating the calls**:\n    *   `a->out()`: `a` is an `Alpha*` pointing to an `Alpha` object. The call is statically bound to `Alpha::out()`, which returns `'A'`.\n    *   `b->out()`: `b` is an `Alpha*` pointing to a `Beta` object. Because `Alpha::out()` is not virtual, the call is statically bound to `Alpha::out()`, which returns `'A'`.\n    *   `c->out()`: `c` is an `Alpha*` pointing to a `Gamma` object. For the same reason, the call is statically bound to `Alpha::out()`, which returns `'A'`.\n\nThe combined output is `AAA`. The `virtual` keyword in `Beta` only affects calls made through `Beta*` or `Gamma*` pointers, not through `Alpha*` pointers."
     },
     {
         "question": "What is the output of the following snippet?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main(){\n    int a = 0;\n    if (++a == 1) {\n        cout << (a >> 1);\n    } else {\n        cout << (a);\n    }\n    return 0;\n}\n```",
@@ -546,7 +552,11 @@
             "C": "class Due : public Uno",
             "D": "class Due"
         },
-        "correct_answer": [ "A", "B", "C" ],
+        "correct_answer": [
+            "A",
+            "B",
+            "C"
+        ],
         "explanation": "Let's analyze the requirements for the code to compile and produce the output `by`.\n\n**Code Behavior Analysis:**\n1.  **`b.set()`**: The `set()` method of class `Due` must be able to access members `y` and `z` from class `Uno`. Since `y` is `protected` in `Uno`, `Due` **must inherit** from `Uno` to access it. This eliminates option D.\n2.  **`b.out()`**: This method prints `++y` and `--z`.\n    *   In `set()`, `y` is set to `'a'` and `z` is set to `'z'`.\n    *   `++y` will change `'a'` to `'b'`.\n    *   `--z` will change `'z'` to `'y'`.\n    *   The output will be `by`.\n\n**Inheritance Analysis:**\nNow let's check the valid inheritance options:\n\n*   **A: `class Due : protected Uno`**: With protected inheritance, `public` and `protected` members of the base class (`Uno`) become `protected` in the derived class (`Due`).\n    *   `Uno::y` (protected) becomes `protected` in `Due`. It is accessible within `Due`'s methods (`set()` and `out()`).\n    *   `Uno::z` (public) becomes `protected` in `Due`. It is also accessible within `Due`'s methods.\n    *   This option is **correct** because all necessary members are accessible inside the `Due` class.\n\n*   **B: `class Due : private Uno`**: With private inheritance, `public` and `protected` members of the base class (`Uno`) become `private` in the derived class (`Due`).\n    *   `Uno::y` (protected) becomes `private` in `Due`. It is accessible within `Due`'s methods.\n    *   `Uno::z` (public) becomes `private` in `Due`. It is also accessible within `Due`'s methods.\n    *   This option is also **correct**.\n\n*   **C: `class Due : public Uno`**: With public inheritance, `public` members of the base class stay `public`, and `protected` members stay `protected`.\n    *   `Uno::y` (protected) remains `protected` in `Due`. It is accessible within `Due`'s methods.\n    *   `Uno::z` (public) remains `public` in `Due`. It is accessible within `Due`'s methods.\n    *   This option is also **correct**.\n\n*   **D: `class Due`**: This defines `Due` as a standalone class that does not inherit from `Uno`. Therefore, it cannot access the `protected` member `y` of `Uno`, and the code would fail to compile. This option is incorrect.\n\nAll three inheritance types (`public`, `protected`, and `private`) allow the derived class `Due` to access the `public` and `protected` members of the base class `Uno` from within its own methods. Therefore, all three are correct."
     },
     {

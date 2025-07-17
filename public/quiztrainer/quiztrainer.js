@@ -3,7 +3,6 @@ class QuizTrainer {
     constructor() {
         this.allQuestions = [];
         this.questions = [];
-        // --- NEW: This will store the shuffled state for each question ---
         this.questionStates = []; 
         this.currentQuestionIndex = 0;
         this.userAnswers = [];
@@ -146,7 +145,6 @@ class QuizTrainer {
 
         this.currentQuestionIndex = 0;
         this.userAnswers = new Array(this.questions.length).fill(null);
-        // --- MODIFIED: Initialize the state cache ---
         this.questionStates = new Array(this.questions.length).fill(null);
         this.score = 0;
 
@@ -163,10 +161,9 @@ class QuizTrainer {
         this.isAnswered = false;
         let questionState = this.questionStates[this.currentQuestionIndex];
 
-        // --- MODIFIED: Generate and cache the question state if it doesn't exist ---
         if (!questionState) {
             const originalQuestion = this.questions[this.currentQuestionIndex];
-            questionState = JSON.parse(JSON.stringify(originalQuestion)); // Deep copy
+            questionState = JSON.parse(JSON.stringify(originalQuestion));
 
             if (document.getElementById('randomize-answers').checked) {
                 let choicesArray = Object.entries(questionState.choices);
@@ -188,7 +185,6 @@ class QuizTrainer {
                 questionState.choices = newChoices;
                 questionState.correct_answer = Array.isArray(originalQuestion.correct_answer) ? newCorrectKeys : newCorrectKeys[0];
             }
-            // Cache the newly generated state
             this.questionStates[this.currentQuestionIndex] = questionState;
         }
 
@@ -240,9 +236,13 @@ class QuizTrainer {
             const indicatorType = isMultiChoice ? 'checkbox' : 'letter';
             const indicatorContent = isMultiChoice ? '<i class="fas fa-check"></i>' : letter;
             
+            // --- THIS IS THE FIX ---
+            // Escape the text to prevent HTML injection, then replace newlines with <br> tags.
+            const formattedText = this.escapeHtml(text).replace(/\n/g, '<br>');
+            
             choiceElement.innerHTML = `
                 <div class="choice-indicator ${indicatorType}">${indicatorContent}</div>
-                <div class="choice-text">${this.escapeHtml(text)}</div>
+                <div class="choice-text">${formattedText}</div>
             `;
             
             if (userAnswer === null) {
@@ -332,7 +332,8 @@ class QuizTrainer {
         
         feedbackIcon.className = isCorrect ? 'fas fa-check-circle' : 'fas fa-times-circle';
         feedbackTitle.textContent = isCorrect ? 'Correct!' : 'Incorrect';
-        explanationElement.textContent = explanation;
+        // Also apply the fix to the explanation text
+        explanationElement.innerHTML = this.escapeHtml(explanation).replace(/\n/g, '<br>');
     }
 
     hideFeedback() {
@@ -390,7 +391,7 @@ class QuizTrainer {
         document.getElementById('quiz-select').value = '';
         this.allQuestions = [];
         this.questions = [];
-        this.questionStates = []; // Clear the cache
+        this.questionStates = [];
     }
 
     showError(message) { alert(`Error: ${message}`); }
