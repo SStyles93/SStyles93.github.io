@@ -844,8 +844,6 @@
     "correct_answer": "C",
     "explanation": "`count` is a static member variable, initialized to 0. Each time a `Counter` object is created (c1 and c2), the constructor increments `count`. So, after creating two objects, `count` becomes 2."
   }
-
-
 ,
   {
     "question": "Which of the following terms describes the mechanism by which one class acquires the properties and behaviors of another class?",
@@ -1658,52 +1656,5 @@
     },
     "correct_answer": "B",
     "explanation": "The `std::ios::app` flag (append) causes all output operations to write data at the end of the file, effectively appending new content to existing content. If the file does not exist, it is created."
-  },
-  {
-    "question": "Which of the following is true about `std::cerr`?",
-    "choices": {
-      "A": "It is a buffered stream for standard output.",
-      "B": "It is an unbuffered stream for standard error, typically used for immediate error messages.",
-      "C": "It is used for reading input from the console.",
-      "D": "It is used for writing to files."
-    },
-    "correct_answer": "B",
-    "explanation": "`std::cerr` is the standard error stream. Unlike `std::cout`, it is typically unbuffered, meaning that output sent to `std::cerr` is written immediately to the destination, which is usually the console. This makes it suitable for critical error messages that need to be displayed without delay."
-  }
-
-
-,
-  {
-    "question": "Which keyword is used to dynamically allocate memory for a single object in C++?",
-    "choices": {
-      "A": "`malloc`",
-      "B": "`calloc`",
-      "C": "`new`",
-      "D": "`allocate`"
-    },
-    "correct_answer": "C",
-    "explanation": "The `new` operator is used in C++ to dynamically allocate memory for a single object or an array of objects. `malloc` and `calloc` are C-style memory allocation functions."
-  },
-  {
-    "question": "Which keyword is used to deallocate memory dynamically allocated with `new`?",
-    "choices": {
-      "A": "`free`",
-      "B": "`delete`",
-      "C": "`dealloc`",
-      "D": "`release`"
-    },
-    "correct_answer": "B",
-    "explanation": "The `delete` operator is used to deallocate memory that was previously allocated using the `new` operator. It calls the destructor of the object being deallocated. `free` is used for memory allocated with `malloc` or `calloc`."
-  },
-  {
-    "question": "What is a memory leak in C++?",
-    "choices": {
-      "A": "When a program tries to access memory it doesn't own.",
-      "B": "When dynamically allocated memory is no longer accessible but has not been deallocated.",
-      "C": "When a program runs out of available memory.",
-      "D": "When a program attempts to write to a read-only memory location."
-    },
-    "correct_answer": "B",
-    "explanation": "A memory leak occurs when a program allocates memory dynamically (e.g., using `new`) but fails to deallocate it (e.g., using `delete`) when it's no longer needed. This leads to a gradual consumption of available memory, potentially causing the program or system to run out of memory."
   }
 ]

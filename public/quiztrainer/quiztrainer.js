@@ -93,10 +93,10 @@ class QuizTrainer {
     handleFileDrop(e) {
         e.preventDefault();
         document.getElementById('upload-area').classList.remove('dragover');
-        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files);
+        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files[0]);
     }
 
-    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files); }
+    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files[0]); }
 
     processFile(file) {
         if (!file.name.toLowerCase().endsWith('.json')) return this.showError('Please select a valid JSON file.');
@@ -190,7 +190,14 @@ class QuizTrainer {
                 });
 
                 questionState.choices = newChoices;
-                questionState.correct_answer = Array.isArray(originalQuestion.correct_answer) ? newCorrectKeys : newCorrectKeys;
+                // --- THIS IS THE FIX ---
+                // If the original was an array, keep it an array. Otherwise, keep it a string.
+                if (Array.isArray(originalQuestion.correct_answer)) {
+                    questionState.correct_answer = newCorrectKeys;
+                } else {
+                    // newCorrectKeys will have one item, so we take the first one.
+                    questionState.correct_answer = newCorrectKeys[0];
+                }
             }
             this.questionStates[this.currentQuestionIndex] = questionState;
         }
@@ -247,7 +254,7 @@ class QuizTrainer {
             
             choiceElement.innerHTML = `
                 <div class="choice-indicator ${indicatorType}">${indicatorContent}</div>
-                <div class="choice-text">${formattedText}</div>
+                <div class.choice-text">${formattedText}</div>
             `;
             
             if (userAnswer === null) {
@@ -400,7 +407,6 @@ class QuizTrainer {
 
     showError(message) { alert(`Error: ${message}`); }
     
-    // --- THIS IS THE CORRECTED FUNCTION ---
     formatCodeAndText(text) {
         const parts = text.split(/(```(?:\w+)?\n[\s\S]*?```)/g);
         
@@ -408,9 +414,8 @@ class QuizTrainer {
             if (part.startsWith('```')) {
                 const match = part.match(/```(\w+)?\n([\s\S]*?)```/);
                 if (match) {
-                    // Use match[1] for language and match[2] for code
-                    const language = match[1] || 'plaintext';
-                    const code = this.escapeHtml(match[2].trim());
+                    const language = match || 'plaintext';
+                    const code = this.escapeHtml(match.trim());
                     return `<pre><code class="language-${language}">${code}</code></pre>`;
                 }
             }
