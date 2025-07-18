@@ -1,13 +1,9 @@
 // @ts-nocheck
 class QuizTrainer {
     constructor() {
-        // Raw data loaded from JSON
         this.allQuestions = [];
-        // The active set of questions for the current quiz
         this.questions = [];
-        // A cache to store the prepared state (shuffled choices, etc.) for each question
-        this.questionStates = [];
-
+        this.questionStates = []; 
         this.currentQuestionIndex = 0;
         this.userAnswers = [];
         this.score = 0;
@@ -18,8 +14,6 @@ class QuizTrainer {
         this.fetchQuizFiles();
     }
 
-    // --- SETUP AND DATA LOADING ---
-
     bindEventListeners() {
         document.getElementById('file-input').addEventListener('change', (e) => this.handleFileSelect(e));
         document.getElementById('quiz-select').addEventListener('change', (e) => this.handleQuizSelect(e));
@@ -29,7 +23,7 @@ class QuizTrainer {
         uploadArea.addEventListener('dragleave', (e) => this.handleDragLeave(e));
         uploadArea.addEventListener('drop', (e) => this.handleFileDrop(e));
         
-        document.getElementById('start-quiz').addEventListener('click', () => this.startQuiz());
+        document.getElementById('start-quiz').addEventListener('click', () => this.startQuiz(false));
         document.getElementById('submit-answer-btn').addEventListener('click', () => this.submitAnswer());
         document.getElementById('prev-btn').addEventListener('click', () => this.previousQuestion());
         document.getElementById('next-btn').addEventListener('click', () => this.nextQuestion());
@@ -40,6 +34,21 @@ class QuizTrainer {
             e.currentTarget.classList.toggle('active');
             document.getElementById('options-panel').classList.toggle('active');
         });
+    }
+
+    shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    formatText(text) {
+        if (typeof text !== 'string') return ''; // Guard against non-string input
+        let formatted = this.escapeHtml(text);
+        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        formatted = formatted.replace(/\n/g, '<br>');
+        return formatted;
     }
 
     async fetchQuizFiles() {
@@ -85,10 +94,10 @@ class QuizTrainer {
     handleFileDrop(e) {
         e.preventDefault();
         document.getElementById('upload-area').classList.remove('dragover');
-        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files[0]);
+        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files);
     }
 
-    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files[0]); }
+    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files); }
 
     processFile(file) {
         if (!file.name.toLowerCase().endsWith('.json')) return this.showError('Please select a valid JSON file.');
@@ -121,12 +130,24 @@ class QuizTrainer {
         document.getElementById('file-info').style.display = 'flex';
     }
 
-    // --- QUIZ LIFECYCLE ---
+    prepareQuizQuestions() {
+        let prepared = [...this.allQuestions];
+        if (document.getElementById('randomize-questions').checked) {
+            this.shuffleArray(prepared);
+        }
+        const amount = parseInt(document.getElementById('question-amount').value, 10);
+        if (!isNaN(amount) && amount > 0 && amount < prepared.length) {
+            prepared = prepared.slice(0, amount);
+        }
+        this.questions = prepared;
+    }
 
-    startQuiz() {
+    startQuiz(isRestart = false) {
         if (this.allQuestions.length === 0) return this.showError("No quiz loaded.");
         
-        this.prepareQuizQuestions();
+        if (!isRestart) {
+            this.prepareQuizQuestions();
+        }
 
         if (this.questions.length === 0) return this.showError("Invalid number of questions.");
 
@@ -143,33 +164,50 @@ class QuizTrainer {
         this.displayQuestion();
     }
 
-    prepareQuizQuestions() {
-        let prepared = [...this.allQuestions];
-        if (document.getElementById('randomize-questions').checked) {
-            this.shuffleArray(prepared);
-        }
-        const amount = parseInt(document.getElementById('question-amount').value, 10);
-        if (!isNaN(amount) && amount > 0 && amount < prepared.length) {
-            prepared = prepared.slice(0, amount);
-        }
-        this.questions = prepared;
-    }
-
     displayQuestion() {
         this.selectedChoices = [];
         this.isAnswered = false;
-        
-        // Get the prepared state for the current question, or create it if it doesn't exist.
-        const questionState = this.getPreparedQuestionState(this.currentQuestionIndex);
-        const userAnswer = this.userAnswers[this.currentQuestionIndex];
+        let questionState = this.questionStates[this.currentQuestionIndex];
 
+        if (!questionState) {
+            const originalQuestion = this.questions[this.currentQuestionIndex];
+            questionState = JSON.parse(JSON.stringify(originalQuestion));
+
+            if (document.getElementById('randomize-answers').checked) {
+                let choicesArray = Object.entries(questionState.choices);
+                this.shuffleArray(choicesArray);
+
+                const originalCorrectKeys = Array.isArray(originalQuestion.correct_answer) ? originalQuestion.correct_answer : [originalQuestion.correct_answer];
+                const correctTexts = originalCorrectKeys.map(key => originalQuestion.choices[key]);
+
+                const newChoices = {};
+                const newCorrectKeys = [];
+                choicesArray.forEach(([originalKey, text], index) => {
+                    const newKey = String.fromCharCode(65 + index);
+                    newChoices[newKey] = text;
+                    if (correctTexts.includes(text)) {
+                        newCorrectKeys.push(newKey);
+                    }
+                });
+
+                questionState.choices = newChoices;
+                if (Array.isArray(originalQuestion.correct_answer)) {
+                    questionState.correct_answer = newCorrectKeys;
+                } else {
+                    questionState.correct_answer = newCorrectKeys;
+                }
+            }
+            this.questionStates[this.currentQuestionIndex] = questionState;
+        }
+
+        const userAnswer = this.userAnswers[this.currentQuestionIndex];
         document.getElementById('question-number').textContent = this.currentQuestionIndex + 1;
         
         const isMultiChoice = Array.isArray(questionState.correct_answer);
         document.getElementById('question-type-info').textContent = isMultiChoice ? "(Select all that apply)" : "(Select one answer)";
         
         const questionElement = document.getElementById('question-text');
-        questionElement.innerHTML = this.formatTextWithCode(questionState.question);
+        questionElement.innerHTML = this.formatCodeAndText(questionState.question);
         Prism.highlightAllUnder(questionElement);
         
         this.displayChoices(questionState, userAnswer);
@@ -184,50 +222,6 @@ class QuizTrainer {
         
         this.updateQuizInfo();
         this.updateNavigation(questionState);
-    }
-
-    getPreparedQuestionState(index) {
-        // If we've already prepared this question, return it from the cache.
-        if (this.questionStates[index]) {
-            return this.questionStates[index];
-        }
-
-        // Otherwise, prepare it for the first time.
-        const originalQuestion = this.questions[index];
-        // Deep copy to avoid modifying the original question object.
-        const preparedState = JSON.parse(JSON.stringify(originalQuestion));
-
-        if (document.getElementById('randomize-answers').checked) {
-            let choicesArray = Object.entries(preparedState.choices);
-            this.shuffleArray(choicesArray);
-
-            const originalCorrectKeys = Array.isArray(originalQuestion.correct_answer) ? originalQuestion.correct_answer : [originalQuestion.correct_answer];
-            const correctTexts = originalCorrectKeys.map(key => originalQuestion.choices[key]);
-
-            const newChoices = {};
-            const newCorrectKeys = [];
-            choicesArray.forEach(([originalKey, text], index) => {
-                const newKey = String.fromCharCode(65 + index); // A, B, C...
-                newChoices[newKey] = text;
-                if (correctTexts.includes(text)) {
-                    newCorrectKeys.push(newKey);
-                }
-            });
-
-            preparedState.choices = newChoices;
-            
-            // **THIS IS THE CRITICAL FIX FOR THE CHECKBOX BUG**
-            // We check the type of the ORIGINAL answer to determine the new type.
-            if (Array.isArray(originalQuestion.correct_answer)) {
-                preparedState.correct_answer = newCorrectKeys; // Keep it an array
-            } else {
-                preparedState.correct_answer = newCorrectKeys[0]; // Make it a string
-            }
-        }
-
-        // Save the newly prepared state to the cache and return it.
-        this.questionStates[index] = preparedState;
-        return preparedState;
     }
 
     displayChoices(question, userAnswer) {
@@ -292,7 +286,7 @@ class QuizTrainer {
     submitAnswer() {
         if (this.isAnswered || this.selectedChoices.length === 0) return;
 
-        const questionState = this.getPreparedQuestionState(this.currentQuestionIndex);
+        const questionState = this.questionStates[this.currentQuestionIndex];
         const userSelection = [...this.selectedChoices].sort();
         this.userAnswers[this.currentQuestionIndex] = userSelection;
         
@@ -348,7 +342,7 @@ class QuizTrainer {
         
         feedbackIcon.className = isCorrect ? 'fas fa-check-circle' : 'fas fa-times-circle';
         feedbackTitle.textContent = isCorrect ? 'Correct!' : 'Incorrect';
-        explanationElement.innerHTML = this.formatTextWithCode(explanation);
+        explanationElement.innerHTML = this.formatText(explanation);
     }
 
     hideFeedback() {
@@ -393,7 +387,7 @@ class QuizTrainer {
     }
 
     restartQuiz() { 
-        this.startQuiz(); 
+        this.startQuiz(true); 
     }
 
     resetToSetup() {
@@ -411,53 +405,35 @@ class QuizTrainer {
 
     showError(message) { alert(`Error: ${message}`); }
     
-    // --- UTILITY AND FORMATTING HELPERS ---
+    // --- THIS IS THE CORRECTED FUNCTION ---
+    formatCodeAndText(text) {
+        if (typeof text !== 'string') return ''; // Guard against non-string input
 
-    shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
-    escapeHtml(text) {
-        if (typeof text !== 'string') return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    formatText(text) {
-        if (typeof text !== 'string') return '';
-        let formatted = this.escapeHtml(text);
-        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        formatted = formatted.replace(/\n/g, '<br>');
-        return formatted;
-    }
-
-    // **THIS IS THE CRITICAL FIX FOR THE CRASH BUG**
-    formatTextWithCode(text) {
-        if (typeof text !== 'string') return '';
-
-        // This regex splits the text by code blocks, keeping the code blocks as separate items.
+        // This regex splits the text by code blocks, keeping the delimiters
         const parts = text.split(/(```(?:\w+)?\n[\s\S]*?```)/g);
         
         return parts.map(part => {
-            // If the part is a code block...
             if (part.startsWith('```')) {
                 const match = part.match(/```(\w+)?\n([\s\S]*?)```/);
-                // If the regex fails for any reason, just show the raw block safely.
+                // Guard clause: if regex fails, return the part as is.
                 if (!match) return this.escapeHtml(part);
 
-                // match is the language (e.g., 'cpp')
-                // match is the code content. THIS IS A STRING.
-                const language = match || 'plaintext';
-                const code = this.escapeHtml(match.trim()); // We can safely trim the string.
+                // Use match[1] for language and match[2] for the code
+                const language = match[1] || 'plaintext';
+                // Use match[2] here - this is the actual code content
+                const code = this.escapeHtml(match[2].trim()); 
                 return `<pre><code class="language-${language}">${code}</code></pre>`;
             }
             // Otherwise, it's regular text. Apply the standard formatting.
             return this.formatText(part);
         }).join('');
+    }
+
+    escapeHtml(text) {
+        if (typeof text !== 'string') return ''; // Guard against non-string input
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 }
 
