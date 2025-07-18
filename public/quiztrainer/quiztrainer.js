@@ -44,6 +44,7 @@ class QuizTrainer {
     }
 
     formatText(text) {
+        if (typeof text !== 'string') return ''; // Guard against non-string input
         let formatted = this.escapeHtml(text);
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         formatted = formatted.replace(/\n/g, '<br>');
@@ -93,10 +94,10 @@ class QuizTrainer {
     handleFileDrop(e) {
         e.preventDefault();
         document.getElementById('upload-area').classList.remove('dragover');
-        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files[0]);
+        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files);
     }
 
-    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files[0]); }
+    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files); }
 
     processFile(file) {
         if (!file.name.toLowerCase().endsWith('.json')) return this.showError('Please select a valid JSON file.');
@@ -190,13 +191,10 @@ class QuizTrainer {
                 });
 
                 questionState.choices = newChoices;
-                // --- THIS IS THE FIX ---
-                // If the original was an array, keep it an array. Otherwise, keep it a string.
                 if (Array.isArray(originalQuestion.correct_answer)) {
                     questionState.correct_answer = newCorrectKeys;
                 } else {
-                    // newCorrectKeys will have one item, so we take the first one.
-                    questionState.correct_answer = newCorrectKeys[0];
+                    questionState.correct_answer = newCorrectKeys;
                 }
             }
             this.questionStates[this.currentQuestionIndex] = questionState;
@@ -254,7 +252,7 @@ class QuizTrainer {
             
             choiceElement.innerHTML = `
                 <div class="choice-indicator ${indicatorType}">${indicatorContent}</div>
-                <div class.choice-text">${formattedText}</div>
+                <div class="choice-text">${formattedText}</div>
             `;
             
             if (userAnswer === null) {
@@ -407,23 +405,32 @@ class QuizTrainer {
 
     showError(message) { alert(`Error: ${message}`); }
     
+    // --- THIS IS THE CORRECTED FUNCTION ---
     formatCodeAndText(text) {
+        if (typeof text !== 'string') return ''; // Guard against non-string input
+
+        // This regex splits the text by code blocks, keeping the delimiters
         const parts = text.split(/(```(?:\w+)?\n[\s\S]*?```)/g);
         
         return parts.map(part => {
             if (part.startsWith('```')) {
                 const match = part.match(/```(\w+)?\n([\s\S]*?)```/);
-                if (match) {
-                    const language = match || 'plaintext';
-                    const code = this.escapeHtml(match.trim());
-                    return `<pre><code class="language-${language}">${code}</code></pre>`;
-                }
+                // Guard clause: if regex fails, return the part as is.
+                if (!match) return this.escapeHtml(part);
+
+                // Use match[1] for language and match[2] for the code
+                const language = match[1] || 'plaintext';
+                // Use match[2] here - this is the actual code content
+                const code = this.escapeHtml(match[2].trim()); 
+                return `<pre><code class="language-${language}">${code}</code></pre>`;
             }
+            // Otherwise, it's regular text. Apply the standard formatting.
             return this.formatText(part);
         }).join('');
     }
 
     escapeHtml(text) {
+        if (typeof text !== 'string') return ''; // Guard against non-string input
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
