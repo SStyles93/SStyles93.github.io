@@ -43,6 +43,13 @@ class QuizTrainer {
         }
     }
 
+    formatText(text) {
+        let formatted = this.escapeHtml(text);
+        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        formatted = formatted.replace(/\n/g, '<br>');
+        return formatted;
+    }
+
     async fetchQuizFiles() {
         const select = document.getElementById('quiz-select');
         try {
@@ -86,10 +93,10 @@ class QuizTrainer {
     handleFileDrop(e) {
         e.preventDefault();
         document.getElementById('upload-area').classList.remove('dragover');
-        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files[0]);
+        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files);
     }
 
-    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files[0]); }
+    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files); }
 
     processFile(file) {
         if (!file.name.toLowerCase().endsWith('.json')) return this.showError('Please select a valid JSON file.');
@@ -183,7 +190,7 @@ class QuizTrainer {
                 });
 
                 questionState.choices = newChoices;
-                questionState.correct_answer = Array.isArray(originalQuestion.correct_answer) ? newCorrectKeys : newCorrectKeys[0];
+                questionState.correct_answer = Array.isArray(originalQuestion.correct_answer) ? newCorrectKeys : newCorrectKeys;
             }
             this.questionStates[this.currentQuestionIndex] = questionState;
         }
@@ -195,7 +202,7 @@ class QuizTrainer {
         document.getElementById('question-type-info').textContent = isMultiChoice ? "(Select all that apply)" : "(Select one answer)";
         
         const questionElement = document.getElementById('question-text');
-        questionElement.innerHTML = this.formatQuestionText(questionState.question);
+        questionElement.innerHTML = this.formatCodeAndText(questionState.question);
         Prism.highlightAllUnder(questionElement);
         
         this.displayChoices(questionState, userAnswer);
@@ -236,9 +243,7 @@ class QuizTrainer {
             const indicatorType = isMultiChoice ? 'checkbox' : 'letter';
             const indicatorContent = isMultiChoice ? '<i class="fas fa-check"></i>' : letter;
             
-            // --- THIS IS THE FIX ---
-            // Escape the text to prevent HTML injection, then replace newlines with <br> tags.
-            const formattedText = this.escapeHtml(text).replace(/\n/g, '<br>');
+            const formattedText = this.formatText(text);
             
             choiceElement.innerHTML = `
                 <div class="choice-indicator ${indicatorType}">${indicatorContent}</div>
@@ -332,8 +337,7 @@ class QuizTrainer {
         
         feedbackIcon.className = isCorrect ? 'fas fa-check-circle' : 'fas fa-times-circle';
         feedbackTitle.textContent = isCorrect ? 'Correct!' : 'Incorrect';
-        // Also apply the fix to the explanation text
-        explanationElement.innerHTML = this.escapeHtml(explanation).replace(/\n/g, '<br>');
+        explanationElement.innerHTML = this.formatText(explanation);
     }
 
     hideFeedback() {
@@ -396,11 +400,22 @@ class QuizTrainer {
 
     showError(message) { alert(`Error: ${message}`); }
     
-    formatQuestionText(text) {
-        return text.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
-            const language = lang || 'plaintext';
-            return `<pre><code class="language-${language}">${this.escapeHtml(code.trim())}</code></pre>`;
-        });
+    // --- THIS IS THE CORRECTED FUNCTION ---
+    formatCodeAndText(text) {
+        const parts = text.split(/(```(?:\w+)?\n[\s\S]*?```)/g);
+        
+        return parts.map(part => {
+            if (part.startsWith('```')) {
+                const match = part.match(/```(\w+)?\n([\s\S]*?)```/);
+                if (match) {
+                    // Use match[1] for language and match[2] for code
+                    const language = match[1] || 'plaintext';
+                    const code = this.escapeHtml(match[2].trim());
+                    return `<pre><code class="language-${language}">${code}</code></pre>`;
+                }
+            }
+            return this.formatText(part);
+        }).join('');
     }
 
     escapeHtml(text) {
