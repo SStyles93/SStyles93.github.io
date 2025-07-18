@@ -44,7 +44,7 @@ class QuizTrainer {
     }
 
     formatText(text) {
-        if (typeof text !== 'string') return ''; // Guard against non-string input
+        if (typeof text !== 'string') return '';
         let formatted = this.escapeHtml(text);
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         formatted = formatted.replace(/\n/g, '<br>');
@@ -94,10 +94,10 @@ class QuizTrainer {
     handleFileDrop(e) {
         e.preventDefault();
         document.getElementById('upload-area').classList.remove('dragover');
-        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files);
+        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files[0]);
     }
 
-    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files); }
+    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files[0]); }
 
     processFile(file) {
         if (!file.name.toLowerCase().endsWith('.json')) return this.showError('Please select a valid JSON file.');
@@ -191,10 +191,16 @@ class QuizTrainer {
                 });
 
                 questionState.choices = newChoices;
+                
+                // --- THIS IS THE DEFINITIVE FIX ---
+                // Check the type of the ORIGINAL question's answer to determine the new type.
                 if (Array.isArray(originalQuestion.correct_answer)) {
+                    // If original was multi-choice, the new one must be an array.
                     questionState.correct_answer = newCorrectKeys;
                 } else {
-                    questionState.correct_answer = newCorrectKeys;
+                    // If original was single-choice, the new one must be a string.
+                    // newCorrectKeys will only have one item, so we take the first one.
+                    questionState.correct_answer = newCorrectKeys[0];
                 }
             }
             this.questionStates[this.currentQuestionIndex] = questionState;
@@ -405,32 +411,26 @@ class QuizTrainer {
 
     showError(message) { alert(`Error: ${message}`); }
     
-    // --- THIS IS THE CORRECTED FUNCTION ---
     formatCodeAndText(text) {
-        if (typeof text !== 'string') return ''; // Guard against non-string input
+        if (typeof text !== 'string') return '';
 
-        // This regex splits the text by code blocks, keeping the delimiters
         const parts = text.split(/(```(?:\w+)?\n[\s\S]*?```)/g);
         
         return parts.map(part => {
             if (part.startsWith('```')) {
                 const match = part.match(/```(\w+)?\n([\s\S]*?)```/);
-                // Guard clause: if regex fails, return the part as is.
                 if (!match) return this.escapeHtml(part);
 
-                // Use match[1] for language and match[2] for the code
-                const language = match[1] || 'plaintext';
-                // Use match[2] here - this is the actual code content
-                const code = this.escapeHtml(match[2].trim()); 
+                const language = match || 'plaintext';
+                const code = this.escapeHtml(match.trim());
                 return `<pre><code class="language-${language}">${code}</code></pre>`;
             }
-            // Otherwise, it's regular text. Apply the standard formatting.
             return this.formatText(part);
         }).join('');
     }
 
     escapeHtml(text) {
-        if (typeof text !== 'string') return ''; // Guard against non-string input
+        if (typeof text !== 'string') return '';
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
