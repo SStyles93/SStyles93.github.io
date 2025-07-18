@@ -192,14 +192,10 @@ class QuizTrainer {
 
                 questionState.choices = newChoices;
                 
-                // --- THIS IS THE DEFINITIVE FIX ---
-                // Check the type of the ORIGINAL question's answer to determine the new type.
+                // --- FIX FOR BUG B (The Checkbox Bug) ---
                 if (Array.isArray(originalQuestion.correct_answer)) {
-                    // If original was multi-choice, the new one must be an array.
                     questionState.correct_answer = newCorrectKeys;
                 } else {
-                    // If original was single-choice, the new one must be a string.
-                    // newCorrectKeys will only have one item, so we take the first one.
                     questionState.correct_answer = newCorrectKeys[0];
                 }
             }
@@ -411,6 +407,7 @@ class QuizTrainer {
 
     showError(message) { alert(`Error: ${message}`); }
     
+    // --- FIX FOR BUG A (The Crash) ---
     formatCodeAndText(text) {
         if (typeof text !== 'string') return '';
 
@@ -422,7 +419,8 @@ class QuizTrainer {
                 if (!match) return this.escapeHtml(part);
 
                 const language = match || 'plaintext';
-                const code = this.escapeHtml(match.trim());
+                // Correctly use match to get the code content as a string
+                const code = this.escapeHtml(match.trim()); 
                 return `<pre><code class="language-${language}">${code}</code></pre>`;
             }
             return this.formatText(part);
