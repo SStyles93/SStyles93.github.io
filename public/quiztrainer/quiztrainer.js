@@ -194,7 +194,7 @@ class QuizTrainer {
                 if (Array.isArray(originalQuestion.correct_answer)) {
                     questionState.correct_answer = newCorrectKeys;
                 } else {
-                    questionState.correct_answer = newCorrectKeys;
+                    questionState.correct_answer = newCorrectKeys[0];
                 }
             }
             this.questionStates[this.currentQuestionIndex] = questionState;
@@ -245,8 +245,8 @@ class QuizTrainer {
                 if (wasSelected) choiceElement.classList.add('selected');
             }
             
-            const indicatorType = isMultiChoice ? 'checkbox' : 'letter';
-            const indicatorContent = isMultiChoice ? '<i class="fas fa-check"></i>' : letter;
+            const indicatorType = isMultiChoice ? 'checkbox' : 'radio';
+            const indicatorContent = isMultiChoice ? '<i class="fas fa-check"></i>' : '<i class="fas fa-circle"></i>';
             
             const formattedText = this.formatText(text);
             
@@ -278,7 +278,13 @@ class QuizTrainer {
             }
             document.getElementById('submit-answer-btn').disabled = this.selectedChoices.length === 0;
         } else {
+            // For single-choice questions, deselect all other choices first
+            document.querySelectorAll(".choice.selected").forEach(el => {
+                el.classList.remove("selected");
+            });
             this.selectedChoices = [selectedChoice];
+            // Visually select the current choice
+            document.querySelector(`[data-choice="${selectedChoice}"]`).classList.add("selected");
             this.submitAnswer();
         }
     }

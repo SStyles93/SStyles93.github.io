@@ -496,6 +496,40 @@ code {
     border-color: #dc3545;
 }
 
+.choice-indicator.radio {
+    border: 2px solid #aaa;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.choice-indicator.radio i {
+    font-size: 12px;
+    color: white;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s ease;
+}
+
+.choice.selected .choice-indicator.radio {
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+.choice.selected .choice-indicator.radio i {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.choice.correct .choice-indicator.radio {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.choice.incorrect .choice-indicator.radio {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
 .choice-text {
     flex: 1;
     font-size: 1.1rem;
