@@ -93,6 +93,10 @@ export declare const images: {
   bachelorproject_Picture90_png: string;
   bachelorproject_Picture91_png: string;
   bachelorproject_Picture92_png: string;
+  csvconverter_after_png: string;
+  csvconverter_before_png: string;
+  csvconverter_hero_png: string;
+  csvconverter_middle_png: string;
   mediablur_after_png: string;
   mediablur_before_png: string;
   mediablur_hero_png: string;

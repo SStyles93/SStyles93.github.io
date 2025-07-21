@@ -90,6 +90,10 @@ export { default as bachelorproject_Picture9_png } from "./bachelorproject/Pictu
 export { default as bachelorproject_Picture90_png } from "./bachelorproject/Picture90.png";
 export { default as bachelorproject_Picture91_png } from "./bachelorproject/Picture91.png";
 export { default as bachelorproject_Picture92_png } from "./bachelorproject/Picture92.png";
+export { default as csvconverter_after_png } from "./csvconverter/after.png";
+export { default as csvconverter_before_png } from "./csvconverter/before.png";
+export { default as csvconverter_hero_png } from "./csvconverter/hero.png";
+export { default as csvconverter_middle_png } from "./csvconverter/middle.png";
 export { default as mediablur_after_png } from "./mediablur/after.png";
 export { default as mediablur_before_png } from "./mediablur/before.png";
 export { default as mediablur_hero_png } from "./mediablur/hero.png";
