@@ -1,5 +1,5 @@
 ---
-title: "MediBlur - Python media bluring tool"
+title: "MediaBlur - Python media bluring tool"
 description: "A simple python .exe to blur parts of pdf files."
 heroImage: "/src/assets/blogs/mediablur/hero.png"
 order: 0
@@ -27,7 +27,7 @@ To achieve my little "MediaBlur" tool I used Python's
 
 Despite the normal Input/Output logic and some GUI features implemented with PyQt. The core principle of this tools is primarly this function:
 <Dropdown title="See Python code">
-```Python
+```python
 def apply_blur(self):
         selection = self.media_viewer.get_selection()
         if not self.current_pil_image:
@@ -65,7 +65,7 @@ And finally the same image with the modification applied:
 ## Try it yourself !
 If you want to try it, you can download it directly from here, unzip, and launch the .exe
 
-<Downloadable fileName="MediaBlur.zip" />
+<Downloadable url="https://github.com/SStyles93/PythonProjects/releases/download/V1.1.0/MediaBlur.zip" fileName="MediaBlur"/>
 
 Please note that this `.exe` might fire security warnings. This is a normal behaviour since this little app hasn't been signed through a [Certificate Authority (CA)](https://en.wikipedia.org/wiki/Certificate_authority#:~:text=A%20certificate%20authority%20(CA)%20is,and%20knows%20its%20public%20key).
 
