@@ -93,6 +93,9 @@ export declare const images: {
   bachelorproject_Picture90_png: string;
   bachelorproject_Picture91_png: string;
   bachelorproject_Picture92_png: string;
+  mediablur_after_png: string;
+  mediablur_before_png: string;
+  mediablur_hero_png: string;
   opengl_backpack_png: string;
   opengl_blend_png: string;
   opengl_combinedARM_png: string;

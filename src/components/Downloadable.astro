@@ -1,0 +1,38 @@
+---
+// We expect 'fileName' to be passed when using this component.
+// For example: <Downloadable fileName="my-program.exe" />
+export interface Props {
+  fileName: string;
+}
+
+const { fileName } = Astro.props;
+
+// path to the file in the 'public' directory
+const filePath = `/downloadable/${fileName}`;
+---
+
+<div class = "flex justify-center">
+<a href={filePath} download={fileName} class="download-button">
+  Download "{fileName}"
+</a>
+</div>
+
+<!-- basic styling for the button -->
+<style>
+  .download-button {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 12px 24px;
+    background-color: #1e90ff; /* A nice blue color */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  .download-button:hover {
+    background-color: #0073e6; /* A darker blue on hover */
+  }
+</style>

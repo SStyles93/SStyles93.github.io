@@ -1,0 +1,77 @@
+---
+title: "MediBlur - Python media bluring tool"
+description: "A simple python .exe to blur parts of pdf files."
+heroImage: "/src/assets/blogs/mediablur/hero.png"
+order: 0
+creationDate: "Jul 21 2025"
+teamSize: 1
+timeFrame: "3 days"
+toolUsed: "Python/PyQt"
+---
+
+import Downloadable from '../../components/Downloadable.astro';
+import Dropdown from '../../components/Dropdown.astro';
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/blogs";
+
+## Why ?
+I wanted to develop my own tool to be able to blur-out parts of documents without having to rely on web tools or specific softwares that require subscription or payments to access "an Entire World of possibilities" 
+where actually I just needed one specific feature.
+
+## How ?
+To achieve my little "MediaBlur" tool I used Python's  
+- [sys](https://docs.python.org/3/library/sys.html) & [io](https://docs.python.org/3/library/io.html)
+- [PyMuPDF (fitz)](https://pypi.org/project/PyMuPDF/)
+- [Pillow (PIL)](https://pypi.org/project/pillow/)
+- [PyQt5](https://pypi.org/project/PyQt5/).
+
+Despite the normal Input/Output logic and some GUI features implemented with PyQt. The core principle of this tools is primarly this function:
+<Dropdown title="See Python code">
+```Python
+def apply_blur(self):
+        selection = self.media_viewer.get_selection()
+        if not self.current_pil_image:
+            QMessageBox.warning(self, "No File", "Please open a file first.")
+            return
+        if not selection:
+            QMessageBox.warning(self, "No Selection", "Please select an area to blur by clicking and dragging.")
+            return
+
+        # The logic now operates on self.current_pil_image, which is universal
+        # The selection coordinates are already scaled correctly because they come from the displayed pixmap
+        box = (int(selection.left()), int(selection.top()), int(selection.right()), int(selection.bottom()))
+        
+        region_to_blur = self.current_pil_image.crop(box)
+        radius = self.radius_slider.value()
+        blurred_region = region_to_blur.filter(ImageFilter.GaussianBlur(radius=radius))
+        
+        # Paste the blurred region back onto the master PIL image
+        self.current_pil_image.paste(blurred_region, box)
+        
+        # Update the view with the newly blurred image
+        self.display_pil_image(self.current_pil_image)
+```
+</Dropdown>
+Basically it takes a rectangle previously created with mouse events in the Qt window and uses the `ImageFilter.GaussianBlur()` method.
+
+## Result
+The result is the following. First the interface with a clear image and a selection done:
+<MdImage src={images.mediablur_before_png} alt="" class="w-full"/> 
+
+And finally the same image with the modification applied:
+<MdImage src={images.mediablur_after_png} alt="" class="w-full"/> 
+
+
+## Try it yourself !
+If you want to try it, you can download it directly from here, unzip, and launch the .exe
+
+<Downloadable fileName="MediaBlur.zip" />
+
+Please note that this `.exe` might fire security warnings. This is a normal behaviour since this little app hasn't been signed through a [Certificate Authority (CA)](https://en.wikipedia.org/wiki/Certificate_authority#:~:text=A%20certificate%20authority%20(CA)%20is,and%20knows%20its%20public%20key).
+
+import {SocialShare} from "astro-social-share";
+
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/>
