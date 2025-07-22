@@ -1,4 +1,6 @@
-[
+{
+  "subject": "C++",
+  "questions":[
 {
   "question": "What will happen when you attempt to compile and run the following code?\n\n```cpp\n#include <deque>\n#include <iostream>\n#include <algorithm>\n\nusing namespace std;\n\nvoid\nprinter (int i)\n{\n  cout << i << \", \";\n}\n\nint\nmain ()\n{\n  int mynumbers[] = { 8, 9, 7, 6, 4, 1 };\n\n  deque < int >d1 (mynumbers, mynumbers + 6);\n\n  deque < int >::iterator it = lower_bound (d1.begin (), d1.end (), 3);\n\n  d1.push_back (4);              //LINE I\n\n  for_each (it, d1.end (), printer); //LINE II\n\n  return 0;\n}\n```",
   "choices": {
@@ -1144,4 +1146,4 @@
     "correct_answer": "C",
     "explanation": "**1. RAII (Resource Acquisition Is Initialization):**\n*   `std::unique_ptr` is a smart pointer that embodies the RAII principle.\n\n**2. Automatic Memory Management:**\n*   It holds exclusive ownership of a dynamically allocated object. When the `unique_ptr` itself is destroyed (e.g., when it goes out of scope), its destructor is called, which automatically calls `delete` on the raw pointer it manages.\n*   This guarantees that the allocated memory is always released, even in the presence of exceptions, thus preventing memory leaks.\n\n**3. Other Options:**\n*   `std::shared_ptr` allows multiple pointers to own a resource. `std::unique_ptr` enforces exclusive ownership.\n*   It has a negligible (if any) performance overhead compared to a raw pointer.\n*   It has an explicit `get()` method to access the raw pointer; it does not convert implicitly to prevent accidental misuse."
   }
-]
+]}

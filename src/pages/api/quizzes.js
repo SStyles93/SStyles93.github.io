@@ -4,18 +4,38 @@ import path from 'path';
 
 export async function GET() {
   try {
-    // Get the full path to the public/quizzes directory
     const quizzesDir = path.join(process.cwd(), 'public', 'quizzes');
-    
-    // Read the directory contents
     const filenames = await fs.readdir(quizzesDir);
-    
-    // Filter for .json files only
     const jsonFiles = filenames.filter(file => file.endsWith('.json'));
 
-    // Return the list of filenames as a JSON response
+    const quizDataPromises = jsonFiles.map(async (fileName) => {
+      const filePath = path.join(quizzesDir, fileName);
+      try {
+        const fileContent = await fs.readFile(filePath, 'utf-8');
+        const jsonData = JSON.parse(fileContent);
+
+        // --- NEW LOGIC ---
+        // If the subject is a valid, non-empty string, use it. Otherwise, set it to null.
+        const subject = (jsonData.subject && String(jsonData.subject).trim()) 
+                        ? String(jsonData.subject).trim() 
+                        : null; // Use null for empty or missing subjects
+
+        return {
+          fileName: fileName,
+          subject: subject 
+        };
+        
+      } catch (e) {
+        console.error(`Error processing file ${fileName}:`, e);
+        return null; 
+      }
+    });
+
+    const resolvedQuizData = await Promise.all(quizDataPromises);
+    const validQuizData = resolvedQuizData.filter(item => item !== null);
+
     return new Response(
-      JSON.stringify(jsonFiles), {
+      JSON.stringify(validQuizData), {
         status: 200,
         headers: {
           'Content-Type': 'application/json'
@@ -24,7 +44,6 @@ export async function GET() {
     );
   } catch (error) {
     console.error('API Error fetching quizzes:', error);
-    // Return an error response if the directory can't be read
     return new Response(
       JSON.stringify({ message: 'Could not load quiz files.' }), {
         status: 500,

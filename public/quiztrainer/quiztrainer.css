@@ -67,7 +67,9 @@ body {
     margin: 0 auto;
 }
 
-#quiz-select {
+/* MODIFIED: Added #subject-select to this rule */
+#quiz-select,
+#subject-select {
     width: 100%;
     padding: 15px;
     font-size: 1.1rem;

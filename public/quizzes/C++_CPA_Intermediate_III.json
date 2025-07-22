@@ -1,4 +1,6 @@
-[
+{
+  "subject": "C++",
+  "questions":[
     {
         "question": "Which code, inserted into the `main` function, generates the output `za`?\n\n```cpp\n#include <iostream>\nusing namespace std;\nnamespace SpaceOne { char a = 'a'; }\nnamespace SpaceTwo { char a = 'z'; }\nint main () {\n    // insert code here\n    return 0;\n}\n```",
         "choices": {
@@ -889,4 +891,4 @@
         "correct_answer": "C",
         "explanation": "Let's analyze the code to see what's missing.\n\n1.  `#include <string>`: This header is already included. It provides the definition for `std::string`, so that part is correct.\n2.  `std::string s = \"Here I am!\";`: This line is valid because `<string>` is included.\\n3.  `std::cout << s;`: This line uses `std::cout`, which is the standard output stream object. The definition for `std::cout` and the related `<<` operator for streams are located in the `<iostream>` header file.\\n\\nSince the program uses `std::cout` but does not include the necessary header for it, you must add `#include <iostream>` to make the program compile correctly."
     }
-]
+]}

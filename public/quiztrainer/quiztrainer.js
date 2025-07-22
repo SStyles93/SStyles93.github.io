@@ -1,9 +1,11 @@
 // @ts-nocheck
 class QuizTrainer {
     constructor() {
+        // Property to store all quiz metadata from the server
+        this.allServerQuizzes = [];
         this.allQuestions = [];
         this.questions = [];
-        this.questionStates = []; 
+        this.questionStates = [];
         this.currentQuestionIndex = 0;
         this.userAnswers = [];
         this.score = 0;
@@ -16,13 +18,14 @@ class QuizTrainer {
 
     bindEventListeners() {
         document.getElementById('file-input').addEventListener('change', (e) => this.handleFileSelect(e));
+        document.getElementById('subject-select').addEventListener('change', () => this.populateQuizSelect());
         document.getElementById('quiz-select').addEventListener('change', (e) => this.handleQuizSelect(e));
-        
+
         const uploadArea = document.getElementById('upload-area');
         uploadArea.addEventListener('dragover', (e) => this.handleDragOver(e));
         uploadArea.addEventListener('dragleave', (e) => this.handleDragLeave(e));
         uploadArea.addEventListener('drop', (e) => this.handleFileDrop(e));
-        
+
         document.getElementById('start-quiz').addEventListener('click', () => this.startQuiz(false));
         document.getElementById('submit-answer-btn').addEventListener('click', () => this.submitAnswer());
         document.getElementById('prev-btn').addEventListener('click', () => this.previousQuestion());
@@ -47,30 +50,69 @@ class QuizTrainer {
         if (typeof text !== 'string') return ''; // Guard against non-string input
         let formatted = this.escapeHtml(text);
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        formatted = formatted.replace(/\n/g, '<br>');
+        formatted = formatted.replace(/\n/g, '');
         return formatted;
     }
 
+    // Fetches quiz metadata and populates the subject filter
     async fetchQuizFiles() {
-        const select = document.getElementById('quiz-select');
+        const subjectSelect = document.getElementById('subject-select');
         try {
             const response = await fetch('/api/quizzes');
             if (!response.ok) throw new Error(`Network response was not ok`);
-            const files = await response.json();
-            
-            select.innerHTML = '<option value="">-- Select a quiz from the server --</option>';
-            files.forEach(file => {
+
+            this.allServerQuizzes = await response.json();
+
+            // --- MODIFIED LOGIC TO HANDLE NULL SUBJECTS ---
+            // 1. Map to get all subjects.
+            // 2. Filter to remove any null, undefined, or empty subjects from the list of categories.
+            const subjectsWithContent = this.allServerQuizzes
+                .map(q => q.subject)
+                .filter(subject => subject); // This removes null, undefined, and empty strings.
+
+            // Create a unique list of subjects and add 'all' to the front.
+            const uniqueSubjects = ['all', ...new Set(subjectsWithContent)];
+
+            // Populate the subject dropdown
+            subjectSelect.innerHTML = '';
+            uniqueSubjects.forEach(subject => {
                 const option = document.createElement('option');
-                option.value = file;
-                option.textContent = file.replace('.json', '').replace(/_/g, ' ');
-                select.appendChild(option);
+                option.value = subject;
+                option.textContent = subject === 'all' ? 'All Subjects' : subject;
+                subjectSelect.appendChild(option);
             });
+
+            // Initial population of quiz dropdown
+            this.populateQuizSelect();
+
         } catch (error) {
             console.error('Failed to fetch quiz files:', error);
-            select.innerHTML = '<option value="">Could not load server quizzes</option>';
+            subjectSelect.innerHTML = '<option value="">Could not load quizzes</option>';
         }
     }
 
+    // This function filters and displays quizzes based on the selected subject.
+    // It works correctly for 'all' by including quizzes with null subjects.
+    populateQuizSelect() {
+        const subjectSelect = document.getElementById('subject-select');
+        const quizSelect = document.getElementById('quiz-select');
+        const selectedSubject = subjectSelect.value;
+
+        quizSelect.innerHTML = '<option value="">-- Select a quiz --</option>';
+
+        const filteredQuizzes = this.allServerQuizzes.filter(quiz =>
+            selectedSubject === 'all' || quiz.subject === selectedSubject
+        );
+
+        filteredQuizzes.forEach(quiz => {
+            const option = document.createElement('option');
+            option.value = quiz.fileName;
+            option.textContent = quiz.fileName.replace('.json', '').replace(/_/g, ' ');
+            quizSelect.appendChild(option);
+        });
+    }
+
+    // Handles loading a quiz based on the new JSON structure {subject, questions}
     async handleQuizSelect(e) {
         const fileName = e.target.value;
         document.getElementById('file-info').style.display = 'none';
@@ -81,7 +123,10 @@ class QuizTrainer {
             const response = await fetch(`/quizzes/${fileName}`);
             if (!response.ok) throw new Error(`Failed to load ${fileName}`);
             const jsonData = await response.json();
-            this.validateAndLoadQuestions(jsonData, fileName);
+
+            // The questions are now in jsonData.questions
+            this.validateAndLoadQuestions(jsonData.questions, fileName);
+
             document.getElementById('file-input').value = '';
         } catch (error) {
             this.showError(error.message);
@@ -94,19 +139,22 @@ class QuizTrainer {
     handleFileDrop(e) {
         e.preventDefault();
         document.getElementById('upload-area').classList.remove('dragover');
-        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files);
+        if (e.dataTransfer.files.length > 0) this.processFile(e.dataTransfer.files[0]);
     }
 
-    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files); }
+    handleFileSelect(e) { if (e.target.files.length > 0) this.processFile(e.target.files[0]); }
 
+    // Handles uploaded file with the new JSON structure
     processFile(file) {
         if (!file.name.toLowerCase().endsWith('.json')) return this.showError('Please select a valid JSON file.');
         const reader = new FileReader();
         reader.onload = (e) => {
             try {
                 const jsonData = JSON.parse(e.target.result);
-                this.validateAndLoadQuestions(jsonData, file.name);
+                // The questions are in jsonData.questions
+                this.validateAndLoadQuestions(jsonData.questions, file.name);
                 document.getElementById('quiz-select').value = '';
+                document.getElementById('subject-select').value = 'all';
             } catch (error) {
                 this.showError('Invalid JSON file. Please check the file format.');
             }
@@ -114,11 +162,13 @@ class QuizTrainer {
         reader.readAsText(file);
     }
 
-    validateAndLoadQuestions(data, fileName) {
-        const isValid = Array.isArray(data) && data.length > 0 && data.every(q => q.question && q.choices && q.correct_answer && q.explanation);
-        if (!isValid) return this.showError(`Invalid JSON format in "${fileName}".`);
-        this.allQuestions = data;
-        this.showFileInfo(fileName, data.length);
+    // Now expects the questions array directly, not the whole file content
+    validateAndLoadQuestions(questionsArray, fileName) {
+        const isValid = Array.isArray(questionsArray) && questionsArray.length > 0 && questionsArray.every(q => q.question && q.choices && q.correct_answer && q.explanation);
+        if (!isValid) return this.showError(`Invalid question format in "${fileName}". A quiz file must contain a 'questions' array.`);
+
+        this.allQuestions = questionsArray;
+        this.showFileInfo(fileName, questionsArray.length);
     }
 
     showFileInfo(fileName, count) {
@@ -136,7 +186,7 @@ class QuizTrainer {
             this.shuffleArray(prepared);
         }
         const amount = parseInt(document.getElementById('question-amount').value, 10);
-        if (!isNaN(amount) && amount > 0 && amount < prepared.length) {
+        if (!isNaN(amount) && amount > 0 && amount <= prepared.length) {
             prepared = prepared.slice(0, amount);
         }
         this.questions = prepared;
@@ -144,7 +194,7 @@ class QuizTrainer {
 
     startQuiz(isRestart = false) {
         if (this.allQuestions.length === 0) return this.showError("No quiz loaded.");
-        
+
         if (!isRestart) {
             this.prepareQuizQuestions();
         }
@@ -202,16 +252,16 @@ class QuizTrainer {
 
         const userAnswer = this.userAnswers[this.currentQuestionIndex];
         document.getElementById('question-number').textContent = this.currentQuestionIndex + 1;
-        
+
         const isMultiChoice = Array.isArray(questionState.correct_answer);
         document.getElementById('question-type-info').textContent = isMultiChoice ? "(Select all that apply)" : "(Select one answer)";
-        
+
         const questionElement = document.getElementById('question-text');
         questionElement.innerHTML = this.formatCodeAndText(questionState.question);
         Prism.highlightAllUnder(questionElement);
-        
+
         this.displayChoices(questionState, userAnswer);
-        
+
         if (userAnswer !== null) {
             this.isAnswered = true;
             const isCorrect = this.validateAnswer(userAnswer, questionState.correct_answer);
@@ -219,7 +269,7 @@ class QuizTrainer {
         } else {
             this.hideFeedback();
         }
-        
+
         this.updateQuizInfo();
         this.updateNavigation(questionState);
     }
@@ -244,21 +294,21 @@ class QuizTrainer {
                 if (wasSelected && !isCorrectChoice) choiceElement.classList.add('incorrect');
                 if (wasSelected) choiceElement.classList.add('selected');
             }
-            
+
             const indicatorType = isMultiChoice ? 'checkbox' : 'radio';
             const indicatorContent = isMultiChoice ? '<i class="fas fa-check"></i>' : '<i class="fas fa-circle"></i>';
-            
+
             const formattedText = this.formatText(text);
-            
+
             choiceElement.innerHTML = `
                 <div class="choice-indicator ${indicatorType}">${indicatorContent}</div>
                 <div class="choice-text">${formattedText}</div>
             `;
-            
+
             if (userAnswer === null) {
                 choiceElement.addEventListener('click', () => this.handleChoiceClick(letter, isMultiChoice));
             }
-            
+
             container.appendChild(choiceElement);
         });
     }
@@ -278,12 +328,10 @@ class QuizTrainer {
             }
             document.getElementById('submit-answer-btn').disabled = this.selectedChoices.length === 0;
         } else {
-            // For single-choice questions, deselect all other choices first
             document.querySelectorAll(".choice.selected").forEach(el => {
                 el.classList.remove("selected");
             });
             this.selectedChoices = [selectedChoice];
-            // Visually select the current choice
             document.querySelector(`[data-choice="${selectedChoice}"]`).classList.add("selected");
             this.submitAnswer();
         }
@@ -295,10 +343,10 @@ class QuizTrainer {
         const questionState = this.questionStates[this.currentQuestionIndex];
         const userSelection = [...this.selectedChoices].sort();
         this.userAnswers[this.currentQuestionIndex] = userSelection;
-        
+
         const isCorrect = this.validateAnswer(userSelection, questionState.correct_answer);
         if (isCorrect) this.score++;
-        
+
         this.isAnswered = true;
         this.displayChoices(questionState, userSelection);
         this.showFeedback(isCorrect, questionState.explanation);
@@ -327,10 +375,10 @@ class QuizTrainer {
     updateNavigation(question) {
         const isMultiChoice = Array.isArray(question.correct_answer);
         const submitBtn = document.getElementById('submit-answer-btn');
-        
+
         submitBtn.style.display = (isMultiChoice && !this.isAnswered) ? 'inline-block' : 'none';
         submitBtn.disabled = this.selectedChoices.length === 0;
-        
+
         document.getElementById('prev-btn').disabled = this.currentQuestionIndex === 0;
         const nextBtn = document.getElementById('next-btn');
         nextBtn.disabled = !this.isAnswered;
@@ -342,10 +390,10 @@ class QuizTrainer {
         const feedbackIcon = document.getElementById('feedback-icon');
         const feedbackTitle = document.getElementById('feedback-title');
         const explanationElement = document.getElementById('explanation');
-        
+
         feedbackSection.style.display = 'block';
         feedbackSection.className = `feedback-section ${isCorrect ? 'correct' : 'incorrect'}`;
-        
+
         feedbackIcon.className = isCorrect ? 'fas fa-check-circle' : 'fas fa-times-circle';
         feedbackTitle.textContent = isCorrect ? 'Correct!' : 'Incorrect';
         explanationElement.innerHTML = this.formatText(explanation);
@@ -392,8 +440,8 @@ class QuizTrainer {
         circle.style.background = `conic-gradient(${color1} 0deg, ${color2} ${degrees}deg, #e9ecef ${degrees}deg, #e9ecef 360deg)`;
     }
 
-    restartQuiz() { 
-        this.startQuiz(true); 
+    restartQuiz() {
+        this.startQuiz(true);
     }
 
     resetToSetup() {
@@ -404,30 +452,24 @@ class QuizTrainer {
         document.getElementById('file-info').style.display = 'none';
         document.getElementById('file-input').value = '';
         document.getElementById('quiz-select').value = '';
+        document.getElementById('subject-select').value = 'all';
         this.allQuestions = [];
         this.questions = [];
         this.questionStates = [];
     }
 
     showError(message) { alert(`Error: ${message}`); }
-    
-    // --- THIS IS THE CORRECTED FUNCTION ---
+
     formatCodeAndText(text) {
         if (typeof text !== 'string') return ''; // Guard against non-string input
-
-        // This regex splits the text by code blocks, keeping the delimiters
         const parts = text.split(/(```(?:\w+)?\n[\s\S]*?```)/g);
-        
+
         return parts.map(part => {
             if (part.startsWith('```')) {
                 const match = part.match(/```(\w+)?\n([\s\S]*?)```/);
-                // Guard clause: if regex fails, return the part as is.
                 if (!match) return this.escapeHtml(part);
-
-                // Use match[1] for language and match[2] for the code
-                const language = match[1] || 'plaintext';
-                // Use match[2] here - this is the actual code content
-                const code = this.escapeHtml(match[2].trim()); 
+                const language = match || 'plaintext';
+                const code = this.escapeHtml(match.trim());
                 return `<pre><code class="language-${language}">${code}</code></pre>`;
             }
             // Otherwise, it's regular text. Apply the standard formatting.

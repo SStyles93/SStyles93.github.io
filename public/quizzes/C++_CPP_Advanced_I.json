@@ -1,4 +1,6 @@
-[
+{
+  "subject": "C++",
+  "questions":[
   {
     "question": "What will happen when you attempt to compile and run the code?\n\n```cpp\n#include <vector>\n#include <iostream>\n\nusing namespace std;\n\ntemplate < typename T > ostream & print (T const &start, T const &end)\n{\n    for (T i = start; i != end; ++i)\n    {\n        cout << *i << \" \";\n    }\n    return cout;\n}\n\nint\nmain ()\n{\n    int tab[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };\n    vector < int >v1 (tab, tab + 10);\n\n    vector < int >::const_iterator it = v1.begin () + 3;\n    v1.erase (it, it + 1);\n    print (v1.begin (), v1.end ());\n    v1.empty ();\n    cout << v1.size () << endl;\n    return 0;\n}\n```",
     "choices": {
@@ -583,4 +585,4 @@
     "correct_answer": "D",
     "explanation": "This question tests the rules surrounding `const_cast` and modifying `const` objects.\n\n**1. `const_cast`:**\nThe `const_cast` operator is used to remove the `const` qualifier from a pointer or reference. The line `int* p = const_cast<int*>(&x);` compiles successfully. It creates a non-const pointer `p` that points to the `const` integer `x`.\n\n**2. Modifying a `const` Object:**\nThe object `x` itself was originally declared as `const`. The C++ standard states that attempting to modify an object that was originally declared as `const` results in **undefined behavior**, even if you use a `const_cast` to get a non-const pointer to it.\n\n**3. Undefined Behavior:**\nBecause the behavior is undefined, anything can happen. The program might crash, it might print `10`, or it might print `20`. The compiler might have placed `x` in read-only memory, or it might have optimized the `cout << x` call to use the known constant value `10` before the modification even happens. Since the result is not guaranteed, it is undefined behavior."
   }
-]
+]}

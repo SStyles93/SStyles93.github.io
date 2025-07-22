@@ -1,1660 +1,1551 @@
-[
-  {
-    "question": "Which of the following is the best definition of a compiler?",
-    "choices": {
-      "A": "A program that translates high-level language code into machine code.",
-      "B": "A program that executes code line by line.",
-      "C": "A program that links different object files into a single executable.",
-      "D": "A program that helps in debugging code."
-    },
-    "correct_answer": "A",
-    "explanation": "A compiler is a special program that translates a high-level language (like C++) into a lower-level language (like machine code) that the computer can understand and execute directly."
-  },
-  {
-    "question": "Which of the following is a valid way to declare and initialize an integer variable in C++?",
-    "choices": {
-      "A": "`int x = 10;`",
-      "B": "`integer x = 10;`",
-      "C": "`x = 10;`",
-      "D": "`let x = 10;`"
-    },
-    "correct_answer": "A",
-    "explanation": "In C++, a variable is declared with its type followed by the variable name. The correct syntax is `type variable_name = value;`."
-  },
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\";\n    return 0;\n}\n```",
-    "choices": {
-      "A": "Hello, World!",
-      "B": "Hello, World!\n",
-      "C": "Compilation error",
-      "D": "No output"
-    },
-    "correct_answer": "A",
-    "explanation": "The code uses `std::cout` to print the string \"Hello, World!\" to the standard output. No newline character is printed after the string."
-  },
-  {
-    "question": "Which operator is used for addition in C++?",
-    "choices": {
-      "A": "+",
-      "B": "-",
-      "C": "*",
-      "D": "/"
-    },
-    "correct_answer": "A",
-    "explanation": "The `+` operator is used for addition, `-` for subtraction, `*` for multiplication, and `/` for division."
-  },
-  {
-    "question": "Which of the following is the best definition of a compiler?",
-    "choices": {
-      "A": "A program that translates high-level language code into machine code.",
-      "B": "A program that executes code line by line.",
-      "C": "A program that links different object files into a single executable.",
-      "D": "A program that helps in debugging code."
-    },
-    "correct_answer": "A",
-    "explanation": "A compiler is a special program that translates a high-level language (like C++) into a lower-level language (like machine code) that the computer can understand and execute directly."
-  },
-  {
-    "question": "What is the purpose of the `int main()` function in a C++ program?",
-    "choices": {
-      "A": "It is the entry point of the program.",
-      "B": "It is a function that is executed at the end of the program.",
-      "C": "It is a function that is used to declare all the variables.",
-      "D": "It is a function that is used to handle errors."
-    },
-    "correct_answer": "A",
-    "explanation": "The `main` function is a special function in C++ that serves as the entry point for program execution. When a C++ program is run, the operating system calls the `main` function."
-  },
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\";\n    return 0;\n}\n```",
-    "choices": {
-      "A": "Hello, World!",
-      "B": "Hello, World!\n",
-      "C": "Compilation error",
-      "D": "No output"
-    },
-    "correct_answer": "A",
-    "explanation": "The code uses `std::cout` to print the string \"Hello, World!\" to the standard output. No newline character is printed after the string."
-  },
-  {
-    "question": "What is the difference between a declaration and a definition in C++?",
-    "choices": {
-      "A": "A declaration introduces a name, while a definition provides its implementation or storage.",
-      "B": "A declaration allocates memory, while a definition does not.",
-      "C": "A declaration is used for variables, while a definition is used for functions.",
-      "D": "There is no difference; the terms are interchangeable."
-    },
-    "correct_answer": "A",
-    "explanation": "A declaration tells the compiler about the existence of an entity (like a variable or function) and its type, but doesn't allocate memory or provide implementation. A definition, on the other hand, provides the full details, including memory allocation for variables or the body for functions."
-  },
-  {
-    "question": "Explain the concept of 'scope' in C++ programming.",
-    "choices": {
-      "A": "The region of the program where a declared name is valid and accessible.",
-      "B": "The amount of memory a variable occupies.",
-      "C": "The order in which functions are called.",
-      "D": "The visibility of a class to other classes."
-    },
-    "correct_answer": "A",
-    "explanation": "Scope refers to the region of a program where a declared name (like a variable, function, or class) can be used. Variables declared within a block (e.g., inside a function or loop) have local scope and are only accessible within that block."
-  },
-  {
-    "question": "What is the purpose of the `using namespace std;` directive?",
-    "choices": {
-      "A": "It makes all functions from the `std` namespace globally available, avoiding the need for `std::` prefix.",
-      "B": "It creates a new namespace called `std`.",
-      "C": "It includes the standard library header files.",
-      "D": "It defines standard input/output operations."
-    },
-    "correct_answer": "A",
-    "explanation": "`using namespace std;` brings all the names from the `std` (standard) namespace into the current scope, allowing you to use names like `cout` and `cin` directly without the `std::` prefix. While convenient, it's generally considered better practice in larger projects to explicitly qualify names (e.g., `std::cout`) or use specific `using` declarations (e.g., `using std::cout;`) to avoid name collisions."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 5;\n    int y = 2;\n    double result = static_cast<double>(x) / y;\n    std::cout << result;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "2",
-      "B": "2.5",
-      "C": "2.0",
-      "D": "Compilation error"
-    },
-    "correct_answer": "B",
-    "explanation": "The `static_cast<double>(x)` converts the integer `x` to a double before the division. This ensures floating-point division, resulting in `2.5` instead of integer division which would yield `2`."
-  },
-  {
-    "question": "Which of the following is NOT a fundamental data type in C++?",
-    "choices": {
-      "A": "`bool`",
-      "B": "`float`",
-      "C": "`string`",
-      "D": "`char`"
-    },
-    "correct_answer": "C",
-    "explanation": "`bool`, `float`, and `char` are fundamental (built-in) data types in C++. `string` is a class from the C++ Standard Library (`std::string`), not a fundamental type."
-  },
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 10;\n    int y = 3;\n    std::cout << x / y;\n    return 0;\n}\n```",
-    "choices": {
-      "A": "3.333",
-      "B": "3",
-      "C": "4",
-      "D": "Compilation error"
-    },
-    "correct_answer": "B",
-    "explanation": "In C++, integer division truncates the decimal part. So, 10 / 3 results in 3."
-  },
-  {
-    "question": "Which of the following correctly declares a constant integer named `MAX_VALUE` with a value of 100?",
-    "choices": {
-      "A": "`const int MAX_VALUE = 100;`",
-      "B": "`int const MAX_VALUE = 100;`",
-      "C": "`#define MAX_VALUE 100`",
-      "D": "All of them."
-    },
-    "correct_answer": "D",
-    "explanation": "All three options are valid ways to declare a constant integer. `const int` and `int const` are syntactically equivalent for declaring a constant variable. `#define` is a preprocessor directive that performs text substitution before compilation."
-  },
-  {
-    "question": "What is the purpose of the `\\n` escape sequence in C++ strings?",
-    "choices": {
-      "A": "To insert a tab character.",
-      "B": "To insert a newline character.",
-      "C": "To insert a backspace character.",
-      "D": "To insert a null character."
-    },
-    "correct_answer": "B",
-    "explanation": "The `\\n` escape sequence represents a newline character, which moves the cursor to the beginning of the next line when printed."
-  },
-  {
-    "question": "Which of the following is true about the `main` function's return type in C++?",
-    "choices": {
-      "A": "It must always be `int`.",
-      "B": "It can be `void` in some compilers, but `int` is standard.",
-      "C": "It can be any data type.",
-      "D": "It is optional to specify a return type."
-    },
-    "correct_answer": "B",
-    "explanation": "While `int main()` is the standard and portable way to declare the `main` function, some compilers might allow `void main()`. However, `int` is required by the C++ standard for returning an exit status to the operating system."
-  },
-  {
-    "question": "Consider the following code:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 5;\n    int y = 2;\n    std::cout << (x++ * --y);\n    return 0;\n}\n```\n\nWhat is the output of this code?",
-    "choices": {
-      "A": "10",
-      "B": "5",
-      "C": "6",
-      "D": "4"
-    },
-    "correct_answer": "B",
-    "explanation": "`x++` uses the current value of `x` (5) in the expression and then increments `x` to 6. `--y` decrements `y` to 1 and then uses the new value (1) in the expression. So, the expression becomes `5 * 1`, which evaluates to `5`."
-  },
-  {
-    "question": "Which of the following is the correct way to declare a reference to an integer variable `a` and assign it to `ref`?",
-    "choices": {
-      "A": "`int &ref = a;`",
-      "B": "`int *ref = &a;`",
-      "C": "`int ref = a;`",
-      "D": "`int &ref; ref = a;`"
-    },
-    "correct_answer": "A",
-    "explanation": "A reference must be initialized at the time of declaration and cannot be reassigned. `int &ref = a;` correctly declares `ref` as a reference to `a`."
-  },
-  {
-    "question": "What is the key difference between `const int* p` and `int* const p`?",
-    "choices": {
-      "A": "`const int* p` means the pointer is constant, `int* const p` means the value pointed to is constant.",
-      "B": "`const int* p` means the value pointed to is constant, `int* const p` means the pointer is constant.",
-      "C": "Both mean the pointer and the value pointed to are constant.",
-      "D": "There is no practical difference."
-    },
-    "correct_answer": "B",
-    "explanation": "`const int* p` (or `int const* p`) declares a pointer to a constant integer; the value pointed to by `p` cannot be changed through `p`, but `p` itself can be made to point to another integer. `int* const p` declares a constant pointer to an integer; `p` cannot be changed to point to another integer, but the value it points to can be modified."
-  },
-  {
-    "question": "Which of the following statements about `static` variables within a function is true?",
-    "choices": {
-      "A": "They are initialized once and retain their value across function calls.",
-      "B": "They are re-initialized every time the function is called.",
-      "C": "They are only accessible from outside the function.",
-      "D": "They are stored on the heap."
-    },
-    "correct_answer": "A",
-    "explanation": "`static` local variables are initialized only once, the first time the function is called, and their value persists between subsequent calls to that function. They have static storage duration and are stored in the data segment, not the stack or heap."
-  }
-
-
-,
-  {
-    "question": "Which of the following control structures executes a block of code repeatedly as long as a specified condition is true?",
-    "choices": {
-      "A": "`if-else` statement",
-      "B": "`for` loop",
-      "C": "`while` loop",
-      "D": "`switch` statement"
-    },
-    "correct_answer": "C",
-    "explanation": "A `while` loop repeatedly executes a target statement as long as a given condition is true. A `for` loop is typically used when the number of iterations is known. `if-else` and `switch` are selection statements."
-  },
-  {
-    "question": "What is the correct way to write an `if` statement that checks if a variable `x` is greater than 10?",
-    "choices": {
-      "A": "`if x > 10`",
-      "B": "`if (x > 10)`",
-      "C": "`if {x > 10}`",
-      "D": "`if [x > 10]`"
-    },
-    "correct_answer": "B",
-    "explanation": "In C++, the condition for an `if` statement must be enclosed in parentheses."
-  },
-  {
-    "question": "Which data type is used to store true/false values in C++?",
-    "choices": {
-      "A": "`int`",
-      "B": "`char`",
-      "C": "`bool`",
-      "D": "`void`"
-    },
-    "correct_answer": "C",
-    "explanation": "The `bool` data type is used to store boolean values, which can be either `true` or `false`."
-  },
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    for (int i = 0; i < 3; ++i) {\n        std::cout << i;\n    }\n    return 0;\n}\n```",
-    "choices": {
-      "A": "012",
-      "B": "123",
-      "C": "0123",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "The `for` loop iterates three times, with `i` taking values 0, 1, and 2. Each value is printed without a space or newline."
-  },
-  {
-    "question": "Which operator is used for logical AND in C++?",
-    "choices": {
-      "A": "`||`",
-      "B": "`&&`",
-      "C": "`!`",
-      "D": "`=`"
-    },
-    "correct_answer": "B",
-    "explanation": "`&&` is the logical AND operator, `||` is logical OR, `!` is logical NOT, and `=` is the assignment operator."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 10;\n    if (x > 5) {\n        if (x < 15) {\n            std::cout << \"Hello\";\n        } else {\n            std::cout << \"World\";\n        }\n    } else {\n        std::cout << \"C++\";\n    }\n    return 0;\n}\n```",
-    "choices": {
-      "A": "Hello",
-      "B": "World",
-      "C": "C++",
-      "D": "No output"
-    },
-    "correct_answer": "A",
-    "explanation": "The outer `if` condition `x > 5` (10 > 5) is true. The inner `if` condition `x < 15` (10 < 15) is also true. Therefore, \"Hello\" is printed."
-  },
-  {
-    "question": "Which of the following loops is guaranteed to execute at least once?",
-    "choices": {
-      "A": "`for` loop",
-      "B": "`while` loop",
-      "C": "`do-while` loop",
-      "D": "All of them"
-    },
-    "correct_answer": "C",
-    "explanation": "A `do-while` loop executes its body at least once before checking the condition. `for` and `while` loops check the condition before the first iteration."
-  },
-  {
-    "question": "What is the purpose of the `break` statement in a loop?",
-    "choices": {
-      "A": "To skip the current iteration and proceed to the next.",
-      "B": "To terminate the loop immediately.",
-      "C": "To restart the loop from the beginning.",
-      "D": "To exit the program."
-    },
-    "correct_answer": "B",
-    "explanation": "The `break` statement is used to terminate the innermost loop (or `switch` statement) immediately, transferring control to the statement following the loop."
-  },
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    for (int i = 0; i < 5; ++i) {\n        if (i == 2) {\n            continue;\n        }\n        std::cout << i;\n    }\n    return 0;\n}\n```",
-    "choices": {
-      "A": "01234",
-      "B": "0134",
-      "C": "012",
-      "D": "Compilation error"
-    },
-    "correct_answer": "B",
-    "explanation": "The `continue` statement skips the rest of the current iteration of the loop and proceeds to the next iteration. When `i` is 2, `continue` is executed, so 2 is not printed."
-  },
-  {
-    "question": "Which of the following correctly represents the bitwise OR operation in C++?",
-    "choices": {
-      "A": "`||`",
-      "B": "`|`",
-      "C": "`&&`",
-      "D": "`&`"
-    },
-    "correct_answer": "B",
-    "explanation": "`|` is the bitwise OR operator. `||` is the logical OR operator. `&` is the bitwise AND operator, and `&&` is the logical AND operator."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 10;\n    int y = 20;\n    int z = 30;\n    if (x > y || y < z && x == 10) {\n        std::cout << \"True\";\n    } else {\n        std::cout << \"False\";\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "True",
-      "B": "False",
-      "C": "Compilation error",
-      "D": "Undefined behavior"
-    },
-    "correct_answer": "A",
-    "explanation": "The expression `x > y || y < z && x == 10` is evaluated based on operator precedence. `&&` has higher precedence than `||`. So, `y < z && x == 10` becomes `(20 < 30 && 10 == 10)`, which is `(true && true)`, evaluating to `true`. Then, `x > y || true` becomes `(10 > 20 || true)`, which is `(false || true)`, evaluating to `true`. Thus, \"True\" is printed."
-  },
-  {
-    "question": "Which of the following correctly describes the behavior of the `switch` statement with `fall-through`?",
-    "choices": {
-      "A": "Execution continues to the next `case` label if `break` is omitted.",
-      "B": "Execution stops after the matching `case` label, regardless of `break`.",
-      "C": "It causes a compilation error if `break` is not used.",
-      "D": "It is only used for `enum` types."
-    },
-    "correct_answer": "A",
-    "explanation": "In a `switch` statement, if a `break` statement is omitted at the end of a `case` block, execution \"falls through\" to the next `case` label, executing its code as well. This is often a source of bugs if not intended."
-  },
-  {
-    "question": "What is the purpose of the `goto` statement in C++?",
-    "choices": {
-      "A": "To jump to a specified label within the same function.",
-      "B": "To jump to a specified label in any function.",
-      "C": "To exit the program immediately.",
-      "D": "To create a loop."
-    },
-    "correct_answer": "A",
-    "explanation": "The `goto` statement provides an unconditional jump to a named label within the same function. While it exists, its use is generally discouraged in modern C++ programming due to its potential to create spaghetti code and make programs harder to read and maintain."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int arr[] = {1, 2, 3, 4, 5};\n    for (int i : arr) {\n        std::cout << i << \" \";\n    }\n    return 0;\n}\n```\n\nWhat is the output of this code?",
-    "choices": {
-      "A": "1 2 3 4 5 ",
-      "B": "0 1 2 3 4 ",
-      "C": "Compilation error",
-      "D": "Undefined behavior"
-    },
-    "correct_answer": "A",
-    "explanation": "This is a range-based for loop, introduced in C++11. It iterates over each element in the `arr` array, and `i` takes the value of each element in turn. So, it prints `1 2 3 4 5 `."
-  },
-  {
-    "question": "Which of the following is the most appropriate data type for storing a very large positive integer (e.g., 10^18)?",
-    "choices": {
-      "A": "`int`",
-      "B": "`long int`",
-      "C": "`long long int`",
-      "D": "`short int`"
-    },
-    "correct_answer": "C",
-    "explanation": "`long long int` (or simply `long long`) is guaranteed to be at least 64 bits, which is sufficient to store values up to approximately 9 x 10^18. `int` and `long int` might not be large enough depending on the system architecture."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int count = 0;\n    for (int i = 0; i < 3; ++i) {\n        for (int j = 0; j < 2; ++j) {\n            count++;\n        }\n    }\n    std::cout << count;\n    return 0;\n}\n```",
-    "choices": {
-      "A": "3",
-      "B": "2",
-      "C": "6",
-      "D": "5"
-    },
-    "correct_answer": "C",
-    "explanation": "The outer loop runs 3 times (for i = 0, 1, 2). The inner loop runs 2 times for each iteration of the outer loop (for j = 0, 1). So, `count++` executes 3 * 2 = 6 times."
-  },
-  {
-    "question": "Which of the following correctly uses the ternary operator to assign the maximum of `a` and `b` to `max_val`?",
-    "choices": {
-      "A": "`max_val = (a > b) ? a : b;`",
-      "B": "`max_val = a > b ? a : b;`",
-      "C": "`max_val = (a > b) ? b : a;`",
-      "D": "`max_val = a > b ? b : a;`"
-    },
-    "correct_answer": "A",
-    "explanation": "The ternary operator (conditional operator) has the syntax `condition ? expression_if_true : expression_if_false`. If `a > b` is true, `a` is assigned to `max_val`; otherwise, `b` is assigned. Option B is also syntactically correct but A is more readable."
-  },
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 0;\n    while (x < 5) {\n        if (x == 3) {\n            break;\n        }\n        std::cout << x;\n        x++;\n    }\n    return 0;\n}\n```",
-    "choices": {
-      "A": "0123",
-      "B": "012",
-      "C": "0124",
-      "D": "01234"
-    },
-    "correct_answer": "B",
-    "explanation": "The loop starts printing from 0. When `x` becomes 3, the `if (x == 3)` condition is met, and `break` terminates the loop. So, only 0, 1, and 2 are printed."
-  },
-  {
-    "question": "Which of the following is true about floating-point numbers in C++?",
-    "choices": {
-      "A": "They are always precise and can represent any real number exactly.",
-      "B": "`float` typically provides more precision than `double`.",
-      "C": "They are stored in a way that can lead to precision issues due to their binary representation.",
-      "D": "They are primarily used for integer arithmetic."
-    },
-    "correct_answer": "C",
-    "explanation": "Floating-point numbers (like `float` and `double`) are stored in a binary format that can sometimes lead to precision issues, especially when performing calculations that involve non-terminating binary representations (similar to how 1/3 cannot be represented exactly in decimal). `double` typically provides more precision than `float`."
-  },
-  {
-    "question": "What is the result of the bitwise XOR operation `5 ^ 3` in C++? (Assume 8-bit representation for simplicity)",
-    "choices": {
-      "A": "6",
-      "B": "7",
-      "C": "4",
-      "D": "2"
-    },
-    "correct_answer": "A",
-    "explanation": "Binary representation of 5 is `00000101`. Binary representation of 3 is `00000011`. Performing XOR (exclusive OR) bit by bit: `00000101 ^ 00000011 = 00000110`, which is 6 in decimal."
-  }
-
-
-,
-  {
-    "question": "Which of the following is the correct way to declare a function named `greet` that takes no arguments and returns nothing?",
-    "choices": {
-      "A": "`void greet();`",
-      "B": "`int greet();`",
-      "C": "`greet();`",
-      "D": "`function greet();`"
-    },
-    "correct_answer": "A",
-    "explanation": "`void` indicates that the function does not return any value. Empty parentheses `()` indicate that the function takes no arguments."
-  },
-  {
-    "question": "What is the purpose of a function prototype (or function declaration) in C++?",
-    "choices": {
-      "A": "To define the body of the function.",
-      "B": "To tell the compiler about the function's name, return type, and parameters before its definition.",
-      "C": "To call the function.",
-      "D": "To allocate memory for the function."
-    },
-    "correct_answer": "B",
-    "explanation": "A function prototype informs the compiler about the function's signature (name, return type, and parameter types) so that the compiler can correctly check calls to that function, even if the function's definition appears later in the code."
-  },
-  {
-    "question": "Which of the following is an example of a function call?",
-    "choices": {
-      "A": "`int add(int a, int b);`",
-      "B": "`add(5, 3);`",
-      "C": "`int result;`",
-      "D": "`void setup();`"
-    },
-    "correct_answer": "B",
-    "explanation": "A function call involves using the function's name followed by parentheses containing the arguments (if any). Option A is a function declaration, C is a variable declaration, and D is a function declaration."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nvoid modifyValue(int x) {\n    x = 100;\n}\n\nint main() {\n    int num = 10;\n    modifyValue(num);\n    std::cout << num;\n    return 0;\n}\n```",
-    "choices": {
-      "A": "10",
-      "B": "100",
-      "C": "Compilation error",
-      "D": "Undefined behavior"
-    },
-    "correct_answer": "A",
-    "explanation": "In C++, arguments are passed by value by default. This means a copy of `num` is passed to `modifyValue`. Changes to `x` inside `modifyValue` do not affect the original `num` in `main`."
-  },
-  {
-    "question": "Which of the following correctly defines a function `calculateSum` that takes two integer arguments and returns their sum?",
-    "choices": {
-      "A": "`int calculateSum(int a, int b) { return a + b; }`",
-      "B": "`void calculateSum(int a, int b) { std::cout << a + b; }`",
-      "C": "`calculateSum(a, b) { return a + b; }`",
-      "D": "`int calculateSum(a, b) { return a + b; }`"
-    },
-    "correct_answer": "A",
-    "explanation": "Option A correctly specifies the return type (`int`), the function name (`calculateSum`), and the types and names of the parameters (`int a, int b`), followed by the function body that returns the sum."
-  },
-  {
-    "question": "What is function overloading in C++?",
-    "choices": {
-      "A": "Defining multiple functions with the same name but different parameters.",
-      "B": "Defining multiple functions with the same name and same parameters.",
-      "C": "Defining a function inside another function.",
-      "D": "Defining a function that takes an unlimited number of arguments."
-    },
-    "correct_answer": "A",
-    "explanation": "Function overloading allows multiple functions to have the same name, as long as their parameter lists (number of parameters, types of parameters, or order of parameters) are different. The compiler determines which function to call based on the arguments provided."
-  }
-
-
-,
-  {
-    "question": "Explain the concept of 'pass by reference' in C++ functions and provide an example.",
-    "choices": {
-      "A": "Passing a copy of the argument to the function; changes inside the function do not affect the original variable.",
-      "B": "Passing the memory address of the argument to the function; changes inside the function affect the original variable.",
-      "C": "Passing the value of the argument to the function, but the function can modify it.",
-      "D": "Passing an argument by its name, allowing direct manipulation."
-    },
-    "correct_answer": "B",
-    "explanation": "Pass by reference involves passing the memory address of the actual argument to the function. This means the function works directly with the original variable, and any modifications made to the parameter inside the function will affect the original variable in the calling scope. Example: `void func(int &x) { x = 10; }`"
-  },
-  {
-    "question": "What is an 'inline' function in C++ and what is its primary purpose?",
-    "choices": {
-      "A": "A function that is defined inside another function, improving encapsulation.",
-      "B": "A function whose code is expanded at the point of call, potentially reducing function call overhead.",
-      "C": "A function that can only be called from within the same file.",
-      "D": "A function that is automatically optimized by the compiler for faster execution."
-    },
-    "correct_answer": "B",
-    "explanation": "An `inline` function is a hint to the compiler that it should try to expand the function's code directly at the point of each call, rather than generating a separate function call instruction. This can reduce the overhead associated with function calls, especially for small, frequently called functions. However, the compiler ultimately decides whether to inline a function or not."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint add(int a, int b, int c = 0) {\n    return a + b + c;\n}\n\nint main() {\n    std::cout << add(5, 10) << \" \";\n    std::cout << add(1, 2, 3);\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "15 6",
-      "B": "15 3",
-      "C": "Compilation error",
-      "D": "Undefined behavior"
-    },
-    "correct_answer": "A",
-    "explanation": "The `add` function uses a default parameter `c = 0`. In the first call `add(5, 10)`, `c` defaults to 0, so `5 + 10 + 0 = 15`. In the second call `add(1, 2, 3)`, `c` is explicitly provided as 3, so `1 + 2 + 3 = 6`. The output is `15 6`."
-  },
-  {
-    "question": "Which of the following is a valid reason to use a `const` reference as a function parameter?",
-    "choices": {
-      "A": "To allow the function to modify the original argument efficiently.",
-      "B": "To prevent the function from modifying the original argument while avoiding copying large objects.",
-      "C": "To ensure the argument is always passed by value.",
-      "D": "To make the function thread-safe."
-    },
-    "correct_answer": "B",
-    "explanation": "Using a `const` reference (`const Type& param`) allows a function to access the original argument without making a copy (which is efficient for large objects) and, at the same time, guarantees that the function will not modify the original argument, enforcing const-correctness."
-  },
-  {
-    "question": "What is the concept of 'side effects' in the context of C++ functions?",
-    "choices": {
-      "A": "The return value of a function.",
-      "B": "Any observable change to the program's state outside the function's local scope.",
-      "C": "Errors or exceptions thrown by a function.",
-      "D": "The time complexity of a function."
-    },
-    "correct_answer": "B",
-    "explanation": "A side effect in a function refers to any change in the program's state that is observable outside the function's local scope. This includes modifying global variables, modifying arguments passed by reference/pointer, performing I/O operations (like printing to console or writing to files), or throwing exceptions. Functions without side effects are called pure functions."
-  },
-  {
-    "question": "Consider the following overloaded functions:\n\n```cpp\n#include <iostream>\n\nvoid print(int i) {\n    std::cout << \"Integer: \" << i << std::endl;\n}\n\nvoid print(double d) {\n    std::cout << \"Double: \" << d << std::endl;\n}\n\nvoid print(const char* s) {\n    std::cout << \"C-string: \" << s << std::endl;\n}\n\nint main() {\n    print(10);\n    print(5.5);\n    print(\"Hello\");\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Integer: 10\nDouble: 5.5\nC-string: Hello\n",
-      "B": "Integer: 10\nDouble: 5.5\nInteger: 0\n",
-      "C": "Compilation error",
-      "D": "Integer: 10\nC-string: Hello\nDouble: 5.5\n"
-    },
-    "correct_answer": "A",
-    "explanation": "This code demonstrates function overloading. The compiler selects the appropriate `print` function based on the type of the argument passed. `print(10)` calls `print(int)`, `print(5.5)` calls `print(double)`, and `print(\"Hello\")` calls `print(const char*)`."
-  }
-
-
-,
-  {
-    "question": "Which of the following is the correct way to declare a string variable in C++ using the standard library?",
-    "choices": {
-      "A": "`char myString[10];`",
-      "B": "`string myString;`",
-      "C": "`std::string myString;`",
-      "D": "`String myString;`"
-    },
-    "correct_answer": "C",
-    "explanation": "The `std::string` class from the `<string>` header is the standard way to handle strings in modern C++. Option A is a C-style string (character array)."
-  },
-  {
-    "question": "What is the purpose of a `namespace` in C++?",
-    "choices": {
-      "A": "To define a new data type.",
-      "B": "To organize code and prevent name collisions.",
-      "C": "To create a new class.",
-      "D": "To declare global variables."
-    },
-    "correct_answer": "B",
-    "explanation": "Namespaces are used to organize code into logical groups and to prevent name collisions that can occur when different libraries or parts of a program use the same names for different entities."
-  },
-  {
-    "question": "Which keyword is used to handle exceptions in C++?",
-    "choices": {
-      "A": "`catch`",
-      "B": "`throw`",
-      "C": "`try`",
-      "D": "All of them."
-    },
-    "correct_answer": "D",
-    "explanation": "Exception handling in C++ uses `try` to enclose code that might throw an exception, `throw` to signal an exception, and `catch` to handle the exception."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n#include <string>\n\nint main() {\n    std::string s1 = \"Hello\";\n    std::string s2 = \"World\";\n    std::string s3 = s1 + \" \" + s2;\n    std::cout << s3.length();\n    return 0;\n}\n```",
-    "choices": {
-      "A": "10",
-      "B": "11",
-      "C": "12",
-      "D": "Compilation error"
-    },
-    "correct_answer": "B",
-    "explanation": "`s1` is \"Hello\" (5 characters), `s2` is \"World\" (5 characters). Adding a space in between makes `s3` \"Hello World\", which has 5 + 1 + 5 = 11 characters. `length()` returns the number of characters in the string."
-  },
-  {
-    "question": "Which of the following is the correct way to convert an `int` to a `double` in C++?",
-    "choices": {
-      "A": "`double_var = (double)int_var;`",
-      "B": "`double_var = static_cast<double>(int_var);`",
-      "C": "`double_var = int_var;` (implicit conversion)",
-      "D": "All of them."
-    },
-    "correct_answer": "D",
-    "explanation": "All options are valid ways to convert an `int` to a `double`. Option A is C-style casting, Option B is C++ `static_cast`, and Option C is implicit type conversion, which is safe for `int` to `double`."
-  },
-  {
-    "question": "What happens if an exception is thrown but not caught in a C++ program?",
-    "choices": {
-      "A": "The program continues execution normally.",
-      "B": "The program terminates immediately.",
-      "C": "The exception is ignored.",
-      "D": "The program enters an infinite loop."
-    },
-    "correct_answer": "B",
-    "explanation": "If an exception is thrown and there is no matching `catch` block to handle it, the program will terminate. This is known as \"unhandled exception termination\"."
-  }
-
-
-,
-  {
-    "question": "Which of the following is the correct way to declare a custom exception class named `MyException` that inherits from `std::exception`?",
-    "choices": {
-      "A": "`class MyException : public std::exception {};`",
-      "B": "`class MyException extends std::exception {};`",
-      "C": "`exception MyException {};`",
-      "D": "`class MyException implements std::exception {};`"
-    },
-    "correct_answer": "A",
-    "explanation": "In C++, inheritance is specified using a colon (`:`) followed by the access specifier (`public`, `protected`, or `private`) and the base class name. `std::exception` is the base class for all standard exceptions."
-  },
-  {
-    "question": "Consider the following code snippet:\n\n```cpp\n#include <iostream>\n#include <string>\n\nvoid process(int value) {\n    if (value < 0) {\n        throw std::out_of_range(\"Value cannot be negative\");\n    }\n    std::cout << \"Processing: \" << value << std::endl;\n}\n\nint main() {\n    try {\n        process(10);\n        process(-5);\n        process(20);\n    } catch (const std::out_of_range& e) {\n        std::cout << \"Caught exception: \" << e.what() << std::endl;\n    } catch (...) {\n        std::cout << \"Caught unknown exception\" << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Processing: 10\nCaught exception: Value cannot be negative\n",
-      "B": "Processing: 10\nProcessing: -5\nProcessing: 20\n",
-      "C": "Caught exception: Value cannot be negative\n",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "The first call to `process(10)` executes normally. The second call `process(-5)` throws an `std::out_of_range` exception, which is caught by the first `catch` block. The `process(20)` call is never reached because the exception terminates the `try` block."
-  },
-  {
-    "question": "What is the purpose of the `what()` method in `std::exception`?",
-    "choices": {
-      "A": "To return the type of the exception.",
-      "B": "To return a C-style character string describing the exception.",
-      "C": "To return the line number where the exception occurred.",
-      "D": "To return a unique identifier for the exception."
-    },
-    "correct_answer": "B",
-    "explanation": "The `what()` method is a virtual function inherited from `std::exception` that returns a null-terminated character sequence (C-style string) describing the exception. It is commonly overridden in derived exception classes to provide more specific error messages."
-  }
-
-
-,
-  {
-    "question": "Which of the following best describes a 'class' in C++?",
-    "choices": {
-      "A": "A variable that can store multiple values.",
-      "B": "A blueprint for creating objects.",
-      "C": "A function that performs a specific task.",
-      "D": "A collection of related functions."
-    },
-    "correct_answer": "B",
-    "explanation": "A class is a user-defined data type that serves as a blueprint or template for creating objects. It defines the properties (data members) and behaviors (member functions) that objects of that class will have."
-  },
-  {
-    "question": "What is an 'object' in C++?",
-    "choices": {
-      "A": "A template for creating classes.",
-      "B": "An instance of a class.",
-      "C": "A function that belongs to a class.",
-      "D": "A variable that stores a memory address."
-    },
-    "correct_answer": "B",
-    "explanation": "An object is a concrete instance of a class. When a class is defined, no memory is allocated; memory is allocated only when an object of that class is created."
-  },
-  {
-    "question": "Which keyword is used to define a class in C++?",
-    "choices": {
-      "A": "`struct`",
-      "B": "`class`",
-      "C": "`object`",
-      "D": "`type`"
-    },
-    "correct_answer": "B",
-    "explanation": "The `class` keyword is used to declare a class in C++. While `struct` can also define user-defined types, `class` is typically used for object-oriented programming where members are private by default."
-  }
-
-
-,
-  {
-    "question": "What is a constructor in C++ and when is it called?",
-    "choices": {
-      "A": "A special member function used to destroy objects; called when an object goes out of scope.",
-      "B": "A special member function used to initialize objects; called automatically when an object is created.",
-      "C": "A regular member function that constructs new data types.",
-      "D": "A function that builds the class definition."
-    },
-    "correct_answer": "B",
-    "explanation": "A constructor is a special member function of a class that is automatically called when an object of that class is created. Its primary purpose is to initialize the object's data members."
-  },
-  {
-    "question": "Which access specifier makes members accessible only from within the class itself and from friend functions/classes?",
-    "choices": {
-      "A": "`public`",
-      "B": "`private`",
-      "C": "`protected`",
-      "D": "`internal`"
-    },
-    "correct_answer": "B",
-    "explanation": "`private` members are accessible only from within the class where they are declared and from friend functions or classes. `public` members are accessible from anywhere, and `protected` members are accessible within the class, its derived classes, and friends."
-  },
-  {
-    "question": "What is the purpose of the `this` pointer in C++?",
-    "choices": {
-      "A": "It points to the next object in a linked list.",
-      "B": "It points to the base class of an object.",
-      "C": "It points to the current object on which a member function is called.",
-      "D": "It points to a global instance of the class."
-    },
-    "correct_answer": "C",
-    "explanation": "The `this` pointer is an implicit pointer passed to every non-static member function of a class. It points to the object for which the member function is called, allowing access to the object's own members."
-  }
-
-
-,
-  {
-    "question": "Explain the concept of operator overloading in C++ and provide an example.",
-    "choices": {
-      "A": "Defining a new operator symbol for custom operations.",
-      "B": "Giving special meaning to an existing C++ operator when applied to user-defined data types.",
-      "C": "Overriding the default behavior of arithmetic operators for built-in types.",
-      "D": "Creating multiple operators with the same name but different functionalities."
-    },
-    "correct_answer": "B",
-    "explanation": "Operator overloading allows you to redefine the way operators work for user-defined types (classes). For example, you can overload the `+` operator to perform concatenation for custom string classes or vector addition for a custom vector class. This makes code more intuitive and readable. Example: `MyClass operator+(const MyClass& other) { ... }`"
-  },
-  {
-    "question": "What is the difference between a copy constructor and an assignment operator in C++?",
-    "choices": {
-      "A": "A copy constructor is used for object initialization, while an assignment operator is used for object assignment.",
-      "B": "A copy constructor is called when an object is created, while an assignment operator is called when an existing object is assigned a new value.",
-      "C": "None of these statments",
-      "D": "There is no difference; they are interchangeable."
-    },
-    "correct_answer": ["A","B"],
-    "explanation": "A copy constructor is a special constructor that creates a new object as a copy of an existing object. It's called during initialization (e.g., `MyClass obj2 = obj1;`). An assignment operator (`operator=`) is used to assign the value of one existing object to another existing object (e.g., `obj2 = obj1;`). Both are crucial for proper deep copying when a class manages dynamic memory."
-  },
-  {
-    "question": "What is a friend function in C++ and why might it be used?",
-    "choices": {
-      "A": "A function that is a member of another class.",
-      "B": "A non-member function that is granted special access to the private and protected members of a class.",
-      "C": "A function that can only be called by objects of the same class.",
-      "D": "A function that automatically inherits all members of a class."
-    },
-    "correct_answer": "B",
-    "explanation": "A friend function is a non-member function that is declared as a `friend` within a class. This grants the friend function access to the `private` and `protected` members of that class, even though it is not a member itself. It's typically used when a function needs to operate on two different classes, or when it needs to access private data for specific, well-defined reasons (e.g., overloading stream insertion/extraction operators)."
-  }
-
-
-,
-  {
-    "question": "Which of the following is a correct way to declare a static member variable `count` of type `int` within a class `MyClass`?",
-    "choices": {
-      "A": "`int count;`",
-      "B": "`static int count;` (inside class declaration)",
-      "C": "`static int MyClass::count;` (outside class definition)",
-      "D": "`static count (int)`"
-    },
-    "correct_answer": ["B", "C"],
-    "explanation": "Static member variables are declared inside the class definition using the `static` keyword (B) and must be defined (initialized) outside the class definition in the global scope (C). This ensures that there is only one copy of the static member shared by all objects of the class."
-  },
-  {
-    "question": "What is the primary difference between a `struct` and a `class` in C++?",
-    "choices": {
-      "A": "`struct` members are public by default, while `class` members are private by default.",
-      "B": "`struct` can have member functions, while `class` cannot.",
-      "C": "`struct` cannot be inherited, while `class` can.",
-      "D": "`struct` is used for value types, `class` for reference types."
-    },
-    "correct_answer": "A",
-    "explanation": "The only difference between a `struct` and a `class` in C++ is the default member access specifier. For `struct`, members are `public` by default, while for `class`, members are `private` by default. Both can have member functions, be inherited, and are value types unless pointers/references are used."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass Counter {\npublic:\n    static int count;\n    Counter() {\n        count++;\n    }\n};\n\nint Counter::count = 0;\n\nint main() {\n    Counter c1;\n    Counter c2;\n    std::cout << Counter::count;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "0",
-      "B": "1",
-      "C": "2",
-      "D": "Compilation error"
-    },
-    "correct_answer": "C",
-    "explanation": "`count` is a static member variable, initialized to 0. Each time a `Counter` object is created (c1 and c2), the constructor increments `count`. So, after creating two objects, `count` becomes 2."
-  }
-,
-  {
-    "question": "Which of the following terms describes the mechanism by which one class acquires the properties and behaviors of another class?",
-    "choices": {
-      "A": "Encapsulation",
-      "B": "Polymorphism",
-      "C": "Inheritance",
-      "D": "Abstraction"
-    },
-    "correct_answer": "C",
-    "explanation": "Inheritance is a fundamental concept in OOP where a new class (derived class or subclass) is created from an existing class (base class or superclass), inheriting its members."
-  },
-  {
-    "question": "In inheritance, what is the class from which another class inherits called?",
-    "choices": {
-      "A": "Derived class",
-      "B": "Subclass",
-      "C": "Base class",
-      "D": "Child class"
-    },
-    "correct_answer": "C",
-    "explanation": "The class from which another class inherits is known as the base class or superclass. The class that inherits is called the derived class, subclass, or child class."
-  },
-  {
-    "question": "Which access specifier allows members to be accessed by the base class, derived classes, and friend functions/classes?",
-    "choices": {
-      "A": "`public`",
-      "B": "`private`",
-      "C": "`protected`",
-      "D": "`default`"
-    },
-    "correct_answer": "C",
-    "explanation": "`protected` members are accessible within the class itself, by its derived classes, and by friend functions or classes. `public` members are accessible from anywhere, and `private` members are only accessible from within the class and its friends."
-  }
-
-
-,
-  {
-    "question": "Consider the following class hierarchy:\n\n```cpp\nclass Animal {\npublic:\n    void eat() { /* ... */ }\n};\n\nclass Dog : public Animal {\npublic:\n    void bark() { /* ... */ }\n};\n```\n\nWhich of the following statements is true?",
-    "choices": {
-      "A": "A `Dog` object can call `bark()` but not `eat()`.",
-      "B": "A `Dog` object can call both `bark()` and `eat()`.",
-      "C": "An `Animal` object can call `bark()`.",
-      "D": "Inheritance is not correctly implemented here."
-    },
-    "correct_answer": "B",
-    "explanation": "Since `Dog` publicly inherits from `Animal`, a `Dog` object inherits all public members of `Animal`, including `eat()`, and also has its own `bark()` method."
-  },
-  {
-    "question": "What is the purpose of the `virtual` keyword in C++ inheritance?",
-    "choices": {
-      "A": "To make a function private.",
-      "B": "To enable runtime polymorphism.",
-      "C": "To prevent a function from being overridden.",
-      "D": "To declare a static member function."
-    },
-    "correct_answer": "B",
-    "explanation": "The `virtual` keyword is used to declare a virtual function in a base class. This enables runtime polymorphism, allowing the correct derived class function to be called based on the actual type of the object pointed to by a base class pointer or reference."
-  },
-  {
-    "question": "Which type of inheritance allows a derived class to inherit from multiple base classes?",
-    "choices": {
-      "A": "Single inheritance",
-      "B": "Multilevel inheritance",
-      "C": "Hierarchical inheritance",
-      "D": "Multiple inheritance"
-    },
-    "correct_answer": "D",
-    "explanation": "Multiple inheritance is a feature of C++ where a class can inherit from more than one base class, combining the functionalities of all parent classes."
-  },
-  {
-    "question": "What is the 'diamond problem' in multiple inheritance and how is it typically resolved in C++?",
-    "choices": {
-      "A": "It occurs when a class inherits from two classes that have a common base class, leading to ambiguity. Resolved using virtual inheritance.",
-      "B": "It occurs when a class has too many derived classes, resolved by using more base classes.",
-      "C": "It is a problem with single inheritance, resolved by using multiple inheritance.",
-      "D": "It is a problem with function overloading, resolved by using templates."
-    },
-    "correct_answer": "A",
-    "explanation": "The diamond problem arises in multiple inheritance when a class inherits from two classes that themselves inherit from a common base class. This creates ambiguity because the derived class ends up with two copies of the common base class members. In C++, it is typically resolved using virtual inheritance, which ensures that only one instance of the common base class is included in the derived class."
-  }
-
-
-,
-  {
-    "question": "What is polymorphism in C++?",
-    "choices": {
-      "A": "The ability of an object to take on many forms.",
-      "B": "The ability to hide data within a class.",
-      "C": "The ability to create multiple objects from a single class.",
-      "D": "The ability to inherit properties from multiple classes."
-    },
-    "correct_answer": "A",
-    "explanation": "Polymorphism, meaning 'many forms', allows objects of different classes to be treated as objects of a common base class. This is typically achieved through virtual functions and pointers/references to the base class."
-  },
-  {
-    "question": "Which keyword is used to declare a virtual function in C++?",
-    "choices": {
-      "A": "`abstract`",
-      "B": "`override`",
-      "C": "`virtual`",
-      "D": "`dynamic`"
-    },
-    "correct_answer": "C",
-    "explanation": "The `virtual` keyword is used in the base class to declare a function that can be overridden by derived classes, enabling runtime polymorphism."
-  },
-  {
-    "question": "What is an abstract class in C++?",
-    "choices": {
-      "A": "A class that cannot have any member functions.",
-      "B": "A class that can only be inherited from, but cannot be instantiated directly.",
-      "C": "A class that contains only pure virtual functions.",
-      "D": "A class that does not have a constructor."
-    },
-    "correct_answer": "B",
-    "explanation": "An abstract class is a class that has at least one pure virtual function. It cannot be instantiated directly, but it can be used as a base class for other classes. Derived classes must provide implementations for all pure virtual functions to be concrete (instantiable)."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass Base {\npublic:\n    virtual void show() {\n        std::cout << \"Base::show()\";\n    }\n};\n\nclass Derived : public Base {\npublic:\n    void show() override {\n        std::cout << \"Derived::show()\";\n    }\n};\n\nint main() {\n    Base* bptr = new Derived();\n    bptr->show();\n    delete bptr;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Base::show()",
-      "B": "Derived::show()",
-      "C": "Compilation error",
-      "D": "Runtime error"
-    },
-    "correct_answer": "B",
-    "explanation": "Because `show()` is a virtual function in the `Base` class and `bptr` is a pointer to `Base` pointing to a `Derived` object, virtual function call mechanism (dynamic dispatch) ensures that the `Derived::show()` method is called at runtime."
-  },
-  {
-    "question": "Which of the following is a pure virtual function declaration in C++?",
-    "choices": {
-      "A": "`virtual void func();`",
-      "B": "`void func() = 0;`",
-      "C": "`virtual void func() = 0;`",
-      "D": "`void virtual func();`"
-    },
-    "correct_answer": "C",
-    "explanation": "A pure virtual function is declared by placing `= 0` after the function declaration in the base class. This makes the class abstract, meaning it cannot be instantiated directly."
-  },
-  {
-    "question": "What is the purpose of the `override` keyword in C++11 and later?",
-    "choices": {
-      "A": "To indicate that a function is being overloaded.",
-      "B": "To ensure that a virtual function in a derived class is indeed overriding a base class function.",
-      "C": "To prevent a function from being overridden.",
-      "D": "To declare a function as a friend function."
-    },
-    "correct_answer": "B",
-    "explanation": "The `override` specifier (C++11) ensures that a member function in a derived class is intended to override a virtual function in a base class. If the function signature doesn't exactly match a virtual function in the base class, the compiler will issue an error, preventing common mistakes."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass Base {\npublic:\n    virtual void print() const = 0; // Pure virtual function\n};\n\nclass DerivedA : public Base {\npublic:\n    void print() const override {\n        std::cout << \"DerivedA print\" << std::endl;\n    }\n};\n\nclass DerivedB : public Base {\npublic:\n    void print() const override {\n        std::cout << \"DerivedB print\" << std::endl;\n    }\n};\n\nvoid display(const Base& obj) {\n    obj.print();\n}\n\nint main() {\n    DerivedA a;\n    DerivedB b;\n    display(a);\n    display(b);\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "DerivedA print\nDerivedB print\n",
-      "B": "Base print\nBase print\n",
-      "C": "Compilation error",
-      "D": "Runtime error"
-    },
-    "correct_answer": "A",
-    "explanation": "The `Base` class has a pure virtual function `print()`, making it an abstract class. `DerivedA` and `DerivedB` override this function. The `display` function takes a `const Base&` reference, enabling polymorphism. When `display(a)` is called, `DerivedA::print()` is invoked. When `display(b)` is called, `DerivedB::print()` is invoked, demonstrating runtime polymorphism."
-  },
-  {
-    "question": "What is the purpose of a virtual destructor in C++?",
-    "choices": {
-      "A": "To allow a base class pointer to correctly deallocate memory for a derived class object.",
-      "B": "To prevent objects from being destroyed.",
-      "C": "To ensure that the base class destructor is never called.",
-      "D": "To make a class abstract."
-    },
-    "correct_answer": "A",
-    "explanation": "When deleting a derived class object through a base class pointer, if the base class destructor is not virtual, only the base class destructor will be called, leading to a memory leak or undefined behavior for derived class specific resources. A virtual destructor ensures that the correct destructor (derived class then base class) is called, allowing proper cleanup."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass Shape {\npublic:\n    virtual double area() const = 0;\n};\n\nclass Circle : public Shape {\nprivate:\n    double radius;\npublic:\n    Circle(double r) : radius(r) {}\n    double area() const override {\n        return 3.14159 * radius * radius;\n    }\n};\n\nclass Rectangle : public Shape {\nprivate:\n    double width;\n    double height;\npublic:\n    Rectangle(double w, double h) : width(w), height(h) {}\n    double area() const override {\n        return width * height;\n    }\n};\n\nint main() {\n    Shape* s1 = new Circle(5.0);\n    Shape* s2 = new Rectangle(4.0, 6.0);\n\n    std::cout << \"Circle area: \" << s1->area() << std::endl;\n    std::cout << \"Rectangle area: \" << s2->area() << std::endl;\n\n    delete s1;\n    delete s2;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Circle area: 78.53975\nRectangle area: 24\n",
-      "B": "Circle area: 0\nRectangle area: 0\n",
-      "C": "Compilation error",
-      "D": "Runtime error"
-    },
-    "correct_answer": "A",
-    "explanation": "The `Shape` class is abstract with a pure virtual `area()` function. `Circle` and `Rectangle` derive from `Shape` and provide their own implementations of `area()`. Through polymorphism, `s1->area()` calls `Circle::area()` and `s2->area()` calls `Rectangle::area()`, calculating the correct areas."
-  }
-
-
-,
-  {
-    "question": "Which keyword is used to signal an exceptional condition in C++?",
-    "choices": {
-      "A": "`try`",
-      "B": "`catch`",
-      "C": "`throw`",
-      "D": "`finally`"
-    },
-    "correct_answer": "C",
-    "explanation": "The `throw` keyword is used to explicitly signal that an exceptional condition has occurred. This transfers control to a matching `catch` block."
-  },
-  {
-    "question": "What is the purpose of the `try` block in C++ exception handling?",
-    "choices": {
-      "A": "To define a new exception type.",
-      "B": "To enclose code that might throw an exception.",
-      "C": "To handle an exception.",
-      "D": "To rethrow an exception."
-    },
-    "correct_answer": "B",
-    "explanation": "The `try` block is used to enclose a block of code that is expected to throw an exception. If an exception occurs within the `try` block, control is transferred to a suitable `catch` handler."
-  },
-  {
-    "question": "Which of the following is used to catch any type of exception in C++?",
-    "choices": {
-      "A": "`catch (Exception e)`",
-      "B": "`catch (...)`",
-      "C": "`catch (void)`",
-      "D": "`catch (any)`"
-    },
-    "correct_answer": "B",
-    "explanation": "The `catch (...)` syntax is a catch-all handler that can catch any type of exception. It should generally be placed as the last `catch` block if used, as it will catch all exceptions."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <stdexcept> // For std::runtime_error\n\nvoid mightThrow() {\n    throw std::runtime_error(\"Something went wrong!\");\n}\n\nint main() {\n    try {\n        mightThrow();\n    } catch (const std::exception& e) {\n        std::cout << \"Caught: \" << e.what() << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Caught: Something went wrong!\n",
-      "B": "Something went wrong!\n",
-      "C": "No output, program terminates.",
-      "D": "Compilation error."
-    },
-    "correct_answer": "A",
-    "explanation": "The `mightThrow()` function throws a `std::runtime_error`. This exception is caught by the `catch (const std::exception& e)` block because `std::runtime_error` inherits from `std::exception`. The `what()` method then retrieves the error message."
-  },
-  {
-    "question": "What is the concept of `exception specification` in C++ (pre-C++11) and why is it deprecated?",
-    "choices": {
-      "A": "A mechanism to declare which exceptions a function might throw; deprecated because it led to runtime errors if an undeclared exception was thrown.",
-      "B": "A way to define custom exception classes; deprecated due to complexity.",
-      "C": "A method to catch multiple exceptions with a single `catch` block; deprecated for being too broad.",
-      "D": "A syntax for rethrowing exceptions; deprecated because it was redundant."
-    },
-    "correct_answer": "A",
-    "explanation": "Exception specifications (e.g., `void func() throw(std::bad_alloc);`) were a feature in C++ (before C++11) intended to declare which exceptions a function could throw. However, they were problematic because if a function threw an exception not listed in its specification, it would lead to `std::unexpected` being called and program termination, often unexpectedly. This led to them being deprecated in C++11 and removed in C++17."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <stdexcept>\n\nvoid funcA() {\n    throw std::logic_error(\"Error from funcA\");\n}\n\nvoid funcB() {\n    try {\n        funcA();\n    } catch (const std::logic_error& e) {\n        std::cout << \"Caught in funcB: \" << e.what() << std::endl;\n        throw; // Rethrow the caught exception\n    }\n}\n\nint main() {\n    try {\n        funcB();\n    } catch (const std::exception& e) {\n        std::cout << \"Caught in main: \" << e.what() << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Caught in funcB: Error from funcA\nCaught in main: Error from funcA\n",
-      "B": "Caught in funcB: Error from funcA\n",
-      "C": "Caught in main: Error from funcA\n",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "`funcA` throws a `std::logic_error`. `funcB` catches it, prints a message, and then rethrows it using `throw;`. The rethrown exception is then caught by the `catch` block in `main`, which prints another message. This demonstrates exception propagation and rethrowing."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass A {\npublic:\n    A() { std::cout << \"A\"; }\n    ~A() { std::cout << \"~A\"; }\n};\n\nclass B : public A {\npublic:\n    B() { std::cout << \"B\"; }\n    ~B() { std::cout << \"~B\"; }\n};\n\nclass C : public B {\npublic:\n    C() { std::cout << \"C\"; }\n    ~C() { std::cout << \"~C\"; }\n};\n\nint main() {\n    C obj;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "ABC~C~B~A",
-      "B": "CBA~A~B~C",
-      "C": "ABC~A~B~C",
-      "D": "CBA~C~B~A"
-    },
-    "correct_answer": "A",
-    "explanation": "When an object of a derived class is created, constructors are called in the order of inheritance (base to derived). When an object is destroyed, destructors are called in the reverse order (derived to base). So, for `C obj;`, the order is `A()`, `B()`, `C()`, then `~C()`, `~B()`, `~A()`."
-  },
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nclass Base {\npublic:\n    void func() {\n        std::cout << \"Base func\";\n    }\n};\n\nclass Derived : public Base {\npublic:\n    void func() {\n        std::cout << \"Derived func\";\n    }\n};\n\nint main() {\n    Derived d;\n    d.func();\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Base func",
-      "B": "Derived func",
-      "C": "Compilation error",
-      "D": "Undefined behavior"
-    },
-    "correct_answer": "B",
-    "explanation": "When a function in a derived class has the same name as a function in the base class, the derived class function hides the base class function. When `d.func()` is called, the `Derived` version of `func()` is invoked."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass Base {\npublic:\n    virtual void print() {\n        std::cout << \"Base print\";\n    }\n};\n\nclass Derived : public Base {\npublic:\n    void print() {\n        std::cout << \"Derived print\";\n    }\n};\n\nint main() {\n    Base* b = new Derived();\n    b->print();\n    delete b;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Base print",
-      "B": "Derived print",
-      "C": "Compilation error",
-      "D": "Runtime error"
-    },
-    "correct_answer": "B",
-    "explanation": "Since `print()` is a virtual function in the `Base` class, and `b` is a `Base` pointer pointing to a `Derived` object, runtime polymorphism ensures that the `Derived::print()` is called."
-  }
-
-
-,
-  {
-    "question": "What is the difference between `std::exception` and `std::runtime_error`?",
-    "choices": {
-      "A": "`std::exception` is for logical errors, `std::runtime_error` is for errors detected during runtime.",
-      "B": "`std::exception` is the base class for all standard exceptions, while `std::runtime_error` is a derived class for errors that can only be detected during program execution.",
-      "C": "`std::runtime_error` is the base class, `std::exception` is derived.",
-      "D": "There is no difference."
-    },
-    "correct_answer": "B",
-    "explanation": "`std::exception` is the base class for all exceptions thrown by the C++ standard library. `std::runtime_error` is a derived class of `std::exception` that specifically represents errors that can only be detected during program execution (e.g., file not found, out of memory). In contrast, `std::logic_error` is for errors that could logically be detected before runtime (e.g., invalid arguments)."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <stdexcept>\n\nvoid divide(int a, int b) {\n    if (b == 0) {\n        throw std::invalid_argument(\"Division by zero is not allowed\");\n    }\n    std::cout << \"Result: \" << a / b << std::endl;\n}\n\nint main() {\n    try {\n        divide(10, 2);\n        divide(5, 0);\n        divide(20, 4);\n    } catch (const std::invalid_argument& e) {\n        std::cout << \"Error: \" << e.what() << std::endl;\n    } catch (const std::exception& e) {\n        std::cout << \"General error: \" << e.what() << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Result: 5\nError: Division by zero is not allowed\n",
-      "B": "Result: 5\nError: Division by zero is not allowed\nResult: 5\n",
-      "C": "Error: Division by zero is not allowed\n",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "The first call `divide(10, 2)` executes normally. The second call `divide(5, 0)` throws an `std::invalid_argument` exception, which is caught by the first `catch` block. The `divide(20, 4)` call is never reached because the exception terminates the `try` block."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <stdexcept>\n\nvoid validateAge(int age) {\n    if (age < 0 || age > 120) {\n        throw std::out_of_range(\"Age must be between 0 and 120\");\n    }\n    std::cout << \"Age is valid: \" << age << std::endl;\n}\n\nint main() {\n    try {\n        validateAge(30);\n        validateAge(-10);\n        validateAge(150);\n    } catch (const std::out_of_range& e) {\n        std::cout << \"Validation Error: \" << e.what() << std::endl;\n    } catch (const std::exception& e) {\n        std::cout << \"General Error: \" << e.what() << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Age is valid: 30\nValidation Error: Age must be between 0 and 120\n",
-      "B": "Age is valid: 30\nValidation Error: Age must be between 0 and 120\nValidation Error: Age must be between 0 and 120\n",
-      "C": "Age is valid: 30\nGeneral Error: Age must be between 0 and 120\n",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "The first call `validateAge(30)` executes normally. The second call `validateAge(-10)` throws an `std::out_of_range` exception, which is caught by the first `catch` block. The third call `validateAge(150)` is never reached because the exception terminates the `try` block."
-  },
-  {
-    "question": "What is the purpose of `noexcept` in C++?",
-    "choices": {
-      "A": "It indicates that a function will not throw any exceptions.",
-      "B": "It forces a function to throw an exception.",
-      "C": "It specifies the type of exception a function can throw.",
-      "D": "It disables exception handling for a function."
-    },
-    "correct_answer": "A",
-    "explanation": "The `noexcept` specifier (C++11) indicates that a function is guaranteed not to throw any exceptions. If a function declared `noexcept` does throw an exception, the program will terminate via `std::terminate()`, which is usually undesirable. It's a strong guarantee for the compiler and callers."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    char grade = 'A';\n    std::cout << (int)grade;\n    return 0;\n}\n```",
-    "choices": {
-      "A": "A",
-      "B": "65",
-      "C": "Compilation error",
-      "D": "Undefined behavior"
-    },
-    "correct_answer": "B",
-    "explanation": "When a `char` is cast to an `int`, its ASCII (or corresponding character set) value is printed. The ASCII value for 'A' is 65."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 7;\n    int y = 2;\n    std::cout << (x / y) << \" \";\n    std::cout << (x % y);\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "3 1",
-      "B": "3.5 1",
-      "C": "3 0",
-      "D": "3.5 0"
-    },
-    "correct_answer": "A",
-    "explanation": "Integer division `x / y` (7 / 2) results in 3 (truncating the decimal part). The modulo operator `x % y` (7 % 2) gives the remainder of the division, which is 1."
-  },
-  {
-    "question": "Which of the following statements about C++ comments is true?",
-    "choices": {
-      "A": "`//` comments can span multiple lines.",
-      "B": "`/* ... */` comments can be nested.",
-      "C": "Comments are ignored by the compiler.",
-      "D": "Comments increase the executable file size."
-    },
-    "correct_answer": "C",
-    "explanation": "Comments are ignored by the compiler and do not affect the executable code. `//` comments are single-line. `/* ... */` comments cannot be nested directly (e.g., `/* /* ... */ */` is an error)."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int a = 10;\n    int b = 20;\n    int c = 30;\n    int result = (a > b) ? a : ((b > c) ? b : c);\n    std::cout << result;\n    return 0;\n}\n```",
-    "choices": {
-      "A": "10",
-      "B": "20",
-      "C": "30",
-      "D": "Compilation error"
-    },
-    "correct_answer": "C",
-    "explanation": "This code uses nested ternary operators. First, `(a > b)` is `(10 > 20)`, which is false. So, the second part `((b > c) ? b : c)` is evaluated. `(b > c)` is `(20 > 30)`, which is false. So, `c` (30) is chosen. Thus, `result` is 30."
-  },
-  {
-    "question": "Which of the following is the correct way to declare a pointer to an integer and initialize it with the address of an integer variable `x`?",
-    "choices": {
-      "A": "`int *ptr = x;`",
-      "B": "`int ptr = &x;`",
-      "C": "`int *ptr = &x;`",
-      "D": "`int &ptr = x;`"
-    },
-    "correct_answer": "C",
-    "explanation": "`int *ptr;` declares `ptr` as a pointer to an integer. The `&` operator is used to get the memory address of a variable. So, `int *ptr = &x;` correctly initializes `ptr` with the address of `x`."
-  },
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int arr[5] = {1, 2, 3, 4, 5};\n    int *ptr = arr;\n    std::cout << *(ptr + 2);\n    return 0;\n}\n```",
-    "choices": {
-      "A": "1",
-      "B": "2",
-      "C": "3",
-      "D": "Compilation error"
-    },
-    "correct_answer": "C",
-    "explanation": "`ptr` points to the first element of `arr`. `(ptr + 2)` points to the third element (index 2) of the array. `*(ptr + 2)` dereferences this pointer, giving the value at that address, which is 3."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int i = 0;\n    while (i < 3) {\n        std::cout << i;\n        i++;\n    }\n    return 0;\n}\n```",
-    "choices": {
-      "A": "012",
-      "B": "123",
-      "C": "0123",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "The `while` loop iterates as long as `i` is less than 3. `i` starts at 0, is printed, then incremented. This repeats for 0, 1, and 2."
-  },
-  {
-    "question": "Which of the following operators has the highest precedence?",
-    "choices": {
-      "A": "`+` (addition)",
-      "B": "`*` (multiplication)",
-      "C": "`=` (assignment)",
-      "D": "`&&` (logical AND)"
-    },
-    "correct_answer": "B",
-    "explanation": "Among the given options, multiplication (`*`) has the highest precedence, followed by addition (`+`), then logical AND (`&&`), and finally assignment (`=`)."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 5;\n    switch (x) {\n        case 1:\n            std::cout << \"One\";\n            break;\n        case 5:\n            std::cout << \"Five\";\n        case 10:\n            std::cout << \"Ten\";\n            break;\n        default:\n            std::cout << \"Other\";\n    }\n    return 0;\n}\n```",
-    "choices": {
-      "A": "Five",
-      "B": "FiveTen",
-      "C": "Ten",
-      "D": "Other"
-    },
-    "correct_answer": "B",
-    "explanation": "When `x` is 5, the `case 5` block is executed. Since there is no `break` statement after `std::cout << \"Five\";`, execution \"falls through\" to the `case 10` block, printing \"Ten\" as well before the `break` statement for `case 10` is encountered."
-  },
-  {
-    "question": "Which of the following correctly uses a `do-while` loop to print numbers from 5 down to 1?",
-    "choices": {
-      "A": "`int i = 5; do { std::cout << i; i--; } while (i > 0);`",
-      "B": "`int i = 5; do { std::cout << i; i--; } while (i >= 0);`",
-      "C": "`int i = 5; while (i > 0) { std::cout << i; i--; }`",
-      "D": "`for (int i = 5; i > 0; i--) { std::cout << i; }`"
-    },
-    "correct_answer": "A",
-    "explanation": "The `do-while` loop executes the body at least once. Option A correctly initializes `i` to 5, prints it, decrements it, and continues as long as `i` is greater than 0, printing 5, 4, 3, 2, 1."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nvoid printMessage() {\n    std::cout << \"Hello from function!\";\n}\n\nint main() {\n    printMessage();\n    return 0;\n}\n```",
-    "choices": {
-      "A": "Hello from function!",
-      "B": "Compilation error",
-      "C": "No output",
-      "D": "Runtime error"
-    },
-    "correct_answer": "A",
-    "explanation": "The `printMessage()` function is called from `main`, which prints the specified string to the console."
-  },
-  {
-    "question": "Which of the following is the correct way to pass an integer variable `x` to a function `modify` by reference?",
-    "choices": {
-      "A": "`void modify(int x);`",
-      "B": "`void modify(int *x);`",
-      "C": "`void modify(int &x);`",
-      "D": "`void modify(int x[]);`"
-    },
-    "correct_answer": "C",
-    "explanation": "To pass by reference, an ampersand (`&`) is used after the type in the function parameter declaration. This allows the function to directly modify the original variable."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n#include <string>\n\nint main() {\n    std::string s = \"C++ Programming\";\n    std::cout << s[0] << s[1] << s[2];\n    return 0;\n}\n```",
-    "choices": {
-      "A": "C++",
-      "B": "C+ ",
-      "C": "C P",
-      "D": "C++P"
-    },
-    "correct_answer": "A",
-    "explanation": "String characters can be accessed using array-like indexing. `s[0]` is 'C', `s[1]` is '+', and `s[2]` is '+'."
-  },
-  {
-    "question": "Which of the following is the correct way to declare a namespace named `MyNamespace`?",
-    "choices": {
-      "A": "`namespace MyNamespace { /* ... */ }`",
-      "B": "`MyNamespace namespace { /* ... */ }`",
-      "C": "`using namespace MyNamespace;`",
-      "D": "`namespace = MyNamespace;`"
-    },
-    "correct_answer": "A",
-    "explanation": "Namespaces are declared using the `namespace` keyword followed by the namespace name and a block of code enclosed in curly braces."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass MyClass {\nprivate:\n    int value;\npublic:\n    MyClass(int v = 0) : value(v) {}\n    // Prefix increment operator\n    MyClass& operator++() {\n        ++value;\n        return *this;\n    }\n    // Postfix increment operator\n    MyClass operator++(int) {\n        MyClass temp = *this;\n        ++(*this);\n        return temp;\n    }\n    int getValue() const { return value; }\n};\n\nint main() {\n    MyClass obj1(5);\n    MyClass obj2 = ++obj1;\n    std::cout << obj1.getValue() << \" \";\n    std::cout << obj2.getValue() << std::endl;\n\n    MyClass obj3(10);\n    MyClass obj4 = obj3++;\n    std::cout << obj3.getValue() << \" \";\n    std::cout << obj4.getValue();\n\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "6 6\n11 10",
-      "B": "5 6\n10 11",
-      "C": "6 5\n11 10",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "For prefix increment (`++obj1`), `obj1` is incremented first, and then its new value (6) is assigned to `obj2`. So, both `obj1` and `obj2` become 6. For postfix increment (`obj3++`), a copy of `obj3` (value 10) is made and assigned to `obj4`. Then `obj3` is incremented to 11. So, `obj3` is 11 and `obj4` is 10."
-  },
-  {
-    "question": "What is the concept of a `delegating constructor` in C++11?",
-    "choices": {
-      "A": "A constructor that calls a base class constructor.",
-      "B": "A constructor that calls another constructor of the same class.",
-      "C": "A constructor that takes a function pointer as an argument.",
-      "D": "A constructor that is automatically generated by the compiler."
-    },
-    "correct_answer": "B",
-    "explanation": "A delegating constructor allows one constructor in a class to call another constructor of the same class to perform initialization. This helps in reducing code duplication and improving maintainability, especially when multiple constructors share common initialization logic."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass A {\npublic:\n    void show() { std::cout << \"A\"; }\n};\n\nclass B : virtual public A {\npublic:\n    void showB() { std::cout << \"B\"; }\n};\n\nclass C : virtual public A {\npublic:\n    void showC() { std::cout << \"C\"; }\n};\n\nclass D : public B, public C {\npublic:\n    void showD() { std::cout << \"D\"; }\n};\n\nint main() {\n    D obj;\n    obj.show(); // Which show() is called?\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "A",
-      "B": "B",
-      "C": "C",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "Due to virtual inheritance (`virtual public A`), the `D` class contains only one subobject of `A`. Therefore, `obj.show()` unambiguously calls `A::show()`."
-  },
-  {
-    "question": "What is the purpose of `protected` inheritance in C++?",
-    "choices": {
-      "A": "Public members of the base class become protected in the derived class, and protected members remain protected.",
-      "B": "All members of the base class become protected in the derived class.",
-      "C": "Private members of the base class become protected in the derived class.",
-      "D": "It prevents the derived class from being inherited further."
-    },
-    "correct_answer": "A",
-    "explanation": "When a class inherits with `protected` access, `public` members of the base class become `protected` in the derived class, and `protected` members remain `protected`. `private` members of the base class are never accessible to derived classes, regardless of the inheritance type."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <string>\n#include <stdexcept>\n\nvoid processString(const std::string& s) {\n    if (s.empty()) {\n        throw std::invalid_argument(\"String cannot be empty\");\n    }\n    if (s.length() > 10) {\n        throw std::out_of_range(\"String too long\");\n    }\n    std::cout << \"Processing: \" << s << std::endl;\n}\n\nint main() {\n    try {\n        processString(\"Hello\");\n        processString(\"\");\n        processString(\"This is a very long string that exceeds the limit\");\n    } catch (const std::invalid_argument& e) {\n        std::cout << \"Caught invalid argument: \" << e.what() << std::endl;\n    } catch (const std::out_of_range& e) {\n        std::cout << \"Caught out of range: \" << e.what() << std::endl;\n    } catch (const std::exception& e) {\n        std::cout << \"Caught general exception: \" << e.what() << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Processing: Hello\nCaught invalid argument: String cannot be empty\n",
-      "B": "Processing: Hello\nCaught invalid argument: String cannot be empty\nCaught out of range: String too long\n",
-      "C": "Processing: Hello\nCaught out of range: String too long\n",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "The first call `processString(\"Hello\")` executes normally. The second call `processString(\"\")` throws an `std::invalid_argument` exception, which is caught by the first `catch` block. The third call `processString(\"This is a very long string that exceeds the limit\")` is never reached because the exception terminates the `try` block."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 10;\n    x += 5;\n    std::cout << x;\n    return 0;\n}\n```",
-    "choices": {
-      "A": "10",
-      "B": "5",
-      "C": "15",
-      "D": "Compilation error"
-    },
-    "correct_answer": "C",
-    "explanation": "The `+=` operator is a shorthand for `x = x + 5;`. So, `x` becomes `10 + 5 = 15`."
-  },
-  {
-    "question": "Which of the following is the correct way to include a user-defined header file named `myheader.h`?",
-    "choices": {
-      "A": "`#include <myheader.h>`",
-      "B": "`#include \"myheader.h\"`",
-      "C": "`#include myheader.h`",
-      "D": "`#include 'myheader.h'`"
-    },
-    "correct_answer": "B",
-    "explanation": "For user-defined header files, it is standard practice to use double quotes (`\"\"`) to tell the preprocessor to look for the file in the current directory first, then in standard include paths. Angle brackets (`<>`) are typically used for standard library headers."
-  }
-
-
-,
-  {
-    "question": "Which of the following is the correct way to declare a `std::vector` of integers?",
-    "choices": {
-      "A": "`vector<int> myVector;`",
-      "B": "`std::vector<int> myVector;`",
-      "C": "`std::vector myVector<int>;`",
-      "D": "`vector myVector;`"
-    },
-    "correct_answer": "B",
-    "explanation": "`std::vector` is part of the Standard Template Library (STL) and is typically accessed using the `std::` namespace. The type of elements it will store is specified within angle brackets."
-  },
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<int> numbers = {10, 20, 30};\n    numbers.push_back(40);\n    std::cout << numbers[3];\n    return 0;\n}\n```",
-    "choices": {
-      "A": "10",
-      "B": "20",
-      "C": "30",
-      "D": "40"
-    },
-    "correct_answer": "D",
-    "explanation": "`push_back(40)` adds 40 to the end of the vector. The vector then contains {10, 20, 30, 40}. `numbers[3]` accesses the element at index 3, which is 40."
-  },
-  {
-    "question": "Which of the following is a correct way to iterate through a `std::vector` named `data` using a range-based for loop?",
-    "choices": {
-      "A": "`for (int x : data) { /* ... */ }`",
-      "B": "`for (int i = 0; i < data.size(); i++) { /* ... */ }`",
-      "C": "`for (auto it = data.begin(); it != data.end(); ++it) { /* ... */ }`",
-      "D": "All of them."
-    },
-    "correct_answer": "D",
-    "explanation": "All three options are valid ways to iterate through a `std::vector`. Option A is a C++11 range-based for loop, Option B is a traditional index-based loop, and Option C uses iterators."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <vector>\n#include <algorithm> // For std::sort\n\nint main() {\n    std::vector<int> numbers = {5, 2, 8, 1, 9};\n    std::sort(numbers.begin(), numbers.end());\n    for (int num : numbers) {\n        std::cout << num << \" \";\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "1 2 5 8 9 ",
-      "B": "5 2 8 1 9 ",
-      "C": "9 8 5 2 1 ",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "`std::sort` sorts the elements in the range `[first, last)` in ascending order. After sorting, the vector becomes `{1, 2, 5, 8, 9}`."
-  },
-  {
-    "question": "What is the purpose of `std::map` in C++ STL?",
-    "choices": {
-      "A": "To store a collection of elements in a sequence.",
-      "B": "To store key-value pairs where keys are unique and sorted.",
-      "C": "To store a collection of unique elements in no particular order.",
-      "D": "To store elements in a last-in, first-out (LIFO) manner."
-    },
-    "correct_answer": "B",
-    "explanation": "`std::map` is an associative container that stores elements formed by a combination of a key value and a mapped value, following a specific order. The key values are unique, and they are used to sort the elements."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <string>\n#include <map>\n\nint main() {\n    std::map<std::string, int> ages;\n    ages[\"Alice\"] = 30;\n    ages[\"Bob\"] = 25;\n    ages[\"Alice\"] = 31; \n    std::cout << ages[\"Alice\"];\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "30",
-      "B": "25",
-      "C": "31",
-      "D": "Compilation error"
-    },
-    "correct_answer": "C",
-    "explanation": "When a key already exists in `std::map`, assigning a new value to it updates the existing entry. So, Alice's age is updated from 30 to 31."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet involving templates:\n\n```cpp\n#include <iostream>\n\ntemplate <typename T>\nT add(T a, T b) {\n    return a + b;\n}\n\nint main() {\n    std::cout << add(5, 10) << std::endl;\n    std::cout << add(3.5, 2.1) << std::endl;\n    std::cout << add(std::string(\"Hello\"), std::string(\"World\")) << std::endl;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "15\n5.6\nHelloWorld\n",
-      "B": "15\n5.6\nHello World\n",
-      "C": "Compilation error",
-      "D": "Undefined behavior"
-    },
-    "correct_answer": "A",
-    "explanation": "The `add` template function works for different data types that support the `+` operator. For integers, it performs integer addition. For doubles, it performs floating-point addition. For `std::string`, the `+` operator performs string concatenation."
-  },
-  {
-    "question": "What is the concept of `template metaprogramming` in C++?",
-    "choices": {
-      "A": "Writing programs that generate other programs at runtime.",
-      "B": "Using templates to perform computations at compile time.",
-      "C": "A technique for debugging template-heavy code.",
-      "D": "A way to create generic algorithms that work with any data type."
-    },
-    "correct_answer": "B",
-    "explanation": "Template metaprogramming (TMP) is a programming technique that uses C++ templates to perform computations at compile time rather than at runtime. This can lead to highly optimized code, as the computations are resolved before the program even starts executing. It's often used for tasks like type traits, compile-time assertions, and generating specialized code."
-  },
-  {
-    "question": "Which of the following is true about `std::unique_ptr`?",
-    "choices": {
-      "A": "It allows multiple pointers to own the same object.",
-      "B": "It provides shared ownership with reference counting.",
-      "C": "It ensures exclusive ownership of a dynamically allocated object.",
-      "D": "It does not automatically deallocate memory."
-    },
-    "correct_answer": "C",
-    "explanation": "`std::unique_ptr` is a smart pointer that owns and manages another object through a pointer and disposes of that object when the `unique_ptr` itself goes out of scope. It ensures exclusive ownership, meaning only one `unique_ptr` can point to a given object at a time. This prevents issues like double deletion."
-  }
-
-
-,
-  {
-    "question": "Which of the following is the correct way to read an integer from the console into a variable `num`?",
-    "choices": {
-      "A": "`std::cout << num;`",
-      "B": "`std::cin >> num;`",
-      "C": "`scanf(\"%d\", num);`",
-      "D": "`read(num);`"
-    },
-    "correct_answer": "B",
-    "explanation": "`std::cin` is the standard input stream in C++, and the `>>` operator is used to extract data from the input stream into a variable."
-  },
-  {
-    "question": "What is the purpose of `std::endl` in C++?",
-    "choices": {
-      "A": "To insert a space character.",
-      "B": "To insert a newline character and flush the output buffer.",
-      "C": "To insert a tab character.",
-      "D": "To end the program execution."
-    },
-    "correct_answer": "B",
-    "explanation": "`std::endl` inserts a newline character into the output stream and then flushes the buffer, ensuring that all buffered output is written to the console immediately."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int a = 10;\n    double b = 20.5;\n    char c = 'X';\n    std::cout << a << \" \" << b << \" \" << c;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "10 20.5 X",
-      "B": "10 20.500000 X",
-      "C": "10 20 X",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "The `<<` operator can be chained to output multiple values of different data types to the console. By default, `double` values are printed with minimal precision unless formatted otherwise."
-  }
-
-
-,
-  {
-    "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n#include <string>\n\nint main() {\n    std::string name;\n    std::cout << \"Enter your name: \";\n    std::cin >> name;\n    std::cout << \"Hello, \" << name << \"!\";\n    return 0;\n}\n```\n\nIf the user inputs `John Doe`, what will be the output?",
-    "choices": {
-      "A": "Hello, John!",
-      "B": "Hello, John Doe!",
-      "C": "Enter your name: John Doe\nHello, John!",
-      "D": "Enter your name: John Doe\nHello, John Doe!"
-    },
-    "correct_answer": "A",
-    "explanation": "The `std::cin >> name;` operation reads input up to the first whitespace character. So, if the user inputs `John Doe`, only `John` will be stored in the `name` variable. To read the entire line, `std::getline(std::cin, name);` should be used."
-  },
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <iomanip> // For std::fixed and std::setprecision\n\nint main() {\n    double value = 123.456789;\n    std::cout << std::fixed << std::setprecision(2) << value;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "123.45",
-      "B": "123.46",
-      "C": "123.456789",
-      "D": "Compilation error"
-    },
-    "correct_answer": "B",
-    "explanation": "`std::fixed` sets the floating-point output format to fixed-point notation. `std::setprecision(2)` sets the number of digits after the decimal point to 2. The value `123.456789` is rounded to two decimal places, resulting in `123.46`."
-  },
-  {
-    "question": "Which of the following correctly opens a file named `data.txt` for writing in C++?",
-    "choices": {
-      "A": "`std::ifstream file(\"data.txt\");`",
-      "B": "`std::ofstream file(\"data.txt\");`",
-      "C": "`std::fstream file(\"data.txt\");`",
-      "D": "`std::cin file(\"data.txt\");`"
-    },
-    "correct_answer": "B",
-    "explanation": "`std::ofstream` is used for output file streams (writing to files). `std::ifstream` is for input (reading), and `std::fstream` is for both input and output."
-  }
-
-
-,
-  {
-    "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <fstream>\n#include <string>\n\nint main() {\n    std::ofstream outFile(\"output.txt\");\n    if (outFile.is_open()) {\n        outFile << \"Hello, File!\n\";\n        outFile << 123;\n        outFile.close();\n    }\n\n    std::ifstream inFile(\"output.txt\");\n    std::string line;\n    int number;\n    if (inFile.is_open()) {\n        std::getline(inFile, line);\n        inFile >> number;\n        inFile.close();\n    }\n    std::cout << line << \" \";\n    std::cout << number;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
-    "choices": {
-      "A": "Hello, File! 123",
-      "B": "Hello, File!\n123",
-      "C": "Hello, File! 0",
-      "D": "Compilation error"
-    },
-    "correct_answer": "A",
-    "explanation": "The code first writes \"Hello, File!\n\" and then `123` to `output.txt`. When reading, `std::getline(inFile, line)` reads \"Hello, File!\". Then `inFile >> number` reads `123`. The output is `Hello, File! 123`."
-  },
-  {
-    "question": "What is the purpose of the `std::ios::app` flag when opening a file with `std::ofstream`?",
-    "choices": {
-      "A": "To open the file in read-only mode.",
-      "B": "To append data to the end of the file if it exists, otherwise create a new file.",
-      "C": "To truncate the file to zero length if it exists.",
-      "D": "To open the file in binary mode."
-    },
-    "correct_answer": "B",
-    "explanation": "The `std::ios::app` flag (append) causes all output operations to write data at the end of the file, effectively appending new content to existing content. If the file does not exist, it is created."
-  }
-]
+{
+  "subject": "C++",
+  "questions": [
+    {
+      "question": "Which of the following is the best definition of a compiler?",
+      "choices": {
+        "A": "A program that translates high-level language code into machine code.",
+        "B": "A program that executes code line by line.",
+        "C": "A program that links different object files into a single executable.",
+        "D": "A program that helps in debugging code."
+      },
+      "correct_answer": "A",
+      "explanation": "A compiler is a special program that translates a high-level language (like C++) into a lower-level language (like machine code) that the computer can understand and execute directly."
+    },
+    {
+      "question": "Which of the following is a valid way to declare and initialize an integer variable in C++?",
+      "choices": {
+        "A": "`int x = 10;`",
+        "B": "`integer x = 10;`",
+        "C": "`x = 10;`",
+        "D": "`let x = 10;`"
+      },
+      "correct_answer": "A",
+      "explanation": "In C++, a variable is declared with its type followed by the variable name. The correct syntax is `type variable_name = value;`."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\";\n    return 0;\n}\n```",
+      "choices": {
+        "A": "Hello, World!",
+        "B": "Hello, World!\n",
+        "C": "Compilation error",
+        "D": "No output"
+      },
+      "correct_answer": "A",
+      "explanation": "The code uses `std::cout` to print the string \"Hello, World!\" to the standard output. No newline character is printed after the string."
+    },
+    {
+      "question": "Which operator is used for addition in C++?",
+      "choices": {
+        "A": "+",
+        "B": "-",
+        "C": "*",
+        "D": "/"
+      },
+      "correct_answer": "A",
+      "explanation": "The `+` operator is used for addition, `-` for subtraction, `*` for multiplication, and `/` for division."
+    },
+    {
+      "question": "Which of the following is the best definition of a compiler?",
+      "choices": {
+        "A": "A program that translates high-level language code into machine code.",
+        "B": "A program that executes code line by line.",
+        "C": "A program that links different object files into a single executable.",
+        "D": "A program that helps in debugging code."
+      },
+      "correct_answer": "A",
+      "explanation": "A compiler is a special program that translates a high-level language (like C++) into a lower-level language (like machine code) that the computer can understand and execute directly."
+    },
+    {
+      "question": "What is the purpose of the `int main()` function in a C++ program?",
+      "choices": {
+        "A": "It is the entry point of the program.",
+        "B": "It is a function that is executed at the end of the program.",
+        "C": "It is a function that is used to declare all the variables.",
+        "D": "It is a function that is used to handle errors."
+      },
+      "correct_answer": "A",
+      "explanation": "The `main` function is a special function in C++ that serves as the entry point for program execution. When a C++ program is run, the operating system calls the `main` function."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\";\n    return 0;\n}\n```",
+      "choices": {
+        "A": "Hello, World!",
+        "B": "Hello, World!\n",
+        "C": "Compilation error",
+        "D": "No output"
+      },
+      "correct_answer": "A",
+      "explanation": "The code uses `std::cout` to print the string \"Hello, World!\" to the standard output. No newline character is printed after the string."
+    },
+    {
+      "question": "What is the difference between a declaration and a definition in C++?",
+      "choices": {
+        "A": "A declaration introduces a name, while a definition provides its implementation or storage.",
+        "B": "A declaration allocates memory, while a definition does not.",
+        "C": "A declaration is used for variables, while a definition is used for functions.",
+        "D": "There is no difference; the terms are interchangeable."
+      },
+      "correct_answer": "A",
+      "explanation": "A declaration tells the compiler about the existence of an entity (like a variable or function) and its type, but doesn't allocate memory or provide implementation. A definition, on the other hand, provides the full details, including memory allocation for variables or the body for functions."
+    },
+    {
+      "question": "Explain the concept of 'scope' in C++ programming.",
+      "choices": {
+        "A": "The region of the program where a declared name is valid and accessible.",
+        "B": "The amount of memory a variable occupies.",
+        "C": "The order in which functions are called.",
+        "D": "The visibility of a class to other classes."
+      },
+      "correct_answer": "A",
+      "explanation": "Scope refers to the region of a program where a declared name (like a variable, function, or class) can be used. Variables declared within a block (e.g., inside a function or loop) have local scope and are only accessible within that block."
+    },
+    {
+      "question": "What is the purpose of the `using namespace std;` directive?",
+      "choices": {
+        "A": "It makes all functions from the `std` namespace globally available, avoiding the need for `std::` prefix.",
+        "B": "It creates a new namespace called `std`.",
+        "C": "It includes the standard library header files.",
+        "D": "It defines standard input/output operations."
+      },
+      "correct_answer": "A",
+      "explanation": "`using namespace std;` brings all the names from the `std` (standard) namespace into the current scope, allowing you to use names like `cout` and `cin` directly without the `std::` prefix. While convenient, it's generally considered better practice in larger projects to explicitly qualify names (e.g., `std::cout`) or use specific `using` declarations (e.g., `using std::cout;`) to avoid name collisions."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 5;\n    int y = 2;\n    double result = static_cast<double>(x) / y;\n    std::cout << result;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "2",
+        "B": "2.5",
+        "C": "2.0",
+        "D": "Compilation error"
+      },
+      "correct_answer": "B",
+      "explanation": "The `static_cast<double>(x)` converts the integer `x` to a double before the division. This ensures floating-point division, resulting in `2.5` instead of integer division which would yield `2`."
+    },
+    {
+      "question": "Which of the following is NOT a fundamental data type in C++?",
+      "choices": {
+        "A": "`bool`",
+        "B": "`float`",
+        "C": "`string`",
+        "D": "`char`"
+      },
+      "correct_answer": "C",
+      "explanation": "`bool`, `float`, and `char` are fundamental (built-in) data types in C++. `string` is a class from the C++ Standard Library (`std::string`), not a fundamental type."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 10;\n    int y = 3;\n    std::cout << x / y;\n    return 0;\n}\n```",
+      "choices": {
+        "A": "3.333",
+        "B": "3",
+        "C": "4",
+        "D": "Compilation error"
+      },
+      "correct_answer": "B",
+      "explanation": "In C++, integer division truncates the decimal part. So, 10 / 3 results in 3."
+    },
+    {
+      "question": "Which of the following correctly declares a constant integer named `MAX_VALUE` with a value of 100?",
+      "choices": {
+        "A": "`const int MAX_VALUE = 100;`",
+        "B": "`int const MAX_VALUE = 100;`",
+        "C": "`#define MAX_VALUE 100`",
+        "D": "All of them."
+      },
+      "correct_answer": "D",
+      "explanation": "All three options are valid ways to declare a constant integer. `const int` and `int const` are syntactically equivalent for declaring a constant variable. `#define` is a preprocessor directive that performs text substitution before compilation."
+    },
+    {
+      "question": "What is the purpose of the `\\n` escape sequence in C++ strings?",
+      "choices": {
+        "A": "To insert a tab character.",
+        "B": "To insert a newline character.",
+        "C": "To insert a backspace character.",
+        "D": "To insert a null character."
+      },
+      "correct_answer": "B",
+      "explanation": "The `\\n` escape sequence represents a newline character, which moves the cursor to the beginning of the next line when printed."
+    },
+    {
+      "question": "Which of the following is true about the `main` function's return type in C++?",
+      "choices": {
+        "A": "It must always be `int`.",
+        "B": "It can be `void` in some compilers, but `int` is standard.",
+        "C": "It can be any data type.",
+        "D": "It is optional to specify a return type."
+      },
+      "correct_answer": "B",
+      "explanation": "While `int main()` is the standard and portable way to declare the `main` function, some compilers might allow `void main()`. However, `int` is required by the C++ standard for returning an exit status to the operating system."
+    },
+    {
+      "question": "Consider the following code:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 5;\n    int y = 2;\n    std::cout << (x++ * --y);\n    return 0;\n}\n```\n\nWhat is the output of this code?",
+      "choices": {
+        "A": "10",
+        "B": "5",
+        "C": "6",
+        "D": "4"
+      },
+      "correct_answer": "B",
+      "explanation": "`x++` uses the current value of `x` (5) in the expression and then increments `x` to 6. `--y` decrements `y` to 1 and then uses the new value (1) in the expression. So, the expression becomes `5 * 1`, which evaluates to `5`."
+    },
+    {
+      "question": "Which of the following is the correct way to declare a reference to an integer variable `a` and assign it to `ref`?",
+      "choices": {
+        "A": "`int &ref = a;`",
+        "B": "`int *ref = &a;`",
+        "C": "`int ref = a;`",
+        "D": "`int &ref; ref = a;`"
+      },
+      "correct_answer": "A",
+      "explanation": "A reference must be initialized at the time of declaration and cannot be reassigned. `int &ref = a;` correctly declares `ref` as a reference to `a`."
+    },
+    {
+      "question": "What is the key difference between `const int* p` and `int* const p`?",
+      "choices": {
+        "A": "`const int* p` means the pointer is constant, `int* const p` means the value pointed to is constant.",
+        "B": "`const int* p` means the value pointed to is constant, `int* const p` means the pointer is constant.",
+        "C": "Both mean the pointer and the value pointed to are constant.",
+        "D": "There is no practical difference."
+      },
+      "correct_answer": "B",
+      "explanation": "`const int* p` (or `int const* p`) declares a pointer to a constant integer; the value pointed to by `p` cannot be changed through `p`, but `p` itself can be made to point to another integer. `int* const p` declares a constant pointer to an integer; `p` cannot be changed to point to another integer, but the value it points to can be modified."
+    },
+    {
+      "question": "Which of the following statements about `static` variables within a function is true?",
+      "choices": {
+        "A": "They are initialized once and retain their value across function calls.",
+        "B": "They are re-initialized every time the function is called.",
+        "C": "They are only accessible from outside the function.",
+        "D": "They are stored on the heap."
+      },
+      "correct_answer": "A",
+      "explanation": "`static` local variables are initialized only once, the first time the function is called, and their value persists between subsequent calls to that function. They have static storage duration and are stored in the data segment, not the stack or heap."
+    },
+    {
+      "question": "Which of the following control structures executes a block of code repeatedly as long as a specified condition is true?",
+      "choices": {
+        "A": "`if-else` statement",
+        "B": "`for` loop",
+        "C": "`while` loop",
+        "D": "`switch` statement"
+      },
+      "correct_answer": "C",
+      "explanation": "A `while` loop repeatedly executes a target statement as long as a given condition is true. A `for` loop is typically used when the number of iterations is known. `if-else` and `switch` are selection statements."
+    },
+    {
+      "question": "What is the correct way to write an `if` statement that checks if a variable `x` is greater than 10?",
+      "choices": {
+        "A": "`if x > 10`",
+        "B": "`if (x > 10)`",
+        "C": "`if {x > 10}`",
+        "D": "`if [x > 10]`"
+      },
+      "correct_answer": "B",
+      "explanation": "In C++, the condition for an `if` statement must be enclosed in parentheses."
+    },
+    {
+      "question": "Which data type is used to store true/false values in C++?",
+      "choices": {
+        "A": "`int`",
+        "B": "`char`",
+        "C": "`bool`",
+        "D": "`void`"
+      },
+      "correct_answer": "C",
+      "explanation": "The `bool` data type is used to store boolean values, which can be either `true` or `false`."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    for (int i = 0; i < 3; ++i) {\n        std::cout << i;\n    }\n    return 0;\n}\n```",
+      "choices": {
+        "A": "012",
+        "B": "123",
+        "C": "0123",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "The `for` loop iterates three times, with `i` taking values 0, 1, and 2. Each value is printed without a space or newline."
+    },
+    {
+      "question": "Which operator is used for logical AND in C++?",
+      "choices": {
+        "A": "`||`",
+        "B": "`&&`",
+        "C": "`!`",
+        "D": "`=`"
+      },
+      "correct_answer": "B",
+      "explanation": "`&&` is the logical AND operator, `||` is logical OR, `!` is logical NOT, and `=` is the assignment operator."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 10;\n    if (x > 5) {\n        if (x < 15) {\n            std::cout << \"Hello\";\n        } else {\n            std::cout << \"World\";\n        }\n    } else {\n        std::cout << \"C++\";\n    }\n    return 0;\n}\n```",
+      "choices": {
+        "A": "Hello",
+        "B": "World",
+        "C": "C++",
+        "D": "No output"
+      },
+      "correct_answer": "A",
+      "explanation": "The outer `if` condition `x > 5` (10 > 5) is true. The inner `if` condition `x < 15` (10 < 15) is also true. Therefore, \"Hello\" is printed."
+    },
+    {
+      "question": "Which of the following loops is guaranteed to execute at least once?",
+      "choices": {
+        "A": "`for` loop",
+        "B": "`while` loop",
+        "C": "`do-while` loop",
+        "D": "All of them"
+      },
+      "correct_answer": "C",
+      "explanation": "A `do-while` loop executes its body at least once before checking the condition. `for` and `while` loops check the condition before the first iteration."
+    },
+    {
+      "question": "What is the purpose of the `break` statement in a loop?",
+      "choices": {
+        "A": "To skip the current iteration and proceed to the next.",
+        "B": "To terminate the loop immediately.",
+        "C": "To restart the loop from the beginning.",
+        "D": "To exit the program."
+      },
+      "correct_answer": "B",
+      "explanation": "The `break` statement is used to terminate the innermost loop (or `switch` statement) immediately, transferring control to the statement following the loop."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    for (int i = 0; i < 5; ++i) {\n        if (i == 2) {\n            continue;\n        }\n        std::cout << i;\n    }\n    return 0;\n}\n```",
+      "choices": {
+        "A": "01234",
+        "B": "0134",
+        "C": "012",
+        "D": "Compilation error"
+      },
+      "correct_answer": "B",
+      "explanation": "The `continue` statement skips the rest of the current iteration of the loop and proceeds to the next iteration. When `i` is 2, `continue` is executed, so 2 is not printed."
+    },
+    {
+      "question": "Which of the following correctly represents the bitwise OR operation in C++?",
+      "choices": {
+        "A": "`||`",
+        "B": "`|`",
+        "C": "`&&`",
+        "D": "`&`"
+      },
+      "correct_answer": "B",
+      "explanation": "`|` is the bitwise OR operator. `||` is the logical OR operator. `&` is the bitwise AND operator, and `&&` is the logical AND operator."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 10;\n    int y = 20;\n    int z = 30;\n    if (x > y || y < z && x == 10) {\n        std::cout << \"True\";\n    } else {\n        std::cout << \"False\";\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "True",
+        "B": "False",
+        "C": "Compilation error",
+        "D": "Undefined behavior"
+      },
+      "correct_answer": "A",
+      "explanation": "The expression `x > y || y < z && x == 10` is evaluated based on operator precedence. `&&` has higher precedence than `||`. So, `y < z && x == 10` becomes `(20 < 30 && 10 == 10)`, which is `(true && true)`, evaluating to `true`. Then, `x > y || true` becomes `(10 > 20 || true)`, which is `(false || true)`, evaluating to `true`. Thus, \"True\" is printed."
+    },
+    {
+      "question": "Which of the following correctly describes the behavior of the `switch` statement with `fall-through`?",
+      "choices": {
+        "A": "Execution continues to the next `case` label if `break` is omitted.",
+        "B": "Execution stops after the matching `case` label, regardless of `break`.",
+        "C": "It causes a compilation error if `break` is not used.",
+        "D": "It is only used for `enum` types."
+      },
+      "correct_answer": "A",
+      "explanation": "In a `switch` statement, if a `break` statement is omitted at the end of a `case` block, execution \"falls through\" to the next `case` label, executing its code as well. This is often a source of bugs if not intended."
+    },
+    {
+      "question": "What is the purpose of the `goto` statement in C++?",
+      "choices": {
+        "A": "To jump to a specified label within the same function.",
+        "B": "To jump to a specified label in any function.",
+        "C": "To exit the program immediately.",
+        "D": "To create a loop."
+      },
+      "correct_answer": "A",
+      "explanation": "The `goto` statement provides an unconditional jump to a named label within the same function. While it exists, its use is generally discouraged in modern C++ programming due to its potential to create spaghetti code and make programs harder to read and maintain."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int arr[] = {1, 2, 3, 4, 5};\n    for (int i : arr) {\n        std::cout << i << \" \";\n    }\n    return 0;\n}\n```\n\nWhat is the output of this code?",
+      "choices": {
+        "A": "1 2 3 4 5 ",
+        "B": "0 1 2 3 4 ",
+        "C": "Compilation error",
+        "D": "Undefined behavior"
+      },
+      "correct_answer": "A",
+      "explanation": "This is a range-based for loop, introduced in C++11. It iterates over each element in the `arr` array, and `i` takes the value of each element in turn. So, it prints `1 2 3 4 5 `."
+    },
+    {
+      "question": "Which of the following is the most appropriate data type for storing a very large positive integer (e.g., 10^18)?",
+      "choices": {
+        "A": "`int`",
+        "B": "`long int`",
+        "C": "`long long int`",
+        "D": "`short int`"
+      },
+      "correct_answer": "C",
+      "explanation": "`long long int` (or simply `long long`) is guaranteed to be at least 64 bits, which is sufficient to store values up to approximately 9 x 10^18. `int` and `long int` might not be large enough depending on the system architecture."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int count = 0;\n    for (int i = 0; i < 3; ++i) {\n        for (int j = 0; j < 2; ++j) {\n            count++;\n        }\n    }\n    std::cout << count;\n    return 0;\n}\n```",
+      "choices": {
+        "A": "3",
+        "B": "2",
+        "C": "6",
+        "D": "5"
+      },
+      "correct_answer": "C",
+      "explanation": "The outer loop runs 3 times (for i = 0, 1, 2). The inner loop runs 2 times for each iteration of the outer loop (for j = 0, 1). So, `count++` executes 3 * 2 = 6 times."
+    },
+    {
+      "question": "Which of the following correctly uses the ternary operator to assign the maximum of `a` and `b` to `max_val`?",
+      "choices": {
+        "A": "`max_val = (a > b) ? a : b;`",
+        "B": "`max_val = a > b ? a : b;`",
+        "C": "`max_val = (a > b) ? b : a;`",
+        "D": "`max_val = a > b ? b : a;`"
+      },
+      "correct_answer": "A",
+      "explanation": "The ternary operator (conditional operator) has the syntax `condition ? expression_if_true : expression_if_false`. If `a > b` is true, `a` is assigned to `max_val`; otherwise, `b` is assigned. Option B is also syntactically correct but A is more readable."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 0;\n    while (x < 5) {\n        if (x == 3) {\n            break;\n        }\n        std::cout << x;\n        x++;\n    }\n    return 0;\n}\n```",
+      "choices": {
+        "A": "0123",
+        "B": "012",
+        "C": "0124",
+        "D": "01234"
+      },
+      "correct_answer": "B",
+      "explanation": "The loop starts printing from 0. When `x` becomes 3, the `if (x == 3)` condition is met, and `break` terminates the loop. So, only 0, 1, and 2 are printed."
+    },
+    {
+      "question": "Which of the following is true about floating-point numbers in C++?",
+      "choices": {
+        "A": "They are always precise and can represent any real number exactly.",
+        "B": "`float` typically provides more precision than `double`.",
+        "C": "They are stored in a way that can lead to precision issues due to their binary representation.",
+        "D": "They are primarily used for integer arithmetic."
+      },
+      "correct_answer": "C",
+      "explanation": "Floating-point numbers (like `float` and `double`) are stored in a binary format that can sometimes lead to precision issues, especially when performing calculations that involve non-terminating binary representations (similar to how 1/3 cannot be represented exactly in decimal). `double` typically provides more precision than `float`."
+    },
+    {
+      "question": "What is the result of the bitwise XOR operation `5 ^ 3` in C++? (Assume 8-bit representation for simplicity)",
+      "choices": {
+        "A": "6",
+        "B": "7",
+        "C": "4",
+        "D": "2"
+      },
+      "correct_answer": "A",
+      "explanation": "Binary representation of 5 is `00000101`. Binary representation of 3 is `00000011`. Performing XOR (exclusive OR) bit by bit: `00000101 ^ 00000011 = 00000110`, which is 6 in decimal."
+    },
+    {
+      "question": "Which of the following is the correct way to declare a function named `greet` that takes no arguments and returns nothing?",
+      "choices": {
+        "A": "`void greet();`",
+        "B": "`int greet();`",
+        "C": "`greet();`",
+        "D": "`function greet();`"
+      },
+      "correct_answer": "A",
+      "explanation": "`void` indicates that the function does not return any value. Empty parentheses `()` indicate that the function takes no arguments."
+    },
+    {
+      "question": "What is the purpose of a function prototype (or function declaration) in C++?",
+      "choices": {
+        "A": "To define the body of the function.",
+        "B": "To tell the compiler about the function's name, return type, and parameters before its definition.",
+        "C": "To call the function.",
+        "D": "To allocate memory for the function."
+      },
+      "correct_answer": "B",
+      "explanation": "A function prototype informs the compiler about the function's signature (name, return type, and parameter types) so that the compiler can correctly check calls to that function, even if the function's definition appears later in the code."
+    },
+    {
+      "question": "Which of the following is an example of a function call?",
+      "choices": {
+        "A": "`int add(int a, int b);`",
+        "B": "`add(5, 3);`",
+        "C": "`int result;`",
+        "D": "`void setup();`"
+      },
+      "correct_answer": "B",
+      "explanation": "A function call involves using the function's name followed by parentheses containing the arguments (if any). Option A is a function declaration, C is a variable declaration, and D is a function declaration."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nvoid modifyValue(int x) {\n    x = 100;\n}\n\nint main() {\n    int num = 10;\n    modifyValue(num);\n    std::cout << num;\n    return 0;\n}\n```",
+      "choices": {
+        "A": "10",
+        "B": "100",
+        "C": "Compilation error",
+        "D": "Undefined behavior"
+      },
+      "correct_answer": "A",
+      "explanation": "In C++, arguments are passed by value by default. This means a copy of `num` is passed to `modifyValue`. Changes to `x` inside `modifyValue` do not affect the original `num` in `main`."
+    },
+    {
+      "question": "Which of the following correctly defines a function `calculateSum` that takes two integer arguments and returns their sum?",
+      "choices": {
+        "A": "`int calculateSum(int a, int b) { return a + b; }`",
+        "B": "`void calculateSum(int a, int b) { std::cout << a + b; }`",
+        "C": "`calculateSum(a, b) { return a + b; }`",
+        "D": "`int calculateSum(a, b) { return a + b; }`"
+      },
+      "correct_answer": "A",
+      "explanation": "Option A correctly specifies the return type (`int`), the function name (`calculateSum`), and the types and names of the parameters (`int a, int b`), followed by the function body that returns the sum."
+    },
+    {
+      "question": "What is function overloading in C++?",
+      "choices": {
+        "A": "Defining multiple functions with the same name but different parameters.",
+        "B": "Defining multiple functions with the same name and same parameters.",
+        "C": "Defining a function inside another function.",
+        "D": "Defining a function that takes an unlimited number of arguments."
+      },
+      "correct_answer": "A",
+      "explanation": "Function overloading allows multiple functions to have the same name, as long as their parameter lists (number of parameters, types of parameters, or order of parameters) are different. The compiler determines which function to call based on the arguments provided."
+    },
+    {
+      "question": "Explain the concept of 'pass by reference' in C++ functions and provide an example.",
+      "choices": {
+        "A": "Passing a copy of the argument to the function; changes inside the function do not affect the original variable.",
+        "B": "Passing the memory address of the argument to the function; changes inside the function affect the original variable.",
+        "C": "Passing the value of the argument to the function, but the function can modify it.",
+        "D": "Passing an argument by its name, allowing direct manipulation."
+      },
+      "correct_answer": "B",
+      "explanation": "Pass by reference involves passing the memory address of the actual argument to the function. This means the function works directly with the original variable, and any modifications made to the parameter inside the function will affect the original variable in the calling scope. Example: `void func(int &x) { x = 10; }`"
+    },
+    {
+      "question": "What is an 'inline' function in C++ and what is its primary purpose?",
+      "choices": {
+        "A": "A function that is defined inside another function, improving encapsulation.",
+        "B": "A function whose code is expanded at the point of call, potentially reducing function call overhead.",
+        "C": "A function that can only be called from within the same file.",
+        "D": "A function that is automatically optimized by the compiler for faster execution."
+      },
+      "correct_answer": "B",
+      "explanation": "An `inline` function is a hint to the compiler that it should try to expand the function's code directly at the point of each call, rather than generating a separate function call instruction. This can reduce the overhead associated with function calls, especially for small, frequently called functions. However, the compiler ultimately decides whether to inline a function or not."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint add(int a, int b, int c = 0) {\n    return a + b + c;\n}\n\nint main() {\n    std::cout << add(5, 10) << \" \";\n    std::cout << add(1, 2, 3);\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "15 6",
+        "B": "15 3",
+        "C": "Compilation error",
+        "D": "Undefined behavior"
+      },
+      "correct_answer": "A",
+      "explanation": "The `add` function uses a default parameter `c = 0`. In the first call `add(5, 10)`, `c` defaults to 0, so `5 + 10 + 0 = 15`. In the second call `add(1, 2, 3)`, `c` is explicitly provided as 3, so `1 + 2 + 3 = 6`. The output is `15 6`."
+    },
+    {
+      "question": "Which of the following is a valid reason to use a `const` reference as a function parameter?",
+      "choices": {
+        "A": "To allow the function to modify the original argument efficiently.",
+        "B": "To prevent the function from modifying the original argument while avoiding copying large objects.",
+        "C": "To ensure the argument is always passed by value.",
+        "D": "To make the function thread-safe."
+      },
+      "correct_answer": "B",
+      "explanation": "Using a `const` reference (`const Type& param`) allows a function to access the original argument without making a copy (which is efficient for large objects) and, at the same time, guarantees that the function will not modify the original argument, enforcing const-correctness."
+    },
+    {
+      "question": "What is the concept of 'side effects' in the context of C++ functions?",
+      "choices": {
+        "A": "The return value of a function.",
+        "B": "Any observable change to the program's state outside the function's local scope.",
+        "C": "Errors or exceptions thrown by a function.",
+        "D": "The time complexity of a function."
+      },
+      "correct_answer": "B",
+      "explanation": "A side effect in a function refers to any change in the program's state that is observable outside the function's local scope. This includes modifying global variables, modifying arguments passed by reference/pointer, performing I/O operations (like printing to console or writing to files), or throwing exceptions. Functions without side effects are called pure functions."
+    },
+    {
+      "question": "Consider the following overloaded functions:\n\n```cpp\n#include <iostream>\n\nvoid print(int i) {\n    std::cout << \"Integer: \" << i << std::endl;\n}\n\nvoid print(double d) {\n    std::cout << \"Double: \" << d << std::endl;\n}\n\nvoid print(const char* s) {\n    std::cout << \"C-string: \" << s << std::endl;\n}\n\nint main() {\n    print(10);\n    print(5.5);\n    print(\"Hello\");\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Integer: 10\nDouble: 5.5\nC-string: Hello\n",
+        "B": "Integer: 10\nDouble: 5.5\nInteger: 0\n",
+        "C": "Compilation error",
+        "D": "Integer: 10\nC-string: Hello\nDouble: 5.5\n"
+      },
+      "correct_answer": "A",
+      "explanation": "This code demonstrates function overloading. The compiler selects the appropriate `print` function based on the type of the argument passed. `print(10)` calls `print(int)`, `print(5.5)` calls `print(double)`, and `print(\"Hello\")` calls `print(const char*)`."
+    },
+    {
+      "question": "Which of the following is the correct way to declare a string variable in C++ using the standard library?",
+      "choices": {
+        "A": "`char myString[10];`",
+        "B": "`string myString;`",
+        "C": "`std::string myString;`",
+        "D": "`String myString;`"
+      },
+      "correct_answer": "C",
+      "explanation": "The `std::string` class from the `<string>` header is the standard way to handle strings in modern C++. Option A is a C-style string (character array)."
+    },
+    {
+      "question": "What is the purpose of a `namespace` in C++?",
+      "choices": {
+        "A": "To define a new data type.",
+        "B": "To organize code and prevent name collisions.",
+        "C": "To create a new class.",
+        "D": "To declare global variables."
+      },
+      "correct_answer": "B",
+      "explanation": "Namespaces are used to organize code into logical groups and to prevent name collisions that can occur when different libraries or parts of a program use the same names for different entities."
+    },
+    {
+      "question": "Which keyword is used to handle exceptions in C++?",
+      "choices": {
+        "A": "`catch`",
+        "B": "`throw`",
+        "C": "`try`",
+        "D": "All of them."
+      },
+      "correct_answer": "D",
+      "explanation": "Exception handling in C++ uses `try` to enclose code that might throw an exception, `throw` to signal an exception, and `catch` to handle the exception."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n#include <string>\n\nint main() {\n    std::string s1 = \"Hello\";\n    std::string s2 = \"World\";\n    std::string s3 = s1 + \" \" + s2;\n    std::cout << s3.length();\n    return 0;\n}\n```",
+      "choices": {
+        "A": "10",
+        "B": "11",
+        "C": "12",
+        "D": "Compilation error"
+      },
+      "correct_answer": "B",
+      "explanation": "`s1` is \"Hello\" (5 characters), `s2` is \"World\" (5 characters). Adding a space in between makes `s3` \"Hello World\", which has 5 + 1 + 5 = 11 characters. `length()` returns the number of characters in the string."
+    },
+    {
+      "question": "Which of the following is the correct way to convert an `int` to a `double` in C++?",
+      "choices": {
+        "A": "`double_var = (double)int_var;`",
+        "B": "`double_var = static_cast<double>(int_var);`",
+        "C": "`double_var = int_var;` (implicit conversion)",
+        "D": "All of them."
+      },
+      "correct_answer": "D",
+      "explanation": "All options are valid ways to convert an `int` to a `double`. Option A is C-style casting, Option B is C++ `static_cast`, and Option C is implicit type conversion, which is safe for `int` to `double`."
+    },
+    {
+      "question": "What happens if an exception is thrown but not caught in a C++ program?",
+      "choices": {
+        "A": "The program continues execution normally.",
+        "B": "The program terminates immediately.",
+        "C": "The exception is ignored.",
+        "D": "The program enters an infinite loop."
+      },
+      "correct_answer": "B",
+      "explanation": "If an exception is thrown and there is no matching `catch` block to handle it, the program will terminate. This is known as \"unhandled exception termination\"."
+    },
+    {
+      "question": "Which of the following is the correct way to declare a custom exception class named `MyException` that inherits from `std::exception`?",
+      "choices": {
+        "A": "`class MyException : public std::exception {};`",
+        "B": "`class MyException extends std::exception {};`",
+        "C": "`exception MyException {};`",
+        "D": "`class MyException implements std::exception {};`"
+      },
+      "correct_answer": "A",
+      "explanation": "In C++, inheritance is specified using a colon (`:`) followed by the access specifier (`public`, `protected`, or `private`) and the base class name. `std::exception` is the base class for all standard exceptions."
+    },
+    {
+      "question": "Consider the following code snippet:\n\n```cpp\n#include <iostream>\n#include <string>\n\nvoid process(int value) {\n    if (value < 0) {\n        throw std::out_of_range(\"Value cannot be negative\");\n    }\n    std::cout << \"Processing: \" << value << std::endl;\n}\n\nint main() {\n    try {\n        process(10);\n        process(-5);\n        process(20);\n    } catch (const std::out_of_range& e) {\n        std::cout << \"Caught exception: \" << e.what() << std::endl;\n    } catch (...) {\n        std::cout << \"Caught unknown exception\" << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Processing: 10\nCaught exception: Value cannot be negative\n",
+        "B": "Processing: 10\nProcessing: -5\nProcessing: 20\n",
+        "C": "Caught exception: Value cannot be negative\n",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "The first call to `process(10)` executes normally. The second call `process(-5)` throws an `std::out_of_range` exception, which is caught by the first `catch` block. The `process(20)` call is never reached because the exception terminates the `try` block."
+    },
+    {
+      "question": "What is the purpose of the `what()` method in `std::exception`?",
+      "choices": {
+        "A": "To return the type of the exception.",
+        "B": "To return a C-style character string describing the exception.",
+        "C": "To return the line number where the exception occurred.",
+        "D": "To return a unique identifier for the exception."
+      },
+      "correct_answer": "B",
+      "explanation": "The `what()` method is a virtual function inherited from `std::exception` that returns a null-terminated character sequence (C-style string) describing the exception. It is commonly overridden in derived exception classes to provide more specific error messages."
+    },
+    {
+      "question": "Which of the following best describes a 'class' in C++?",
+      "choices": {
+        "A": "A variable that can store multiple values.",
+        "B": "A blueprint for creating objects.",
+        "C": "A function that performs a specific task.",
+        "D": "A collection of related functions."
+      },
+      "correct_answer": "B",
+      "explanation": "A class is a user-defined data type that serves as a blueprint or template for creating objects. It defines the properties (data members) and behaviors (member functions) that objects of that class will have."
+    },
+    {
+      "question": "What is an 'object' in C++?",
+      "choices": {
+        "A": "A template for creating classes.",
+        "B": "An instance of a class.",
+        "C": "A function that belongs to a class.",
+        "D": "A variable that stores a memory address."
+      },
+      "correct_answer": "B",
+      "explanation": "An object is a concrete instance of a class. When a class is defined, no memory is allocated; memory is allocated only when an object of that class is created."
+    },
+    {
+      "question": "Which keyword is used to define a class in C++?",
+      "choices": {
+        "A": "`struct`",
+        "B": "`class`",
+        "C": "`object`",
+        "D": "`type`"
+      },
+      "correct_answer": "B",
+      "explanation": "The `class` keyword is used to declare a class in C++. While `struct` can also define user-defined types, `class` is typically used for object-oriented programming where members are private by default."
+    },
+    {
+      "question": "What is a constructor in C++ and when is it called?",
+      "choices": {
+        "A": "A special member function used to destroy objects; called when an object goes out of scope.",
+        "B": "A special member function used to initialize objects; called automatically when an object is created.",
+        "C": "A regular member function that constructs new data types.",
+        "D": "A function that builds the class definition."
+      },
+      "correct_answer": "B",
+      "explanation": "A constructor is a special member function of a class that is automatically called when an object of that class is created. Its primary purpose is to initialize the object's data members."
+    },
+    {
+      "question": "Which access specifier makes members accessible only from within the class itself and from friend functions/classes?",
+      "choices": {
+        "A": "`public`",
+        "B": "`private`",
+        "C": "`protected`",
+        "D": "`internal`"
+      },
+      "correct_answer": "B",
+      "explanation": "`private` members are accessible only from within the class where they are declared and from friend functions or classes. `public` members are accessible from anywhere, and `protected` members are accessible within the class, its derived classes, and friends."
+    },
+    {
+      "question": "What is the purpose of the `this` pointer in C++?",
+      "choices": {
+        "A": "It points to the next object in a linked list.",
+        "B": "It points to the base class of an object.",
+        "C": "It points to the current object on which a member function is called.",
+        "D": "It points to a global instance of the class."
+      },
+      "correct_answer": "C",
+      "explanation": "The `this` pointer is an implicit pointer passed to every non-static member function of a class. It points to the object for which the member function is called, allowing access to the object's own members."
+    },
+    {
+      "question": "Explain the concept of operator overloading in C++ and provide an example.",
+      "choices": {
+        "A": "Defining a new operator symbol for custom operations.",
+        "B": "Giving special meaning to an existing C++ operator when applied to user-defined data types.",
+        "C": "Overriding the default behavior of arithmetic operators for built-in types.",
+        "D": "Creating multiple operators with the same name but different functionalities."
+      },
+      "correct_answer": "B",
+      "explanation": "Operator overloading allows you to redefine the way operators work for user-defined types (classes). For example, you can overload the `+` operator to perform concatenation for custom string classes or vector addition for a custom vector class. This makes code more intuitive and readable. Example: `MyClass operator+(const MyClass& other) { ... }`"
+    },
+    {
+      "question": "What is the difference between a copy constructor and an assignment operator in C++?",
+      "choices": {
+        "A": "A copy constructor is used for object initialization, while an assignment operator is used for object assignment.",
+        "B": "A copy constructor is called when an object is created, while an assignment operator is called when an existing object is assigned a new value.",
+        "C": "None of these statments",
+        "D": "There is no difference; they are interchangeable."
+      },
+      "correct_answer": [
+        "A",
+        "B"
+      ],
+      "explanation": "A copy constructor is a special constructor that creates a new object as a copy of an existing object. It's called during initialization (e.g., `MyClass obj2 = obj1;`). An assignment operator (`operator=`) is used to assign the value of one existing object to another existing object (e.g., `obj2 = obj1;`). Both are crucial for proper deep copying when a class manages dynamic memory."
+    },
+    {
+      "question": "What is a friend function in C++ and why might it be used?",
+      "choices": {
+        "A": "A function that is a member of another class.",
+        "B": "A non-member function that is granted special access to the private and protected members of a class.",
+        "C": "A function that can only be called by objects of the same class.",
+        "D": "A function that automatically inherits all members of a class."
+      },
+      "correct_answer": "B",
+      "explanation": "A friend function is a non-member function that is declared as a `friend` within a class. This grants the friend function access to the `private` and `protected` members of that class, even though it is not a member itself. It's typically used when a function needs to operate on two different classes, or when it needs to access private data for specific, well-defined reasons (e.g., overloading stream insertion/extraction operators)."
+    },
+    {
+      "question": "Which of the following is a correct way to declare a static member variable `count` of type `int` within a class `MyClass`?",
+      "choices": {
+        "A": "`int count;`",
+        "B": "`static int count;` (inside class declaration)",
+        "C": "`static int MyClass::count;` (outside class definition)",
+        "D": "`static count (int)`"
+      },
+      "correct_answer": [
+        "B",
+        "C"
+      ],
+      "explanation": "Static member variables are declared inside the class definition using the `static` keyword (B) and must be defined (initialized) outside the class definition in the global scope (C). This ensures that there is only one copy of the static member shared by all objects of the class."
+    },
+    {
+      "question": "What is the primary difference between a `struct` and a `class` in C++?",
+      "choices": {
+        "A": "`struct` members are public by default, while `class` members are private by default.",
+        "B": "`struct` can have member functions, while `class` cannot.",
+        "C": "`struct` cannot be inherited, while `class` can.",
+        "D": "`struct` is used for value types, `class` for reference types."
+      },
+      "correct_answer": "A",
+      "explanation": "The only difference between a `struct` and a `class` in C++ is the default member access specifier. For `struct`, members are `public` by default, while for `class`, members are `private` by default. Both can have member functions, be inherited, and are value types unless pointers/references are used."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass Counter {\npublic:\n    static int count;\n    Counter() {\n        count++;\n    }\n};\n\nint Counter::count = 0;\n\nint main() {\n    Counter c1;\n    Counter c2;\n    std::cout << Counter::count;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "0",
+        "B": "1",
+        "C": "2",
+        "D": "Compilation error"
+      },
+      "correct_answer": "C",
+      "explanation": "`count` is a static member variable, initialized to 0. Each time a `Counter` object is created (c1 and c2), the constructor increments `count`. So, after creating two objects, `count` becomes 2."
+    },
+    {
+      "question": "Which of the following terms describes the mechanism by which one class acquires the properties and behaviors of another class?",
+      "choices": {
+        "A": "Encapsulation",
+        "B": "Polymorphism",
+        "C": "Inheritance",
+        "D": "Abstraction"
+      },
+      "correct_answer": "C",
+      "explanation": "Inheritance is a fundamental concept in OOP where a new class (derived class or subclass) is created from an existing class (base class or superclass), inheriting its members."
+    },
+    {
+      "question": "In inheritance, what is the class from which another class inherits called?",
+      "choices": {
+        "A": "Derived class",
+        "B": "Subclass",
+        "C": "Base class",
+        "D": "Child class"
+      },
+      "correct_answer": "C",
+      "explanation": "The class from which another class inherits is known as the base class or superclass. The class that inherits is called the derived class, subclass, or child class."
+    },
+    {
+      "question": "Which access specifier allows members to be accessed by the base class, derived classes, and friend functions/classes?",
+      "choices": {
+        "A": "`public`",
+        "B": "`private`",
+        "C": "`protected`",
+        "D": "`default`"
+      },
+      "correct_answer": "C",
+      "explanation": "`protected` members are accessible within the class itself, by its derived classes, and by friend functions or classes. `public` members are accessible from anywhere, and `private` members are only accessible from within the class and its friends."
+    },
+    {
+      "question": "Consider the following class hierarchy:\n\n```cpp\nclass Animal {\npublic:\n    void eat() { /* ... */ }\n};\n\nclass Dog : public Animal {\npublic:\n    void bark() { /* ... */ }\n};\n```\n\nWhich of the following statements is true?",
+      "choices": {
+        "A": "A `Dog` object can call `bark()` but not `eat()`.",
+        "B": "A `Dog` object can call both `bark()` and `eat()`.",
+        "C": "An `Animal` object can call `bark()`.",
+        "D": "Inheritance is not correctly implemented here."
+      },
+      "correct_answer": "B",
+      "explanation": "Since `Dog` publicly inherits from `Animal`, a `Dog` object inherits all public members of `Animal`, including `eat()`, and also has its own `bark()` method."
+    },
+    {
+      "question": "What is the purpose of the `virtual` keyword in C++ inheritance?",
+      "choices": {
+        "A": "To make a function private.",
+        "B": "To enable runtime polymorphism.",
+        "C": "To prevent a function from being overridden.",
+        "D": "To declare a static member function."
+      },
+      "correct_answer": "B",
+      "explanation": "The `virtual` keyword is used to declare a virtual function in a base class. This enables runtime polymorphism, allowing the correct derived class function to be called based on the actual type of the object pointed to by a base class pointer or reference."
+    },
+    {
+      "question": "Which type of inheritance allows a derived class to inherit from multiple base classes?",
+      "choices": {
+        "A": "Single inheritance",
+        "B": "Multilevel inheritance",
+        "C": "Hierarchical inheritance",
+        "D": "Multiple inheritance"
+      },
+      "correct_answer": "D",
+      "explanation": "Multiple inheritance is a feature of C++ where a class can inherit from more than one base class, combining the functionalities of all parent classes."
+    },
+    {
+      "question": "What is the 'diamond problem' in multiple inheritance and how is it typically resolved in C++?",
+      "choices": {
+        "A": "It occurs when a class inherits from two classes that have a common base class, leading to ambiguity. Resolved using virtual inheritance.",
+        "B": "It occurs when a class has too many derived classes, resolved by using more base classes.",
+        "C": "It is a problem with single inheritance, resolved by using multiple inheritance.",
+        "D": "It is a problem with function overloading, resolved by using templates."
+      },
+      "correct_answer": "A",
+      "explanation": "The diamond problem arises in multiple inheritance when a class inherits from two classes that themselves inherit from a common base class. This creates ambiguity because the derived class ends up with two copies of the common base class members. In C++, it is typically resolved using virtual inheritance, which ensures that only one instance of the common base class is included in the derived class."
+    },
+    {
+      "question": "What is polymorphism in C++?",
+      "choices": {
+        "A": "The ability of an object to take on many forms.",
+        "B": "The ability to hide data within a class.",
+        "C": "The ability to create multiple objects from a single class.",
+        "D": "The ability to inherit properties from multiple classes."
+      },
+      "correct_answer": "A",
+      "explanation": "Polymorphism, meaning 'many forms', allows objects of different classes to be treated as objects of a common base class. This is typically achieved through virtual functions and pointers/references to the base class."
+    },
+    {
+      "question": "Which keyword is used to declare a virtual function in C++?",
+      "choices": {
+        "A": "`abstract`",
+        "B": "`override`",
+        "C": "`virtual`",
+        "D": "`dynamic`"
+      },
+      "correct_answer": "C",
+      "explanation": "The `virtual` keyword is used in the base class to declare a function that can be overridden by derived classes, enabling runtime polymorphism."
+    },
+    {
+      "question": "What is an abstract class in C++?",
+      "choices": {
+        "A": "A class that cannot have any member functions.",
+        "B": "A class that can only be inherited from, but cannot be instantiated directly.",
+        "C": "A class that contains only pure virtual functions.",
+        "D": "A class that does not have a constructor."
+      },
+      "correct_answer": "B",
+      "explanation": "An abstract class is a class that has at least one pure virtual function. It cannot be instantiated directly, but it can be used as a base class for other classes. Derived classes must provide implementations for all pure virtual functions to be concrete (instantiable)."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass Base {\npublic:\n    virtual void show() {\n        std::cout << \"Base::show()\";\n    }\n};\n\nclass Derived : public Base {\npublic:\n    void show() override {\n        std::cout << \"Derived::show()\";\n    }\n};\n\nint main() {\n    Base* bptr = new Derived();\n    bptr->show();\n    delete bptr;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Base::show()",
+        "B": "Derived::show()",
+        "C": "Compilation error",
+        "D": "Runtime error"
+      },
+      "correct_answer": "B",
+      "explanation": "Because `show()` is a virtual function in the `Base` class and `bptr` is a pointer to `Base` pointing to a `Derived` object, virtual function call mechanism (dynamic dispatch) ensures that the `Derived::show()` method is called at runtime."
+    },
+    {
+      "question": "Which of the following is a pure virtual function declaration in C++?",
+      "choices": {
+        "A": "`virtual void func();`",
+        "B": "`void func() = 0;`",
+        "C": "`virtual void func() = 0;`",
+        "D": "`void virtual func();`"
+      },
+      "correct_answer": "C",
+      "explanation": "A pure virtual function is declared by placing `= 0` after the function declaration in the base class. This makes the class abstract, meaning it cannot be instantiated directly."
+    },
+    {
+      "question": "What is the purpose of the `override` keyword in C++11 and later?",
+      "choices": {
+        "A": "To indicate that a function is being overloaded.",
+        "B": "To ensure that a virtual function in a derived class is indeed overriding a base class function.",
+        "C": "To prevent a function from being overridden.",
+        "D": "To declare a function as a friend function."
+      },
+      "correct_answer": "B",
+      "explanation": "The `override` specifier (C++11) ensures that a member function in a derived class is intended to override a virtual function in a base class. If the function signature doesn't exactly match a virtual function in the base class, the compiler will issue an error, preventing common mistakes."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass Base {\npublic:\n    virtual void print() const = 0; // Pure virtual function\n};\n\nclass DerivedA : public Base {\npublic:\n    void print() const override {\n        std::cout << \"DerivedA print\" << std::endl;\n    }\n};\n\nclass DerivedB : public Base {\npublic:\n    void print() const override {\n        std::cout << \"DerivedB print\" << std::endl;\n    }\n};\n\nvoid display(const Base& obj) {\n    obj.print();\n}\n\nint main() {\n    DerivedA a;\n    DerivedB b;\n    display(a);\n    display(b);\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "DerivedA print\nDerivedB print\n",
+        "B": "Base print\nBase print\n",
+        "C": "Compilation error",
+        "D": "Runtime error"
+      },
+      "correct_answer": "A",
+      "explanation": "The `Base` class has a pure virtual function `print()`, making it an abstract class. `DerivedA` and `DerivedB` override this function. The `display` function takes a `const Base&` reference, enabling polymorphism. When `display(a)` is called, `DerivedA::print()` is invoked. When `display(b)` is called, `DerivedB::print()` is invoked, demonstrating runtime polymorphism."
+    },
+    {
+      "question": "What is the purpose of a virtual destructor in C++?",
+      "choices": {
+        "A": "To allow a base class pointer to correctly deallocate memory for a derived class object.",
+        "B": "To prevent objects from being destroyed.",
+        "C": "To ensure that the base class destructor is never called.",
+        "D": "To make a class abstract."
+      },
+      "correct_answer": "A",
+      "explanation": "When deleting a derived class object through a base class pointer, if the base class destructor is not virtual, only the base class destructor will be called, leading to a memory leak or undefined behavior for derived class specific resources. A virtual destructor ensures that the correct destructor (derived class then base class) is called, allowing proper cleanup."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass Shape {\npublic:\n    virtual double area() const = 0;\n};\n\nclass Circle : public Shape {\nprivate:\n    double radius;\npublic:\n    Circle(double r) : radius(r) {}\n    double area() const override {\n        return 3.14159 * radius * radius;\n    }\n};\n\nclass Rectangle : public Shape {\nprivate:\n    double width;\n    double height;\npublic:\n    Rectangle(double w, double h) : width(w), height(h) {}\n    double area() const override {\n        return width * height;\n    }\n};\n\nint main() {\n    Shape* s1 = new Circle(5.0);\n    Shape* s2 = new Rectangle(4.0, 6.0);\n\n    std::cout << \"Circle area: \" << s1->area() << std::endl;\n    std::cout << \"Rectangle area: \" << s2->area() << std::endl;\n\n    delete s1;\n    delete s2;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Circle area: 78.53975\nRectangle area: 24\n",
+        "B": "Circle area: 0\nRectangle area: 0\n",
+        "C": "Compilation error",
+        "D": "Runtime error"
+      },
+      "correct_answer": "A",
+      "explanation": "The `Shape` class is abstract with a pure virtual `area()` function. `Circle` and `Rectangle` derive from `Shape` and provide their own implementations of `area()`. Through polymorphism, `s1->area()` calls `Circle::area()` and `s2->area()` calls `Rectangle::area()`, calculating the correct areas."
+    },
+    {
+      "question": "Which keyword is used to signal an exceptional condition in C++?",
+      "choices": {
+        "A": "`try`",
+        "B": "`catch`",
+        "C": "`throw`",
+        "D": "`finally`"
+      },
+      "correct_answer": "C",
+      "explanation": "The `throw` keyword is used to explicitly signal that an exceptional condition has occurred. This transfers control to a matching `catch` block."
+    },
+    {
+      "question": "What is the purpose of the `try` block in C++ exception handling?",
+      "choices": {
+        "A": "To define a new exception type.",
+        "B": "To enclose code that might throw an exception.",
+        "C": "To handle an exception.",
+        "D": "To rethrow an exception."
+      },
+      "correct_answer": "B",
+      "explanation": "The `try` block is used to enclose a block of code that is expected to throw an exception. If an exception occurs within the `try` block, control is transferred to a suitable `catch` handler."
+    },
+    {
+      "question": "Which of the following is used to catch any type of exception in C++?",
+      "choices": {
+        "A": "`catch (Exception e)`",
+        "B": "`catch (...)`",
+        "C": "`catch (void)`",
+        "D": "`catch (any)`"
+      },
+      "correct_answer": "B",
+      "explanation": "The `catch (...)` syntax is a catch-all handler that can catch any type of exception. It should generally be placed as the last `catch` block if used, as it will catch all exceptions."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <stdexcept> // For std::runtime_error\n\nvoid mightThrow() {\n    throw std::runtime_error(\"Something went wrong!\");\n}\n\nint main() {\n    try {\n        mightThrow();\n    } catch (const std::exception& e) {\n        std::cout << \"Caught: \" << e.what() << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Caught: Something went wrong!\n",
+        "B": "Something went wrong!\n",
+        "C": "No output, program terminates.",
+        "D": "Compilation error."
+      },
+      "correct_answer": "A",
+      "explanation": "The `mightThrow()` function throws a `std::runtime_error`. This exception is caught by the `catch (const std::exception& e)` block because `std::runtime_error` inherits from `std::exception`. The `what()` method then retrieves the error message."
+    },
+    {
+      "question": "What is the concept of `exception specification` in C++ (pre-C++11) and why is it deprecated?",
+      "choices": {
+        "A": "A mechanism to declare which exceptions a function might throw; deprecated because it led to runtime errors if an undeclared exception was thrown.",
+        "B": "A way to define custom exception classes; deprecated due to complexity.",
+        "C": "A method to catch multiple exceptions with a single `catch` block; deprecated for being too broad.",
+        "D": "A syntax for rethrowing exceptions; deprecated because it was redundant."
+      },
+      "correct_answer": "A",
+      "explanation": "Exception specifications (e.g., `void func() throw(std::bad_alloc);`) were a feature in C++ (before C++11) intended to declare which exceptions a function could throw. However, they were problematic because if a function threw an exception not listed in its specification, it would lead to `std::unexpected` being called and program termination, often unexpectedly. This led to them being deprecated in C++11 and removed in C++17."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <stdexcept>\n\nvoid funcA() {\n    throw std::logic_error(\"Error from funcA\");\n}\n\nvoid funcB() {\n    try {\n        funcA();\n    } catch (const std::logic_error& e) {\n        std::cout << \"Caught in funcB: \" << e.what() << std::endl;\n        throw; // Rethrow the caught exception\n    }\n}\n\nint main() {\n    try {\n        funcB();\n    } catch (const std::exception& e) {\n        std::cout << \"Caught in main: \" << e.what() << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Caught in funcB: Error from funcA\nCaught in main: Error from funcA\n",
+        "B": "Caught in funcB: Error from funcA\n",
+        "C": "Caught in main: Error from funcA\n",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "`funcA` throws a `std::logic_error`. `funcB` catches it, prints a message, and then rethrows it using `throw;`. The rethrown exception is then caught by the `catch` block in `main`, which prints another message. This demonstrates exception propagation and rethrowing."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass A {\npublic:\n    A() { std::cout << \"A\"; }\n    ~A() { std::cout << \"~A\"; }\n};\n\nclass B : public A {\npublic:\n    B() { std::cout << \"B\"; }\n    ~B() { std::cout << \"~B\"; }\n};\n\nclass C : public B {\npublic:\n    C() { std::cout << \"C\"; }\n    ~C() { std::cout << \"~C\"; }\n};\n\nint main() {\n    C obj;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "ABC~C~B~A",
+        "B": "CBA~A~B~C",
+        "C": "ABC~A~B~C",
+        "D": "CBA~C~B~A"
+      },
+      "correct_answer": "A",
+      "explanation": "When an object of a derived class is created, constructors are called in the order of inheritance (base to derived). When an object is destroyed, destructors are called in the reverse order (derived to base). So, for `C obj;`, the order is `A()`, `B()`, `C()`, then `~C()`, `~B()`, `~A()`."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nclass Base {\npublic:\n    void func() {\n        std::cout << \"Base func\";\n    }\n};\n\nclass Derived : public Base {\npublic:\n    void func() {\n        std::cout << \"Derived func\";\n    }\n};\n\nint main() {\n    Derived d;\n    d.func();\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Base func",
+        "B": "Derived func",
+        "C": "Compilation error",
+        "D": "Undefined behavior"
+      },
+      "correct_answer": "B",
+      "explanation": "When a function in a derived class has the same name as a function in the base class, the derived class function hides the base class function. When `d.func()` is called, the `Derived` version of `func()` is invoked."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass Base {\npublic:\n    virtual void print() {\n        std::cout << \"Base print\";\n    }\n};\n\nclass Derived : public Base {\npublic:\n    void print() {\n        std::cout << \"Derived print\";\n    }\n};\n\nint main() {\n    Base* b = new Derived();\n    b->print();\n    delete b;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Base print",
+        "B": "Derived print",
+        "C": "Compilation error",
+        "D": "Runtime error"
+      },
+      "correct_answer": "B",
+      "explanation": "Since `print()` is a virtual function in the `Base` class, and `b` is a `Base` pointer pointing to a `Derived` object, runtime polymorphism ensures that the `Derived::print()` is called."
+    },
+    {
+      "question": "What is the difference between `std::exception` and `std::runtime_error`?",
+      "choices": {
+        "A": "`std::exception` is for logical errors, `std::runtime_error` is for errors detected during runtime.",
+        "B": "`std::exception` is the base class for all standard exceptions, while `std::runtime_error` is a derived class for errors that can only be detected during program execution.",
+        "C": "`std::runtime_error` is the base class, `std::exception` is derived.",
+        "D": "There is no difference."
+      },
+      "correct_answer": "B",
+      "explanation": "`std::exception` is the base class for all exceptions thrown by the C++ standard library. `std::runtime_error` is a derived class of `std::exception` that specifically represents errors that can only be detected during program execution (e.g., file not found, out of memory). In contrast, `std::logic_error` is for errors that could logically be detected before runtime (e.g., invalid arguments)."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <stdexcept>\n\nvoid divide(int a, int b) {\n    if (b == 0) {\n        throw std::invalid_argument(\"Division by zero is not allowed\");\n    }\n    std::cout << \"Result: \" << a / b << std::endl;\n}\n\nint main() {\n    try {\n        divide(10, 2);\n        divide(5, 0);\n        divide(20, 4);\n    } catch (const std::invalid_argument& e) {\n        std::cout << \"Error: \" << e.what() << std::endl;\n    } catch (const std::exception& e) {\n        std::cout << \"General error: \" << e.what() << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Result: 5\nError: Division by zero is not allowed\n",
+        "B": "Result: 5\nError: Division by zero is not allowed\nResult: 5\n",
+        "C": "Error: Division by zero is not allowed\n",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "The first call `divide(10, 2)` executes normally. The second call `divide(5, 0)` throws an `std::invalid_argument` exception, which is caught by the first `catch` block. The `divide(20, 4)` call is never reached because the exception terminates the `try` block."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <stdexcept>\n\nvoid validateAge(int age) {\n    if (age < 0 || age > 120) {\n        throw std::out_of_range(\"Age must be between 0 and 120\");\n    }\n    std::cout << \"Age is valid: \" << age << std::endl;\n}\n\nint main() {\n    try {\n        validateAge(30);\n        validateAge(-10);\n        validateAge(150);\n    } catch (const std::out_of_range& e) {\n        std::cout << \"Validation Error: \" << e.what() << std::endl;\n    } catch (const std::exception& e) {\n        std::cout << \"General Error: \" << e.what() << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Age is valid: 30\nValidation Error: Age must be between 0 and 120\n",
+        "B": "Age is valid: 30\nValidation Error: Age must be between 0 and 120\nValidation Error: Age must be between 0 and 120\n",
+        "C": "Age is valid: 30\nGeneral Error: Age must be between 0 and 120\n",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "The first call `validateAge(30)` executes normally. The second call `validateAge(-10)` throws an `std::out_of_range` exception, which is caught by the first `catch` block. The third call `validateAge(150)` is never reached because the exception terminates the `try` block."
+    },
+    {
+      "question": "What is the purpose of `noexcept` in C++?",
+      "choices": {
+        "A": "It indicates that a function will not throw any exceptions.",
+        "B": "It forces a function to throw an exception.",
+        "C": "It specifies the type of exception a function can throw.",
+        "D": "It disables exception handling for a function."
+      },
+      "correct_answer": "A",
+      "explanation": "The `noexcept` specifier (C++11) indicates that a function is guaranteed not to throw any exceptions. If a function declared `noexcept` does throw an exception, the program will terminate via `std::terminate()`, which is usually undesirable. It's a strong guarantee for the compiler and callers."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    char grade = 'A';\n    std::cout << (int)grade;\n    return 0;\n}\n```",
+      "choices": {
+        "A": "A",
+        "B": "65",
+        "C": "Compilation error",
+        "D": "Undefined behavior"
+      },
+      "correct_answer": "B",
+      "explanation": "When a `char` is cast to an `int`, its ASCII (or corresponding character set) value is printed. The ASCII value for 'A' is 65."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 7;\n    int y = 2;\n    std::cout << (x / y) << \" \";\n    std::cout << (x % y);\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "3 1",
+        "B": "3.5 1",
+        "C": "3 0",
+        "D": "3.5 0"
+      },
+      "correct_answer": "A",
+      "explanation": "Integer division `x / y` (7 / 2) results in 3 (truncating the decimal part). The modulo operator `x % y` (7 % 2) gives the remainder of the division, which is 1."
+    },
+    {
+      "question": "Which of the following statements about C++ comments is true?",
+      "choices": {
+        "A": "`//` comments can span multiple lines.",
+        "B": "`/* ... */` comments can be nested.",
+        "C": "Comments are ignored by the compiler.",
+        "D": "Comments increase the executable file size."
+      },
+      "correct_answer": "C",
+      "explanation": "Comments are ignored by the compiler and do not affect the executable code. `//` comments are single-line. `/* ... */` comments cannot be nested directly (e.g., `/* /* ... */ */` is an error)."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int a = 10;\n    int b = 20;\n    int c = 30;\n    int result = (a > b) ? a : ((b > c) ? b : c);\n    std::cout << result;\n    return 0;\n}\n```",
+      "choices": {
+        "A": "10",
+        "B": "20",
+        "C": "30",
+        "D": "Compilation error"
+      },
+      "correct_answer": "C",
+      "explanation": "This code uses nested ternary operators. First, `(a > b)` is `(10 > 20)`, which is false. So, the second part `((b > c) ? b : c)` is evaluated. `(b > c)` is `(20 > 30)`, which is false. So, `c` (30) is chosen. Thus, `result` is 30."
+    },
+    {
+      "question": "Which of the following is the correct way to declare a pointer to an integer and initialize it with the address of an integer variable `x`?",
+      "choices": {
+        "A": "`int *ptr = x;`",
+        "B": "`int ptr = &x;`",
+        "C": "`int *ptr = &x;`",
+        "D": "`int &ptr = x;`"
+      },
+      "correct_answer": "C",
+      "explanation": "`int *ptr;` declares `ptr` as a pointer to an integer. The `&` operator is used to get the memory address of a variable. So, `int *ptr = &x;` correctly initializes `ptr` with the address of `x`."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int arr[5] = {1, 2, 3, 4, 5};\n    int *ptr = arr;\n    std::cout << *(ptr + 2);\n    return 0;\n}\n```",
+      "choices": {
+        "A": "1",
+        "B": "2",
+        "C": "3",
+        "D": "Compilation error"
+      },
+      "correct_answer": "C",
+      "explanation": "`ptr` points to the first element of `arr`. `(ptr + 2)` points to the third element (index 2) of the array. `*(ptr + 2)` dereferences this pointer, giving the value at that address, which is 3."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int i = 0;\n    while (i < 3) {\n        std::cout << i;\n        i++;\n    }\n    return 0;\n}\n```",
+      "choices": {
+        "A": "012",
+        "B": "123",
+        "C": "0123",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "The `while` loop iterates as long as `i` is less than 3. `i` starts at 0, is printed, then incremented. This repeats for 0, 1, and 2."
+    },
+    {
+      "question": "Which of the following operators has the highest precedence?",
+      "choices": {
+        "A": "`+` (addition)",
+        "B": "`*` (multiplication)",
+        "C": "`=` (assignment)",
+        "D": "`&&` (logical AND)"
+      },
+      "correct_answer": "B",
+      "explanation": "Among the given options, multiplication (`*`) has the highest precedence, followed by addition (`+`), then logical AND (`&&`), and finally assignment (`=`)."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 5;\n    switch (x) {\n        case 1:\n            std::cout << \"One\";\n            break;\n        case 5:\n            std::cout << \"Five\";\n        case 10:\n            std::cout << \"Ten\";\n            break;\n        default:\n            std::cout << \"Other\";\n    }\n    return 0;\n}\n```",
+      "choices": {
+        "A": "Five",
+        "B": "FiveTen",
+        "C": "Ten",
+        "D": "Other"
+      },
+      "correct_answer": "B",
+      "explanation": "When `x` is 5, the `case 5` block is executed. Since there is no `break` statement after `std::cout << \"Five\";`, execution \"falls through\" to the `case 10` block, printing \"Ten\" as well before the `break` statement for `case 10` is encountered."
+    },
+    {
+      "question": "Which of the following correctly uses a `do-while` loop to print numbers from 5 down to 1?",
+      "choices": {
+        "A": "`int i = 5; do { std::cout << i; i--; } while (i > 0);`",
+        "B": "`int i = 5; do { std::cout << i; i--; } while (i >= 0);`",
+        "C": "`int i = 5; while (i > 0) { std::cout << i; i--; }`",
+        "D": "`for (int i = 5; i > 0; i--) { std::cout << i; }`"
+      },
+      "correct_answer": "A",
+      "explanation": "The `do-while` loop executes the body at least once. Option A correctly initializes `i` to 5, prints it, decrements it, and continues as long as `i` is greater than 0, printing 5, 4, 3, 2, 1."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nvoid printMessage() {\n    std::cout << \"Hello from function!\";\n}\n\nint main() {\n    printMessage();\n    return 0;\n}\n```",
+      "choices": {
+        "A": "Hello from function!",
+        "B": "Compilation error",
+        "C": "No output",
+        "D": "Runtime error"
+      },
+      "correct_answer": "A",
+      "explanation": "The `printMessage()` function is called from `main`, which prints the specified string to the console."
+    },
+    {
+      "question": "Which of the following is the correct way to pass an integer variable `x` to a function `modify` by reference?",
+      "choices": {
+        "A": "`void modify(int x);`",
+        "B": "`void modify(int *x);`",
+        "C": "`void modify(int &x);`",
+        "D": "`void modify(int x[]);`"
+      },
+      "correct_answer": "C",
+      "explanation": "To pass by reference, an ampersand (`&`) is used after the type in the function parameter declaration. This allows the function to directly modify the original variable."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n#include <string>\n\nint main() {\n    std::string s = \"C++ Programming\";\n    std::cout << s[0] << s[1] << s[2];\n    return 0;\n}\n```",
+      "choices": {
+        "A": "C++",
+        "B": "C+ ",
+        "C": "C P",
+        "D": "C++P"
+      },
+      "correct_answer": "A",
+      "explanation": "String characters can be accessed using array-like indexing. `s[0]` is 'C', `s[1]` is '+', and `s[2]` is '+'."
+    },
+    {
+      "question": "Which of the following is the correct way to declare a namespace named `MyNamespace`?",
+      "choices": {
+        "A": "`namespace MyNamespace { /* ... */ }`",
+        "B": "`MyNamespace namespace { /* ... */ }`",
+        "C": "`using namespace MyNamespace;`",
+        "D": "`namespace = MyNamespace;`"
+      },
+      "correct_answer": "A",
+      "explanation": "Namespaces are declared using the `namespace` keyword followed by the namespace name and a block of code enclosed in curly braces."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass MyClass {\nprivate:\n    int value;\npublic:\n    MyClass(int v = 0) : value(v) {}\n    // Prefix increment operator\n    MyClass& operator++() {\n        ++value;\n        return *this;\n    }\n    // Postfix increment operator\n    MyClass operator++(int) {\n        MyClass temp = *this;\n        ++(*this);\n        return temp;\n    }\n    int getValue() const { return value; }\n};\n\nint main() {\n    MyClass obj1(5);\n    MyClass obj2 = ++obj1;\n    std::cout << obj1.getValue() << \" \";\n    std::cout << obj2.getValue() << std::endl;\n\n    MyClass obj3(10);\n    MyClass obj4 = obj3++;\n    std::cout << obj3.getValue() << \" \";\n    std::cout << obj4.getValue();\n\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "6 6\n11 10",
+        "B": "5 6\n10 11",
+        "C": "6 5\n11 10",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "For prefix increment (`++obj1`), `obj1` is incremented first, and then its new value (6) is assigned to `obj2`. So, both `obj1` and `obj2` become 6. For postfix increment (`obj3++`), a copy of `obj3` (value 10) is made and assigned to `obj4`. Then `obj3` is incremented to 11. So, `obj3` is 11 and `obj4` is 10."
+    },
+    {
+      "question": "What is the concept of a `delegating constructor` in C++11?",
+      "choices": {
+        "A": "A constructor that calls a base class constructor.",
+        "B": "A constructor that calls another constructor of the same class.",
+        "C": "A constructor that takes a function pointer as an argument.",
+        "D": "A constructor that is automatically generated by the compiler."
+      },
+      "correct_answer": "B",
+      "explanation": "A delegating constructor allows one constructor in a class to call another constructor of the same class to perform initialization. This helps in reducing code duplication and improving maintainability, especially when multiple constructors share common initialization logic."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nclass A {\npublic:\n    void show() { std::cout << \"A\"; }\n};\n\nclass B : virtual public A {\npublic:\n    void showB() { std::cout << \"B\"; }\n};\n\nclass C : virtual public A {\npublic:\n    void showC() { std::cout << \"C\"; }\n};\n\nclass D : public B, public C {\npublic:\n    void showD() { std::cout << \"D\"; }\n};\n\nint main() {\n    D obj;\n    obj.show(); // Which show() is called?\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "Due to virtual inheritance (`virtual public A`), the `D` class contains only one subobject of `A`. Therefore, `obj.show()` unambiguously calls `A::show()`."
+    },
+    {
+      "question": "What is the purpose of `protected` inheritance in C++?",
+      "choices": {
+        "A": "Public members of the base class become protected in the derived class, and protected members remain protected.",
+        "B": "All members of the base class become protected in the derived class.",
+        "C": "Private members of the base class become protected in the derived class.",
+        "D": "It prevents the derived class from being inherited further."
+      },
+      "correct_answer": "A",
+      "explanation": "When a class inherits with `protected` access, `public` members of the base class become `protected` in the derived class, and `protected` members remain `protected`. `private` members of the base class are never accessible to derived classes, regardless of the inheritance type."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <string>\n#include <stdexcept>\n\nvoid processString(const std::string& s) {\n    if (s.empty()) {\n        throw std::invalid_argument(\"String cannot be empty\");\n    }\n    if (s.length() > 10) {\n        throw std::out_of_range(\"String too long\");\n    }\n    std::cout << \"Processing: \" << s << std::endl;\n}\n\nint main() {\n    try {\n        processString(\"Hello\");\n        processString(\"\");\n        processString(\"This is a very long string that exceeds the limit\");\n    } catch (const std::invalid_argument& e) {\n        std::cout << \"Caught invalid argument: \" << e.what() << std::endl;\n    } catch (const std::out_of_range& e) {\n        std::cout << \"Caught out of range: \" << e.what() << std::endl;\n    } catch (const std::exception& e) {\n        std::cout << \"Caught general exception: \" << e.what() << std::endl;\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Processing: Hello\nCaught invalid argument: String cannot be empty\n",
+        "B": "Processing: Hello\nCaught invalid argument: String cannot be empty\nCaught out of range: String too long\n",
+        "C": "Processing: Hello\nCaught out of range: String too long\n",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "The first call `processString(\"Hello\")` executes normally. The second call `processString(\"\")` throws an `std::invalid_argument` exception, which is caught by the first `catch` block. The third call `processString(\"This is a very long string that exceeds the limit\")` is never reached because the exception terminates the `try` block."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n\nint main() {\n    int x = 10;\n    x += 5;\n    std::cout << x;\n    return 0;\n}\n```",
+      "choices": {
+        "A": "10",
+        "B": "5",
+        "C": "15",
+        "D": "Compilation error"
+      },
+      "correct_answer": "C",
+      "explanation": "The `+=` operator is a shorthand for `x = x + 5;`. So, `x` becomes `10 + 5 = 15`."
+    },
+    {
+      "question": "Which of the following is the correct way to include a user-defined header file named `myheader.h`?",
+      "choices": {
+        "A": "`#include <myheader.h>`",
+        "B": "`#include \"myheader.h\"`",
+        "C": "`#include myheader.h`",
+        "D": "`#include 'myheader.h'`"
+      },
+      "correct_answer": "B",
+      "explanation": "For user-defined header files, it is standard practice to use double quotes (`\"\"`) to tell the preprocessor to look for the file in the current directory first, then in standard include paths. Angle brackets (`<>`) are typically used for standard library headers."
+    },
+    {
+      "question": "Which of the following is the correct way to declare a `std::vector` of integers?",
+      "choices": {
+        "A": "`vector<int> myVector;`",
+        "B": "`std::vector<int> myVector;`",
+        "C": "`std::vector myVector<int>;`",
+        "D": "`vector myVector;`"
+      },
+      "correct_answer": "B",
+      "explanation": "`std::vector` is part of the Standard Template Library (STL) and is typically accessed using the `std::` namespace. The type of elements it will store is specified within angle brackets."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<int> numbers = {10, 20, 30};\n    numbers.push_back(40);\n    std::cout << numbers[3];\n    return 0;\n}\n```",
+      "choices": {
+        "A": "10",
+        "B": "20",
+        "C": "30",
+        "D": "40"
+      },
+      "correct_answer": "D",
+      "explanation": "`push_back(40)` adds 40 to the end of the vector. The vector then contains {10, 20, 30, 40}. `numbers[3]` accesses the element at index 3, which is 40."
+    },
+    {
+      "question": "Which of the following is a correct way to iterate through a `std::vector` named `data` using a range-based for loop?",
+      "choices": {
+        "A": "`for (int x : data) { /* ... */ }`",
+        "B": "`for (int i = 0; i < data.size(); i++) { /* ... */ }`",
+        "C": "`for (auto it = data.begin(); it != data.end(); ++it) { /* ... */ }`",
+        "D": "All of them."
+      },
+      "correct_answer": "D",
+      "explanation": "All three options are valid ways to iterate through a `std::vector`. Option A is a C++11 range-based for loop, Option B is a traditional index-based loop, and Option C uses iterators."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <vector>\n#include <algorithm> // For std::sort\n\nint main() {\n    std::vector<int> numbers = {5, 2, 8, 1, 9};\n    std::sort(numbers.begin(), numbers.end());\n    for (int num : numbers) {\n        std::cout << num << \" \";\n    }\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "1 2 5 8 9 ",
+        "B": "5 2 8 1 9 ",
+        "C": "9 8 5 2 1 ",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "`std::sort` sorts the elements in the range `[first, last)` in ascending order. After sorting, the vector becomes `{1, 2, 5, 8, 9}`."
+    },
+    {
+      "question": "What is the purpose of `std::map` in C++ STL?",
+      "choices": {
+        "A": "To store a collection of elements in a sequence.",
+        "B": "To store key-value pairs where keys are unique and sorted.",
+        "C": "To store a collection of unique elements in no particular order.",
+        "D": "To store elements in a last-in, first-out (LIFO) manner."
+      },
+      "correct_answer": "B",
+      "explanation": "`std::map` is an associative container that stores elements formed by a combination of a key value and a mapped value, following a specific order. The key values are unique, and they are used to sort the elements."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <string>\n#include <map>\n\nint main() {\n    std::map<std::string, int> ages;\n    ages[\"Alice\"] = 30;\n    ages[\"Bob\"] = 25;\n    ages[\"Alice\"] = 31; \n    std::cout << ages[\"Alice\"];\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "30",
+        "B": "25",
+        "C": "31",
+        "D": "Compilation error"
+      },
+      "correct_answer": "C",
+      "explanation": "When a key already exists in `std::map`, assigning a new value to it updates the existing entry. So, Alice's age is updated from 30 to 31."
+    },
+    {
+      "question": "Consider the following C++ code snippet involving templates:\n\n```cpp\n#include <iostream>\n\ntemplate <typename T>\nT add(T a, T b) {\n    return a + b;\n}\n\nint main() {\n    std::cout << add(5, 10) << std::endl;\n    std::cout << add(3.5, 2.1) << std::endl;\n    std::cout << add(std::string(\"Hello\"), std::string(\"World\")) << std::endl;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "15\n5.6\nHelloWorld\n",
+        "B": "15\n5.6\nHello World\n",
+        "C": "Compilation error",
+        "D": "Undefined behavior"
+      },
+      "correct_answer": "A",
+      "explanation": "The `add` template function works for different data types that support the `+` operator. For integers, it performs integer addition. For doubles, it performs floating-point addition. For `std::string`, the `+` operator performs string concatenation."
+    },
+    {
+      "question": "What is the concept of `template metaprogramming` in C++?",
+      "choices": {
+        "A": "Writing programs that generate other programs at runtime.",
+        "B": "Using templates to perform computations at compile time.",
+        "C": "A technique for debugging template-heavy code.",
+        "D": "A way to create generic algorithms that work with any data type."
+      },
+      "correct_answer": "B",
+      "explanation": "Template metaprogramming (TMP) is a programming technique that uses C++ templates to perform computations at compile time rather than at runtime. This can lead to highly optimized code, as the computations are resolved before the program even starts executing. It's often used for tasks like type traits, compile-time assertions, and generating specialized code."
+    },
+    {
+      "question": "Which of the following is true about `std::unique_ptr`?",
+      "choices": {
+        "A": "It allows multiple pointers to own the same object.",
+        "B": "It provides shared ownership with reference counting.",
+        "C": "It ensures exclusive ownership of a dynamically allocated object.",
+        "D": "It does not automatically deallocate memory."
+      },
+      "correct_answer": "C",
+      "explanation": "`std::unique_ptr` is a smart pointer that owns and manages another object through a pointer and disposes of that object when the `unique_ptr` itself goes out of scope. It ensures exclusive ownership, meaning only one `unique_ptr` can point to a given object at a time. This prevents issues like double deletion."
+    },
+    {
+      "question": "Which of the following is the correct way to read an integer from the console into a variable `num`?",
+      "choices": {
+        "A": "`std::cout << num;`",
+        "B": "`std::cin >> num;`",
+        "C": "`scanf(\"%d\", num);`",
+        "D": "`read(num);`"
+      },
+      "correct_answer": "B",
+      "explanation": "`std::cin` is the standard input stream in C++, and the `>>` operator is used to extract data from the input stream into a variable."
+    },
+    {
+      "question": "What is the purpose of `std::endl` in C++?",
+      "choices": {
+        "A": "To insert a space character.",
+        "B": "To insert a newline character and flush the output buffer.",
+        "C": "To insert a tab character.",
+        "D": "To end the program execution."
+      },
+      "correct_answer": "B",
+      "explanation": "`std::endl` inserts a newline character into the output stream and then flushes the buffer, ensuring that all buffered output is written to the console immediately."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n\nint main() {\n    int a = 10;\n    double b = 20.5;\n    char c = 'X';\n    std::cout << a << \" \" << b << \" \" << c;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "10 20.5 X",
+        "B": "10 20.500000 X",
+        "C": "10 20 X",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "The `<<` operator can be chained to output multiple values of different data types to the console. By default, `double` values are printed with minimal precision unless formatted otherwise."
+    },
+    {
+      "question": "What is the output of the following code snippet?\n\n```cpp\n#include <iostream>\n#include <string>\n\nint main() {\n    std::string name;\n    std::cout << \"Enter your name: \";\n    std::cin >> name;\n    std::cout << \"Hello, \" << name << \"!\";\n    return 0;\n}\n```\n\nIf the user inputs `John Doe`, what will be the output?",
+      "choices": {
+        "A": "Hello, John!",
+        "B": "Hello, John Doe!",
+        "C": "Enter your name: John Doe\nHello, John!",
+        "D": "Enter your name: John Doe\nHello, John Doe!"
+      },
+      "correct_answer": "A",
+      "explanation": "The `std::cin >> name;` operation reads input up to the first whitespace character. So, if the user inputs `John Doe`, only `John` will be stored in the `name` variable. To read the entire line, `std::getline(std::cin, name);` should be used."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <iomanip> // For std::fixed and std::setprecision\n\nint main() {\n    double value = 123.456789;\n    std::cout << std::fixed << std::setprecision(2) << value;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "123.45",
+        "B": "123.46",
+        "C": "123.456789",
+        "D": "Compilation error"
+      },
+      "correct_answer": "B",
+      "explanation": "`std::fixed` sets the floating-point output format to fixed-point notation. `std::setprecision(2)` sets the number of digits after the decimal point to 2. The value `123.456789` is rounded to two decimal places, resulting in `123.46`."
+    },
+    {
+      "question": "Which of the following correctly opens a file named `data.txt` for writing in C++?",
+      "choices": {
+        "A": "`std::ifstream file(\"data.txt\");`",
+        "B": "`std::ofstream file(\"data.txt\");`",
+        "C": "`std::fstream file(\"data.txt\");`",
+        "D": "`std::cin file(\"data.txt\");`"
+      },
+      "correct_answer": "B",
+      "explanation": "`std::ofstream` is used for output file streams (writing to files). `std::ifstream` is for input (reading), and `std::fstream` is for both input and output."
+    },
+    {
+      "question": "Consider the following C++ code snippet:\n\n```cpp\n#include <iostream>\n#include <fstream>\n#include <string>\n\nint main() {\n    std::ofstream outFile(\"output.txt\");\n    if (outFile.is_open()) {\n        outFile << \"Hello, File!\n\";\n        outFile << 123;\n        outFile.close();\n    }\n\n    std::ifstream inFile(\"output.txt\");\n    std::string line;\n    int number;\n    if (inFile.is_open()) {\n        std::getline(inFile, line);\n        inFile >> number;\n        inFile.close();\n    }\n    std::cout << line << \" \";\n    std::cout << number;\n    return 0;\n}\n```\n\nWhat will be the output of this code?",
+      "choices": {
+        "A": "Hello, File! 123",
+        "B": "Hello, File!\n123",
+        "C": "Hello, File! 0",
+        "D": "Compilation error"
+      },
+      "correct_answer": "A",
+      "explanation": "The code first writes \"Hello, File!\n\" and then `123` to `output.txt`. When reading, `std::getline(inFile, line)` reads \"Hello, File!\". Then `inFile >> number` reads `123`. The output is `Hello, File! 123`."
+    },
+    {
+      "question": "What is the purpose of the `std::ios::app` flag when opening a file with `std::ofstream`?",
+      "choices": {
+        "A": "To open the file in read-only mode.",
+        "B": "To append data to the end of the file if it exists, otherwise create a new file.",
+        "C": "To truncate the file to zero length if it exists.",
+        "D": "To open the file in binary mode."
+      },
+      "correct_answer": "B",
+      "explanation": "The `std::ios::app` flag (append) causes all output operations to write data at the end of the file, effectively appending new content to existing content. If the file does not exist, it is created."
+    }
+  ]
+}

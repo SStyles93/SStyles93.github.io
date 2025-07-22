@@ -1,3 +1,6 @@
+{
+  "subject": "C++",
+  "questions":
 [
   {
     "question": "What is the output of the following snippet?\n\n```cpp\n#include <iostream>\nusing namespace std;\n\nint main() {\n    int i = 1, j = 2, k = 3;\n    int m = i-- - j-- - k--;\n    cout << i;\n    cout << j;\n    cout << k;\n    cout << m;\n    return 0;\n}\n```",
@@ -1100,7 +1103,7 @@
     "explanation": "`std::move` does not actually move anything. It is a cast that produces an xvalue (an rvalue reference), signaling that the object it refers to may have its resources 'stolen' or 'pilfered' by a move constructor or move assignment operator, which is often a much cheaper operation than a full copy."
   }
 ]
-
+}
 
 
 

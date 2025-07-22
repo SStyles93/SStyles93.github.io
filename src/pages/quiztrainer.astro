@@ -31,9 +31,19 @@
                 <div class="server-selection">
                     <h3><i class="fas fa-server"></i> Select a Quiz</h3>
                     <p>Choose from quizzes available on the server.</p>
+
+                    <!-- STEP 1: ADDED SUBJECT FILTER DROPDOWN -->
+                    <div class="select-container" style="margin-bottom: 15px;">
+                        <select id="subject-select">
+                            <option value="all">-- All Subjects --</option>
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </div>
+
+                    <!-- Existing Quiz Dropdown (Modified default text ) -->
                     <div class="select-container">
                         <select id="quiz-select">
-                            <option value="">Loading quizzes...</option>
+                            <option value="">-- Select a subject first --</option>
                         </select>
                     </div>
                 </div>
@@ -56,9 +66,7 @@
                         />
                         <button
                             class="upload-btn"
-                            onclick="
-                        // @ts-ignore
-                        document.getElementById('file-input' ).click()"
+                            onclick="document.getElementById('file-input').click()"
                         >
                             <i class="fas fa-folder-open"></i> Choose File
                         </button>
@@ -130,16 +138,19 @@
                         > file <a href="mailto:samuel.styles93@gmail.com"
                             >HERE</a
                         > for review.
-                        <br />We will consider implementing it in the data base.
-                        <br />---
-                        <br />You can also click <a
+                          
+We will consider implementing it in the data base.
+                          
+---
+                          
+You can also click <a
                             href="/projects/quiztrainer/#format">HERE</a
                         > to see how to format your <code>.json</code>
                     </p>
                 </div>
             </section>
 
-            <!-- Quiz Section -->
+            <!-- Quiz Section (No changes here) -->
             <section
                 id="quiz-section"
                 class="quiz-section"
@@ -204,7 +215,7 @@
                 </div>
             </section>
 
-            <!-- Results Section -->
+            <!-- Results Section (No changes here) -->
             <section
                 id="results-section"
                 class="results-section"
