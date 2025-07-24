@@ -1,0 +1,986 @@
+{
+  "subject": "Scrum",
+  "questions": [
+    {
+        "question": "What activities would a Product Owner typically undertake in the phase between the end of the current Sprint and the start of the next Sprint?",
+        "choices": {
+            "A": "Refine the Product Backlog.",
+            "B": "Work with the QA departments on the Increment of the current Sprint.",
+            "C": "Update the project plan with stakeholders.",
+            "D": "There are no such activities. The next Sprint starts immediately after the current Sprint."
+        },
+        "correct_answer": "D",
+        "explanation": "In Scrum, Sprints are contiguous and follow one another without any intermediate phase or gap. A new Sprint starts immediately after the conclusion of the previous Sprint. Activities like Product Backlog refinement are ongoing and happen during a Sprint, not in a separate phase between them."
+    },
+    {
+        "question": "What is pair programming?",
+        "choices": {
+            "A": "Two developers writing code together, providing constant peer review.",
+            "B": "Two programmers write code separately. A third programmer integrates the work.",
+            "C": "The Scrum Team is divided into several two-person Development Teams that consolidate work in a Scrum of Scrums.",
+            "D": "Managers doing performance reviews by comparing one programmer's code to another's.",
+            "E": "A developer and a tester work together to write and test code."
+        },
+        "correct_answer": "A",
+        "explanation": "Pair programming is an agile software development technique in which two programmers work together at one workstation. One, the 'driver', writes code while the other, the 'navigator', observes and reviews each line of code as it is typed in. The two programmers switch roles frequently, leading to continuous review and improved code quality."
+    },
+    {
+        "question": "Why might a Development Team choose to do pair programming?",
+        "choices": {
+            "A": "It can be a fun way to work",
+            "B": "Efficiency",
+            "C": "Information sharing and learning",
+            "D": "Improving code quality",
+            "E": "All of the above"
+        },
+        "correct_answer": "E",
+        "explanation": "Pair programming offers multiple benefits. It improves code quality through constant review, facilitates knowledge sharing and learning between developers, and can increase efficiency by catching errors early and solving problems faster. It also tends to improve team morale and collaboration, making it a more enjoyable way to work."
+    },
+    {
+        "question": "Only technical writers can create documentation during a Sprint.",
+        "choices": {
+            "A": "True",
+            "B": "False"
+        },
+        "correct_answer": "B",
+        "explanation": "This is false. A Scrum Development Team is cross-functional, meaning it has all the skills necessary to create a releasable Increment. If documentation is part of the Definition of Done, any member of the Development Team is responsible for creating it, not just a specialized technical writer."
+    },
+    {
+        "question": "When does the Development Team show their work to the Product Owner?",
+        "choices": {
+            "A": "Whenever the Product Owner asks",
+            "B": "Anytime the Development Team needs feedback from the Product Owner",
+            "C": "During the Sprint Review",
+            "D": "All of the above"
+        },
+        "correct_answer": "D",
+        "explanation": "Collaboration between the Product Owner and Development Team is continuous. While the Sprint Review is the formal event to demonstrate the Increment, the team should seek feedback from the PO whenever needed to clarify requirements and ensure they are building the right thing. The PO can also ask to see work at any time. All options contribute to a healthy, collaborative environment."
+    },
+    {
+        "question": "When using Continuous Integration, how often should the build be executed?",
+        "choices": {
+            "A": "Before the end of the Sprint",
+            "B": "Whenever new tests are created or uncertainty arises about whether old tests will pass",
+            "C": "Once per day",
+            "D": "Whenever new or changed code is checked into version control",
+            "E": "Once per hour"
+        },
+        "correct_answer": "D",
+        "explanation": "Continuous Integration (CI) is a practice where developers frequently merge their code changes into a central repository, after which automated builds and tests are run. The core idea is to trigger a build for every commit to detect integration errors as quickly as possible."
+    },
+    {
+        "question": "Which are three attributes of a bad bug report?",
+        "choices": {
+            "A": "Assigning blame",
+            "B": "Simple and repeatable reproduction steps",
+            "C": "Generic titles",
+            "D": "Vague statements or untested assumptions",
+            "E": "One bug per report"
+        },
+        "correct_answer": [
+            "A",
+            "C",
+            "D"
+        ],
+        "explanation": "A bad bug report hinders resolution. Assigning blame is unprofessional and counterproductive. Generic titles (e.g., 'It's broken') are unhelpful. Vague statements or assumptions make it difficult to reproduce the issue. In contrast, good bug reports have clear, specific titles, simple reproduction steps, and focus on a single issue."
+    },
+    {
+        "question": "At Sprint Planning, the Development Team has NO clear standard to meet for releasable software. What should the Development Team do?",
+        "choices": {
+            "A": "Ask the Scrum Master what they should do.",
+            "B": "Ask the Product Owner to specify a definition of done.",
+            "C": "As a Development Team, specify a shared definition of done.",
+            "D": "Create a unique completion checklist for each item in the Sprint."
+        },
+        "correct_answer": "C",
+        "explanation": "The Definition of Done is a commitment created by the Scrum Team. If no organizational standard exists, the Development Team is responsible for creating a Definition of Done appropriate for the product. While the Product Owner is involved, the Development Team must create it to ensure they have a shared understanding of the quality required for their work."
+    },
+    {
+        "question": "Which are two benefits of establishing naming conventions for code?",
+        "choices": {
+            "A": "To make it easy to distinguish between different software products.",
+            "B": "To reduce friction in a shared codebase.",
+            "C": "To communicate the identity of the developer who worked on the code.",
+            "D": "To make the code more readable.",
+            "E": "To ensure that orphan functions are not created."
+        },
+        "correct_answer": [
+            "B",
+            "D"
+        ],
+        "explanation": "Consistent naming conventions are crucial for code quality. They make the code more readable and easier to understand for all team members, which in turn reduces friction and misunderstandings when working in a shared codebase. This consistency improves maintainability and collaboration."
+    },
+    {
+        "question": "Product Backlog Items are refined by:",
+        "choices": {
+            "A": "The Product Owner",
+            "B": "The Development Team and the Product Owner",
+            "C": "The Business Analyst and the Product Owner",
+            "D": "The Development Team"
+        },
+        "correct_answer": "B",
+        "explanation": "Product Backlog refinement is a collaborative activity. The Product Owner is responsible for the Product Backlog, but they work with the Development Team to refine items. The Development Team provides technical insights, helps clarify requirements, and gives estimates, ensuring items are well-understood and ready for a future Sprint."
+    },
+    {
+        "question": "A Development Team is blocked by an impediment in the middle of the Sprint. The impediment is outside the Development Team's control. What should the Development Team do?",
+        "choices": {
+            "A": "Immediately raise the issue to the Scrum Master.",
+            "B": "Cancel the Sprint.",
+            "C": "Stop using Scrum.",
+            "D": "Complete the work that can be done on as much scope as possible and use the Sprint Review to plan the rest with stakeholders.",
+            "E": "Complete the work that can be done on as much scope as possible and complete the rest during \"hardening\" sprints at the end of the release."
+        },
+        "correct_answer": "A",
+        "explanation": "One of the Scrum Master's primary services is removing impediments that are blocking the Development Team. If the team cannot resolve an impediment themselves, especially one outside their control, they should raise it to the Scrum Master immediately so it can be addressed promptly."
+    },
+    {
+        "question": "Who should be present during Product Backlog refinement (choose two)?",
+        "choices": {
+            "A": "Analysts who have prepared requirements",
+            "B": "Anyone interested in the backlog items",
+            "C": "The Development Team",
+            "D": "The Product Owner",
+            "E": "Representatives from the DevOps team",
+            "F": "The most senior people from the Development Team"
+        },
+        "correct_answer": [
+            "C",
+            "D"
+        ],
+        "explanation": "Product Backlog refinement is a collaborative effort primarily between the Product Owner and the Development Team. The Product Owner clarifies the 'what' and 'why' of an item, while the Development Team provides technical analysis and estimation to determine the 'how'. Other stakeholders may be included as needed, but these two roles are essential."
+    },
+    {
+        "question": "Why does a test written using TDD (Test-Driven Development) always fail initially?",
+        "choices": {
+            "A": "Because the product code to satisfy the test does not yet exist.",
+            "B": "Because the test has not been refactored.",
+            "C": "Because the tests are checked in before the product code exists.",
+            "D": "Because it has to be put into an automated test harness to be run."
+        },
+        "correct_answer": "A",
+        "explanation": "The core cycle of Test-Driven Development is Red-Green-Refactor. The first step ('Red') is to write a failing automated test for a new feature or improvement. The test fails precisely because the functional code that would make it pass has not been written yet. This ensures that development is focused on satisfying a specific, testable requirement."
+    },
+    {
+        "question": "Who is responsible for a Sprint Backlog item that contains several database related tasks?",
+        "choices": {
+            "A": "Stakeholder in the project",
+            "B": "Development Team",
+            "C": "Database administrator",
+            "D": "Scrum Master",
+            "E": "Product Owner"
+        },
+        "correct_answer": "B",
+        "explanation": "The Development Team as a whole is responsible for all work in the Sprint Backlog. Scrum does not recognize sub-teams or specialized roles like 'database administrator' within the Development Team. The team is cross-functional and collectively owns the work of turning Sprint Backlog Items into a Done Increment."
+    },
+    {
+        "question": "When can a Development Team cancel a Sprint?",
+        "choices": {
+            "A": "It can't. Only Product Owners can cancel Sprints.",
+            "B": "When the Product Owner is absent too often.",
+            "C": "When the selected Product Backlog items for the Sprint become unachievable.",
+            "D": "When functional expectations are not well understood.",
+            "E": "When a technical dependency cannot be resolved."
+        },
+        "correct_answer": "A",
+        "explanation": "According to the Scrum Guide, only the Product Owner has the authority to cancel a Sprint. This is a serious decision, typically made only when the Sprint Goal becomes obsolete. The Development Team cannot cancel a Sprint; if they face issues, they should work with the Product Owner to adapt the plan or raise impediments to the Scrum Master."
+    },
+    {
+        "question": "Choose three (3) reasons why automated builds are important?",
+        "choices": {
+            "A": "They clearly define the build process.",
+            "B": "They eliminate the need for Build Engineers.",
+            "C": "They allow frequent validation and ensure the product remains in a potentially releasable state.",
+            "D": "They support Continuous Integration.",
+            "E": "They ensure your product remains bug free."
+        },
+        "correct_answer": [
+            "A",
+            "C",
+            "D"
+        ],
+        "explanation": "Automated builds are crucial for modern development. They formalize and clearly define the build process, making it repeatable and reliable. They are a cornerstone of Continuous Integration, enabling frequent validation of code changes. This frequent validation helps ensure the product is always in a potentially releasable state. While they don't guarantee a bug-free product, they are essential for catching integration errors early."
+    },
+    {
+        "question": "What is the primary purpose of refactoring?",
+        "choices": {
+            "A": "Removing all bugs that were found during regression tests.",
+            "B": "Ensuring that all factors are constantly aligned.",
+            "C": "Creating better technical documentation.",
+            "D": "Making sure that the code is readable and maintainable."
+        },
+        "correct_answer": "D",
+        "explanation": "Refactoring is the process of restructuring existing computer code—changing the factoring—without changing its external behavior. Its primary purpose is to improve the internal structure of the code, making it easier to read, understand, and maintain. This helps reduce technical debt and makes future development easier and safer."
+    },
+    {
+        "question": "When is performance testing most effectively performed?",
+        "choices": {
+            "A": "Just before deploying to production",
+            "B": "After coding is complete",
+            "C": "In production",
+            "D": "Often, throughout development of the software"
+        },
+        "correct_answer": "D",
+        "explanation": "Leaving performance testing until the end of a project is risky and expensive. To be effective, performance testing should be done often and early, throughout the development lifecycle. This allows the team to identify and fix performance bottlenecks as they are introduced, rather than waiting until just before release when fixes are much more difficult and costly."
+    },
+    {
+        "question": "Which describes the practice of expressing requirements as acceptance tests?",
+        "choices": {
+            "A": "Quality Oriented Requirements Definition",
+            "B": "Object Driven Requirements Definition",
+            "C": "Acceptance Test Driven Development",
+            "D": "Regression Testing"
+        },
+        "correct_answer": "C",
+        "explanation": "Acceptance Test-Driven Development (ATDD) is a development methodology based on communication between the business customers, the developers, and the testers. ATDD involves creating acceptance tests from the user's perspective before development begins, which then guide the implementation of the functionality."
+    },
+     {
+        "question": "Cyclomatic complexity is a metric for:",
+        "choices": {
+            "A": "Measuring branching structures and nesting levels in code",
+            "B": "Demonstrating code is well structured and cleanly implemented",
+            "C": "Assessing if code is written in as few lines as possible",
+            "D": "Determining the number of unit tests required to ensure correctness"
+        },
+        "correct_answer": "A",
+        "explanation": "Cyclomatic complexity is a software metric used to indicate the complexity of a program. It directly measures the number of linearly independent paths through a program's source code, which is determined by its branching structures (if, while, for statements) and nesting levels. A higher number indicates more complex code that is potentially harder to test and maintain."
+    },
+    {
+        "question": "Which four are benefits of Test Driven Development?",
+        "choices": {
+            "A": "It promotes good design and separation of concerns.",
+            "B": "It improves quality and reduces bugs.",
+            "C": "It reduces the cost of maintenance over time.",
+            "D": "It ensures no defects are present in the code.",
+            "E": "It causes you to construct a test harness that can be automated."
+        },
+        "correct_answer": [
+            "A",
+            "B",
+            "C",
+            "E"
+        ],
+        "explanation": "Test-Driven Development (TDD) provides several benefits. By writing tests first, it forces developers to think about requirements upfront, leading to better design and separation of concerns. It creates a comprehensive, automated test harness. This suite of tests improves quality by catching regressions early, which in turn reduces long-term maintenance costs. However, TDD does not guarantee zero defects."
+    },
+    {
+        "question": "Which four types of tests can be included in an automated test harness?",
+        "choices": {
+            "A": "Performance",
+            "B": "Unit",
+            "C": "Integration",
+            "D": "Manual regression",
+            "E": "Exploratory",
+            "F": "Functional"
+        },
+        "correct_answer": [
+            "A",
+            "B",
+            "C",
+            "F"
+        ],
+        "explanation": "An automated test harness can include various types of tests that can be executed without manual intervention. This typically includes Unit, Integration, Functional, and Performance tests. Manual regression and Exploratory testing are, by definition, manual activities and cannot be part of an automated harness."
+    },
+    {
+        "question": "Who writes tests in a Scrum Team?",
+        "choices": {
+            "A": "The Scrum Master",
+            "B": "Coders",
+            "C": "QA specialists",
+            "D": "The Development Team"
+        },
+        "correct_answer": "D",
+        "explanation": "In Scrum, the Development Team is a cross-functional unit responsible for all aspects of creating a Done Increment, which includes testing. The team as a whole owns quality. While some members may have specialized testing skills, the responsibility for writing tests belongs to the entire Development Team, not a separate QA role."
+    },
+    {
+        "question": "While developing new functionality, you find a bug that has already been delivered to the customer. What do you do?",
+        "choices": {
+            "A": "Talk to the Product Owner.",
+            "B": "Fix the bug.",
+            "C": "Revise the tests so that the bug no longer appears on the bug report.",
+            "D": "Stub out the code that caused the bug so it no longer occurs."
+        },
+        "correct_answer": "A",
+        "explanation": "When a bug is found in a previously delivered feature, it represents a potential change in the product. The Product Owner is responsible for the Product Backlog and for prioritizing work to maximize value. Therefore, the Development Team should inform the Product Owner, who can then decide on the priority of fixing the bug versus developing new features."
+    },
+    {
+        "question": "A team has expressed requirements as a set of failing acceptance tests. What are three benefits?",
+        "choices": {
+            "A": "Using a code generation tool, the solution can be generated from the requirements model",
+            "B": "Improves quality in the requirement itself",
+            "C": "Promotes the use of the DRY (Don't Repeat Yourself) principle",
+            "D": "Traceability, or tracking of completeness",
+            "E": "Clear acceptance criteria for each feature"
+        },
+        "correct_answer": [
+            "B",
+            "D",
+            "E"
+        ],
+        "explanation": "This practice, known as Acceptance Test-Driven Development (ATDD), has several benefits. Writing tests as requirements forces clarification and improves the quality of the requirement itself. These tests serve as clear, executable acceptance criteria for the feature. They also provide perfect traceability, as the passing of these tests directly tracks the completeness of the work."
+    },
+    {
+        "question": "While changing software, you find a bug delivered in a previous Increment. What should you do?",
+        "choices": {
+            "A": "Stub out the code that caused the bug so it no longer occurs.",
+            "B": "Talk to the Product Owner about what steps to take.",
+            "C": "Revise the tests so that the bug no longer appears on the bug report.",
+            "D": "Set aside the Sprint Goal until the bug is fixed."
+        },
+        "correct_answer": "B",
+        "explanation": "Discovering a bug in existing functionality requires a decision about prioritization. The Product Owner is accountable for maximizing the value of the product, which includes deciding whether to fix an old bug or continue with planned new features. The Development Team should consult the Product Owner to determine the best course of action."
+    },
+    {
+        "question": "Which answer best describes Behavior-Driven Development (BDD)?",
+        "choices": {
+            "A": "A development style that accounts for leadership style among team members.",
+            "B": "A technique for maintaining regression test harnesses.",
+            "C": "A style of test-driven development focusing on user and system interactions.",
+            "D": "A way to organize unit tests based on class and method structures."
+        },
+        "correct_answer": "C",
+        "explanation": "Behavior-Driven Development (BDD) is an extension of Test-Driven Development (TDD) that emphasizes collaboration between developers, QA, and non-technical participants. It focuses on defining the behavior of a system from the user's perspective, using natural language constructs (e.g., Given-When-Then) to frame acceptance tests that describe user and system interactions."
+    },
+    {
+        "question": "What are two differences between unit tests and integration tests?",
+        "choices": {
+            "A": "An integration test may be composed of unit tests.",
+            "B": "An integration test runs overnight.",
+            "C": "A unit test only runs on a developer's workstation.",
+            "D": "A unit test is automated.",
+            "E": "A unit test isolates a specific system behavior."
+        },
+        "correct_answer": [
+            "A",
+            "E"
+        ],
+        "explanation": "A key difference is scope. A unit test is designed to isolate and verify a very small, specific piece of functionality (a 'unit'). An integration test, on the other hand, verifies that multiple units work together correctly and may be composed of several such units. While both can be automated and run anywhere, their fundamental purpose and scope are distinct."
+    },
+    {
+        "question": "What three things happen when refining Product Backlog Items?",
+        "choices": {
+            "A": "Design",
+            "B": "Analysis",
+            "C": "Feature Testing",
+            "D": "Product Backlog Item decomposition",
+            "E": "Programming"
+        },
+        "correct_answer": [
+            "A",
+            "B",
+            "D"
+        ],
+        "explanation": "Product Backlog refinement is the act of adding detail, estimates, and order to items. This involves analyzing the requirements, decomposing large items into smaller, more manageable ones, and considering high-level design to inform estimates and feasibility. Programming and feature testing are implementation activities that happen during the Sprint after an item has been selected, not during refinement."
+    },
+    {
+        "question": "The Product Owner must release each Increment to production.",
+        "choices": {
+            "A": "To make sure the Development Team is done every Sprint.",
+            "B": "Whenever the product is free of defects.",
+            "C": "Without exception.",
+            "D": "When it makes sense."
+        },
+        "correct_answer": "D",
+        "explanation": "The Scrum Team must create a potentially releasable Increment each Sprint, but the decision to actually release it is a business decision made by the Product Owner. The Product Owner releases the Increment when it makes the most sense for the product, market, and stakeholders, which may be every Sprint or after several Sprints have accumulated sufficient value."
+    },
+    {
+        "question": "Choose four desirable characteristics of a unit test.",
+        "choices": {
+            "A": "Test code is as small as possible",
+            "B": "Execution is fast",
+            "C": "Makes assertions about only one logical concept",
+            "D": "Independent of others",
+            "E": "Includes exercising the persistence layer"
+        },
+        "correct_answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "Good unit tests are focused and efficient. They should be fast to execute so they can be run frequently. They must be independent of other tests to avoid cascading failures. Each test should focus on a single logical concept and be as small as possible to clearly define that concept. Exercising external layers like persistence is typically done in integration tests, not unit tests."
+    },
+    {
+        "question": "What does it mean for a Development Team to be cross-functional?",
+        "choices": {
+            "A": "The Development Team is a virtual team drawing from separate teams of business analysts, architects, developers and testers.",
+            "B": "The Development Team includes cross-skilled individuals who are able to contribute to do what is necessary to deliver an increment of software.",
+            "C": "Developers on the Development Team work closely with business analysts, architects, developers and testers who are not on the team.",
+            "D": "The Development Team includes not only developers but also business analysts, architects, developers and testers."
+        },
+        "correct_answer": "B",
+        "explanation": "A cross-functional Development Team has all the competencies needed to accomplish the work without depending on others not part of the team. This doesn't mean every member has every skill, but that the collective skills of the team are sufficient to deliver a Done Increment. It emphasizes shared responsibility and the ability for members to contribute where needed."
+    },
+    {
+        "question": "Which three of the following are code quality metrics?",
+        "choices": {
+            "A": "Unit tests per class",
+            "B": "Cycle time per Product Backlog Item",
+            "C": "Class coupling",
+            "D": "Number of check-ins per day",
+            "E": "Cyclomatic complexity",
+            "F": "Depth of inheritance"
+        },
+        "correct_answer": [
+            "C",
+            "E",
+            "F"
+        ],
+        "explanation": "Code quality metrics measure the structural attributes of the code itself. Class coupling (how dependent classes are on each other), cyclomatic complexity (the number of paths through the code), and depth of inheritance (how many levels of inheritance exist) are all direct measures of code structure and maintainability. Metrics like cycle time and check-ins per day are process or productivity metrics, not code quality metrics."
+    },
+    {
+        "question": "When are testers and quality experts ideally included in a project?",
+        "choices": {
+            "A": "When the product is feature complete",
+            "B": "After Sprint Review",
+            "C": "After developer handoff",
+            "D": "From the beginning and throughout all Sprints"
+        },
+        "correct_answer": "D",
+        "explanation": "In Scrum, quality is a whole-team responsibility and is built in from the start. Testers and quality experts should be part of the Development Team from the very beginning. They participate in all activities, from refinement to development, ensuring that quality considerations are addressed continuously throughout all Sprints, rather than being an afterthought."
+    },
+    {
+        "question": "Which metric is LEAST useful when measuring code maintainability?",
+        "choices": {
+            "A": "Cyclomatic complexity",
+            "B": "Depth of inheritance",
+            "C": "Function points"
+        },
+        "correct_answer": "C",
+        "explanation": "Cyclomatic complexity and depth of inheritance are structural metrics that directly relate to how difficult code is to understand and modify, making them useful for measuring maintainability. Function points, however, are a metric used to measure the amount of business functionality an information system provides to a user. It measures the 'what' (scope), not the 'how' (internal quality), and is therefore least useful for assessing code maintainability."
+    },
+    {
+        "question": "What is a unit test?",
+        "choices": {
+            "A": "A test that isolates and verifies individual units of functionality",
+            "B": "A test that ensures a specific method integrates properly with the code calling it",
+            "C": "A technique for ensuring that units of co-dependent systems integrate correctly",
+            "D": "A way to ensure product code satisfies the user requirements"
+        },
+        "correct_answer": "A",
+        "explanation": "A unit test is a low-level test that focuses on a small, isolated piece of the system (a 'unit'), such as a single method or class. Its purpose is to validate that the unit of code performs as designed in isolation from other parts of the system."
+    },
+    {
+        "question": "When is the Sprint Backlog created?",
+        "choices": {
+            "A": "At the beginning of the project",
+            "B": "During the Sprint",
+            "C": "During the Sprint Planning meeting",
+            "D": "Prior to the Sprint Planning meeting"
+        },
+        "correct_answer": "C",
+        "explanation": "The Sprint Backlog is an output of the Sprint Planning meeting. During this event, the Scrum Team collaborates to define a Sprint Goal, and the Development Team selects Product Backlog Items for the Sprint and creates a plan for delivering them. This collective work forms the Sprint Backlog."
+    },
+    {
+        "question": "What is a merge in a version control system?",
+        "choices": {
+            "A": "Copying a portion of a code base to isolate it from the original codebase",
+            "B": "Identifying a particular codebase as ready for distribution",
+            "C": "Combining two or more versions of code into a single codebase",
+            "D": "Two or more developers working together to ensure proper configuration management"
+        },
+        "correct_answer": "C",
+        "explanation": "In version control, a merge (or integration) is the fundamental operation that reconciles multiple changes made to a version-controlled collection of files. Most often, it is necessary when a file is modified on two independent branches and then combined into a single, unified codebase."
+    },
+    {
+        "question": "Which are the best three criteria to include in a Development Team's definition of 'Done'?",
+        "choices": {
+            "A": "Regression tests pass.",
+            "B": "Code review is done.",
+            "C": "Acceptance tests pass.",
+            "D": "No impediments exist.",
+            "E": "The product is released at the end of every Sprint."
+        },
+        "correct_answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "A good Definition of 'Done' is a checklist of quality activities required to create a releasable Increment. This typically includes ensuring all automated tests pass (including regression and acceptance tests) and that the code has been peer-reviewed. Releasing the product and having no impediments are not typically part of the Definition of 'Done' for a single item."
+    },
+    {
+        "question": "Your Development Team is one of seven teams working on a product. All teams use the same version control system. Which is the best approach to deliver a high-quality Increment?",
+        "choices": {
+            "A": "There is one automated build for all teams.",
+            "B": "Each team should have its own automated build.",
+            "C": "Each team's automated build is integrated toward the end of the Sprint.",
+            "D": "Developers should perform a combination of local and private builds."
+        },
+        "correct_answer": "A",
+        "explanation": "When multiple teams work on one product, they must integrate their work frequently to create a single, unified Increment. The best way to facilitate this is to have one common automated build process for the entire product. This ensures that all code from all teams is continuously integrated and tested together, revealing any cross-team conflicts or issues immediately."
+    },
+    {
+        "question": "Which is a benefit of refactoring code?",
+        "choices": {
+            "A": "To keep the code moving.",
+            "B": "To improve readability and maintainability.",
+            "C": "To have all code in a single file for easy printing and code reviews.",
+            "D": "Improves the external contract representing the system under test."
+        },
+        "correct_answer": "B",
+        "explanation": "Refactoring is about improving the internal structure of code without changing its external behavior. The primary benefit is enhanced readability and maintainability. Clean, well-structured code is easier for developers to understand, modify, and extend, which reduces the likelihood of introducing new bugs and lowers the total cost of ownership."
+    },
+    {
+        "question": "Choose two common cross-cutting concerns in application architecture.",
+        "choices": {
+            "A": "Design pattern selection",
+            "B": "Security",
+            "C": "Scalability",
+            "D": "Build"
+        },
+        "correct_answer": [
+            "B",
+            "C"
+        ],
+        "explanation": "Cross-cutting concerns are aspects of a program that affect multiple parts of the system and cannot be cleanly encapsulated in a single module. Security (like authentication and authorization) and scalability (the ability to handle increased load) are classic examples, as they must be considered throughout the application's architecture."
+    },
+    {
+        "question": "What would NOT be considered refactoring?",
+        "choices": {
+            "A": "Renaming things to be more logical",
+            "B": "Extracting interfaces",
+            "C": "Extracting methods",
+            "D": "Changing external interfaces or APIs",
+            "E": "Reordering method parameters to improve readability"
+        },
+        "correct_answer": "D",
+        "explanation": "Refactoring, by definition, is the process of improving the internal structure of code without changing its external behavior or functionality. Changing external interfaces or APIs is a functional change because it alters how other parts of the system (or external systems) interact with the code. All other options are examples of internal structural improvements."
+    },
+    {
+        "question": "What is static analysis?",
+        "choices": {
+            "A": "Analysis performed on software at runtime",
+            "B": "Analysis performed on code",
+            "C": "Work performed by a business analyst",
+            "D": "A tool that inspects the correctness of static classes"
+        },
+        "correct_answer": "B",
+        "explanation": "Static analysis is the analysis of computer software that is performed without actually executing the program (which is known as dynamic analysis). It is performed on the source code or object code to identify potential vulnerabilities, bugs, or deviations from coding standards."
+    },
+    {
+        "question": "Choose three reasons why architectural layering is important for emergent systems.",
+        "choices": {
+            "A": "Layering makes it easier to reuse functionality.",
+            "B": "Layering separates different logical concerns within the system.",
+            "C": "Layering increases maintainability of a system by isolating functional responsibilities.",
+            "D": "Layering assigns clear responsibilities to individual Development Team members."
+        },
+        "correct_answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "Architectural layering provides structure and separation of concerns. By separating logical concerns (e.g., UI, business logic, data access), it increases maintainability because changes in one layer have minimal impact on others. This separation also makes it easier to reuse functionality, as layers can be swapped or reused independently. It defines responsibilities for components, not individual team members."
+    },
+    {
+        "question": "You are asked to refactor part of the codebase for Application X. When you are done, all unit tests pass with 50% code coverage. What can you infer from this?",
+        "choices": {
+            "A": "There are no bugs present in Application X.",
+            "B": "Less than 50% of Application X functions correctly.",
+            "C": "You did not break any existing unit tests.",
+            "D": "At least 50% of Application X functions correctly."
+        },
+        "correct_answer": "C",
+        "explanation": "The only certain conclusion is that the existing unit tests still pass, meaning you haven't broken the functionality covered by those tests. Code coverage of 50% means half the code is not tested, so you cannot make any claims about its correctness or the absence of bugs. You can only be confident in the parts of the code that are covered by the tests."
+    },
+    {
+        "question": "Which of the following describes an architecture spike?",
+        "choices": {
+            "A": "A decision made by a systems architect to settle disagreement within a Development Team.",
+            "B": "A fundamental architectural problem found in an existing application.",
+            "C": "The result of an exhaustive architectural planning effort.",
+            "D": "A small development activity to learn about technical elements of a proposed solution."
+        },
+        "correct_answer": "D",
+        "explanation": "An architecture spike is a small, time-boxed experiment or research activity designed to answer a specific technical or architectural question. It's a learning activity used to reduce risk and uncertainty, for example, by testing the feasibility of a new technology or approach before committing to it for a larger feature."
+    },
+    {
+        "question": "When does the Development Team participate in Product Backlog refinement?",
+        "choices": {
+            "A": "Only during the Sprint Planning meeting",
+            "B": "Only during refinement meetings planned by the Product Owner",
+            "C": "Never. It is the sole responsibility of the Product Owner to refine the Product Backlog",
+            "D": "Anytime during the Sprint"
+        },
+        "correct_answer": "D",
+        "explanation": "Product Backlog refinement is an ongoing activity, not a single event. The Development Team collaborates with the Product Owner to refine items throughout the Sprint as needed. While it often takes place in dedicated meetings, it can happen anytime to ensure the backlog is well-prepared for future Sprints. It is not solely the Product Owner's responsibility."
+    },
+    {
+        "question": "What is an integration test?",
+        "choices": {
+            "A": "A test of a single unit of functionality",
+            "B": "A test of multiple units of functionality",
+            "C": "A test that runs during a Continuous Integration build",
+            "D": "A test of the user interface"
+        },
+        "correct_answer": "B",
+        "explanation": "An integration test verifies that different modules or 'units' of an application work together as expected. Unlike a unit test, which tests a component in isolation, an integration test focuses on the interaction and data flow between multiple components to expose issues in their interfaces."
+    },
+    {
+        "question": "When is a system's architecture decided?",
+        "choices": {
+            "A": "Throughout development, as understanding emerges",
+            "B": "It is designed along with the vision, before the first Sprint",
+            "C": "In the beginning of the project, during Sprint 0",
+            "D": "Before writing code"
+        },
+        "correct_answer": "A",
+        "explanation": "In agile development and Scrum, architecture is not created in a single, upfront phase. Instead, it is emergent. A lightweight initial framework is established, and the architecture evolves throughout the development process as the team learns more about the system's requirements and technical challenges. This allows the architecture to adapt to new information."
+    },
+    {
+        "question": "The CEO asks the Development Team to add a 'very important' item to a Sprint that is in progress. What should the Development Team do?",
+        "choices": {
+            "A": "Add the item to the current Sprint and drop an item of equal size.",
+            "B": "Add the item to the current Sprint without any adjustments.",
+            "C": "Add the item to the next Sprint.",
+            "D": "Inform the Product Owner so he/she can work with the CEO."
+        },
+        "correct_answer": "D",
+        "explanation": "The Product Owner is the sole person responsible for managing the Product Backlog and prioritizing work. The Development Team should not take direction from other stakeholders, including the CEO. They should protect the Sprint by referring the CEO to the Product Owner, who can discuss the new item's priority and negotiate scope with the Development Team if necessary."
+    },
+    {
+        "question": "What are the top 3 benefits of a good definition of 'Done'?",
+        "choices": {
+            "A": "A full description of all test steps",
+            "B": "An ongoing strategy or technique for steadily addressing technical debt",
+            "C": "A fully integrated increment by the end of each Sprint",
+            "D": "Guidance on the specific patterns to be implemented in code",
+            "E": "Clear communication of the Development Team's quality standards"
+        },
+        "correct_answer": [
+            "B",
+            "C",
+            "E"
+        ],
+        "explanation": "A good Definition of Done creates transparency about quality. It clearly communicates the team's quality standards to all stakeholders. By including quality-related activities, it helps manage and prevent technical debt. Ultimately, it ensures that what is delivered at the end of the Sprint is a truly integrated, high-quality Increment."
+    },
+    {
+        "question": "In software development, DRY refers to:",
+        "choices": {
+            "A": "Code that has not been peer reviewed",
+            "B": "Code with minimal duplication",
+            "C": "Code with low cyclomatic complexity",
+            "D": "Code that has been peer reviewed"
+        },
+        "correct_answer": "B",
+        "explanation": "DRY stands for 'Don't Repeat Yourself'. It is a principle of software development aimed at reducing repetition of information of all kinds. The goal is to have a single, unambiguous, authoritative representation of every piece of knowledge within a system, which helps improve maintainability and reduce the risk of inconsistencies."
+    },
+    {
+        "question": "What is the role of modeling in Scrum Teams?",
+        "choices": {
+            "A": "Models are maintained along with the software as it emerges.",
+            "B": "Modeling may be useful to increase shared understanding.",
+            "C": "Models are not used by agile teams.",
+            "D": "Models are assembly instructions for the Development Team."
+        },
+        "correct_answer": "B",
+        "explanation": "In Scrum, models (like diagrams or workflows) are not typically treated as exhaustive, formal documentation. Instead, they are used as tools to facilitate conversation and create a shared understanding among team members and stakeholders. They are created 'just in time' and are valued for the clarity they bring to a discussion, rather than as a permanent artifact."
+    },
+    {
+        "question": "While practicing Test Driven Development, what is done after the test fails?",
+        "choices": {
+            "A": "Write the product code to satisfy the test",
+            "B": "Meet with the business analyst to ensure that the test is correct",
+            "C": "Run it again to make sure it really fails",
+            "D": "Refactor the test so the code passes"
+        },
+        "correct_answer": "A",
+        "explanation": "The TDD cycle is Red-Green-Refactor. After writing a failing test (Red), the next step is to write the simplest possible production code to make that test pass (Green). Only after the test passes does the developer move on to refactoring the code to improve its internal structure."
+    },
+    {
+        "question": "Who is responsible for the system architecture of a product developed using Scrum?",
+        "choices": {
+            "A": "The Chief Architect",
+            "B": "The architect chosen by the Development Team",
+            "C": "The software architect assigned to the Development Team",
+            "D": "The Development Team"
+        },
+        "correct_answer": "D",
+        "explanation": "In Scrum, the Development Team is self-organizing and collectively responsible for all aspects of development, including the architecture. There is no separate 'architect' role. The team as a whole owns the architectural decisions, ensuring that the design is emergent and supports the delivery of a valuable Increment each Sprint."
+    },
+    {
+        "question": "Programmers and testers should be included in Product Backlog refinement.",
+        "choices": {
+            "A": "True",
+            "B": "False"
+        },
+        "correct_answer": "A",
+        "explanation": "This is true. Product Backlog refinement is a whole-team activity. The insights from all members of the Development Team, including those with programming and testing expertise, are crucial for analyzing requirements, identifying technical challenges, and providing reliable estimates. Their participation ensures a shared understanding of the work."
+    },
+    {
+        "question": "Which two things should the Development Team do during the first Sprint?",
+        "choices": {
+            "A": "Create an Increment of potentially releasable software.",
+            "B": "Analyze, design, and describe the complete architecture and infrastructure.",
+            "C": "Make up a plan for the rest of the project.",
+            "D": "Analyze, describe, and document the requirements for the subsequent Sprints.",
+            "E": "Develop at least one piece of functionality."
+        },
+        "correct_answer": [
+            "A",
+            "E"
+        ],
+        "explanation": "The goal of every Sprint, including the first one, is to deliver a valuable, potentially releasable Increment of working software. This means developing at least one piece of functionality that meets the Definition of Done. The first Sprint is not a planning or setup phase; it is a development cycle focused on delivering value."
+    },
+    {
+        "question": "What is test first development?",
+        "choices": {
+            "A": "Having the tester in the Development Team write the test plans before coding.",
+            "B": "The continuous restructuring of software to retain flexibility.",
+            "C": "Testing existing code before adding more code to it.",
+            "D": "Creating tests before satisfying them."
+        },
+        "correct_answer": "D",
+        "explanation": "Test-first development is a practice where automated tests are written before the functional code that they are meant to validate. This approach, central to Test-Driven Development (TDD), ensures that all new code is written to satisfy a specific, testable requirement, leading to better design and a comprehensive safety net of regression tests."
+    },
+    {
+        "question": "Which is the most reliable form of technical documentation?",
+        "choices": {
+            "A": "A UML model",
+            "B": "A help file",
+            "C": "A spreadsheet of passing manual tests",
+            "D": "The Development Team's whiteboard",
+            "E": "A passing test harness with clear naming and vocabulary",
+            "F": "Release notes"
+        },
+        "correct_answer": "E",
+        "explanation": "In agile development, the most reliable documentation is that which is directly tied to the working software and is automatically verified. A passing automated test harness serves as executable documentation; it describes the system's behavior and is continuously validated against the code itself. Unlike static documents which can become outdated, the test harness is a living, trustworthy source of truth."
+    },
+    {
+        "question": "Database design must be complete before coding starts to ensure a solid foundation.",
+        "choices": {
+            "A": "True",
+            "B": "False"
+        },
+        "correct_answer": "B",
+        "explanation": "This is false. In Scrum, both architecture and database design are emergent. A complete, upfront design is discouraged because requirements will change. Instead, the team designs what is necessary for the current Sprint and allows the design to evolve incrementally as more is learned about the product and its needs."
+    },
+    {
+        "question": "The right time to refactor code using Test Driven Development is:",
+        "choices": {
+            "A": "When I can see the 'debt' building in the code",
+            "B": "When preparing legacy code for unit tests",
+            "C": "After the test passes",
+            "D": "After the test fails"
+        },
+        "correct_answer": "C",
+        "explanation": "The TDD cycle is Red-Green-Refactor. 1 (Red) Write a failing test. 2 (Green) Write the simplest code to make the test pass. 3 (Refactor) Improve the internal structure of the code now that it is working and protected by a test. Therefore, refactoring is done *after* the test passes."
+    },
+    {
+        "question": "When a Continuous Integration build fails, who ideally fixes it?",
+        "choices": {
+            "A": "The person assigned to the configuration management role within the team",
+            "B": "The next person who needs the build to complete successfully",
+            "C": "The tester responsible for validating builds",
+            "D": "The person who broke the build"
+        },
+        "correct_answer": "D",
+        "explanation": "A core principle of Continuous Integration is to fix a broken build immediately. The person who checked in the code that caused the build to fail is responsible for fixing it right away. This ensures the codebase is always in a healthy state for the rest of the team and prevents integration problems from piling up."
+    },
+    {
+        "question": "Which two criteria are useful in deciding if something should be documented every Sprint?",
+        "choices": {
+            "A": "It is required by the Definition of Done.",
+            "B": "It has always been documented in the past.",
+            "C": "The documentation is used to enhance and maintain the software.",
+            "D": "The software tool being used requires it.",
+            "E": "The Scrum Master requires it."
+        },
+        "correct_answer": [
+            "A",
+            "C"
+        ],
+        "explanation": "Documentation should be created if it adds value. The two best criteria are its utility and its inclusion in the team's quality standard. If documentation is necessary to enhance or maintain the software, it provides clear value. If it is part of the Definition of Done, the team has formally agreed it is a required part of delivering a valuable Increment."
+    },
+    {
+        "question": "Is it a good idea to follow each automated build with the execution of automated tests?",
+        "choices": {
+            "A": "No. It would take too much time.",
+            "B": "No. If bugs were uncovered they would interrupt the developers.",
+            "C": "Yes. The tests may identify whether there are bugs that the developers should fix before proceeding.",
+            "D": "Yes. Code coverage can be used to assess progress."
+        },
+        "correct_answer": "C",
+        "explanation": "Yes, this is the core practice of Continuous Integration (CI). Running automated tests after every build provides immediate feedback on the health of the codebase. It allows developers to quickly identify and fix integration errors or regressions before they proceed with further work, ensuring the software remains in a stable state."
+    },
+    {
+        "question": "What are some disadvantages of code coverage as a measurement for how well a system or product is tested? (Choose 3 answers.)",
+        "choices": {
+            "A": "It is too complicated to explain to management.",
+            "B": "It does not ensure that the most important or highest risk areas of the code are being exercised by tests.",
+            "C": "It does not measure usability.",
+            "D": "It only provides insights to programmers.",
+            "E": "It could create incentives to write tests that simply increase code coverage, rather than tests that find bugs without increasing coverage."
+        },
+        "correct_answer": [
+            "B",
+            "C",
+            "E"
+        ],
+        "explanation": "Code coverage is a quantitative, not qualitative, metric. It can create perverse incentives to write simple tests just to boost the percentage. It doesn't guarantee that the most critical or high-risk code paths are tested, nor does it provide any insight into non-functional aspects like usability. A high coverage number can create a false sense of security."
+    },
+    {
+        "question": "What relationship does Scrum have to development practices?",
+        "choices": {
+            "A": "Scrum has no relationship to development practices.",
+            "B": "Scrum requires specific development practices.",
+            "C": "Scrum is complemented by development practices.",
+            "D": "Scrum requires all development practices."
+        },
+        "correct_answer": "C",
+        "explanation": "The Scrum framework itself is intentionally incomplete and does not prescribe specific development practices. However, to be successful, Scrum teams must employ strong technical practices. Practices like Test-Driven Development, Continuous Integration, and refactoring are not part of Scrum but are highly complementary and often essential for delivering a high-quality Increment each Sprint."
+    },
+    {
+        "question": "Which statements are true when multiple Development Teams work on a software product at the same time? (Choose 2 answers.)",
+        "choices": {
+            "A": "The different Development Teams coordinate their work to deliver a single Increment.",
+            "B": "The Development Teams must integrate their work before the end of the Sprint.",
+            "C": "Code is merged at the Scrum of Scrums.",
+            "D": "All teams work in their own version control branch.",
+            "E": "They are all on the same Scrum Team."
+        },
+        "correct_answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "When multiple teams work on one product, their goal is to create one, integrated Increment at the end of the Sprint. To achieve this, they must coordinate amongst themselves and integrate their work frequently, and at least before the end of the Sprint. Working in separate, long-lived branches would prevent this integration."
+    },
+    {
+        "question": "Which are four attributes of a good bug report?",
+        "choices": {
+            "A": "Expected results and observed results",
+            "B": "Provides simple and repeatable reproduction steps",
+            "C": "Explains some new system functionality desired",
+            "D": "Includes build or version number where bug was found",
+            "E": "Includes code for a proposed fix",
+            "F": "Screenshots or other pictures of bug in action"
+        },
+        "correct_answer": [
+            "A",
+            "B",
+            "D",
+            "F"
+        ],
+        "explanation": "A good bug report provides clear and concise information to help a developer reproduce and fix the issue. This includes simple, repeatable steps; the specific build or version number; and a clear description of what was expected versus what was observed. Screenshots are also extremely helpful for providing context. A bug report should describe a bug, not request new functionality."
+    },
+    {
+        "question": "The practice of decomposing a requirement into failing tests is called:",
+        "choices": {
+            "A": "Behavior Driven Development",
+            "B": "Regression testing",
+            "C": "Object oriented requirements definition",
+            "D": "Acceptance Test Driven Development"
+        },
+        "correct_answer": "D",
+        "explanation": "This describes Acceptance Test-Driven Development (ATDD). In ATDD, the team first writes acceptance tests that define a requirement. These tests initially fail because the functionality hasn't been built. The team then writes the code necessary to make these tests pass, ensuring the requirement is met from a user's perspective."
+    },
+    {
+        "question": "What are two ways a Development Team can ensure a good application architecture?",
+        "choices": {
+            "A": "The Development Team has a set of guiding architecture principles that every Development Team member understands and follows when writing code.",
+            "B": "The Development Team focuses only on adding functionality. The architecture will take care of itself as the Development Team adds functionality.",
+            "C": "The Development Team assigns someone to the role of software architect to provide architectural oversight.",
+            "D": "The Development Team uses a Sprint 0 to create infrastructure that will be needed later.",
+            "E": "Architecture is an ongoing discussion in the Development Team, focusing on implementing current Sprint Backlog items."
+        },
+        "correct_answer": [
+            "A",
+            "E"
+        ],
+        "explanation": "Good architecture in Scrum is emergent and collaborative. The team should establish and follow a set of guiding principles to ensure consistency. Architecture is not a one-time event but an ongoing conversation that happens continuously as the team works on Sprint Backlog items. This allows the architecture to evolve based on real needs rather than upfront speculation."
+    },
+    {
+        "question": "What are two responsibilities of testers in a Development Team?",
+        "choices": {
+            "A": "Tracking quality metrics",
+            "B": "Finding bugs",
+            "C": "Everyone in the Development Team is responsible for quality",
+            "D": "Scrum has no 'tester' role",
+            "E": "Verifying the work of programmers"
+        },
+        "correct_answer": [
+            "C",
+            "D"
+        ],
+        "explanation": "This is a tricky question. Scrum does not define a separate 'tester' role; there are only Developers within a Development Team. Quality is the responsibility of the entire Development Team. Therefore, the most accurate statements are that Scrum has no 'tester' role and that everyone on the team is responsible for quality."
+    },
+    {
+        "question": "What does Code Coverage show?",
+        "choices": {
+            "A": "The absence of defects in code.",
+            "B": "The quality of unit tests being written.",
+            "C": "When a feature is done.",
+            "D": "The ratio of the number of tests to lines of code in the system being tested.",
+            "E": "Code being exercised by tests."
+        },
+        "correct_answer": "E",
+        "explanation": "Code coverage is a metric that describes the degree to which the source code of a program is executed when a particular test suite runs. It shows which parts of the code were exercised by the tests, but it does not measure the quality of the tests or guarantee the absence of defects."
+    },
+    {
+        "question": "How should Product Backlog items be chosen when multiple Scrum Teams work from the same Product Backlog?",
+        "choices": {
+            "A": "Each Scrum Team takes an equal number of items.",
+            "B": "The Development Teams pull in work in agreement with the Product Owner.",
+            "C": "The Product Owner should provide each team with its own Product Backlog.",
+            "D": "The Product Owner decides.",
+            "E": "The Scrum Team with the highest velocity pulls Product Backlog items first."
+        },
+        "correct_answer": "B",
+        "explanation": "The Development Teams are self-organizing. During Sprint Planning, they 'pull' work from the Product Backlog. They do this in collaboration and agreement with the Product Owner, who explains the priority and goal. The teams themselves determine how much work they can take on to best achieve the Sprint Goal."
+    },
+    {
+        "question": "What does a test written with Test Driven Development represent?",
+        "choices": {
+            "A": "A bug that will be uncovered.",
+            "B": "A technical requirement that must be satisfied.",
+            "C": "Something that completes the test coverage of a system.",
+            "D": "An assignment from the lead quality engineer."
+        },
+        "correct_answer": "B",
+        "explanation": "In TDD, a test is written first to define a specific piece of functionality or behavior. This test acts as an executable specification—a technical requirement that the production code must then be written to satisfy. It defines what the code needs to do before the code is actually written."
+    },
+    {
+        "question": "Which statement best describes a Product Owner's responsibility?",
+        "choices": {
+            "A": "Optimizing the value of the work the Development Team does.",
+            "B": "Directing the Development Team.",
+            "C": "Keeping stakeholders at bay.",
+            "D": "Managing the project and ensuring that the work meets the commitments to the stakeholders."
+        },
+        "correct_answer": "A",
+        "explanation": "The primary and explicit responsibility of the Product Owner in Scrum is to maximize the value of the product resulting from the work of the Development Team. This is achieved through managing and prioritizing the Product Backlog. The Product Owner does not direct the team but guides them toward delivering the most valuable outcomes."
+    },
+    {
+        "question": "What is the recommended size for a Development Team?",
+        "choices": {
+            "A": "At least 7",
+            "B": "7 plus or minus 3",
+            "C": "9",
+            "D": "3 to 9"
+        },
+        "correct_answer": "D",
+        "explanation": "The Scrum Guide (prior to the 2020 update) recommended a Development Team size of 3 to 9 members. This range is considered small enough to remain nimble and large enough to complete significant work within a Sprint. (Note: The 2020 Scrum Guide updated this to a Scrum Team of 10 or fewer people)."
+    },
+    {
+        "question": "Sprint burndown charts are an efficient tracking tool because they show:",
+        "choices": {
+            "A": "How many Product Backlog items remain.",
+            "B": "How many hours have been worked by each Development Team member.",
+            "C": "How much effort has gone into a Sprint.",
+            "D": "An estimate of the total work remaining for the Sprint."
+        },
+        "correct_answer": "D",
+        "explanation": "A Sprint burndown chart tracks the total work remaining in the Sprint Backlog over time. The vertical axis shows the amount of work remaining (often in hours or story points), and the horizontal axis shows the days of the Sprint. It provides a transparent view of the team's progress toward completing the forecasted work."
+    },
+    {
+        "question": "When should a Development Team create its first automated build?",
+        "choices": {
+            "A": "When the Product Owner asks for a build",
+            "B": "Just before the end of the Sprint",
+            "C": "Before the first check-in",
+            "D": "As soon as there is code in the version control system",
+            "E": "Just before the product is released"
+        },
+        "correct_answer": "D",
+        "explanation": "An automated build should be set up as early as possible. The ideal time is as soon as the first piece of code is checked into the version control system. This establishes the practice of Continuous Integration from the very beginning of the project, ensuring that all subsequent code is integrated and verified automatically."
+    }
+  ]
+}
