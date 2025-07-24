@@ -1,2 +1,31 @@
-[
-]
+{
+    "subject": "TEST",
+    "questions": [
+        {
+            "question": "A Programmer is creating a simulation of a plane taking off from a landing strip. The code for the plane is shown below (line numbers are for reference only):\n\n```csharp\n01 public class Plane : MonoBehaviour\n02 {\n03     public Rigidbody rb;\n04     public float forwardForce;\n05     public float liftForce;\n06 \n07     void FixedUpdate()\n08     {\n09         // TODO: add takeoff code here\n10     }\n11 }\n```\n\nThe landing strip is parallel to the Z axis. The Y axis is perpendicular to the landing strip. The forwardForce field specifies the force of the plane going down the landing strip. The LiftForce field specifies the force used to lift the plane from the landing strip. The Programmer needs to add code at line 09 so that the plane can perform its takeoff. Which code segment should the Programmer use?",
+            "choices": {
+                "A": "rb.AddForce(0, liftForce, forwardForce);",
+                "B": "rb.AddForce(Time.fixedDeltaTime, forwardForce, liftForce);",
+                "C": "rb.AddForce(0, liftForce * Time.fixedDeltaTime, forwardForce * Time.fixedDeltaTime);",
+                "D": "rb.AddForce(liftForce, forwardForce, Time.fixedDeltaTime);"
+            },
+            "correct_answer": "A",
+            "explanation": "Physics calculations should be done in FixedUpdate. Rigidbody.AddForce applies a force in world space coordinates (X, Y, Z). The plane needs forward force along the Z-axis and lift force along the Y-axis. Therefore, the correct call is rb.AddForce(0, liftForce, forwardForce). Multiplying by Time.fixedDeltaTime is not necessary for the default ForceMode.Force, as the physics engine already accounts for the fixed time step."
+        },
+        {
+            "question": "A Programmer is creating a simulation in which a spaceship is piloted by manually rotating individual thrusters. The spaceship is accelerating too quickly and spinning on an incorrect axis. The code is shown below:\n\n```csharp\npublic class Ship : MonoBehaviour\n{\n    public Thruster[] thrusters;\n    private Rigidbody rb;\n\n    void Start()\n    {\n        rb = GetComponent<Rigidbody>();\n    }\n\n    void Update()\n    {\n        foreach (Thruster thruster in thrusters)\n        {\n            rb.AddForce(thruster.transform.up * thruster.thrust, ForceMode.Acceleration);\n            rb.AddTorque(thruster.transform.up * thruster.thrust, ForceMode.Acceleration);\n        }\n    }\n}\n```\n\nWhich two steps should the Programmer take to fix the code? (Choose two.)",
+            "choices": {
+                "A": "Replace transform.position with rb.centerOfMass.",
+                "B": "Check if rb is null in Update().",
+                "C": "Add ForceMode.Force to the AddTorque() call.",
+                "D": "Change Update() to FixedUpdate().",
+                "E": "Use rb.AddForceAtPosition() in place of both calls."
+            },
+            "correct_answer": [
+                "D",
+                "E"
+            ],
+            "explanation": "Physics-related code, especially applying forces and torques to a Rigidbody, should always be in FixedUpdate() to ensure consistent behavior regardless of frame rate. Secondly, applying force and torque separately for each thruster is complex. The rb.AddForceAtPosition() method is designed for this exact scenario; it applies a single force at a specific point on the Rigidbody, which correctly calculates both the linear force and the resulting torque (spin) automatically. This simplifies the code and fixes the incorrect spinning."
+        }
+    ]
+}

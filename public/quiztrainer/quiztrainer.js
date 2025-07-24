@@ -467,9 +467,15 @@ class QuizTrainer {
         return parts.map(part => {
             if (part.startsWith('```')) {
                 const match = part.match(/```(\w+)?\n([\s\S]*?)```/);
-                if (!match) return this.escapeHtml(part);
-                const language = match || 'plaintext';
-                const code = this.escapeHtml(match.trim());
+                if (!match) return this.escapeHtml(part); // Good guard clause
+
+                // The language is the first captured group (match[1])
+                const language = match[1] || 'plaintext';
+
+                // The code is the second captured group (match[2])
+                // THIS IS THE FIX: Access match[2] before trimming
+                const code = this.escapeHtml(match[2].trim());
+
                 return `<pre><code class="language-${language}">${code}</code></pre>`;
             }
             // Otherwise, it's regular text. Apply the standard formatting.
