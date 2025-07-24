@@ -43,7 +43,9 @@
                     <!-- Existing Quiz Dropdown (Modified default text ) -->
                     <div class="select-container">
                         <select id="quiz-select">
-                            <option value="">-- Select a subject first --</option>
+                            <option value=""
+                                >-- Select a subject first --</option
+                            >
                         </select>
                     </div>
                 </div>
@@ -93,7 +95,7 @@
                     <button class="start-btn" id="start-quiz">
                         <i class="fas fa-play"></i> Start Quiz
                     </button>
-                    
+
                     <!-- Foldout Trigger Button -->
                     <button class="options-toggle-btn" id="options-toggle">
                         Advanced Options <i class="fas fa-chevron-down"></i>
@@ -121,6 +123,10 @@
                                 >Randomize Answer Order</label
                             >
                         </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="enable-timer" />
+                            <label for="enable-timer">Enable Timer</label>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -137,25 +143,24 @@
                             >.json</code
                         > file <a href="mailto:samuel.styles93@gmail.com"
                             >HERE</a
-                        > for review.
-                          
-We will consider implementing it in the data base.
-                          
----
-                          
-You can also click <a
+                        > for review. We will consider implementing it in the data
+                        base. --- You can also click <a
                             href="/projects/quiztrainer/#format">HERE</a
                         > to see how to format your <code>.json</code>
                     </p>
                 </div>
             </section>
 
-            <!-- Quiz Section (No changes here) -->
+            <!-- Quiz Section -->
             <section
                 id="quiz-section"
                 class="quiz-section"
                 style="display: none;"
             >
+                <div id="quiz-header-info" class="quiz-header-info">
+                    <!-- The timer inserted here by JavaScript -->
+                </div>
+
                 <div class="progress-container">
                     <div class="progress-info">
                         <span id="current-question">1</span> of <span
@@ -215,7 +220,7 @@ You can also click <a
                 </div>
             </section>
 
-            <!-- Results Section (No changes here) -->
+            <!-- Results Section -->
             <section
                 id="results-section"
                 class="results-section"
@@ -235,15 +240,29 @@ You can also click <a
                         <div class="results-details">
                             <div class="result-item">
                                 <span class="label">Correct Answers:</span>
-                                <span id="correct-count">0</span>
+                                <!-- Add class="value" -->
+                                <span id="correct-count" class="value">0</span>
                             </div>
                             <div class="result-item">
                                 <span class="label">Total Questions:</span>
-                                <span id="total-count">0</span>
+                                <!-- Add class="value" -->
+                                <span id="total-count" class="value">0</span>
                             </div>
                             <div class="result-item">
                                 <span class="label">Accuracy:</span>
-                                <span id="accuracy">0%</span>
+                                <!-- Add class="value" -->
+                                <span id="accuracy" class="value">0%</span>
+                            </div>
+                            <div
+                                class="result-item"
+                                id="time-result-item"
+                                style="display: none;"
+                            >
+                                <span class="label">Time Taken:</span>
+                                <!-- Add class="value" -->
+                                <span id="time-taken" class="value"
+                                    >00:00:00</span
+                                >
                             </div>
                         </div>
                     </div>

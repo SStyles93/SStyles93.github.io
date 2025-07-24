@@ -11,6 +11,10 @@ class QuizTrainer {
         this.score = 0;
         this.isAnswered = false;
         this.selectedChoices = [];
+        // --- TIMER ---
+        this.timerInterval = null;
+        this.startTime = 0;
+        this.elapsedTime = 0;
 
         this.bindEventListeners();
         this.fetchQuizFiles();
@@ -39,6 +43,47 @@ class QuizTrainer {
         });
     }
 
+    // --- TIMER ---
+    // New helper function to format time from seconds to hh:mm:ss
+    formatTime(seconds) {
+        const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+        const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+        const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+        return `${h}:${m}:${s}`;
+    }
+
+    // --- TIMER ---
+    //Function to start the timer
+    startTimer() {
+        // Create a placeholder for the timer in the DOM if it doesn't exist
+        if (!document.getElementById('timer-display')) {
+            const timerElement = document.createElement('div');
+            timerElement.id = 'timer-display';
+            timerElement.className = 'timer-display';
+            document.getElementById('quiz-header-info').appendChild(timerElement);
+        }
+
+        const timerElement = document.getElementById('timer-display');
+        timerElement.style.display = 'block';
+        this.startTime = Date.now();
+
+        this.timerInterval = setInterval(() => {
+            this.elapsedTime = Math.floor((Date.now() - this.startTime) / 1000);
+            timerElement.innerHTML = `<i class="fas fa-clock"></i> ${this.formatTime(this.elapsedTime)}`;
+        }, 1000);
+    }
+
+    // --- TIMER ---
+    //Function to stop the timer
+    stopTimer() {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+        const timerElement = document.getElementById('timer-display');
+        if (timerElement) {
+            timerElement.style.display = 'none';
+        }
+    }
+
     shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -50,7 +95,7 @@ class QuizTrainer {
         if (typeof text !== 'string') return ''; // Guard against non-string input
         let formatted = this.escapeHtml(text);
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        formatted = formatted.replace(/\n/g, '');
+        formatted = formatted.replace(/\n/g, ' ');
         return formatted;
     }
 
@@ -205,6 +250,13 @@ class QuizTrainer {
         this.userAnswers = new Array(this.questions.length).fill(null);
         this.questionStates = new Array(this.questions.length).fill(null);
         this.score = 0;
+
+        // --- TIMER ---
+        // Stop any previous timer and start a new one if the option is checked
+        this.stopTimer();
+        if (document.getElementById('enable-timer').checked) {
+            this.startTimer();
+        }
 
         document.getElementById('setup-section').style.display = 'none';
         document.getElementById('contribution-section').style.display = 'none';
@@ -420,6 +472,10 @@ class QuizTrainer {
     }
 
     finishQuiz() {
+
+        // --- TIMER ---
+        this.stopTimer();
+
         document.getElementById('quiz-section').style.display = 'none';
         document.getElementById('results-section').style.display = 'block';
         const total = this.questions.length;
@@ -428,6 +484,17 @@ class QuizTrainer {
         document.getElementById('correct-count').textContent = this.score;
         document.getElementById('total-count').textContent = total;
         document.getElementById('accuracy').textContent = `${percentage}%`;
+
+        //--- TIMER ---
+        //Display the final time on the results screen if the timer was enabled
+        const timeResultItem = document.getElementById('time-result-item');
+        if (document.getElementById('enable-timer').checked) {
+            document.getElementById('time-taken').textContent = this.formatTime(this.elapsedTime);
+            timeResultItem.style.display = 'flex';
+        } else {
+            timeResultItem.style.display = 'none';
+        }
+
         this.animateScoreCircle(percentage);
     }
 
@@ -445,6 +512,11 @@ class QuizTrainer {
     }
 
     resetToSetup() {
+
+        //--- TIMER ---
+        //Ensure the timer is stopped when resetting
+        this.stopTimer();
+
         document.getElementById('setup-section').style.display = 'block';
         document.getElementById('contribution-section').style.display = 'block';
         document.getElementById('quiz-section').style.display = 'none';

@@ -697,23 +697,34 @@ code {
 
 .results-details {
     text-align: left;
+    width: 100%;
+    max-width: 350px; /* Constrain the width for readability */
+    margin: 0 auto;   /* Center the block on the page */
 }
 
 .result-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
+    display: flex; /* Use flexbox for alignment */
+    justify-content: flex-start; /* Align items to the start, not space-between */
+    align-items: center; /* Keep items vertically centered */
+    padding: 12px 0; /* Add vertical spacing */
+    border-bottom: 1px solid #eee; /* Restore the separator line */
     font-size: 1.2rem;
 }
 
 .result-item:last-child {
-    border-bottom: none;
+    border-bottom: none; /* Remove the line from the last item */
 }
 
-.label {
+.result-item .label {
     font-weight: 600;
     color: #555;
+    flex-basis: 180px; /* THIS IS THE KEY: Give all labels a fixed base width */
+    flex-shrink: 0;    /* Prevent the label from shrinking if space is tight */
+}
+
+.result-item .value {
+    font-weight: bold;
+    color: #333;
 }
 
 .results-actions {
@@ -762,6 +773,47 @@ code {
     .progress-container {
         flex-direction: column;
         gap: 15px;
+    }
+
+    /* Styles for the new quiz header container */
+    .quiz-header-info {
+        display: flex;
+        justify-content: center;
+        /* Center the timer horizontally */
+        margin-bottom: 20px;
+        /* Add some space below the timer */
+    }
+
+    /* Styles for the timer display itself */
+    .timer-display {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #555;
+        background-color: #f8f9fa;
+        padding: 10px 20px;
+        border-radius: 50px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .timer-display i {
+        margin-right: 8px;
+        /* Space between the icon and the time */
+        color: #667eea;
+    }
+
+    /* Make sure the progress container can hold the timer without breaking on small screens */
+    .progress-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 15px;
+        flex-wrap: wrap;
+        /* Allow items to wrap on smaller screens */
+        gap: 15px;
+        /* Add some space between items when they wrap */
     }
 
     .navigation,

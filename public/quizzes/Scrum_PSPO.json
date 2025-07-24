@@ -1,0 +1,1354 @@
+{
+  "subject": "Scrum",
+  "questions": [
+    {
+      "question": "True or False: All planned work for the Product done by the Scrum Team must originate from the Product Backlog.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "A",
+      "explanation": "In Scrum, the Product Backlog is the single source of all work for the Scrum Team. This ensures that the team is focused on the items that the Product Owner has prioritized to maximize value, and prevents work from coming in from unmanaged side channels."
+    },
+    {
+      "question": "When multiple Scrum Teams are working on a single product, what best describes the Definition of Done? (choose the best answer)",
+      "choices": {
+        "A": "The Scrum Masters from each Scrum Team define a common Definition of Done.",
+        "B": "Each Scrum Team uses its own, but must make their definition clear to all other teams so the differences are known.",
+        "C": "All Scrum Teams must have a Definition of Done that makes their combined Increment valuable and useful.",
+        "D": "It depends."
+      },
+      "correct_answer": "C",
+      "explanation": "When multiple teams work on the same product, they must have a shared understanding of what 'Done' means to ensure their combined work creates a coherent, valuable Increment. While each team can add to the Definition of Done, there must be a common baseline that ensures integration and quality."
+    },
+    {
+      "question": "Who owns the Sprint Backlog? (choose the best answer)",
+      "choices": {
+        "A": "The Scrum Team.",
+        "B": "The Product Owner.",
+        "C": "The Developers.",
+        "D": "The Product Owner."
+      },
+      "correct_answer": "C",
+      "explanation": "The Sprint Backlog is created by and for the Developers. While the Product Owner defines the Sprint Goal and the Scrum Master facilitates, the Developers own the Sprint Backlog, including selecting the items and planning the work needed to achieve the Sprint Goal."
+    },
+    {
+      "question": "True or False: During the Sprint Review the stakeholder's role is to reorder the Product Backlog.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "The Product Owner is solely responsible for managing and ordering the Product Backlog. While stakeholders provide crucial feedback during the Sprint Review that will influence the Product Owner's decisions, they do not directly reorder the backlog themselves."
+    },
+    {
+      "question": "True or False: A Product Owner with multiple teams working on one product should maintain separate Product Backlogs for each team.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "When multiple teams work on a single product, there must be only one Product Backlog. This ensures a single source of truth for all the work on the product and allows the Product Owner to prioritize work for the product as a whole."
+    },
+    {
+      "question": "Which statement best describes Scrum? (choose the best answer)",
+      "choices": {
+        "A": "A defined and predictive process that conforms to the principles of Scientific Management.",
+        "B": "A cookbook that defines best practices for software development.",
+        "C": "A framework to generate value through adaptive solutions for complex problems.",
+        "D": "A complete methodology that defines how to develop software."
+      },
+      "correct_answer": "C",
+      "explanation": "Scrum is intentionally incomplete. It is a lightweight framework, not a complete methodology or a predictive process. It provides a structure of roles, events, and artifacts to help teams and organizations generate value by adaptively solving complex problems."
+    },
+    {
+      "question": "True or False: To get started in terms of what to build, Scrum requires no more than a Product Owner with enough ideas for a first Sprint, Developers to implement those ideas, and a Scrum Master to help guide the process.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "A",
+      "explanation": "Scrum is designed to get started quickly without extensive upfront planning. All that is needed is a Scrum Team (Product Owner, Scrum Master, Developers) and a Product Backlog with enough work ready for the first Sprint. The rest of the backlog and plan can emerge over time."
+    },
+    {
+      "question": "What is the responsibility of the Product Owner in crafting the Sprint Goal? (choose the best answer)",
+      "choices": {
+        "A": "The Product Owner defines the scope for a Sprint and therefore also the Sprint Goal.",
+        "B": "The Product Owner cannot attend Sprint Planning without having documented the Sprint Goal in advance.",
+        "C": "The Product Owner has no responsibility for the Sprint Goal. It is the sole responsibility of the Developers.",
+        "D": "The Product Owner must work with stakeholders to set each Sprint's Goal.",
+        "E": "The Product Owner should come to Sprint Planning with a business objective in mind and work with the Developers to craft the Sprint Goal."
+      },
+      "correct_answer": "E",
+      "explanation": "The Sprint Goal is a collaborative effort. The Product Owner proposes how the product could increase its value in the current Sprint. Then, through discussion with the Developers, the whole Scrum Team crafts a Sprint Goal that is a single, coherent objective for the Sprint."
+    },
+    {
+      "question": "True or False: Product Owners must specify complete acceptance criteria for a Product Backlog item before the Developers can select the item in Sprint Planning.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "While Product Backlog items need to be clear enough to be selected, the details, including acceptance criteria, can be refined during the Sprint. The goal is for items to be 'ready' for a Sprint, implying a shared understanding, but not necessarily exhaustive upfront documentation. Collaboration and conversation during the Sprint are expected."
+    },
+    {
+      "question": "Why would you expect a Product Owner to care that the Scrum Team adheres to its Definition of Done? (choose the best two answers)",
+      "choices": {
+        "A": "The Definition of Done can affect the product's total cost of ownership.",
+        "B": "To be able to punish the team when they do not meet their velocity goal for the Sprint.",
+        "C": "The Product Owner should not concern themselves with meeting the Definition of Done, it is the Developer's responsibility.",
+        "D": "To forecast the team's productivity over time.",
+        "E": "To have complete transparency into what has been done at the end of each Sprint."
+      },
+      "correct_answer": [
+        "A",
+        "E"
+      ],
+      "explanation": "The Definition of Done ensures transparency; when an item is 'Done', the Product Owner knows exactly what level of quality and completeness has been achieved. A strong Definition of Done that includes quality aspects like testing and documentation also reduces technical debt, which lowers the long-term total cost of ownership of the product."
+    },
+    {
+      "question": "In the middle of the Sprint, the customer decides that there are two new features she wants. The Product Owner could: (choose the best two answers)",
+      "choices": {
+        "A": "Introduce these features at the next Daily Scrum.",
+        "B": "Have the Scrum Master add these features to the current Sprint.",
+        "C": "Add these features to the Product Backlog.",
+        "D": "Ask the Developers to consider whether they can add these features to the current Sprint without endangering the Sprint Goal."
+      },
+      "correct_answer": [
+        "C",
+        "D"
+      ],
+      "explanation": "The Product Owner's first step is always to add new ideas to the Product Backlog to be ordered later. They can also negotiate with the Developers to see if the new work can be pulled into the current Sprint, but only if this does not endanger the Sprint Goal. The Developers have the final say on what can be added to the Sprint Backlog once the Sprint has begun."
+    },
+    {
+      "question": "When should the Product Owner update the project plan? (choose the best answer)",
+      "choices": {
+        "A": "After the Daily Scrum to ensure an accurate daily overview of project progress.",
+        "B": "The Product Backlog is the plan in Scrum. It is updated as new information and insights emerge.",
+        "C": "The project plan must be updated prior to the Sprint Retrospective.",
+        "D": "Before the Sprint Planning to know how much work will have to be done in the Sprint."
+      },
+      "correct_answer": "B",
+      "explanation": "In Scrum, the Product Backlog serves as the plan for the product. It is not a static document but a living artifact that is continuously updated by the Product Owner whenever new information, feedback, or insights emerge, ensuring it always reflects the current plan to maximize value."
+    },
+    {
+      "question": "Who has the final decision about the order of items in the Product Backlog? (choose the best answer)",
+      "choices": {
+        "A": "The Scrum Master.",
+        "B": "The Product Owner.",
+        "C": "The Stakeholders.",
+        "D": "The Scrum Team.",
+        "E": "The Developers."
+      },
+      "correct_answer": "B",
+      "explanation": "The Product Owner is the sole person responsible for managing the Product Backlog, which includes its content, availability, and ordering. While they may take input from stakeholders and the Developers, the final accountability for the order rests with the Product Owner."
+    },
+    {
+      "question": "True or False: Scrum has a role called \"Project Manager\".",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "The Scrum framework defines exactly three roles: Product Owner, Scrum Master, and Developers. There is no 'Project Manager' role in Scrum. The responsibilities traditionally associated with a project manager are distributed among the three Scrum roles."
+    },
+    {
+      "question": "Why is it important that there is only one Product Owner per product? (choose the best three answers)",
+      "choices": {
+        "A": "It is clear who is accountable for the ultimate value of the product.",
+        "B": "It helps avoid barriers to effective communication and rapid decision-making.",
+        "C": "The Scrum Team always knows who determines the order of the Product Backlog.",
+        "D": "It would confuse the stakeholders if they had to work with more than one person.",
+        "E": "The Scrum Master knows who acts as their backup while on vacation."
+      },
+      "correct_answer": [
+        "A",
+        "B",
+        "C"
+      ],
+      "explanation": "Having a single Product Owner provides a single point of accountability for product value. It also prevents conflicting directions by creating a clear channel for communication and decision-making. This ensures the Scrum Team has one, and only one, person to go to for the final say on the order of the Product Backlog."
+    },
+    {
+      "question": "A Product Backlog is: (choose the best three answers)",
+      "choices": {
+        "A": "An inventory of things to be done for the Product.",
+        "B": "Managed by the Product Owner.",
+        "C": "Ordered based on priority, value, dependencies, and risk.",
+        "D": "Only visible to the Product Owner and stakeholders.",
+        "E": "An exhaustive list of upfront approved requirements to be implemented."
+      },
+      "correct_answer": [
+        "A",
+        "B",
+        "C"
+      ],
+      "explanation": "A Product Backlog is the single source of requirements for any changes to be made to the product. The Product Owner is the sole person responsible for managing it. Its ordering is a complex decision based on multiple factors including value, risk, and dependencies. It is not a static, upfront list, and it should be transparent to the entire Scrum Team and stakeholders."
+    },
+    {
+      "question": "True or False: The Scrum Team is accountable for creating a valuable increment every Sprint.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "A",
+      "explanation": "The entire Scrum Team—comprising the Product Owner, the Scrum Master, and the Developers—is collectively accountable for creating a valuable and usable Increment every Sprint. This shared accountability is a core tenet of the framework."
+    },
+    {
+      "question": "True or False: A Product Owner should measure product value by the increase in the team's velocity.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "Velocity is a measure of the amount of work a team completes in a Sprint. It is a metric for the team to gauge its capacity and is not a measure of product value. Value is measured by outcomes, such as customer satisfaction, revenue, and market share, not by output."
+    },
+    {
+      "question": "Who does the work to make sure Product Backlog items conform to the Definition of Done? (choose the best answer)",
+      "choices": {
+        "A": "The Scrum Team.",
+        "B": "The Quality Assurance Team.",
+        "C": "The Developers.",
+        "D": "The Scrum Master.",
+        "E": "The Product Owner."
+      },
+      "correct_answer": "C",
+      "explanation": "The Developers are the ones who perform the work of creating the Increment. Therefore, they are responsible for doing all the work required—including testing, documentation, integration, etc.—to ensure that each Product Backlog item they select conforms to the Definition of Done."
+    },
+    {
+      "question": "What three things might a Scrum Product Owner focus on to ensure the product delivers value? (choose the best three answers)",
+      "choices": {
+        "A": "How quickly or easily the product can be absorbed and used by its customers.",
+        "B": "Direct customer feedback.",
+        "C": "Velocity is increasing over time.",
+        "D": "Minimizing changes to project scope.",
+        "E": "How much of the functionality of the product is being used."
+      },
+      "correct_answer": [
+        "A",
+        "B",
+        "E"
+      ],
+      "explanation": "Delivering value is about understanding and satisfying customer needs. A Product Owner should focus on customer adoption and ease of use, direct feedback from users, and data on which features are actually being used. Velocity is a measure of output, not value, and minimizing scope changes can be counterproductive in an agile environment."
+    },
+    {
+      "question": "True or False: Sprint Reviews are an opportunity to collect stakeholder feedback.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "A",
+      "explanation": "This is a primary purpose of the Sprint Review. The Scrum Team presents the Increment to stakeholders to get their feedback. This feedback is a crucial input for the Product Owner to adapt the Product Backlog for future Sprints."
+    },
+    {
+      "question": "What typically happens if the selected Product Backlog items are not sufficiently clear during Sprint Planning? (choose the best answer)",
+      "choices": {
+        "A": "The Product Owner should select the Sprint Goal for the Scrum Team so that work can begin.",
+        "B": "The Developers will find it difficult to create a Sprint forecast they are confident they can meet.",
+        "C": "Nothing in particular.",
+        "D": "The Scrum Master should not allow this to happen. Look for a new Scrum Master and re-start the Sprint.",
+        "E": "Sprint Planning is canceled so refinement can be done first."
+      },
+      "correct_answer": "B",
+      "explanation": "If Product Backlog items are unclear, the Developers cannot effectively plan the work required to complete them. This lack of clarity makes it difficult for them to forecast how much work they can realistically pull into the Sprint and accomplish, thereby reducing confidence in their Sprint Backlog."
+    },
+    {
+      "question": "Who should make sure everyone on the Scrum Team does their tasks for the Sprint? (choose the best answer)",
+      "choices": {
+        "A": "The Project Manager.",
+        "B": "The Product Owner.",
+        "C": "The Scrum Master.",
+        "D": "The Scrum Team.",
+        "E": "All of the above."
+      },
+      "correct_answer": "D",
+      "explanation": "Scrum Teams are self-managing. There is no manager directing the team's work. The team as a whole is collectively accountable for managing their work and progress towards the Sprint Goal. They hold each other accountable."
+    },
+    {
+      "question": "Why does the Product Owner want the Developers to adhere to its Definition of Done? (choose the best answer)",
+      "choices": {
+        "A": "To know what the team will deliver over the next three Sprints.",
+        "B": "To predict the team's productivity over time.",
+        "C": "To be able to reprimand the team when they do not meet their velocity goal for the Sprint.",
+        "D": "To have complete transparency into what has been done at the end of each Sprint."
+      },
+      "correct_answer": "D",
+      "explanation": "The Definition of Done is a commitment that creates transparency. When an item meets the Definition of Done, the Product Owner and all stakeholders have a clear, shared understanding of the quality and completeness of the work. This transparency is crucial for inspection and adaptation."
+    },
+    {
+      "question": "The Developers find out during the Sprint that they are not likely to build everything they forecast. What would you expect a Product Owner to do? (choose the best answer)",
+      "choices": {
+        "A": "Skip Product Backlog refinement activities.",
+        "B": "Inform management that more Developers are needed.",
+        "C": "Re-work the selected Product Backlog items with the Developers to meet the Sprint Goal.",
+        "D": "Change the Sprint Goal.",
+        "E": "Cancel the Sprint."
+      },
+      "correct_answer": "C",
+      "explanation": "The Sprint Goal remains intact. When the forecast is at risk, the Product Owner collaborates with the Developers to figure out how the Sprint Goal can still be met. This often involves negotiating the scope of the selected Product Backlog items, removing or simplifying work that is not essential to achieving the goal."
+    },
+    {
+      "question": "What tactic should a Scrum Team use to divide a group of 100 people into multiple Scrum Teams? (choose the best answer)",
+      "choices": {
+        "A": "Create teams based on their skills across multiple layers (such as database, UI, etc.).",
+        "B": "Ask the people to divide themselves into teams.",
+        "C": "Ask the Product Owner to assign the people to teams."
+      },
+      "correct_answer": "B",
+      "explanation": "Scrum emphasizes self-management and self-organization. The most effective and committed teams are those that form themselves, based on a shared understanding of the work to be done. This approach fosters ownership and leverages the collective knowledge of the group to create balanced, cross-functional teams."
+    },
+    {
+      "question": "The job of a Product Owner focuses on the following: (choose the best two answers)",
+      "choices": {
+        "A": "Being with the Scrum Team all the time, just in case they need me to clarify a requirement.",
+        "B": "Writing clear, transparent User Stories.",
+        "C": "Clearly communicating project or release status and strategies to customers and stakeholders.",
+        "D": "Working with customers and stakeholders to identify the most valuable product requirements."
+      },
+      "correct_answer": [
+        "C",
+        "D"
+      ],
+      "explanation": "The Product Owner's primary focus is on maximizing value. This is achieved by deeply understanding and working with customers and stakeholders to identify what is most valuable, and then effectively communicating the product strategy and status back to them. While writing user stories is a common task, it can be delegated; the accountability lies in ensuring requirements are understood."
+    },
+    {
+      "question": "A product's success is measured by: (choose the best three answers)",
+      "choices": {
+        "A": "The delivery of upfront defined scope compared to the upfront planned time.",
+        "B": "The impact on my performance rating.",
+        "C": "The impact on customer satisfaction.",
+        "D": "The impact on my boss's mood.",
+        "E": "The impact on revenue.",
+        "F": "The impact on cost."
+      },
+      "correct_answer": [
+        "C",
+        "E",
+        "F"
+      ],
+      "explanation": "Product success is ultimately about delivering value. This is measured through outcomes like customer satisfaction (are we solving their problem?), revenue (are we financially successful?), and cost (are we building it sustainably?). Delivering a fixed scope on time is a measure of output, not value or success."
+    },
+    {
+      "question": "Which approach is best for Scrum Teams in order to produce valuable Increments? (choose the best answer)",
+      "choices": {
+        "A": "Each Scrum Team is accountable for developing functionality from beginning to end.",
+        "B": "Each Scrum Member works only as an independent layer of the system.",
+        "C": "Each Scrum Team works on an independent set of components.",
+        "D": "Each Developer works on the component where they feel that they can contribute."
+      },
+      "correct_answer": "A",
+      "explanation": "To produce valuable Increments, a Scrum Team must be cross-functional and capable of taking a feature from idea to 'Done' without external dependencies. This means the team is accountable for the end-to-end development of functionality, rather than being siloed by component or technical layer."
+    },
+    {
+      "question": "Which metrics will help a Product Owner determine if a product is delivering value? (choose the best two answers)",
+      "choices": {
+        "A": "Velocity.",
+        "B": "Time to market.",
+        "C": "Customer satisfaction.",
+        "D": "Percentage of scope implemented.",
+        "E": "Productivity."
+      },
+      "correct_answer": [
+        "B",
+        "C"
+      ],
+      "explanation": "Value is measured by outcomes, not output. Customer satisfaction directly measures if the product is meeting user needs. Time to market measures the ability to deliver value to customers sooner. Velocity, productivity, and percentage of scope are measures of output and do not inherently represent value."
+    },
+    {
+      "question": "Which answer best describes the topics covered in Sprint Planning? (choose the best answer)",
+      "choices": {
+        "A": "Who is on the team and what team member roles will be.",
+        "B": "How conditions have changed and how the Product Backlog should evolve.",
+        "C": "What to do and who will do it.",
+        "D": "What can be done, how to do it, and why to do it.",
+        "E": "What went wrong in the last Sprint and what to do differently this Sprint."
+      },
+      "correct_answer": "D",
+      "explanation": "Sprint Planning answers three key questions: Why is this Sprint valuable? (The Sprint Goal). What can be Done this Sprint? (The selection of Product Backlog items). How will the chosen work get done? (The plan for creating the Increment)."
+    },
+    {
+      "question": "Your management has asked you to take the lead in the development of a new product. Six teams new to Scrum will build this product. You have gathered a number of requirements and ideas into an early form of a Product Backlog. How would you minimize dependencies between the Scrum Teams? (choose the best answer)",
+      "choices": {
+        "A": "You work with the Developers on how to best analyze and break apart the work.",
+        "B": "You divide Product Backlog items among the six Product Owners.",
+        "C": "You create an independent Product Backlog per Scrum Team.",
+        "D": "You identify the dependencies and re-order the Product Backlog for the other five Product Owners.",
+        "E": "You raise this as an impediment with the Scrum Master."
+      },
+      "correct_answer": "A",
+      "explanation": "Minimizing dependencies is a complex task that requires a deep understanding of the work itself. The best approach is to collaborate with the people who will be doing the work—the Developers. They have the technical expertise to analyze the requirements and suggest ways to slice them vertically into features that minimize cross-team dependencies."
+    },
+    {
+      "question": "Which of the following are criteria to order Product Backlog items? (choose the best three answers)",
+      "choices": {
+        "A": "The value of the Product Backlog items.",
+        "B": "The availability of the Scrum Master.",
+        "C": "Dependencies between Product Backlog items.",
+        "D": "Their relevance to achieving the Product Goal.",
+        "E": "The number of stakeholders who approve of the item."
+      },
+      "correct_answer": [
+        "A",
+        "C",
+        "D"
+      ],
+      "explanation": "The Product Owner orders the backlog to maximize value. This involves considering the inherent value of items, their contribution to the overall Product Goal, and practical constraints like dependencies between items."
+    },
+    {
+      "question": "True or False: An Increment must be released to customers or users at the end of each Sprint.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "An Increment must be in a usable, potentially releasable state at the end of the Sprint. However, the decision of *when* to actually release it to users is a business decision made by the Product Owner. A release can happen during a Sprint or after several Sprints have accumulated more value."
+    },
+    {
+      "question": "Developers are self-managing, which of the following do they manage? (choose the best answer)",
+      "choices": {
+        "A": "Sprint length.",
+        "B": "Sprint Backlog.",
+        "C": "Stakeholders for the Sprint Review.",
+        "D": "When to release, based on its progress.",
+        "E": "Product Backlog ordering."
+      },
+      "correct_answer": "B",
+      "explanation": "As part of being self-managing, the Developers are responsible for their own plan for the Sprint. This includes selecting the work from the Product Backlog and creating and managing the Sprint Backlog to achieve the Sprint Goal."
+    },
+    {
+      "question": "The Product Owner is the person who will be held accountable if a product does not achieve its goals or deliver value. Does this mean that the Product Owner has final say over the Definition of Done? (choose the best answer)",
+      "choices": {
+        "A": "Yes, the Product Owner decides the Definition of Done. The Developers may be consulted.",
+        "B": "No, the Scrum Team decides the Definition of Done, if it is not a standard of the organization. The Product Owner is just one member of the Scrum Team."
+      },
+      "correct_answer": "B",
+      "explanation": "The Definition of Done is a commitment by the entire Scrum Team to ensure quality. It is created and owned by the whole team. If the organization has a standard, it is the minimum; the Scrum Team can add to it. The Product Owner, as part of the team, contributes to its creation but does not have sole authority over it."
+    },
+    {
+      "question": "Who is responsible for the sizing of Product Backlog items? (choose the best answer)",
+      "choices": {
+        "A": "The Scrum Master.",
+        "B": "The most senior people in the organization, including architects and subject matter experts.",
+        "C": "The Developers, alone.",
+        "D": "The Developers after clarifying requirements with the Product Owner.",
+        "E": "The Product Owner with input from the Developers."
+      },
+      "correct_answer": "D",
+      "explanation": "The people who will be doing the work are the ones who should estimate its size. Therefore, the Developers are responsible for sizing. However, they cannot do this in a vacuum; they need to collaborate with the Product Owner to clarify requirements and ensure a shared understanding of what is being asked for before they can provide a meaningful size estimate."
+    },
+    {
+      "question": "Scrum requires that the Product Owner must use which of the following techniques? (choose the best answer)",
+      "choices": {
+        "A": "There is no required technique.",
+        "B": "Critical Path Analysis.",
+        "C": "Feature burn-up.",
+        "D": "Burndown chart."
+      },
+      "correct_answer": "A",
+      "explanation": "Scrum is a framework, not a prescriptive methodology. It does not require the use of any specific techniques like burndown charts or critical path analysis. The Scrum Team is free to choose whatever practices and techniques work best for them to manage their work."
+    },
+    {
+      "question": "True or False: Dependencies could influence how the Product Owner orders Product Backlog items.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "A",
+      "explanation": "While value is the primary driver for ordering the Product Backlog, a Product Owner must also consider dependencies. An item might need to be ordered higher to unblock other important work, or ordered lower if it depends on something else. This is a key part of creating a feasible and effective plan."
+    },
+    {
+      "question": "What are two effective ways for a Scrum Team to ensure security concerns are satisfied? (choose the best two answers)",
+      "choices": {
+        "A": "Have the Scrum Team create Product Backlog items for each concern.",
+        "B": "Delegate the work to the security department.",
+        "C": "Add a Sprint to specifically resolve all security concerns.",
+        "D": "Postpone the work until a specialist can perform a security audit and create a list of security-related Product Backlog items.",
+        "E": "Add security concerns to the Definition of Done."
+      },
+      "correct_answer": [
+        "A",
+        "E"
+      ],
+      "explanation": "To ensure security is built into the product, it must be treated as part of the work. Adding security requirements to the Definition of Done ensures they are considered for every Increment. For larger, specific security tasks, creating Product Backlog items makes the work visible and ensures it can be prioritized and planned."
+    },
+    {
+      "question": "When the Developers determine that they will not be able to finish the complete forecast, who has to be present when reviewing and adjusting the Sprint work selected? (choose the best answer)",
+      "choices": {
+        "A": "The Scrum Master, project manager and the Developers",
+        "B": "The Scrum Master and the Developers.",
+        "C": "The Product Owner and the Developers.",
+        "D": "The Product Owner and all stakeholders."
+      },
+      "correct_answer": "C",
+      "explanation": "If the work in the Sprint needs to be adjusted, it requires a negotiation. The Developers know what is possible to complete. The Product Owner is responsible for maximizing value and can make decisions about scope trade-offs. Therefore, the Developers and the Product Owner must collaborate to adjust the Sprint Backlog."
+    },
+    {
+      "question": "True or False: A high-performance Scrum Team ensures that each Increment is complete by running a Release Sprint.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "The concept of a 'Release Sprint' or a 'Hardening Sprint' is not part of the Scrum framework. A high-performance Scrum Team aims to produce a potentially releasable, 'Done' Increment every Sprint. Release activities are considered part of the work needed to get an item to 'Done'."
+    },
+    {
+      "question": "Which statement best describes the Sprint Backlog as the output of the Sprint Planning? (choose the best answer)",
+      "choices": {
+        "A": "Every item has a designated owner.",
+        "B": "It is a complete list of all work to be done in a Sprint.",
+        "C": "It is the Developers plan for the Sprint.",
+        "D": "It is ordered by the Product Owner.",
+        "E": "Each task is estimated in hours."
+      },
+      "correct_answer": "C",
+      "explanation": "The Sprint Backlog is composed of the Sprint Goal (Why), the set of Product Backlog items selected for the Sprint (What), and an actionable plan for delivering the Increment (How). It is a plan by and for the Developers."
+    },
+    {
+      "question": "A Scrum Team has been working on a product for 9 Sprints. A new Product Owner who is new to Scrum joins the team and understands she is accountable for the Product Backlog. However, she is unsure about the purpose of the Product Backlog. She has read that the Product Backlog should be a list of all user features for the product. She goes to the Scrum Master asking where to put the other types of requirements that are going to be taken into account. Are all of the following types of requirements acceptable on a Product Backlog?\n\n- Stability requirements\n- Performance requirements\n- Product Functionality\n- Documentation\n- Fixes\n\n(choose the best answer)",
+      "choices": {
+        "A": "Yes, they all belong on the Product Backlog. The Product Backlog is supposed to be the 'single source of truth' for all the work for the product.",
+        "B": "No. Product Backlog is a tool for the Product Owner. The Product Owner represents the users and stakeholders. Other types of requirements should be managed separately by the Developers. They are not the Product Owner's concern."
+      },
+      "correct_answer": "A",
+      "explanation": "The Product Backlog contains all work necessary to improve the product. This includes not only new user features but also technical work, performance improvements, bug fixes, documentation updates, and other requirements needed to create a valuable product."
+    },
+    {
+      "question": "All Scrum artifacts must be transparent to ensure sufficient accuracy of inspection. Which two measures ensure that the Product Backlog is transparent? (choose the best two answers)",
+      "choices": {
+        "A": "Each Product Backlog item has a MoSCoW priority.",
+        "B": "The Product Backlog only has work for the next 2 Sprints.",
+        "C": "The Product Backlog is ordered.",
+        "D": "The Product Backlog is managed using a web-based tool.",
+        "E": "The Product Backlog is available to all stakeholders."
+      },
+      "correct_answer": [
+        "C",
+        "E"
+      ],
+      "explanation": "Transparency of the Product Backlog is achieved by making it visible and understandable. Making it available to all stakeholders ensures visibility. Having it ordered ensures that the priorities and sequence of work are clear to everyone, which is crucial for understanding what the team will work on next."
+    },
+    {
+      "question": "True or False: A Product Owner is essentially the same thing as a traditional Project Manager.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "The roles are fundamentally different. A Product Owner is focused on maximizing product value and managing the Product Backlog. A traditional Project Manager is often focused on managing scope, budget, and timelines, and directing the work of the team. Scrum does not have a Project Manager role."
+    },
+    {
+      "question": "What is the purpose of a Sprint Review? (choose the best answer)",
+      "choices": {
+        "A": "To take time to judge the validity of the project.",
+        "B": "To inspect the product Increment with the stakeholders and collect feedback on next steps.",
+        "C": "To review the Scrum Team's activities and processes during the Sprint.",
+        "D": "To build team spirit."
+      },
+      "correct_answer": "B",
+      "explanation": "The primary purpose of the Sprint Review is to inspect the Increment that was built during the Sprint. It is a collaborative session where the Scrum Team and stakeholders discuss what was accomplished and decide on the best next steps to maximize value."
+    },
+    {
+      "question": "Which is NOT a valid consideration when ordering a Product Backlog? (choose the best answer)",
+      "choices": {
+        "A": "Alignment with business strategy and goals.",
+        "B": "Tools and techniques.",
+        "C": "Risk.",
+        "D": "Importance to customers.",
+        "E": "Dependencies on other Product Backlog items."
+      },
+      "correct_answer": "B",
+      "explanation": "Ordering the Product Backlog is about maximizing value. This involves considering business strategy, risk, customer value, and dependencies. The specific tools and techniques a team uses are not a direct input into the ordering of the work itself."
+    },
+    {
+      "question": "True or False: When there are multiple teams working on one product, each Scrum Team should have a separate Product Owner.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "A product has only one Product Owner, even when multiple Scrum Teams are working on it. This ensures a single, consistent vision and a single point of accountability for maximizing the value of the product."
+    },
+    {
+      "question": "A new Developer is having continuing conflicts with existing members of the Scrum Team, which is impacting the delivery of the Increment. If necessary, who is responsible for removing the Developer from the Scrum Team? (choose the best answer)",
+      "choices": {
+        "A": "The hiring manager is responsible, they hired the Developer.",
+        "B": "The Product Owner is responsible, they control the return on investment (ROI).",
+        "C": "The Scrum Master is responsible, they remove impediments.",
+        "D": "The Scrum Team is responsible."
+      },
+      "correct_answer": "D",
+      "explanation": "Scrum Teams are self-managing. This includes managing their own composition to ensure they can work effectively as a unit. While a manager might handle the HR aspects, the decision that a member needs to be removed for the health of the team rests with the team itself."
+    },
+    {
+      "question": "What should the Scrum Team do during the first Sprint? (choose the best answer)",
+      "choices": {
+        "A": "Create at least one valuable and useful Increment.",
+        "B": "Define the major product features and a release plan architecture.",
+        "C": "Analyze, describe, and document the requirements for the subsequent Sprints.",
+        "D": "Make up a plan for the rest of the project."
+      },
+      "correct_answer": "A",
+      "explanation": "The purpose of every Sprint, including the first one, is to produce a valuable and useful Increment. Sprints are not for planning or documentation phases; they are for delivering working product."
+    },
+    {
+      "question": "What is the typical size for a Scrum Team? (choose the best answer)",
+      "choices": {
+        "A": "9.",
+        "B": "At least 7.",
+        "C": "7 plus or minus 3.",
+        "D": "10 or fewer."
+      },
+      "correct_answer": "D",
+      "explanation": "The 2020 Scrum Guide specifies that a Scrum Team is typically 10 or fewer people. This size is small enough to remain nimble and large enough to complete significant work within a Sprint. This count includes the Product Owner, the Scrum Master, and the Developers."
+    },
+    {
+      "question": "The Daily Scrum is an event that happens every day. What would be three key concerns if the frequency were to be lowered to every two or three days? (choose the best three answers)",
+      "choices": {
+        "A": "The Sprint Backlog may become inaccurate.",
+        "B": "Too much work is spent updating the Scrum board before the meeting.",
+        "C": "The Scrum Master loses the ability to update the Gantt chart properly.",
+        "D": "The Product Owner cannot accurately report progress to the stakeholders.",
+        "E": "Opportunities to inspect and adapt the Sprint Backlog are lost.",
+        "F": "Impediments are raised and resolved more slowly."
+      },
+      "correct_answer": [
+        "A",
+        "E",
+        "F"
+      ],
+      "explanation": "The Daily Scrum is a key event for inspection and adaptation. Reducing its frequency means the team's plan (the Sprint Backlog) is not updated daily and can become inaccurate. This also reduces the opportunities to inspect progress towards the Sprint Goal and adapt the plan. Crucially, it creates a significant delay in raising and resolving impediments, which can jeopardize the Sprint."
+    },
+    {
+      "question": "Scrum is based on empiricism. All of its artifacts must be transparent to ensure sufficient accuracy of inspection. How can the Scrum Team maintain the Product Backlog to maximize its transparency? (choose the best answer)",
+      "choices": {
+        "A": "Product Backlog items should hold no more than 8 points of work, which is the average in the range of acceptable sizes of 1, 2, 3, 5, 8, and 13.",
+        "B": "The Product Backlog is only updated at a release planning meeting with the stakeholders and the change control board present.",
+        "C": "Product Backlog items must be sized such that the highest ordered items are no bigger than a Sprint.",
+        "D": "The Product Backlog is continually kept up to date with the most recent insights.",
+        "E": "The Product Backlog is only updated at the Sprint Review, when both the Scrum Team and the stakeholders are available."
+      },
+      "correct_answer": "D",
+      "explanation": "Transparency is achieved when the artifact reflects the most current understanding. A Product Backlog is a living artifact that evolves as more is learned. To maximize transparency, it must be continuously updated by the Product Owner with the latest information, feedback, and insights, ensuring it is always an accurate reflection of what is needed for the product."
+    },
+    {
+      "question": "A Product Owner is accountable for maximizing the value of the product that is the result of the work of the Scrum Team. Which of the following can be delegated to others, while the Product Owner remains accountable for the work? (choose the best two answers)",
+      "choices": {
+        "A": "Developing and communicating the Product Goal.",
+        "B": "Attending the Sprint Review.",
+        "C": "Attending the Sprint Retrospective.",
+        "D": "Ordering Product Backlog items."
+      },
+      "correct_answer": [
+        "A",
+        "D"
+      ],
+      "explanation": "The Product Owner is accountable for the Product Backlog and the Product Goal, but the activities involved can be delegated. For instance, the Product Owner might delegate the writing of Product Backlog items or the facilitation of a workshop to define the Product Goal, but they remain accountable for the final content, communication, and ordering."
+    },
+    {
+      "question": "What happens if the Scrum Team cannot complete its work by the end of the Sprint? (choose the best answer)",
+      "choices": {
+        "A": "The Sprint length is unchanged and the Scrum Team continuously learns and adapts.",
+        "B": "The Sprint is extended temporarily. Lessons are taken to ensure it does not happen again.",
+        "C": "The Sprint is extended and future Sprints use this new duration."
+      },
+      "correct_answer": "A",
+      "explanation": "Sprints are fixed-length events and are never extended. If the work is not complete, the Sprint still ends on its scheduled date. The Scrum Team then inspects the outcome at the Sprint Review and reflects on the reasons during the Sprint Retrospective. This provides an opportunity to learn and adapt for future Sprints, upholding the principles of empiricism and continuous improvement."
+    },
+    {
+      "question": "Who is accountable for creating a valuable and usable Increment each Sprint? (choose the best answer)",
+      "choices": {
+        "A": "The Product Owner.",
+        "B": "The Scrum Master.",
+        "C": "The Developers.",
+        "D": "The Scrum Team.",
+        "E": "The CEO."
+      },
+      "correct_answer": "D",
+      "explanation": "The entire Scrum Team—comprising the Product Owner, the Scrum Master, and the Developers—is collectively accountable for creating a valuable and usable Increment. While each role has specific responsibilities, they share accountability for the outcome of the Sprint."
+    },
+    {
+      "question": "What are three advantages of a Product Owner sharing a clearly defined Product Goal with the Scrum Team? (choose the best three answers)",
+      "choices": {
+        "A": "It provides a good overall direction so Sprints will feel less like isolated pieces of work.",
+        "B": "It helps the Scrum Team keep focus and they can weigh any decision against the Product Goal.",
+        "C": "It is easier to inspect incremental progress at the Sprint Review.",
+        "D": "It is not mandatory in Scrum. There is no real advantage.",
+        "E": "It helps the Developers estimate the date that the Product Backlog will be complete."
+      },
+      "correct_answer": [
+        "A",
+        "B",
+        "C"
+      ],
+      "explanation": "The Product Goal provides a long-term objective for the Scrum Team. This gives direction, helps the team maintain focus and make trade-offs, and provides a clear target against which progress can be inspected during the Sprint Review."
+    },
+    {
+      "question": "In accordance with Scrum theory, how should a group of 100 people be divided into multiple Scrum Teams? (choose the best answer)",
+      "choices": {
+        "A": "Understanding the product, the product vision and the rules of the Scrum framework, the people divide themselves into teams.",
+        "B": "Create a matrix of skills, seniority, and level of experience to assign people to teams.",
+        "C": "It does not really matter since you can rotate the teams every Sprint to spread knowledge.",
+        "D": "Check with the allocation department to see who has worked together before and make these the first teams."
+      },
+      "correct_answer": "A",
+      "explanation": "Scrum emphasizes self-management and self-organization. The most effective and committed teams are those that form themselves, based on a shared understanding of the work to be done. This approach fosters ownership and leverages the collective knowledge of the group to create balanced, cross-functional teams."
+    },
+    {
+      "question": "When can Developers cancel a Sprint? (choose the best answer)",
+      "choices": {
+        "A": "They cannot. Only Product Owners can cancel Sprints.",
+        "B": "When the selected Product Backlog items for the Sprint become unachievable.",
+        "C": "When the Product Owner is absent too often.",
+        "D": "When functional expectations are not well understood.",
+        "E": "When a technical dependency cannot be resolved."
+      },
+      "correct_answer": "A",
+      "explanation": "According to the Scrum Guide, only the Product Owner has the authority to cancel a Sprint. This is typically only done if the Sprint Goal becomes obsolete, and it is a rare event."
+    },
+    {
+      "question": "How often should customer satisfaction be measured? (choose the best answer)",
+      "choices": {
+        "A": "Frequently.",
+        "B": "Daily.",
+        "C": "Quarterly.",
+        "D": "Annually."
+      },
+      "correct_answer": "A",
+      "explanation": "While Scrum doesn't prescribe a specific cadence, the goal is to maximize product value, which is closely tied to customer satisfaction. To effectively steer the product, satisfaction should be measured frequently through various means like user feedback, metrics, and stakeholder collaboration during Sprint Reviews. This allows for continuous learning and adaptation."
+    },
+    {
+      "question": "True or False: The Product Owner should have the entire Product Backlog documented in detail before the first Sprint can start?",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "The Product Backlog is emergent, meaning it evolves over time. Only enough of the backlog needs to be ready for the first Sprint to begin. The rest of the backlog is refined over time as more is learned about the product and the market."
+    },
+    {
+      "question": "What is the timebox for the Sprint Planning event? (choose the best answer)",
+      "choices": {
+        "A": "8 hours for a one-month Sprint.",
+        "B": "Monthly.",
+        "C": "Whenever it is done.",
+        "D": "4 hours for a one-month Sprint."
+      },
+      "correct_answer": "A",
+      "explanation": "The Scrum Guide states that Sprint Planning is timeboxed to a maximum of eight hours for a one-month Sprint. For shorter Sprints, the event is usually shorter."
+    },
+    {
+      "question": "The Scrum Master observes the Product Owner struggling with ordering the Product Backlog. What is an appropriate action for the Scrum Master to take? (choose the best answer)",
+      "choices": {
+        "A": "Present the Product Owner with an ordered Product Backlog to use.",
+        "B": "Suggest that the Developers order the Product Backlog to be sure that it is a feasible ordering of work.",
+        "C": "Offer the Product Owner help in understanding that the goal of ordering the Product Backlog is to maximize value.",
+        "D": "Encourage the Product Owner to work with the Developers to see which items technically are fastest to implement.",
+        "E": "Suggest the Product Owner extend the Sprint, so he can have more time to order the Product Backlog."
+      },
+      "correct_answer": "C",
+      "explanation": "The Scrum Master is a coach. Instead of doing the work for the Product Owner or telling them how to do it, the Scrum Master should help the Product Owner understand the principles behind backlog ordering. The primary goal is to maximize value, which is a more holistic concept than just technical feasibility or speed."
+    },
+    {
+      "question": "When is it most appropriate for a Scrum Team to change the Definition of Done? (choose the best answer)",
+      "choices": {
+        "A": "During the Sprint Retrospective.",
+        "B": "Prior to starting a new project.",
+        "C": "During Sprint Planning.",
+        "D": "During Product Backlog refinement."
+      },
+      "correct_answer": "A",
+      "explanation": "The Sprint Retrospective is the formal opportunity for the Scrum Team to inspect itself and create a plan for improvements to be enacted during the next Sprint. Adapting the Definition of Done to improve product quality is a perfect example of an outcome from a Retrospective."
+    },
+    {
+      "question": "The \"cone of uncertainty\" can be used to do what? (choose the best answer)",
+      "choices": {
+        "A": "Determine the cost of a project before it begins.",
+        "B": "Illustrate that as a project forecast lengthens, it is increasingly less certain.",
+        "C": "Determine the length of the next Sprint.",
+        "D": "Determine whether to cut quality, similar to the \"Iron Triangle\" of project management."
+      },
+      "correct_answer": "B",
+      "explanation": "The Cone of Uncertainty is a concept from software development that illustrates the reduction of uncertainty over time. At the beginning of a project, estimates are highly uncertain. As the project progresses and more is learned, the uncertainty narrows. It visually represents that long-term forecasts are inherently less certain than short-term ones."
+    },
+    {
+      "question": "The IT manager asks a Scrum Team for a status report describing the progress throughout the Sprint. The Scrum Team asks the Scrum Master for advice. The Scrum Master should: (choose the best answer)",
+      "choices": {
+        "A": "Talk to the IT manager and explain that progress in Scrum comes from inspecting an Increment at the Sprint Review.",
+        "B": "Ask the Product Owner to send the manager the report.",
+        "C": "Tell the Developers to fit the report into the Sprint Backlog.",
+        "D": "Tell the Scrum Team to figure it out themselves.",
+        "E": "Create and deliver the report to the manager herself."
+      },
+      "correct_answer": "A",
+      "explanation": "A key role of the Scrum Master is to help those outside the Scrum Team understand which of their interactions with the team are helpful and which aren't. The Scrum Master should coach the IT manager on how transparency and progress are handled in Scrum, primarily through the tangible Increment delivered and inspected at the Sprint Review, and by making artifacts like the Product Backlog visible."
+    },
+    {
+      "question": "True or False: Multiple Scrum Teams working on the same product must have the same Sprint start date.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "While it is often very practical and highly recommended for multiple teams working on the same product to align their Sprints to the same cadence for easier integration and review, Scrum does not mandate it. Teams can have different Sprint start dates if it works for their context."
+    },
+    {
+      "question": "When does the second Sprint start? (choose the best answer)",
+      "choices": {
+        "A": "Once the architectural changes for the second Sprint are approved by the senior architect.",
+        "B": "After the Product Backlog items for the second Sprint have been selected.",
+        "C": "Immediately after the first Sprint.",
+        "D": "After the customer completes acceptance testing of the first Sprint."
+      },
+      "correct_answer": "C",
+      "explanation": "Sprints are contiguous, back-to-back events. A new Sprint starts immediately after the conclusion of the previous Sprint. There are no gaps or delays between Sprints."
+    },
+    {
+      "question": "In order to maximize the value of the product, a Product Owner needs awareness of the following: (choose the best answer)",
+      "choices": {
+        "A": "Competitive research.",
+        "B": "Customer feedback.",
+        "C": "Product vision.",
+        "D": "Forecasting & feasibility.",
+        "E": "All of the above.",
+        "F": "None of the above."
+      },
+      "correct_answer": "E",
+      "explanation": "A Product Owner must have a holistic view to maximize value. This includes understanding the market and competitors, listening to customers, maintaining a clear product vision, and understanding what is feasible to build in what timeframe. All these inputs are crucial for effective Product Backlog management."
+    },
+    {
+      "question": "How much time must a Product Owner spend with the Developers? (choose the best answer)",
+      "choices": {
+        "A": "As much time as the Developers tell the Product Owner to be present.",
+        "B": "Enough to make the Scrum Team focused on delivering valuable increments.",
+        "C": "100%",
+        "D": "40%, or more if the stakeholders agree."
+      },
+      "correct_answer": "B",
+      "explanation": "Scrum does not prescribe a specific percentage of time. The Product Owner must be available enough to ensure the Developers understand the Product Backlog items and can collaborate effectively to build a valuable Increment. The goal is effective collaboration and focus, not a specific time commitment."
+    },
+    {
+      "question": "What is the timebox for the Sprint Review? (choose the best answer)",
+      "choices": {
+        "A": "4 hours for a one-month Sprint.",
+        "B": "2 hours for a one-month Sprint.",
+        "C": "As long as needed.",
+        "D": "1 day."
+      },
+      "correct_answer": "A",
+      "explanation": "The Scrum Guide states that the Sprint Review is timeboxed to a maximum of four hours for a one-month Sprint. For shorter Sprints, the event is usually shorter."
+    },
+    {
+      "question": "When is a Product Backlog item considered complete? (choose the best answer)",
+      "choices": {
+        "A": "When the item has gained product sponsor approval.",
+        "B": "When the item passes all acceptance criteria.",
+        "C": "When the item meets the Definition of Done.",
+        "D": "At the end of the Sprint."
+      },
+      "correct_answer": "C",
+      "explanation": "The Definition of Done is the Scrum Team's shared understanding of all the work required to create a releasable Increment. A Product Backlog item is not considered complete until it meets all the criteria in the Definition of Done."
+    },
+    {
+      "question": "True or False: The Product Owner must write all of the Product Backlog items (e.g. user stories, requirements, etc.) on the Product Backlog before handing them over to the Scrum Team.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "The Product Owner is accountable for the Product Backlog, but the work of writing items can be delegated. Developers or other team members can write Product Backlog items. The Product Owner remains accountable for ensuring the items are clear and ordered correctly."
+    },
+    {
+      "question": "A Project Manager working with your Scrum Team has raised concerns about progress and money spent. What are the two best responses? (choose the best two answers)",
+      "choices": {
+        "A": "Show the Earned Value Analysis (EVA) report.",
+        "B": "Scrum does not have Project Managers so disregard their concerns.",
+        "C": "Promote transparency by sharing the Product Backlog and ensuring the Project Manager has access.",
+        "D": "Share the last stakeholder briefing document prepared by the Product Owner.",
+        "E": "Have a discussion with the Project Manager; share the current impediments and forecast for the Sprint."
+      },
+      "correct_answer": [
+        "C",
+        "E"
+      ],
+      "explanation": "The best response is to be transparent and collaborative. Sharing the Product Backlog provides visibility into what is planned and its order. Having a direct conversation to discuss current work, forecasts, and any impediments addresses the concerns directly and builds trust. Disregarding a stakeholder's concerns is counterproductive."
+    },
+    {
+      "question": "What is a Product Owner typically responsible for during a Sprint? (choose the best two answers)",
+      "choices": {
+        "A": "Creating financial reporting upon the spent hours reported by the Developers.",
+        "B": "Collaborating with stakeholders, users, and customers.",
+        "C": "Working with the Scrum Team on Product Backlog refinement.",
+        "D": "Nothing.",
+        "E": "Updating the work plan for the Developers on a daily basis.",
+        "F": "Attending every Daily Scrum to answer questions about the Sprint Backlog items."
+      },
+      "correct_answer": [
+        "B",
+        "C"
+      ],
+      "explanation": "During a Sprint, the Product Owner's work continues. They are responsible for engaging with stakeholders to gather feedback and insights for the future and collaborating with the Developers in Product Backlog refinement to prepare for upcoming Sprints."
+    },
+    {
+      "question": "What might indicate to a Product Owner that she needs to work more with the Scrum Team? (choose the best answer)",
+      "choices": {
+        "A": "The acceptance criteria do not appear to be complete.",
+        "B": "The Increment presented at the Sprint Review does not reflect what she thought she had asked for.",
+        "C": "People leave the Scrum Team.",
+        "D": "She is not working full time with the Scrum Team."
+      },
+      "correct_answer": "B",
+      "explanation": "The Sprint Review is where the Scrum Team presents the result of their work. If the resulting Increment is a surprise to the Product Owner and does not align with her expectations, it's a clear sign that there was a lack of communication and collaboration throughout the Sprint."
+    },
+    {
+      "question": "True or False: Product Owners must create clear and unambiguous acceptance criteria for each Product Backlog item before it may be selected in Sprint Planning.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "While Product Backlog items need to be clear enough for the Developers to select them, the details, including formal acceptance criteria, can be refined during the Sprint. The goal is for items to be 'ready,' implying a shared understanding through conversation, not necessarily exhaustive upfront documentation."
+    },
+    {
+      "question": "True or False: The Product Owner makes sure the correct stakeholders are invited to the Sprint Retrospective. They might have important instructions for team improvements.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "The Sprint Retrospective is an internal event for the Scrum Team (Product Owner, Scrum Master, and Developers) only. Its purpose is for the team to inspect itself and create a plan for improvements. Stakeholders are not invited as their presence could impede open and honest communication."
+    },
+    {
+      "question": "True or False: The value delivered by a product can only be determined by revenue.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "Value is a broad concept and is not limited to revenue. It can also include customer satisfaction, user adoption rates, market share, reduced costs, employee morale, and the ability to innovate faster. The definition of value depends on the product and its context."
+    },
+    {
+      "question": "Which of the following practices might help the Product Owner minimize waste in developing and sustaining the Product Backlog? (choose the best two answers)",
+      "choices": {
+        "A": "Hand off ownership of the Product Backlog to someone else.",
+        "B": "Remove items from the Product Backlog that have not been addressed in a long time.",
+        "C": "Only fully describe Product Backlog items when it seems likely they will be implemented.",
+        "D": "Avoid distracting the Scrum Team by maintaining newly gathered Product Backlog items in a separate Product Backlog until they are fully understood."
+      },
+      "correct_answer": [
+        "B",
+        "C"
+      ],
+      "explanation": "To minimize waste, a Product Owner should avoid spending time on things that might not be built. This includes periodically cleaning out old, irrelevant items and practicing just-in-time refinement by only detailing items as they get closer to the top of the backlog. Maintaining a single Product Backlog is crucial for transparency."
+    },
+    {
+      "question": "If Product Backlog refinement is needed, when is the ideal time for refinement to take place and who should participate? (choose the best two answers)",
+      "choices": {
+        "A": "The Product Owner takes the time between the end of one Sprint and the start of the next Sprint to complete refinement.",
+        "B": "The Scrum Team during the current Sprint, if they have been unable during preceding Sprints to define Product Backlog items with enough precision to begin work.",
+        "C": "The Product Owner must do this as essential work in Sprint 0.",
+        "D": "The Scrum Team on an ongoing basis, defining Product Backlog items into smaller more precise items that are ready for selection.",
+        "E": "Business analysts in the organization should do this work for the Scrum Team 1-2 Sprints ahead of the development Sprints."
+      },
+      "correct_answer": [
+        "B",
+        "D"
+      ],
+      "explanation": "Product Backlog refinement is an ongoing activity, not a separate phase or meeting. The entire Scrum Team collaborates on this. It happens continuously throughout the Sprints to ensure there are always items that are 'ready' for future Sprints. It is not something done in a gap between Sprints or solely by the Product Owner."
+    },
+    {
+      "question": "Which outcome is expected as a Scrum Team matures? (choose the best answer)",
+      "choices": {
+        "A": "They will improve their Definition of Done to include more stringent criteria.",
+        "B": "Sprint Reviews will no longer be needed.",
+        "C": "There will be no need for a timeboxed Sprint.",
+        "D": "The Sprint Retrospectives will grow to be longer than 4 hours.",
+        "E": "A Scrum Master is no longer needed since they are a mature team now."
+      },
+      "correct_answer": "A",
+      "explanation": "A sign of a mature Scrum Team is a commitment to continuous improvement and quality. As the team matures, they will likely identify ways to improve their standards, which is often reflected by strengthening their Definition of Done to produce a higher-quality Increment."
+    },
+    {
+      "question": "Who determines how many Product Backlog items the Developers select for a Sprint? (choose the best answer)",
+      "choices": {
+        "A": "The stakeholders attending Sprint Planning.",
+        "B": "The Scrum Team",
+        "C": "The Product Owner.",
+        "D": "The Developers.",
+        "E": "The Scrum Master."
+      },
+      "correct_answer": "D",
+      "explanation": "The Developers are the ones doing the work, so they are the only ones who can assess how much they can accomplish in a Sprint. During Sprint Planning, they pull items from the Product Backlog into the Sprint Backlog, creating their forecast for the Sprint."
+    },
+    {
+      "question": "You have just been hired by a company new to Scrum. Your management has assigned you to be the Scrum Master of six new Scrum Teams. These teams will build one product. Select two conditions you should strive for in this scenario. (choose the best two answers)",
+      "choices": {
+        "A": "There should be only one Product Owner.",
+        "B": "There should be six Product Owners, reporting to a Chief Product Owner.",
+        "C": "There should be six Product Owners, one for each Scrum Team.",
+        "D": "Each Scrum Team should have a separate Product Backlog.",
+        "E": "The product has one Product Backlog."
+      },
+      "correct_answer": [
+        "A",
+        "E"
+      ],
+      "explanation": "When multiple teams work on a single product, there should be only one Product Owner and one Product Backlog. This ensures a unified vision and clear prioritization for the product. The Scrum Guide states that the Product Owner is one person, not a committee, and the Product Backlog is the single source of work for the Scrum Team."
+    },
+    {
+      "question": "When multiple Scrum Teams are working on a single product, what best describes the Definition of Done? (choose the best answer)",
+      "choices": {
+        "A": "The Scrum Masters from each Scrum Team define a common Definition of Done.",
+        "B": "Each Scrum Team defines and uses its own. The differences are discussed and reconciled during a hardening Sprint.",
+        "C": "When multiple Scrum Teams are working together on a product, they must mutually define and comply with the same Definition of Done.",
+        "D": "Each Scrum Team uses its own, but must make their definition clear to all other teams so the differences are known."
+      },
+      "correct_answer": "C",
+      "explanation": "To ensure that the integrated work is potentially releasable, all Scrum Teams working on the same product must adhere to a single, mutually defined Definition of Done. This creates a shared understanding of what it means for work to be complete."
+    },
+    {
+      "question": "True or False: The Product Owner makes sure the Developers select enough from the Product Backlog for a Sprint to satisfy the stakeholders.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "The Developers are responsible for determining how much work they can pull from the Product Backlog into a Sprint. The Product Owner's role is to communicate the Sprint Goal and clarify backlog items, but they do not dictate the amount of work the Developers select."
+    },
+    {
+      "question": "User documentation is part of your Definition of Done. However, there are not enough technical writers for all teams. Your Scrum Team does not have a technical writer. What should the Scrum Team do? (choose the best answer)",
+      "choices": {
+        "A": "Let the user documentation remain undone and accumulate until after the last development Sprint. It will then be done by any available technical writers.",
+        "B": "The Developers on the Scrum Team should write the user documentation.",
+        "C": "Wait until you have a technical writer on your Scrum Team to take care of this.",
+        "D": "Form a separate team of technical writers that will work on an on-demand basis for the various Product Owners. Work order will be first in, first out."
+      },
+      "correct_answer": "B",
+      "explanation": "A Scrum Team must be cross-functional, meaning the Developers collectively have all the skills necessary to create a Done Increment. If documentation is part of the Definition of Done, the Developers are responsible for creating it, regardless of whether they have a specialized role like 'technical writer' on the team."
+    },
+    {
+      "question": "For the purpose of transparency, when does Scrum say a valuable and useful Increment must be available? (choose the best answer)",
+      "choices": {
+        "A": "At the end of every Sprint.",
+        "B": "Every 3 Sprints.",
+        "C": "Before the Release Sprint.",
+        "D": "After the Acceptance Testing phase.",
+        "E": "When the Product Owner asks to create one."
+      },
+      "correct_answer": "A",
+      "explanation": "A core principle of Scrum is to produce a valuable and useful Increment at least by the end of every Sprint. This ensures there is always a concrete, inspectable version of the product available, which supports empiricism and provides frequent opportunities to deliver value."
+    },
+    {
+      "question": "When must the Product Owner participate in the Daily Scrum? (choose the best answer)",
+      "choices": {
+        "A": "When the Product Owner needs to represent the stakeholders' point of view to the Developers.",
+        "B": "When there are impediments to discuss.",
+        "C": "When the Scrum Master asks the Product Owner to attend.",
+        "D": "When the Product Owner is actively working on items on the Sprint Backlog; however, they participate as a Developer."
+      },
+      "correct_answer": "D",
+      "explanation": "The Daily Scrum is an event for the Developers to plan their work for the day. The Product Owner and Scrum Master should only participate if they are also actively working on items in the Sprint Backlog as Developers. Otherwise, they do not participate."
+    },
+    {
+      "question": "An organization has decided to adopt Scrum, but management wants to change the terminology to fit with terminology already used. What will likely happen if this is done? (choose the best answer)",
+      "choices": {
+        "A": "Without a new vocabulary as a reminder of the change, very little change may actually happen.",
+        "B": "The organization may not understand what has changed within Scrum and the benefits of Scrum may be lost.",
+        "C": "Management may feel less anxious.",
+        "D": "All answers apply."
+      },
+      "correct_answer": "D",
+      "explanation": "Changing Scrum's terminology can have several negative effects. It can mask the fundamental mindset shift required for Scrum, leading to little actual change. It can also cause confusion and dilute the framework's benefits by obscuring the purpose of its roles, events, and artifacts. While it might make management less anxious in the short term, it ultimately undermines the adoption."
+    },
+    {
+      "question": "The Scrum Team should have all the skills needed to: (choose the best answer)",
+      "choices": {
+        "A": "Complete the project within the date and cost as calculated by the Product Owner.",
+        "B": "Do all of the development work, except for specialized testing that requires additional tools and environments.",
+        "C": "Turn Product Backlog items into a valuable, useful Increment."
+      },
+      "correct_answer": "C",
+      "explanation": "The concept of a cross-functional Scrum Team means that the team internally possesses all the necessary skills to take a Product Backlog item and turn it into a fully 'Done', valuable, and useful Increment without depending on external teams or individuals."
+    },
+    {
+      "question": "Which topics should be discussed in the Sprint Review? (choose the best answer)",
+      "choices": {
+        "A": "The Scrum process, and how it was used during the Sprint.",
+        "B": "Coding and engineering practices.",
+        "C": "The product Increment.",
+        "D": "All of the above."
+      },
+      "correct_answer": "C",
+      "explanation": "The primary focus of the Sprint Review is the product Increment. The Scrum Team and stakeholders inspect the Increment that was just built to get feedback and adapt the Product Backlog. Discussions about the process are reserved for the Sprint Retrospective."
+    },
+    {
+      "question": "True or False: Multiple Scrum Teams working on the same product or system all select work from the same Product Backlog.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "A",
+      "explanation": "When multiple teams work on a single product, they must share one Product Backlog. This ensures that all work is prioritized against the same set of goals and that the resulting integrated Increment is coherent."
+    },
+    {
+      "question": "True or False: A Scrum Master fulfills the same role as a traditional Project Manager.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "B",
+      "explanation": "The Scrum Master and Project Manager are distinct roles with different responsibilities. A Project Manager often focuses on planning, directing, and controlling a project. A Scrum Master is a servant-leader who focuses on coaching the team, removing impediments, and ensuring the Scrum framework is understood and enacted."
+    },
+    {
+      "question": "What does it mean to say that an event has a timebox? (choose the best answer)",
+      "choices": {
+        "A": "The event can take no more than a maximum amount of time.",
+        "B": "The event must take at least a minimum amount of time.",
+        "C": "The event must happen by a given time.",
+        "D": "The event must happen at a set time."
+      },
+      "correct_answer": "A",
+      "explanation": "A timebox is a maximum duration for an event. It ensures that an appropriate amount of time is spent on the event without allowing for waste. The event can finish earlier if its purpose is achieved, but it cannot exceed the timebox."
+    },
+    {
+      "question": "Which three of the following are true about Scrum? (choose the best three answers)",
+      "choices": {
+        "A": "Each component of Scrum serves a specific purpose and is essential to Scrum's success and your usage of Scrum to develop complex products.",
+        "B": "Scrum is a framework for developing and sustaining complex products.",
+        "C": "Scrum is a methodology where you can pick and choose which parts of Scrum you think will work for your environment.",
+        "D": "Scrum is based on empiricism and lean thinking.",
+        "E": "Scrum implements self-management by replacing Project Managers with Scrum Masters."
+      },
+      "correct_answer": [
+        "A",
+        "B",
+        "D"
+      ],
+      "explanation": "Scrum is defined as a lightweight framework for developing complex products, founded on empiricism and lean thinking. Its components are essential and work together; removing parts can lead to unpredictable results and undermines the framework's purpose. It is not a methodology where you can pick and choose elements."
+    },
+    {
+      "question": "During a Sprint Retrospective, the Developers propose moving the Daily Scrum to only occur on Tuesdays and Thursdays. Which two are the most appropriate responses for the Scrum Master to recommend? (choose the best two answers)",
+      "choices": {
+        "A": "Acknowledge and support the self-managing team's decision.",
+        "B": "Consider the request and decide on which days the Daily Scrum should occur.",
+        "C": "Coach the team on why the Daily Scrum is important as an opportunity to update the plan.",
+        "D": "Learn why the Developers want this and work with them to improve the outcome of the Daily Scrum.",
+        "E": "Have the Developers vote."
+      },
+      "correct_answer": [
+        "C",
+        "D"
+      ],
+      "explanation": "A Scrum Master's role is to coach the team on Scrum principles and help them improve. Simply accepting a change that violates the framework isn't appropriate. The best approach is to first understand the underlying problem (learn why they want the change) and then coach them on the purpose of the Daily Scrum, helping them find a better solution to their problem while upholding the framework."
+    },
+    {
+      "question": "Which of the following might the Scrum Team discuss during a Sprint Retrospective? (choose the best answer)",
+      "choices": {
+        "A": "Methods of communication.",
+        "B": "The way the Scrum Team does Sprint Planning.",
+        "C": "Skills needed to improve the Developers ability to deliver.",
+        "D": "The Definition of Done.",
+        "E": "All of the above."
+      },
+      "correct_answer": "E",
+      "explanation": "The Sprint Retrospective is an opportunity for the Scrum Team to inspect itself and create a plan for improvements. Any topic related to the team's effectiveness, processes, tools, skills, communication, or quality (like the Definition of Done) is a valid subject for discussion."
+    },
+    {
+      "question": "Which of the following are true about the Product Owner? (choose the best two answers)",
+      "choices": {
+        "A": "The Product Owner is one person.",
+        "B": "The Product Owner is accountable for ordering the Product Backlog.",
+        "C": "The Product Owner can be represented by a committee or a team of people.",
+        "D": "The Scrum Team can have multiple Product Owners."
+      },
+      "correct_answer": [
+        "A",
+        "B"
+      ],
+      "explanation": "The Scrum Guide is explicit that the Product Owner is one person, not a committee, to ensure clear accountability and decisive leadership. One of the Product Owner's key accountabilities is managing the Product Backlog, which includes ordering the items to best achieve the product's goals."
+    },
+    {
+      "question": "How often should Scrum Team membership change? (choose the best answer)",
+      "choices": {
+        "A": "Every Sprint to promote shared learning.",
+        "B": "As needed, with no special allowance for changes in productivity.",
+        "C": "Never, it reduces productivity.",
+        "D": "As needed, while taking into account a short-term reduction in productivity."
+      },
+      "correct_answer": "D",
+      "explanation": "While stable teams are generally more productive, changes are sometimes necessary. When changes do occur, it's important to acknowledge that they will likely cause a temporary dip in productivity as the team adjusts to new dynamics (the 'forming' and 'storming' stages of team development)."
+    },
+    {
+      "question": "True or False: The purpose of a Sprint is to produce a valuable, useful Increment.",
+      "choices": {
+        "A": "True",
+        "B": "False"
+      },
+      "correct_answer": "A",
+      "explanation": "This is the core purpose of a Sprint. Each Sprint is an opportunity to create a 'Done', usable, and potentially releasable product Increment, which is a concrete step toward the Product Goal."
+    },
+    {
+      "question": "Why is the Daily Scrum held at the same time and same place? (choose the best answer)",
+      "choices": {
+        "A": "Rooms are hard to book and must be booked in advance.",
+        "B": "The consistency reduces complexity.",
+        "C": "The Product Owner demands it.",
+        "D": "The place can be named."
+      },
+      "correct_answer": "B",
+      "explanation": "Holding the Daily Scrum at the same time and place every day reduces complexity and overhead. It becomes a routine, eliminating the need for daily coordination and scheduling, which allows the Developers to focus on the purpose of the event: planning their day's work."
+    },
+    {
+      "question": "One of the Scrum events is the Daily Scrum. What are two intended outcomes of the Daily Scrum? (choose the best two answers)",
+      "choices": {
+        "A": "An updated Scrum board to make Sprint progress transparent for the stakeholders.",
+        "B": "A status report for the upper management indicating what each individual has done, will be doing, and what is impeding him/her.",
+        "C": "A shared understanding of the most important work to be undertaken next to achieve the best possible progress toward the Sprint goal.",
+        "D": "An update of completed tasks and of the remaining work so the Scrum Master can plan the next day.",
+        "E": "Identification of impediments that may prevent the Developers from achieving the Sprint Goal."
+      },
+      "correct_answer": [
+        "C",
+        "E"
+      ],
+      "explanation": "The Daily Scrum is a planning event for the Developers. Its key outcomes are to align the team on the immediate next steps to progress toward the Sprint Goal and to identify any impediments that are slowing them down so they can be addressed."
+    },
+    {
+      "question": "Five new Scrum Teams have been created to build one product. A few of the Developers on one of the Scrum Teams ask the Scrum Master how to coordinate their work with the other teams. What should the Scrum Master do? (choose the best answer)",
+      "choices": {
+        "A": "Collect the Sprint tasks from the teams at the end of their Sprint Planning and merge that into a consolidated plan for the entire Sprint.",
+        "B": "Teach the Product Owner to work with the lead developers on ordering Product Backlog in a way to avoid too much overlap during a Sprint.",
+        "C": "Visit the five teams each day to inspect that their Sprint Backlogs are aligned.",
+        "D": "Teach them that it is their responsibility to work with the other teams to create an integrated Increment that is inclusive of all five team's work."
+      },
+      "correct_answer": "D",
+      "explanation": "The Scrum Master's role is to coach the team in Scrum and self-management. The best response is to empower the Developers by teaching them that they are responsible for coordinating with other teams to resolve dependencies and ensure an integrated Increment is produced."
+    },
+    {
+      "question": "Who is responsible for the Sprint Backlog? (choose the best answer)",
+      "choices": {
+        "A": "The Scrum Team.",
+        "B": "The Scrum Master.",
+        "C": "The Developers.",
+        "D": "The Product Owner."
+      },
+      "correct_answer": "C",
+      "explanation": "The Sprint Backlog is created by and for the Developers. While the Product Owner defines the Sprint Goal and the Scrum Master facilitates, the Developers own the Sprint Backlog, including selecting the items and planning the work needed to achieve the Sprint Goal."
+    },
+    {
+        "question": "True or False: During the Sprint Review the stakeholder's role is to reorder the Product Backlog.",
+        "choices": {
+            "A": "True",
+            "B": "False"
+        },
+        "correct_answer": "B",
+        "explanation": "The Product Owner is solely responsible for managing and ordering the Product Backlog. While stakeholders provide valuable feedback during the Sprint Review that may influence the Product Owner's decisions on how to reorder the backlog, it is not their role to perform the reordering themselves."
+    },
+    {
+        "question": "True or False: The Product Owner must write all of the Product Backlog items (e.g. user stories, requirements, etc.) on the Product Backlog before handing them over to the Scrum Team.",
+        "choices": {
+            "A": "True",
+            "B": "False"
+        },
+        "correct_answer": "B",
+        "explanation": "The Product Owner is responsible for the Product Backlog, but they are not required to be the sole author of all its items. Anyone on the Scrum Team or even stakeholders can contribute to writing Product Backlog Items. The Product Owner remains accountable for the content and ordering of the backlog."
+    },
+    {
+        "question": "True or False: The Product Owner makes sure the correct stakeholders are invited to the Sprint Retrospective. They might have important instructions for team improvements.",
+        "choices": {
+            "A": "True",
+            "B": "False"
+        },
+        "correct_answer": "B",
+        "explanation": "The Sprint Retrospective is an event specifically for the Scrum Team (Product Owner, Scrum Master, and Developers) to inspect itself and create a plan for improvements. Stakeholders are not typically invited, as their presence could impede the team's transparency and psychological safety."
+    },
+    {
+        "question": "A new Developer is having continuing conflicts with existing members of the Scrum Team, which is impacting the delivery of the Increment. If necessary, who is responsible for removing the Developer from the Scrum Team?",
+        "choices": {
+            "A": "The hiring manager is responsible, they hired the Developer.",
+            "B": "The Product Owner is responsible, they control the return on investment (ROI).",
+            "C": "The Scrum Team is responsible.",
+            "D": "The Scrum Master is responsible, they remove impediments."
+        },
+        "correct_answer": "C",
+        "explanation": "Scrum Teams are self-managing, which includes making decisions about their composition. If the team determines, after coaching from the Scrum Master and other efforts, that a member's continued presence is detrimental to the team's effectiveness, the team as a whole is responsible for addressing the situation, which may include removing the member."
+    },
+    {
+        "question": "The job of a Product Owner focuses on the following: (choose the best two answers)",
+        "choices": {
+            "A": "Working with customers and stakeholders to identify the most valuable product requirements.",
+            "B": "Clearly communicating project or release status and strategies to customers and stakeholders.",
+            "C": "Being with the Scrum Team all the time, just in case they need me to clarify a requirement.",
+            "D": "Writing clear, transparent User Stories."
+        },
+        "correct_answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "A Product Owner's primary focus is on maximizing the value of the product. This is achieved by working closely with stakeholders to understand their needs and by clearly communicating the product strategy and progress. While writing user stories is a part of the role, it's a means to an end, and constant availability isn't always practical or necessary."
+    },
+    {
+        "question": "The Scrum Master observes the Product Owner struggling with ordering the Product Backlog. What is an appropriate action for the Scrum Master to take? (choose the best answer)",
+        "choices": {
+            "A": "Suggest that the Developers order the Product Backlog to be sure that it is a feasible ordering of work.",
+            "B": "Offer the Product Owner help in understanding that the goal of ordering the Product Backlog is to maximize value.",
+            "C": "Present the Product Owner with an ordered Product Backlog to use.",
+            "D": "Suggest the Product Owner extend the Sprint, so he can have more time to order the Product Backlog.",
+            "E": "Encourage the Product Owner to work with the Developers to see which items technically are fastest to implement."
+        },
+        "correct_answer": "B",
+        "explanation": "The Scrum Master acts as a coach and facilitator. The most appropriate action is to help the Product Owner understand the principles behind backlog ordering—namely, maximizing value. This empowers the Product Owner to make better decisions, rather than simply providing a solution or suggesting actions that undermine Scrum principles."
+    },
+    {
+        "question": "True or False: Product Owners must specify complete acceptance criteria for a Product Backlog item before the Developers can select the item in Sprint Planning.",
+        "choices": {
+            "A": "True",
+            "B": "False"
+        },
+        "correct_answer": "B",
+        "explanation": "Product Backlog items need to be well-understood enough for the Developers to select them, but they don't need to be exhaustively detailed with complete acceptance criteria. Details can be refined and clarified just-in-time, often through conversation between the Product Owner and Developers during the Sprint itself."
+    },
+    {
+        "question": "Scrum is based on empiricism. All of its artifacts must be transparent to ensure sufficient accuracy of inspection. How can the Scrum Team maintain the Product Backlog to maximize its transparency? (choose the best answer)",
+        "choices": {
+            "A": "The Product Backlog is only updated at the Sprint Review, when both the Scrum Team and the stakeholders are available.",
+            "B": "The Product Backlog is continually kept up to date with the most recent insights.",
+            "C": "The Product Backlog is only updated at a release planning meeting with the stakeholders and the change control board present.",
+            "D": "Product Backlog items must be sized such that the highest ordered items are no bigger than a Sprint.",
+            "E": "Product Backlog items should hold no more than 8 points of work, which is the average in the range of acceptable sizes of 1, 2, 3, 5, 8, and 13."
+        },
+        "correct_answer": "B",
+        "explanation": "To maximize transparency and ensure the Product Backlog reflects the current reality, it must be a living artifact. This means it should be continuously updated by the Product Owner as new information, insights, and feedback become available. This ensures it is always an accurate source of truth for what is needed for the product."
+    },
+    {
+        "question": "In accordance with Scrum theory, how should a group of 100 people be divided into multiple Scrum Teams? (choose the best answer)",
+        "choices": {
+            "A": "Check with the allocation department to see who has worked together before and make these the first teams.",
+            "B": "It does not really matter since you can rotate the teams every Sprint to spread knowledge.",
+            "C": "Understanding the product, the product vision and the rules of the Scrum framework, the people divide themselves into teams.",
+            "D": "Create a matrix of skills, seniority, and level of experience to assign people to teams."
+        },
+        "correct_answer": "C",
+        "explanation": "Scrum emphasizes self-management. The most effective teams are those that form themselves based on a shared understanding of the work to be done. This fosters ownership, commitment, and better utilization of the members' collective skills."
+    },
+    {
+        "question": "Who does the work to make sure Product Backlog items conform to the Definition of Done? (choose the best answer)",
+        "choices": {
+            "A": "The Quality Assurance Team.",
+            "B": "The Scrum Master.",
+            "C": "The Developers.",
+            "D": "The Product Owner.",
+            "E": "The Scrum Team."
+        },
+        "correct_answer": "C",
+        "explanation": "The Developers are responsible for creating the Increment. As part of this work, they are accountable for ensuring that every Product Backlog Item they work on meets the agreed-upon Definition of Done."
+    },
+    {
+        "question": "A Scrum Team has been working on a product for 9 Sprints. A new Product Owner who is new to Scrum joins the team and understands she is accountable for the Product Backlog. However, she is unsure about the purpose of the Product Backlog. She has read that the Product Backlog should be a list of all user features for the product. She goes to the Scrum Master asking where to put the other types of requirements that are going to be taken into account. Are all of the following types of requirements acceptable on a Product Backlog? Stability requirements, Performance requirements, Product Functionality, Documentation, Fixes. (choose the best answer)",
+        "choices": {
+            "A": "Yes, they all belong on the Product Backlog. The Product Backlog is supposed to be the 'single source of truth' for all the work for the product.",
+            "B": "No. Product Backlog is a tool for the Product Owner. The Product Owner represents the users and stakeholders. Other types of requirements should be managed separately by the Developers. They are not the Product Owner's concern."
+        },
+        "correct_answer": "A",
+        "explanation": "The Product Backlog contains all work necessary to improve the product. This includes not only user features but also technical work, bug fixes, documentation, and non-functional requirements like performance and stability. It serves as the single source of work for the Scrum Team."
+    }
+  ]
+}
