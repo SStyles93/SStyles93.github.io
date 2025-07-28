@@ -2,20 +2,6 @@
     "subject": "Unity",
     "questions": [
         {
-            "question": "A Programmer is creating a camera system for a virtual reality (VR) first-person view and wants to implement a binocular mode to let the user zoom in and out on distant objects. The Programmer will adjust the camera's fieldOfView for this mode. When transitioning to this mode, the Programmer wants to avoid sharp acceleration and stop the adjustment at the exact final fieldOfView value desired without extraneous movement. What two functions can the Programmer use to meet these requirements? (Choose two.)",
-            "choices": {
-                "A": "Mathf.SmoothStep()",
-                "B": "Mathf.MoveTowards()",
-                "C": "Mathf.SmoothDamp()",
-                "D": "Mathf.Lerp()"
-            },
-            "correct_answer": [
-                "A",
-                "C"
-            ],
-            "explanation": "Mathf.SmoothDamp gradually changes a value towards a desired goal over time, which is ideal for smooth camera movements without sharp acceleration. Mathf.SmoothStep interpolates between 0 and 1 with smoothing at the limits, which is perfect for creating a smooth transition factor that can be used with Mathf.Lerp to avoid abrupt starts and stops. Mathf.MoveTowards does not smooth, and Mathf.Lerp by itself can result in abrupt stops if not managed carefully."
-        },
-        {
             "question": "A development team's project has grown too big to maintain in its current state. The team decides to move the art assets, which make up most of the project size, into AssetBundles. These AssetBundles will dynamically load into individual projects. What should the development team do to prevent regression?",
             "choices": {
                 "A": "Compile assets with shared dependencies such as shared materials into a single AssetBundle. Create a few AssetBundles that lack dependencies this way.",
@@ -36,17 +22,6 @@
             },
             "correct_answer": "B",
             "explanation": "ScriptableObjects are the ideal solution here. They allow designers to create, manage, and link data assets directly within the Unity Editor without writing code. A 'Trait' ScriptableObject can be created, and then designers can create instances for 'Water', 'Fire', etc., and link them together as needed. This is flexible, scalable, and minimizes human error compared to using strings or enums which would require code changes."
-        },
-        {
-            "question": "An application has the user place Flora around a Tower. The Flora can be a variety of trees and bushes. Any Flora placed will spawn an identical Flora on the opposite side of the Tower, equidistant from the Tower. If a straight line is drawn from the two Flora objects, the Tower will be in the middle of the line. The y value of the Tower and every Flora will always be 0. The Tower's world position is cached into a Vector3 named towerPosition. A Programmer is writing the following method: public Vector3 GetOppositePointOfTower(Vector3 originalPosition) { } What should the Programmer write in the body of the method so that it returns a point on the opposite side of the Tower from where the first Flora's original position is?",
-            "choices": {
-                "A": "return towerPosition - (originalPosition - towerPosition);",
-                "B": "return Vector3.Cross(towerPosition, originalPosition);",
-                "C": "return Vector3.Cross(originalPosition, towerPosition);",
-                "D": "return towerPosition - (towerPosition - originalPosition);"
-            },
-            "correct_answer": "A",
-            "explanation": "The vector from the tower to the original position is calculated as (originalPosition - towerPosition). To find the opposite point, this vector needs to be subtracted from the tower's position. This results in the expression: towerPosition - (originalPosition - towerPosition)."
         },
         {
             "question": "A Programmer creates a procedurally generated maze composed of a small set of high detail 3D tiles. These tiles are matched up to each other to create a continuous environment. Each environment has its own color and material. The Programmer views the scene with the Frame Debugger and notes that the tiles are not batching. Many extra draw calls are occurring. What should the Programmer do to reduce draw calls?",
@@ -100,28 +75,6 @@
             "explanation": "Mathf.SmoothDamp gradually changes a value towards a desired goal over time, which is ideal for smooth camera movements without sharp acceleration. Mathf.SmoothStep interpolates between 0 and 1 with smoothing at the limits, which is perfect for creating a smooth transition factor that can be used with Mathf.Lerp to avoid abrupt starts and stops. Mathf.MoveTowards does not smooth, and Mathf.Lerp by itself can result in abrupt stops if not managed carefully."
         },
         {
-            "question": "A development team's project has grown too big to maintain in its current state. The team decides to move the art assets, which make up most of the project size, into AssetBundles. These AssetBundles will dynamically load into individual projects. What should the development team do to prevent regression?",
-            "choices": {
-                "A": "Compile assets with shared dependencies such as shared materials into a single AssetBundle. Create a few AssetBundles that lack dependencies this way.",
-                "B": "Create one single AssetBundle for all assets.",
-                "C": "Create AssetBundles so that dependencies are separated while ensuring dependent assets are loaded last.",
-                "D": "Create assets compiled into many smaller bundles as opposed to few larger AssetBundles."
-            },
-            "correct_answer": "A",
-            "explanation": "To prevent regression and issues like asset duplication, the best practice is to identify assets that are shared across multiple other assets (like common materials or textures) and place them into their own separate AssetBundle. This shared bundle can then be loaded as a dependency, ensuring that assets are not duplicated in memory and that updates to shared assets are managed from a single source."
-        },
-        {
-            "question": "The designer needs a large set of objects that share some traits, such as water, fire, electricity, steam, rock, glass, and metal. The designer needs to set relationships between these traits without engaging a Programmer each time. The designer also needs to create and delete traits as needed. The set of traits and objects is large. Potential for human error must be minimized. How should this functionality be implemented?",
-            "choices": {
-                "A": "Create an Enum with all potential traits and let the designer make the connections in a global datastore.",
-                "B": "Create a ScriptableObject and let the designer create the instances needed to do comparisons.",
-                "C": "Generate a comparison table for editing in an external program as a spreadsheet.",
-                "D": "Expose a String property and let the designer type in the trait names for comparison."
-            },
-            "correct_answer": "B",
-            "explanation": "ScriptableObjects are the ideal solution here. They allow designers to create, manage, and link data assets directly within the Unity Editor without writing code. A 'Trait' ScriptableObject can be created, and then designers can create instances for 'Water', 'Fire', etc., and link them together as needed. This is flexible, scalable, and minimizes human error compared to using strings or enums which would require code changes."
-        },
-        {
             "question": "An application has the user place Flora around a Tower. The Flora can be a variety of trees and bushes. Any Flora placed will spawn an identical Flora on the opposite side of the Tower, equidistant from the Tower. If a straight line is drawn from the two Flora objects, the Tower will be in the middle of the line. The y value of the Tower and every Flora will always be 0. The Tower's world position is cached into a Vector3 named towerPosition. A Programmer is writing the following method: public Vector3 GetOppositePointOfTower(Vector3 originalPosition) { } What should the Programmer write in the body of the method so that it returns a point on the opposite side of the Tower from where the first Flora's original position is?",
             "choices": {
                 "A": "return towerPosition - (originalPosition - towerPosition);",
@@ -131,17 +84,6 @@
             },
             "correct_answer": "A",
             "explanation": "The vector from the tower to the original position is calculated as (originalPosition - towerPosition). To find the opposite point, this vector needs to be subtracted from the tower's position. This results in the expression: towerPosition - (originalPosition - towerPosition)."
-        },
-        {
-            "question": "A Programmer creates a procedurally generated maze composed of a small set of high detail 3D tiles. These tiles are matched up to each other to create a continuous environment. Each environment has its own color and material. The Programmer views the scene with the Frame Debugger and notes that the tiles are not batching. Many extra draw calls are occurring. What should the Programmer do to reduce draw calls?",
-            "choices": {
-                "A": "Make the tiles share the same material.",
-                "B": "Set gameObject.isStatic on each tile to true.",
-                "C": "Use Mesh.CombineMeshes() to merge tiles together.",
-                "D": "Set the Renderer's sortingOrder to a unique value."
-            },
-            "correct_answer": "A",
-            "explanation": "For static batching to work, GameObjects must share the same Material. Since the tiles are not batching, the most likely cause is that they have different material instances, even if they look the same. Ensuring all tiles in an environment share the exact same Material asset will allow Unity's batching system to combine them into fewer draw calls. While combining meshes is an option, it's more complex and less flexible than fixing the material issue which is the direct cause of batching failure."
         },
         {
             "question": "A Programmer is creating a simulation of a plane taking off from a landing strip. The code for the plane is shown below (line numbers are for reference only): [code block showing Plane class with Rigidbody Rb, ForwardForce, and LiftForce properties, and an empty FixedUpdate method]. The landing strip is parallel to the Z axis. The Y axis is perpendicular to the landing strip. The forwardForce field specifies the force of the plane going down the landing strip. The LiftForce field specifies the force used to lift the plane from the landing strip. The Programmer needs to add code at line 09 so that the plane can perform its takeoff. Which code segment should the Programmer use?",
