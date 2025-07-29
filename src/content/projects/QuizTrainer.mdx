@@ -49,35 +49,39 @@ With that done, I created:
 For the program to recognize the Json it has to have the following format:
 <Dropdown title="See Json format example block">
 ```json
-[
-  //Single choise questions
-  {
-    "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
-    "choices": {
-      "A": "5",
-      "B": "10",
-      "C": "Compilation error",
-      "D": "Undefined behavior"
-    },
-    "correct_answer": "B",
-    "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
-  },
-  //Multiple choise questions
-  {
-  "question": "Which of the following are fundamental data types in C++?",
-  "choices": {
-    "A": "int",
-    "B": "std::vector",
-    "C": "char",
-    "D": "double"
-  },
-  "correct_answer": ["A", "C", "D"],
-  "explanation": "'std::vector' is a container from the STL, not a fundamental type."
-  }
-  {"ANY OTHER QUESTION ADDED"},
-  {"ANY OTHER QUESTION ADDED"},
-  {...}
-]
+{
+  "subject": "C++",
+  "questions": 
+    [
+            //Single choise example
+        {
+            "question": "What will be the output of this code?\n\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    int a = 5;\n    int &ref = a;\n    ref = 10;\n    cout << a;\n    return 0;\n}\n```",
+            "choices": {
+            "A": "5",
+            "B": "10",
+            "C": "Compilation error",
+            "D": "Undefined behavior"
+            },
+            "correct_answer": "B",
+            "explanation": "The reference 'ref' refers to 'a'. Assigning 10 to 'ref' changes 'a' to 10, so output is 10."
+        },
+        //Multiple choise questions
+        {
+        "question": "Which of the following are fundamental data types in C++?",
+        "choices": {
+            "A": "int",
+            "B": "std::vector",
+            "C": "char",
+            "D": "double"
+        },
+        "correct_answer": ["A", "C", "D"],
+        "explanation": "'std::vector' is a container from the STL, not a fundamental type."
+        },
+        {"ANY OTHER QUESTION ADDED"},
+        {"ANY OTHER QUESTION ADDED"},
+        {...}
+    ]
+}
 ```
 </Dropdown>
 
