@@ -1,0 +1,3001 @@
+{
+  "subject": "PowerBI",
+  "questions": [
+  {
+    "question": "You imported a dataset where the 'Customer ID' column contains many repeated values. What is the most appropriate reason this column may cause issues in your report? Select the best option:",
+    "choices": {
+      "A": "Power BI doesn’t support text-based IDs.",
+      "B": "Duplicate IDs can cause incorrect aggregations or joins.",
+      "C": "Repeating values are only problematic for visual formatting.",
+      "D": "Repeating values prevent the use of column filters."
+    },
+    "correct_answer": "B",
+    "explanation": "Duplicate values in a primary column like Customer ID may distort aggregations and interfere with table relationships. Power BI may create ambiguous joins or misrepresent totals if unique identifiers are not maintained."
+  },
+  {
+    "question": "In Power Query, you find a column that contains numeric codes representing employment statuses (e.g., 1 = Employed, 2 = Unemployed). What transformation is best practice before using this data in a report?",
+    "choices": {
+      "A": "Keep as-is for faster performance.",
+      "B": "Split the column into multiple columns.",
+      "C": "Replace numeric codes with descriptive text values.",
+      "D": "Remove the column."
+    },
+    "correct_answer": "C",
+    "explanation": "Replacing numeric codes with human-readable labels improves clarity, enhances filtering/slicing, and aligns with best practices for self-service BI environments."
+  },
+  {
+    "question": "What Power Query feature helps you analyze the distribution and quality of values in a column before making transformations?",
+    "choices": {
+      "A": "M Code",
+      "B": "Column Statistics",
+      "C": "Advanced Editor",
+      "D": "Aggregation Panel"
+    },
+    "correct_answer": "B",
+    "explanation": "Column Statistics, Column Quality, and Column Distribution help you understand the structure and health of your data before applying transformations. This is known as data profiling."
+  },
+  {
+    "question": "You have a column called 'Address' that contains the full address as a single string (e.g., '123 Main St, New York, NY, 10001'). Which transformation is most appropriate?",
+    "choices": {
+      "A": "Rename the column.",
+      "B": "Replace commas with dashes.",
+      "C": "Split the column using a delimiter.",
+      "D": "Change data type to Date/Time."
+    },
+    "correct_answer": "C",
+    "explanation": "Splitting the address into individual fields (Street, City, State, Zip) improves structure and analysis capabilities. It also enables filtering or geographic mapping more efficiently."
+  },
+  {
+    "question": "You want to ensure column names are descriptive and consistent across queries in Power BI. Why is this important?",
+    "choices": {
+      "A": "Column names affect file size.",
+      "B": "It reduces CPU usage during visuals.",
+      "C": "Descriptive names improve model readability and user experience.",
+      "D": "Power BI ignores column names."
+    },
+    "correct_answer": "C",
+    "explanation": "Clear naming conventions enhance the usability of the data model, reduce user errors, and make the model easier to understand and maintain."
+  },
+  {
+    "question": "You’ve fixed all obvious data issues in Power Query, but the data types of several columns (e.g., dates, numbers) are incorrect. What might happen if you don’t fix them?",
+    "choices": {
+      "A": "Nothing; Power BI will auto-correct during visuals.",
+      "B": "Visuals may break or show incorrect aggregations.",
+      "C": "Power BI will convert everything to text.",
+      "D": "Queries will fail to load into the report."
+    },
+    "correct_answer": "B",
+    "explanation": "Incorrect data types can break visuals or misrepresent data. For example, sorting dates as text or aggregating text-based numbers leads to unreliable reports."
+  },
+  {
+    "question": "In Power Query, which of the following tasks requires using the Advanced Editor?",
+    "choices": {
+      "A": "Replacing values.",
+      "B": "Splitting columns.",
+      "C": "Writing custom M transformations.",
+      "D": "Renaming columns."
+    },
+    "correct_answer": "C",
+    "explanation": "While most tasks can be performed in the UI, writing custom M transformations or applying complex logic requires editing the M code manually in the Advanced Editor."
+  },
+  {
+    "question": "You want to merge two queries containing customer data. One query has basic details, the other has transaction history. What should you consider before merging?",
+    "choices": {
+      "A": "Both queries must use the same data type for join columns.",
+      "B": "One query must be marked as a fact table.",
+      "C": "Queries must be loaded to the model first.",
+      "D": "Merge is not supported in Power Query."
+    },
+    "correct_answer": "A",
+    "explanation": "Merge operations depend on matching values in the key columns. These columns must have the same data type, or Power Query will not match them correctly, leading to data loss or join errors."
+  },
+  {
+    "question": "You’ve loaded a CSV file where the first row contains column headers, but Power BI has treated it as a data row. What should you do to correct this and why?",
+    "choices": {
+      "A": "Remove the first row manually",
+      "B": "Rename each column manually",
+      "C": "Use the \"Use First Row as Headers\" option",
+      "D": "Enable automatic header detection in Power BI Desktop settings"
+    },
+    "correct_answer": "C",
+    "explanation": "Power Query assumes all rows are data unless specified. The 'Use First Row as Headers' option tells Power BI to promote the first row to headers, which is the correct approach if column names are in the first row."
+  },
+ 
+  {
+    "question": "What does the “Unpivot Columns” function in Power Query Editor accomplish?",
+    "choices": {
+      "A": "It combines multiple queries into a single flat table",
+      "B": "It transposes rows into columns",
+      "C": "It turns selected columns into attribute-value pairs",
+      "D": "It aggregates values by grouping them"
+    },
+    "correct_answer": "C",
+    "explanation": "Unpivoting transforms columns (like years) into rows, creating attribute-value pairs. This makes data easier to slice and analyze over time or categories."
+  },
+  
+  {
+    "question": "Which of the following actions does not modify the original data source when working in Power Query Editor?",
+    "choices": {
+      "A": "Removing columns",
+      "B": "Renaming tables",
+      "C": "Filtering rows",
+      "D": "All of the above"
+    },
+    "correct_answer": "D",
+    "explanation": "Power Query only changes the view of your data inside Power BI. The original source files or databases remain unchanged regardless of transformations performed."
+  },
+  
+  {
+    "question": "You are connected to a SQL Server database. What is the most efficient way to reduce the number of columns in your dataset during the loading phase?",
+    "choices": {
+      "A": "Load the full table and remove columns in Power BI",
+      "B": "Use SQL views created by your DBA",
+      "C": "Use a SELECT query with specific column names",
+      "D": "Use DAX to hide columns after loading"
+    },
+    "correct_answer": "C",
+    "explanation": "Using a custom SQL query with only required columns reduces data transfer and improves refresh performance by filtering at the source."
+  },
+  {
+    "question": "When should you use the “Close & Apply” button in Power Query Editor?",
+    "choices": {
+      "A": "After loading data into Power BI for the first time",
+      "B": "After completing all necessary transformations",
+      "C": "After creating DAX measures",
+      "D": "Before publishing your report to the Power BI Service"
+    },
+    "correct_answer": "B",
+    "explanation": "“Close & Apply” finalizes your transformation steps and loads the shaped data into the Power BI model, so it should be used only once data shaping is complete."
+  },
+   {
+    "question": "You’ve loaded a CSV file where the first row contains column headers, but Power BI has treated it as a data row. What should you do to correct this and why?",
+    "choices": {
+      "A": "Remove the first row manually",
+      "B": "Rename each column manually",
+      "C": "Use the \"Use First Row as Headers\" option",
+      "D": "Enable automatic header detection in Power BI Desktop settings"
+    },
+    "correct_answer": "C",
+    "explanation": "Power Query assumes all rows are data unless specified. The 'Use First Row as Headers' option tells Power BI to promote the first row to headers, which is the correct approach if column names are in the first row."
+  },
+  {
+    "question": "Which of the following is the best reason to remove unnecessary columns early in the data transformation process?",
+    "choices": {
+      "A": "It visually simplifies the report view",
+      "B": "It reduces memory consumption and improves model performance",
+      "C": "It ensures that the data will refresh faster on the cloud",
+      "D": "It avoids SQL syntax errors in Power Query M code"
+    },
+    "correct_answer": "B",
+    "explanation": "Early removal of columns reduces the size of the data model, which leads to better performance and faster processing in Power BI Desktop. It also makes your reports easier to manage."
+  },
+  
+  {
+    "question": "In Power Query Editor, what happens when you promote headers before removing irrelevant top rows?",
+    "choices": {
+      "A": "Power Query will throw an error",
+      "B": "The column names may be incorrect or contain actual data",
+      "C": "Power BI will automatically clean the top rows",
+      "D": "Promoting headers will delete the top row permanently"
+    },
+    "correct_answer": "B",
+    "explanation": "If metadata or blank rows are present at the top, promoting the first row may apply incorrect column names. Always remove unnecessary top rows before using the 'Use First Row as Headers' option."
+  },
+  {
+    "question": "You have a flat table with columns: ProductCategory, Subcategory, and Quantity. You want to reshape this data to show how many subcategories exist in each product category. Which feature should you use?",
+    "choices": {
+      "A": "Unpivot Columns",
+      "B": "Group By",
+      "C": "Pivot Columns with aggregation",
+      "D": "Merge Queries"
+    },
+    "correct_answer": "C",
+    "explanation": "Pivot Columns with aggregation like 'Count' allows you to reshape the flat data into a summarized structure showing counts of subcategories per product category."
+  },
+  {
+    "question": "Which of the following best describes how Power Query Editor manages transformation steps?",
+    "choices": {
+      "A": "Each step rewrites the original data file",
+      "B": "Steps are recorded and applied only once",
+      "C": "Steps are stored as metadata and applied at each refresh",
+      "D": "Steps are saved in a separate Excel file"
+    },
+    "correct_answer": "C",
+    "explanation": "Power Query stores transformation steps in metadata and re-applies them automatically during each refresh. This ensures data remains consistent without modifying the source."
+  },
+  {
+    "question": "Which of the following is true about using the right-click context menu compared to the ribbon in Power Query?",
+    "choices": {
+      "A": "The context menu has fewer transformation options",
+      "B": "The context menu is only available for numeric columns",
+      "C": "Both offer similar transformation options for convenience",
+      "D": "The ribbon must be used for advanced transformations"
+    },
+    "correct_answer": "C",
+    "explanation": "Both the ribbon and the right-click menu offer similar tools like renaming, unpivoting, and removing columns. The context menu provides quick access to commonly used transformations."
+  },
+  {
+    "question": "What is the impact of changing the order of applied steps in the Power Query Editor?",
+    "choices": {
+      "A": "It has no effect on the final dataset",
+      "B": "It might cause transformation errors or incorrect data output",
+      "C": "It speeds up the refresh rate of the data source",
+      "D": "It disables column-level security features"
+    },
+    "correct_answer": "B",
+    "explanation": "Changing the order of transformation steps can lead to incorrect results or errors. For example, if a column is renamed after it's removed, it will cause a step failure."
+  },
+  {
+    "question": "When should you use the 'Close & Apply' button in Power Query Editor?",
+    "choices": {
+      "A": "After loading data into Power BI for the first time",
+      "B": "After completing all necessary transformations",
+      "C": "After creating DAX measures",
+      "D": "Before publishing your report to the Power BI Service"
+    },
+    "correct_answer": "B",
+    "explanation": "'Close & Apply' finalizes your transformations in Power Query and loads the data into the model. It should only be used after shaping is complete."
+  },
+   {
+    "question": "You are reviewing query names in Power BI and find one named 'vSalesData2024'. What is the most appropriate action to simplify this name?",
+    "choices": {
+      "A": "Keep the name as it is to preserve the source naming convention.",
+      "B": "Change it to 'Sales' to make it shorter.",
+      "C": "Rename it to 'Sales Data 2024' to improve clarity.",
+      "D": "Replace it with 'FactSales' to follow a technical naming style."
+    },
+    "correct_answer": "C",
+    "explanation": "Simplifying data structure aims for clear, meaningful, and user-friendly names. The prefix 'v' (view) can confuse users. Adding the year improves distinction between similar queries. 'Sales Data 2024' is descriptive and avoids unnecessary technical jargon."
+  },
+  {
+    "question": "Why is it recommended to replace null values with zero in numerical columns such as freight costs?",
+    "choices": {
+      "A": "To avoid loading errors during data refresh.",
+      "B": "To match SQL query outputs.",
+      "C": "To ensure correct aggregate calculations like averages.",
+      "D": "To prevent column type mismatch errors."
+    },
+    "correct_answer": "C",
+    "explanation": "Null values are excluded from aggregates like averages, which can lead to misleading metrics. Replacing nulls with zero ensures values are included properly, improving calculation accuracy."
+  },
+  {
+    "question": "Which of the following actions CANNOT be performed directly in Power Query Editor?",
+    "choices": {
+      "A": "Replacing a value in a column.",
+      "B": "Renaming a table (query).",
+      "C": "Editing a single cell value manually.",
+      "D": "Removing duplicate rows from a column."
+    },
+    "correct_answer": "C",
+    "explanation": "Power Query Editor does not allow manual editing of individual cells. Instead, transformations are applied through functions like Replace Values, which ensures repeatable, automated data shaping."
+  },
+  {
+    "question": "After removing duplicates from the 'Category Name' column, what is a best practice if you also want to retain the original table?",
+    "choices": {
+      "A": "Use the 'Group By' feature.",
+      "B": "Copy the table before removing duplicates.",
+      "C": "Create a relationship between the column and itself.",
+      "D": "Export the table to Excel for backup."
+    },
+    "correct_answer": "B",
+    "explanation": "Duplicating the table before removing duplicates keeps both the original data and a clean unique-values table, which is useful for creating dimension tables in a star schema."
+  },
+  {
+    "question": "Which naming practice is LEAST recommended when renaming columns or tables in Power BI?",
+    "choices": {
+      "A": "Replacing underscores with spaces.",
+      "B": "Using descriptive business terms.",
+      "C": "Using commonly understood acronyms.",
+      "D": "Applying very short abbreviations to save space."
+    },
+    "correct_answer": "D",
+    "explanation": "Very short or cryptic abbreviations can confuse users. Clarity and consistency are more important for usability than saving space."
+  },
+  {
+    "question": "You replaced a value in a column using the Replace Values feature, but the change didn’t apply to all rows. What is the MOST likely reason?",
+    "choices": {
+      "A": "The column type was numeric, and Replace Values works only on text.",
+      "B": "The value had a different case or extra spaces.",
+      "C": "Replace Values only affects the first 1000 rows.",
+      "D": "You forgot to press 'Enter' after typing the value."
+    },
+    "correct_answer": "B",
+    "explanation": "Replace Values is case-sensitive and sensitive to extra spaces. Mismatched cases or spaces cause the replacement to fail on some rows."
+  },
+  {
+    "question": "Which of the following would best improve semantic clarity in your Power BI data model?",
+    "choices": {
+      "A": "Adding technical prefixes like 'tbl_' or 'dim_' to all tables.",
+      "B": "Keeping column names consistent with SQL table names.",
+      "C": "Replacing underscores and abbreviations with readable names.",
+      "D": "Using upper-case letters to highlight important fields."
+    },
+    "correct_answer": "C",
+    "explanation": "Power BI reports target business users, so clear, readable names without technical prefixes or underscores improve understanding and usability."
+  },
+  {
+    "question": "After making several transformations in Power Query Editor, what must you do to ensure your changes are applied to the Power BI data model?",
+    "choices": {
+      "A": "Close Power Query Editor without saving.",
+      "B": "Click Close & Apply to save and load changes.",
+      "C": "Press Refresh in Power BI Desktop.",
+      "D": "Export the query to Excel and re-import it."
+    },
+    "correct_answer": "B",
+    "explanation": "Changes in Power Query Editor only affect the data model when you click Close & Apply. This commits and loads transformed data for reporting."
+  },
+  {
+    "question": "Where can you review the list of transformation steps you have applied to a query in Power Query Editor?",
+    "choices": {
+      "A": "In the Applied Steps section of the Query Settings pane.",
+      "B": "In the Data view of Power BI Desktop.",
+      "C": "In the Relationships pane.",
+      "D": "In the Power BI Service online portal."
+    },
+    "correct_answer": "A",
+    "explanation": "The Applied Steps list in the Query Settings pane documents every transformation applied, enabling review, editing, or deletion."
+  },
+  {
+    "question": "Why is it important to consider the length and format of values when replacing or naming them for reports?",
+    "choices": {
+      "A": "Long values improve data accuracy and detail.",
+      "B": "Values that are too long may not fit on visuals and can reduce readability.",
+      "C": "Short values are always better regardless of meaning.",
+      "D": "Acronyms are preferred to save space on reports."
+    },
+    "correct_answer": "B",
+    "explanation": "Values that are too long can clutter or truncate visuals, making reports hard to read. It’s important to balance clarity with length for optimal readability."
+  },
+  {
+    "question": "Which of the following is NOT a recommended practice when renaming values in Power Query for reports?",
+    "choices": {
+      "A": "Using consistent abbreviations agreed upon in the organization.",
+      "B": "Replacing underscores ('_') with spaces in values.",
+      "C": "Using acronyms frequently to save space.",
+      "D": "Choosing values that make sense in report context."
+    },
+    "correct_answer": "C",
+    "explanation": "Frequent use of acronyms can confuse report consumers unless the acronyms are well understood; clarity is preferred."
+  },
+  {
+    "question": "If you realize that a transformation step applied early in the Power Query steps causes an error in subsequent steps, what is the best course of action?",
+    "choices": {
+      "A": "Delete all steps and start over.",
+      "B": "Use the Applied Steps pane to find and modify or remove the problematic step.",
+      "C": "Ignore the error and continue editing other queries.",
+      "D": "Close Power Query without applying changes."
+    },
+    "correct_answer": "B",
+    "explanation": "The Applied Steps pane allows you to identify and fix or remove problematic steps, which resolves errors without redoing the entire query."
+  },
+  {
+    "question": "What is the primary reason you should evaluate and change data types in Power Query Editor before loading data into Power BI?",
+    "choices": {
+      "A": "It improves the visual formatting of charts and tables",
+      "B": "It avoids the need to use DAX expressions",
+      "C": "It ensures correct calculations, relationships, and hierarchies",
+      "D": "It saves memory by reducing file size"
+    },
+    "correct_answer": "C",
+    "explanation": "Incorrect data types can break time-based DAX functions, prevent relationships between tables, and stop Power BI from generating hierarchies like Year → Month → Day. Reviewing data types early in Power Query avoids these critical issues."
+  },
+  {
+    "question": "You import a CSV file containing an 'OrderDate' column. Power BI sets its data type to Text. What issue are you most likely to encounter if you don’t correct this?",
+    "choices": {
+      "A": "The column won’t be visible in visuals",
+      "B": "DAX measures using time intelligence functions will fail",
+      "C": "You won’t be able to rename the column",
+      "D": "The file will not load into Power BI"
+    },
+    "correct_answer": "B",
+    "explanation": "Time intelligence functions like TOTALYTD() require a proper Date data type. If 'OrderDate' is set as Text, these functions return errors because they cannot interpret the values as dates."
+  },
+  {
+    "question": "Which of the following actions in Power Query Editor will save a data type change as a step in the applied steps pane?",
+    "choices": {
+      "A": "Changing the column name",
+      "B": "Selecting the correct data type from the icon next to the column name",
+      "C": "Filtering a column to remove blanks",
+      "D": "Creating a measure in the report view"
+    },
+    "correct_answer": "B",
+    "explanation": "Changing the data type using the icon next to the column name in Power Query creates a “Changed Type” step. All transformation steps are recorded and reapplied each time the data is refreshed."
+  },
+  {
+    "question": "Which data sources are most likely to cause data type detection errors in Power BI?",
+    "choices": {
+      "A": "SQL Server databases",
+      "B": "Azure Synapse Analytics",
+      "C": "CSV and Excel files",
+      "D": "SharePoint lists"
+    },
+    "correct_answer": "C",
+    "explanation": "Flat files like CSV and Excel are more error-prone because data entry is manual and doesn’t enforce strict typing like databases do. Mistakes such as typing text in a numeric column can lead to incorrect type detection."
+  },
+  {
+    "question": "In the Report view, a column containing dates shows only as a flat list and doesn’t allow a Year/Month/Day breakdown. What is the likely cause?",
+    "choices": {
+      "A": "Auto date/time is turned off",
+      "B": "Column has null values",
+      "C": "Column is set as text instead of date",
+      "D": "The column is hidden in the data model"
+    },
+    "correct_answer": "C",
+    "explanation": "Hierarchies are only available if the column is correctly set as a Date. If it is set as Text, Power BI cannot generate the automatic hierarchy (even if auto date/time is enabled)."
+  },
+  {
+    "question": "What happens when you change the data type of a column in Power Query Editor?",
+    "choices": {
+      "A": "The change is permanent and stored in the source file",
+      "B": "A new transformation step (Changed Type) is created and applied at every data refresh",
+      "C": "The data type is changed only for the current report session and resets after refresh",
+      "D": "Power BI automatically creates a new table with corrected data types"
+    },
+    "correct_answer": "B",
+    "explanation": "Power Query saves all transformations as steps. Changing a column’s data type creates a \"Changed Type\" step that is reapplied each time data refreshes, ensuring data consistency without altering the original source."
+  },
+  {
+    "question": "Why is it considered a best practice to disable Auto Date/Time and use a dedicated Date table in Power BI?",
+    "choices": {
+      "A": "To speed up data import from Excel files",
+      "B": "To prevent Power BI from generating automatic hierarchies and improve performance",
+      "C": "To automatically correct wrong data types in date columns",
+      "D": "To reduce the size of the Power BI file by removing unused dates"
+    },
+    "correct_answer": "B",
+    "explanation": "Using a dedicated Date table gives you full control over date hierarchies and improves performance. Auto Date/Time creates hidden date tables that can bloat the model and cause confusion."
+  },
+  {
+    "question": "If a column contains numeric values but is detected as Text, what is a likely impact?",
+    "choices": {
+      "A": "You cannot apply filters to that column",
+      "B": "Power BI will ignore that column during data refresh",
+      "C": "Aggregations like SUM or AVERAGE will fail or produce incorrect results",
+      "D": "The column will not appear in the Fields pane"
+    },
+    "correct_answer": "C",
+    "explanation": "Numerical operations require numeric data types. If a column is text, SUM or AVERAGE won’t work correctly because the data isn’t recognized as numeric."
+  },
+  {
+    "question": "Where in Power BI Desktop can you change the data type of a column after data has been loaded?",
+    "choices": {
+      "A": "Power Query Editor only",
+      "B": "Report view via the Column Tools ribbon",
+      "C": "Modeling tab only",
+      "D": "Data source settings"
+    },
+    "correct_answer": "B",
+    "explanation": "While it’s best to change data types in Power Query, you can change them later in the Report view using the Column Tools ribbon. However, this affects only the loaded data model, not the query steps."
+  },
+  {
+    "question": "What problem arises if you don't correct a date column data type and attempt to create a relationship with another table’s date field?",
+    "choices": {
+      "A": "Relationship will be automatically corrected by Power BI",
+      "B": "The relationship will fail because data types must match",
+      "C": "The relationship will be created but will produce incorrect results",
+      "D": "You can create the relationship but cannot use it in visuals"
+    },
+    "correct_answer": "B",
+    "explanation": "Power BI requires columns involved in relationships to have compatible data types. If one column is Text and the other is Date, the relationship cannot be established."
+  },
+  { 
+    "question": "You are preparing to append three tables: Employees, Customers, and Suppliers. However, only the Customers table contains the column named PhoneNumber. The other two have a column called ContactNumber. What must be done before appending?",
+    "choices": {
+      "A": "Append the tables as they are; Power BI automatically matches columns with similar data types",
+      "B": "Rename PhoneNumber to ContactNumber in Customers",
+      "C": "Rename all ContactNumber columns to PhoneNumber in all three tables",
+      "D": "Merge the tables instead of appending them"
+    },
+    "correct_answer": "C",
+    "explanation": "When appending queries, column names must exactly match across tables. If they differ, Power BI treats them as separate columns. Renaming all ContactNumber columns to PhoneNumber ensures a single combined column in the appended table."
+  },
+  { 
+    "question": "You want to merge two tables: Orders and OrderDetails. Orders has 500 rows, and OrderDetails has 2000 rows. If you use an Inner Join on OrderID, which result is correct?",
+    "choices": {
+      "A": "The resulting table will have 2500 rows",
+      "B": "The resulting table will contain only rows where OrderID exists in both tables",
+      "C": "The resulting table will have all 500 rows from Orders, regardless of matches",
+      "D": "You cannot perform this merge unless both tables have exactly the same number of rows"
+    },
+    "correct_answer": "B",
+    "explanation": "An Inner Join returns only rows that have matching keys in both tables. Non-matching rows are excluded, so the result includes only OrderIDs present in both Orders and OrderDetails."
+  },
+  { 
+    "question": "In Power Query, which of the following steps is NOT required before appending three data tables for a unified contact list?",
+    "choices": {
+      "A": "Removing unnecessary columns",
+      "B": "Sorting all tables by the same column",
+      "C": "Standardizing column headers",
+      "D": "Ensuring data types match for each column"
+    },
+    "correct_answer": "B",
+    "explanation": "Sorting rows is not necessary when appending because append stacks rows vertically. However, columns must be standardized in name and data type, and irrelevant columns removed."
+  },
+  { 
+    "question": "You’ve appended Customers, Suppliers, and Employees into a master table using “Append Queries as New.” What is the main advantage of using \"Append Queries as New\" instead of \"Append Queries\"?",
+    "choices": {
+      "A": "It creates a reference table that updates only when manually refreshed",
+      "B": "It creates a brand new table, preserving the original tables untouched",
+      "C": "It automatically merges columns with similar names",
+      "D": "It removes the need to transform individual tables before combining them"
+    },
+    "correct_answer": "B",
+    "explanation": "\"Append Queries as New\" creates a new query/table without modifying the original tables, which helps preserve source data and allows building transformations on a fresh combined dataset."
+  },
+  { 
+    "question": "When merging two tables in Power Query, what happens if the column used as the join key contains null values?",
+    "choices": {
+      "A": "Nulls are automatically matched together",
+      "B": "Rows with null in the key column are excluded from the merge",
+      "C": "The merge will fail unless nulls are replaced first",
+      "D": "All rows with nulls are matched by default and included"
+    },
+    "correct_answer": "B",
+    "explanation": "Null values in the join key do not match any other value, including other nulls, so rows with null keys are excluded from the merged result."
+  },
+  { 
+    "question": "What will happen if you append two tables with the same column headers but different data types for one column, e.g., ID is text in one table and numeric in another?",
+    "choices": {
+      "A": "Power BI automatically converts data types to match",
+      "B": "The append operation fails with an error",
+      "C": "Power BI converts all values to text or the broader data type",
+      "D": "The column with conflicting types will be split into two separate columns in the appended table"
+    },
+    "correct_answer": "C",
+    "explanation": "Power BI promotes data types to the broader or more flexible type to unify the column during append. For example, numeric data may be converted to text to avoid conflicts."
+  },
+  { 
+    "question": "Which of the following join types will result in a merged table that includes all rows from both tables, showing nulls where no match exists?",
+    "choices": {
+      "A": "Left Outer",
+      "B": "Right Outer",
+      "C": "Inner",
+      "D": "Full Outer"
+    },
+    "correct_answer": "D",
+    "explanation": "A Full Outer Join includes all rows from both tables. For rows without matching keys in the other table, columns are filled with nulls."
+  },
+  { 
+    "question": "You want to create a merged table from two tables with columns: EmployeeID in the first and EmpID in the second, representing the same data. What is the best way to proceed?",
+    "choices": {
+      "A": "Merge directly using these columns as they have different names but same data",
+      "B": "Rename one column to match the other before merging",
+      "C": "Use append instead of merge",
+      "D": "Create a new calculated column combining the two before merging"
+    },
+    "correct_answer": "B",
+    "explanation": "Merge operations require selecting matching columns by name in each table. Renaming columns to the same name ensures the join uses the correct keys."
+  },
+  { 
+    "question": "In which scenario would you prefer merging tables over appending them?",
+    "choices": {
+      "A": "When you want to stack multiple datasets vertically",
+      "B": "When you want to add related data from a lookup table as new columns",
+      "C": "When all tables have the same structure",
+      "D": "When you want to create a new query without modifying original data"
+    },
+    "correct_answer": "B",
+    "explanation": "Merging adds columns from one table to another based on keys (like lookups). Appending stacks rows vertically and is not appropriate for adding related columns."
+  },
+  { 
+    "question": "You have a large semantic model with many tables. Which is a valid reason to combine tables via append?",
+    "choices": {
+      "A": "To reduce the number of tables and simplify report building",
+      "B": "To create relationships between tables",
+      "C": "To normalize the data model",
+      "D": "To add calculated columns across tables"
+    },
+    "correct_answer": "A",
+    "explanation": "Appending reduces the number of tables by consolidating those with similar roles, simplifying the model and navigation. Relationships and normalization are separate design considerations."
+  },
+  { 
+    "question": "Which of the following best explains the purpose of data profiling in Power BI?",
+    "choices": {
+      "A": "Creating relationships between tables",
+      "B": "Designing complex visuals on the report canvas",
+      "C": "Studying data structure, anomalies, and statistical patterns",
+      "D": "Configuring row-level security in the model"
+    },
+    "correct_answer": "C",
+    "explanation": "Data profiling focuses on understanding the structure, quality, and distribution of data before building visuals. This involves identifying anomalies, analyzing column statistics, and verifying data consistency. Options A, B, and D relate to other aspects of Power BI but not specifically to profiling."
+  },
+  { 
+    "question": "By default, Power BI performs column profiling on which portion of the data?",
+    "choices": {
+      "A": "The entire dataset",
+      "B": "The first 10,000 rows",
+      "C": "The first 1,000 rows",
+      "D": "A random 5% sample of rows"
+    },
+    "correct_answer": "C",
+    "explanation": "Power Query Editor profiles the first 1,000 rows by default to balance performance and insight. This can be changed to profile the entire dataset if needed."
+  },
+  { 
+    "question": "Which of the following statements is TRUE about 'distinct' and 'unique' values in Column Distribution?",
+    "choices": {
+      "A": "Distinct values exclude nulls, while unique values include them",
+      "B": "Distinct counts all different values including nulls and duplicates; unique counts values appearing once without nulls",
+      "C": "Unique values include all repeated entries",
+      "D": "Power BI does not differentiate between distinct and unique in profiling"
+    },
+    "correct_answer": "B",
+    "explanation": "Distinct values include all different values, including duplicates and nulls. Unique values only count those that appear once and exclude duplicates and nulls. This distinction helps identify data repetition or uniqueness."
+  },
+  { 
+    "question": "Which metric is NOT provided by the Column Quality feature?",
+    "choices": {
+      "A": "Percentage of valid values",
+      "B": "Count of duplicate entries",
+      "C": "Percentage of error values",
+      "D": "Percentage of empty values"
+    },
+    "correct_answer": "B",
+    "explanation": "Column Quality shows percentages of valid, error, and empty values. The count of duplicate entries is shown in Column Distribution, not Column Quality."
+  },
+  { 
+    "question": "Which of the following insights can Power BI provide for numeric columns via Column Profile?",
+    "choices": {
+      "A": "Number of even and odd values",
+      "B": "Total number of charts created using that column",
+      "C": "Data types used in the entire dataset",
+      "D": "Currency symbols detected in numeric values"
+    },
+    "correct_answer": "A",
+    "explanation": "For numeric columns, Power BI shows counts of even and odd values, min, max, average, standard deviation, null and zero counts. The other options are unrelated to profiling."
+  },
+  { 
+    "question": "How can the Value Distribution feature help detect bad data?",
+    "choices": {
+      "A": "It filters columns with NULLs",
+      "B": "It visualizes each unique value and how often it appears",
+      "C": "It highlights all columns that contain currency symbols",
+      "D": "It shows percentage of column transformations"
+    },
+    "correct_answer": "B",
+    "explanation": "Value Distribution shows a bar chart of unique values and their frequency. This helps detect overrepresented or underrepresented values and possible data quality issues."
+  },
+  { 
+    "question": "What real-life issue can profiling help detect before building visuals?",
+    "choices": {
+      "A": "Incorrect DAX formulas",
+      "B": "Data model relationships missing",
+      "C": "Visual formatting errors",
+      "D": "Inconsistent or outdated data entries"
+    },
+    "correct_answer": "D",
+    "explanation": "Profiling helps identify inconsistent or outdated data, anomalies, or errors early. Other options relate to later stages of report development."
+  },
+  { 
+    "question": "Which action applies the transformations made during data profiling back to the Power BI model?",
+    "choices": {
+      "A": "Save as Template",
+      "B": "Apply Data Snapshot",
+      "C": "Refresh Now",
+      "D": "Close & Apply"
+    },
+    "correct_answer": "D",
+    "explanation": "Close & Apply applies the changes made in Power Query Editor and loads the cleaned data into Power BI Desktop."
+  },
+  { 
+    "question": "Where in Power BI Desktop can you view and edit the underlying data structures before profiling?",
+    "choices": {
+      "A": "Data view",
+      "B": "Report view",
+      "C": "Model tab",
+      "D": "Power Query Editor only"
+    },
+    "correct_answer": "C",
+    "explanation": "The Model tab lets you view and edit the semantic data model, including table and column properties and relationships, before profiling the data."
+  },
+  { 
+    "question": "What feature allows you to create, edit, or delete relationships between tables in Power BI Desktop?",
+    "choices": {
+      "A": "Manage Relationships on the ribbon",
+      "B": "Column Distribution pane",
+      "C": "Column Profile view",
+      "D": "Data Refresh settings"
+    },
+    "correct_answer": "A",
+    "explanation": "Manage Relationships on the Model tab ribbon enables you to create, edit, or delete relationships between tables."
+  },
+  { 
+    "question": "In text columns, what do the minimum and maximum values represent in Power Query’s profiling?",
+    "choices": {
+      "A": "Length of the shortest and longest text strings",
+      "B": "The first and last values alphabetically",
+      "C": "The earliest and latest dates in the column",
+      "D": "The smallest and largest numerical values in the text"
+    },
+    "correct_answer": "B",
+    "explanation": "For text columns, the minimum and maximum represent the first and last values alphabetically, not string length or dates."
+  },
+  { 
+    "question": "Why might you choose to profile only the first 1,000 rows rather than the entire dataset?",
+    "choices": {
+      "A": "To improve performance and speed",
+      "B": "Because Power BI does not support profiling entire datasets",
+      "C": "Because the first 1,000 rows are always representative",
+      "D": "To apply security rules faster"
+    },
+    "correct_answer": "A",
+    "explanation": "Profiling the entire dataset can be slow; profiling the first 1,000 rows improves performance while still providing useful insights."
+  },
+  { 
+    "question": "Which metric(s) in Power Query help identify outliers in numeric data?",
+    "choices": {
+      "A": "Distinct and unique counts",
+      "B": "Min and Max values, standard deviation",
+      "C": "Percentage of empty values",
+      "D": "Number of tables in the model"
+    },
+    "correct_answer": "B",
+    "explanation": "Min, max, and standard deviation metrics help identify numeric outliers by showing values that are unusually high or low compared to the rest."
+  },
+  { 
+    "question": "After profiling and editing data in Power Query Editor, what should you do next to use this data in report visuals?",
+    "choices": {
+      "A": "Export data as CSV",
+      "B": "Close Power Query without saving",
+      "C": "Select Close & Apply to load changes",
+      "D": "Refresh the data model without applying changes"
+    },
+    "correct_answer": "C",
+    "explanation": "Close & Apply saves and applies all changes from Power Query Editor back to Power BI Desktop, making the data ready for reporting."
+  },
+  { 
+    "question": "Which of the following is NOT a benefit of profiling data before building reports?",
+    "choices": {
+      "A": "Ensuring data is complete and clean",
+      "B": "Discovering the distribution of values",
+      "C": "Automatically building visuals without manual intervention",
+      "D": "Identifying anomalies and errors early"
+    },
+    "correct_answer": "C",
+    "explanation": "Profiling helps you understand and prepare your data; it does not automatically generate report visuals."
+  },
+  {
+    "question": "Which of the following statements about M code in Power Query is TRUE?",
+    "choices": {
+      "A": "M code is executed bottom-up, with each step referencing the next one.",
+      "B": "The `in` keyword must always appear at the beginning of the M script.",
+      "C": "Reordering steps in M code can break the query logic.",
+      "D": "Each M code step can reference any other step, regardless of position."
+    },
+    "correct_answer": "C",
+    "explanation": "M code is executed top-down, meaning each step can only refer to previously defined steps. Changing the order of steps may break dependencies, causing errors. \n\n- A is incorrect because execution is top-down.\n- B is incorrect because the 'in' keyword appears near the end.\n- D is incorrect because future steps cannot be referenced."
+  },
+  {
+    "question": "When modifying M code directly in the Advanced Editor, what should you always consider?",
+    "choices": {
+      "A": "Renaming a step variable in the middle of the script has no effect.",
+      "B": "Changing the database name in a connection string is not possible in M.",
+      "C": "Every step name (before `=`) must be unique and valid.",
+      "D": "Comments are not allowed in M code."
+    },
+    "correct_answer": "C",
+    "explanation": "Each step name is a variable and must be unique and syntactically valid. Renaming a step affects all references. You can change database names in M code. M supports comments using '//'."
+  },
+  {
+    "question": "Given the following M code, what is the name of the final output step?\n\nlet\n    Source = Excel.Workbook(File.Contents(\"sales.xlsx\")),\n    Filtered = Table.SelectRows(Source, each [Region] = \"West\"),\n    Cleaned = Table.RemoveColumns(Filtered,{\"UnnecessaryColumn\"})\nin\n    Cleaned",
+    "choices": {
+      "A": "Source",
+      "B": "Filtered",
+      "C": "Cleaned",
+      "D": "sales.xlsx"
+    },
+    "correct_answer": "C",
+    "explanation": "The final output is the value specified after the 'in' keyword, which here is 'Cleaned'."
+  },
+  {
+    "question": "You moved a data type transformation step before the column it refers to was added. What will most likely happen?",
+    "choices": {
+      "A": "The data will refresh normally.",
+      "B": "Power BI will automatically adjust the step order.",
+      "C": "You will get a 'column not found' error.",
+      "D": "M will ignore the mistake and continue processing."
+    },
+    "correct_answer": "C",
+    "explanation": "Because M code steps are dependent on previous steps, attempting to transform a non-existent column will result in an error. Power BI does not automatically reorder steps."
+  },
+  {
+    "question": "Which of the following is a valid reason to use the Advanced Editor in Power Query?",
+    "choices": {
+      "A": "To write DAX expressions for calculated columns.",
+      "B": "To customize transformations beyond what the GUI offers.",
+      "C": "To import visuals into Power BI reports.",
+      "D": "To directly manipulate data model relationships."
+    },
+    "correct_answer": "B",
+    "explanation": "The Advanced Editor allows you to view and edit the M code behind Power Query steps, enabling custom transformations beyond the graphical interface. DAX, visuals, and relationships are handled elsewhere."
+  },
+  {
+    "question": "When you perform data shaping actions in Power Query’s GUI, what happens behind the scenes?",
+    "choices": {
+      "A": "No code is created unless you manually write M code.",
+      "B": "Power Query automatically generates M code for each transformation step.",
+      "C": "Each step creates a DAX formula instead of M code.",
+      "D": "The Advanced Editor stays empty until you type something manually."
+    },
+    "correct_answer": "B",
+    "explanation": "Each action in the GUI creates corresponding M code automatically, visible in the Advanced Editor. You do not need to write M code manually for transformations."
+  },
+  {
+    "question": "Which of these is a valid way to experiment safely in the Advanced Editor?",
+    "choices": {
+      "A": "Delete all the existing steps and start from scratch without saving.",
+      "B": "Modify one step at a time and check if the query still works before continuing.",
+      "C": "Change the order of all steps randomly to see the results.",
+      "D": "Remove the `in` statement to speed up execution."
+    },
+    "correct_answer": "B",
+    "explanation": "Safe experimentation involves small incremental changes and validating results after each modification. Deleting or randomly reordering steps risks breaking the query. The 'in' statement is mandatory."
+  },
+  {
+    "question": "If you rename a step variable in the Advanced Editor, what must you ensure?",
+    "choices": {
+      "A": "You also rename all references to that variable in subsequent steps.",
+      "B": "The variable name can be the same as any other step for convenience.",
+      "C": "Renaming a step variable doesn’t affect any other part of the code.",
+      "D": "You only need to change the name in the last step."
+    },
+    "correct_answer": "A",
+    "explanation": "Later steps reference previous steps by their variable names. Renaming a step requires updating all references, otherwise the query breaks."
+  },
+  {
+    "question": "What is a key advantage of editing queries in the Advanced Editor compared to using the GUI?",
+    "choices": {
+      "A": "You can modify the underlying M code to implement transformations not possible via GUI.",
+      "B": "It automatically optimizes query performance better than GUI.",
+      "C": "The GUI does not allow adding any steps to the query.",
+      "D": "You cannot view the query steps in the GUI once edited in the Advanced Editor."
+    },
+    "correct_answer": "A",
+    "explanation": "Advanced Editor gives full access to M language, allowing custom transformations beyond GUI capabilities. The GUI still shows steps after editing."
+  },
+  {
+    "question": "What happens if you omit or incorrectly specify the `in` statement in your M code?",
+    "choices": {
+      "A": "The query returns all steps as output.",
+      "B": "Power Query throws an error or returns no output.",
+      "C": "The query ignores the missing `in` statement and returns the first step.",
+      "D": "The last step automatically becomes the output."
+    },
+    "correct_answer": "B",
+    "explanation": "The `in` statement specifies the final output of the query. Omitting or miswriting it causes an error or blank result."
+  },
+  { 
+    "question": "Which of the following is NOT a benefit of using an Import model in Power BI?",
+    "choices": {
+      "A": "Supports all data source types including files, databases, and web pages",
+      "B": "Data is cached in memory for optimized query performance",
+      "C": "Allows for direct querying of live data without storing it in memory",
+      "D": "Supports calculated tables created with DAX"
+    },
+    "correct_answer": "C",
+    "explanation": "Import models load data into memory and cache it for fast analytic queries. Direct querying of live data without importing is the behavior of DirectQuery mode, not Import mode."
+  },
+  { 
+    "question": "What is the maximum dataset size for an Import model when published on a shared capacity workspace in Power BI?",
+    "choices": {
+      "A": "10 GB",
+      "B": "1 GB (compressed model size)",
+      "C": "No limit",
+      "D": "500 MB"
+    },
+    "correct_answer": "B",
+    "explanation": "On shared capacity, Power BI imposes a strict limit of 1 GB per dataset, based on the compressed size of the model in memory. Exceeding this limit will cause refresh failures."
+  },
+  { 
+    "question": "Which data reduction technique is NOT recommended to optimize an Import model size?",
+    "choices": {
+      "A": "Removing unnecessary columns",
+      "B": "Using calculated columns in the model instead of custom columns in Power Query",
+      "C": "Grouping and summarizing fact tables",
+      "D": "Optimizing column data types with numeric preference"
+    },
+    "correct_answer": "B",
+    "explanation": "It is preferable to use custom columns in Power Query rather than calculated columns within the model to reduce model size and refresh time. Calculated columns in the model increase memory usage."
+  },
+  { 
+    "question": "How often can you schedule data refresh for an Import model on a Power BI Premium (dedicated) capacity?",
+    "choices": {
+      "A": "8 times per day",
+      "B": "48 times per day",
+      "C": "Unlimited refreshes per day",
+      "D": "Only once per day"
+    },
+    "correct_answer": "B",
+    "explanation": "On dedicated (Premium) capacity, Power BI allows up to 48 scheduled refreshes per day to keep the imported data current. This is significantly higher than the 8 refreshes per day on shared capacity."
+  },
+  { 
+    "question": "What is the purpose of incremental refresh in Power BI Import models?",
+    "choices": {
+      "A": "To import data from multiple sources simultaneously",
+      "B": "To refresh only updated partitions instead of the whole table",
+      "C": "To automatically convert Import models to DirectQuery",
+      "D": "To disable scheduled refresh"
+    },
+    "correct_answer": "B",
+    "explanation": "Incremental refresh allows the dataset to refresh only partitions of data that have changed, reducing refresh time and resource consumption. It avoids reloading the entire table, which can be costly for large fact tables."
+  },
+  { 
+    "question": "Which scenario would suggest considering DirectQuery or hybrid tables instead of an Import model?",
+    "choices": {
+      "A": "When model size is less than 1 GB",
+      "B": "When scheduled refresh frequency of 8 times/day is sufficient",
+      "C": "When near real-time data updates are required and refresh latency is not acceptable",
+      "D": "When using only static data sources"
+    },
+    "correct_answer": "C",
+    "explanation": "If your data needs to be updated more frequently than the scheduled refresh limits or with minimal latency, DirectQuery or hybrid tables are better suited as they support near real-time querying without needing full dataset refreshes."
+  },
+  { 
+    "question": "Which of the following statements about Power BI dataset size refers to the compressed size of the model?",
+    "choices": {
+      "A": "It measures the raw volume of data collected from the source system",
+      "B": "It is unrelated to how much memory Power BI consumes",
+      "C": "It affects the dataset refresh limits on Power BI service",
+      "D": "It only applies to DirectQuery models"
+    },
+    "correct_answer": "C",
+    "explanation": "The 1 GB limit refers to the compressed size of the Power BI model in memory, not the raw size of the source data. This compressed size directly affects the ability to refresh datasets on the Power BI service."
+  },
+  { 
+    "question": "What is the default storage mode used by Power BI Desktop when loading data with \"Get data\"?",
+    "choices": {
+      "A": "DirectQuery",
+      "B": "Import",
+      "C": "Composite model",
+      "D": "Live Connection"
+    },
+    "correct_answer": "B",
+    "explanation": "By default, Power BI Desktop uses Import storage mode, meaning data is imported and cached in memory for best performance and full functionality."
+  },
+  { 
+    "question": "Which Power BI feature allows advanced users to automate partition creation and management for large Import models?",
+    "choices": {
+      "A": "DirectQuery setup wizard",
+      "B": "XMLA endpoint with scripting capabilities",
+      "C": "Power Query Editor",
+      "D": "Auto date/time setting"
+    },
+    "correct_answer": "B",
+    "explanation": "The XMLA endpoint available in Power BI Premium allows advanced data modelers to customize partitioning strategies and automate partition management via scripts, improving large dataset refresh and management."
+  },
+  { 
+    "question": "What happens during a default table refresh in an Import model?",
+    "choices": {
+      "A": "Only new rows are added",
+      "B": "Power BI merges new data with existing data",
+      "C": "All data in the table is removed and reloaded completely",
+      "D": "No data is refreshed unless incremental refresh is enabled"
+    },
+    "correct_answer": "C",
+    "explanation": "By default, Power BI removes all data from the table and reloads it completely during a refresh, which can be resource-intensive and slow, especially for large tables."
+  },
+  { 
+    "question": "Which Power BI feature can you disable to reduce unnecessary data storage and improve model refresh performance in Import models?",
+    "choices": {
+      "A": "Auto date/time",
+      "B": "Incremental refresh",
+      "C": "Calculated tables",
+      "D": "DirectQuery storage mode"
+    },
+    "correct_answer": "A",
+    "explanation": "Auto date/time creates hidden date tables automatically, which can increase model size unnecessarily. Disabling it reduces data load and improves refresh times."
+  },
+  { 
+    "question": "In Import models, why might you disable the “Enable load” option in Power Query queries?",
+    "choices": {
+      "A": "To prevent the query from being visible in the report",
+      "B": "To avoid loading intermediate or staging queries into the model, saving memory",
+      "C": "To automatically refresh the query more frequently",
+      "D": "To convert the query to DirectQuery mode"
+    },
+    "correct_answer": "B",
+    "explanation": "Disabling query load for intermediate queries avoids loading them into the model, which saves memory and reduces dataset size without affecting the refresh of dependent queries."
+  },
+  { 
+    "question": "What is a key capability of calculated tables in an Import model?",
+    "choices": {
+      "A": "They can only be created in DirectQuery mode",
+      "B": "They enable defining tables using DAX formulas for advanced data modeling",
+      "C": "They automatically refresh independently of the model refresh schedule",
+      "D": "They store data outside of the Power BI dataset"
+    },
+    "correct_answer": "B",
+    "explanation": "Calculated tables are created within the model using DAX formulas, allowing for advanced data transformations and modeling inside the Import model."
+  },
+   {
+    "question": "Which of the following statements about source groups in Power BI models is TRUE?",
+    "choices": {
+      "A": "A model can have multiple import source groups but only one DirectQuery source group.",
+      "B": "A DirectQuery model can only have one source group, which contains all DirectQuery tables.",
+      "C": "Composite models consist of a single source group.",
+      "D": "Calculated tables are always stored in a DirectQuery source group."
+    },
+    "correct_answer": "B",
+    "explanation": "In Power BI, a DirectQuery model includes tables with storage mode set to DirectQuery and belongs to a single source group. Import and DirectQuery models each comprise only one source group. Composite models contain more than one source group. Therefore, option B is correct."
+  },
+  {
+    "question": "What is the primary reason to use a DirectQuery model instead of importing data in Power BI?",
+    "choices": {
+      "A": "To allow use of all Power Query transformations.",
+      "B": "To enable importing large data warehouses efficiently.",
+      "C": "To handle large or fast-changing data sources without data refresh.",
+      "D": "To increase report query speed in all scenarios."
+    },
+    "correct_answer": "C",
+    "explanation": "DirectQuery is ideal for large or frequently changing data sources because it queries data in real-time without requiring data refresh. Importing large datasets is impractical and some Power Query transformations are not supported in DirectQuery mode."
+  },
+  {
+    "question": "Which of the following is NOT a benefit of using DirectQuery?",
+    "choices": {
+      "A": "Enforcing source-level Row-Level Security (RLS) without replicating rules in Power BI.",
+      "B": "Connecting to on-premises data sources when data cannot leave the premises.",
+      "C": "Supporting all Power Query M transformations without restrictions.",
+      "D": "Allowing chaining of up to three models for personalization or extension."
+    },
+    "correct_answer": "C",
+    "explanation": "DirectQuery does not support all Power Query transformations because queries must translate into native queries understood by the source system. Therefore, option C is false."
+  },
+  {
+    "question": "Which scenario best describes when to enforce RLS through the source database in a DirectQuery model?",
+    "choices": {
+      "A": "When the source database supports RLS and single sign-on is configured.",
+      "B": "When Power BI can easily replicate RLS rules within the model.",
+      "C": "When the source database is a non-relational data source.",
+      "D": "When the model contains only import mode tables."
+    },
+    "correct_answer": "A",
+    "explanation": "Enforcing RLS at the source database requires that the database supports RLS and that single sign-on (SSO) is configured. This avoids replicating security rules in Power BI."
+  },
+  {
+    "question": "Why might analytic query performance be slow when using DirectQuery?",
+    "choices": {
+      "A": "Because all Power Query transformations are done locally before sending queries.",
+      "B": "Due to lack of database optimization like indexes or materialized views.",
+      "C": "Because DirectQuery caches all data in Power BI, causing delays.",
+      "D": "Because DirectQuery doesn’t send queries to the source system."
+    },
+    "correct_answer": "B",
+    "explanation": "Query performance depends on the optimization of the source database. Without indexes or materialized views, analytic queries may be slow. DirectQuery sends queries live to the source and does not cache all data locally."
+  },
+  {
+    "question": "What happens when you add new import or DirectQuery tables to a Power BI dataset converted from a remote DirectQuery dataset?",
+    "choices": {
+      "A": "The model remains a simple DirectQuery model with one source group.",
+      "B": "The model becomes a composite model with multiple source groups.",
+      "C": "The original dataset loses all connection to the remote model.",
+      "D": "Power BI disables the DirectQuery functionality."
+    },
+    "correct_answer": "B",
+    "explanation": "Adding new tables with different storage modes creates new source groups, turning the model into a composite model which supports multiple source groups."
+  },
+  {
+    "question": "What is the role of user-defined aggregation tables in a DirectQuery model?",
+    "choices": {
+      "A": "They allow Power BI users to directly see and interact with these tables in reports.",
+      "B": "They improve performance by satisfying higher-grain queries and can query materialized views.",
+      "C": "They replace the need for source database optimizations like indexes.",
+      "D": "They disable row-level security for faster analytics."
+    },
+    "correct_answer": "B",
+    "explanation": "User-defined aggregation tables are hidden from users and calculations, designed to improve query performance by using higher-level aggregations and possibly querying materialized views."
+  },
+  {
+    "question": "Which of these is TRUE regarding the chaining of Power BI datasets in DirectQuery mode?",
+    "choices": {
+      "A": "You can chain up to five models, allowing unlimited extensions.",
+      "B": "Chained models cannot add new measures or calculated columns.",
+      "C": "Chaining enables creating local models that extend or personalize remote datasets.",
+      "D": "Chaining is only available for import mode datasets."
+    },
+    "correct_answer": "C",
+    "explanation": "Power BI supports chaining up to three models in DirectQuery mode, allowing local models to extend or personalize remote datasets by adding measures or calculated columns."
+  },
+  {
+    "question": "In a Power BI model, how many import source groups and DirectQuery source groups can coexist without creating a composite model?",
+    "choices": {
+      "A": "Multiple import and multiple DirectQuery source groups.",
+      "B": "One import source group and one DirectQuery source group.",
+      "C": "One import source group only.",
+      "D": "Multiple import source groups but only one DirectQuery source group."
+    },
+    "correct_answer": "B",
+    "explanation": "A model with more than one source group is considered a composite model. A non-composite model contains either a single import source group or a single DirectQuery source group."
+  },
+  {
+    "question": "Which Power Query (M) transformations are typically NOT supported in DirectQuery mode, and why?",
+    "choices": {
+      "A": "Simple filters and column renaming, because they cannot be translated.",
+      "B": "Pivot and unpivot transformations, because they cannot be translated to native queries.",
+      "C": "Adding calculated columns, because Power BI does not allow calculations in DirectQuery.",
+      "D": "None, all transformations are supported equally."
+    },
+    "correct_answer": "B",
+    "explanation": "Certain transformations like pivot and unpivot cannot be translated into native queries required by DirectQuery, hence they are not supported."
+  },
+  {
+    "question": "How can analytic queries on a DirectQuery model impact the source system?",
+    "choices": {
+      "A": "They have no impact because queries run only on cached data.",
+      "B": "They can reduce performance for OLTP workloads due to additional query load.",
+      "C": "They improve source system performance by optimizing queries.",
+      "D": "They isolate the analytic workload from transactional systems automatically."
+    },
+    "correct_answer": "B",
+    "explanation": "Because DirectQuery sends live queries to the source, the additional workload can degrade the performance of transactional systems (OLTP)."
+  },
+  {
+    "question": "Why is collaboration with the database owner recommended when developing a DirectQuery model?",
+    "choices": {
+      "A": "Because the database owner controls Power BI licensing.",
+      "B": "To ensure the database is optimized and can handle the additional workload.",
+      "C": "Because the database owner must write all DAX measures.",
+      "D": "It is not necessary; Power BI handles everything automatically."
+    },
+    "correct_answer": "B",
+    "explanation": "Collaborating with the database owner is important to optimize the database (indexes, materialized views, resources) so it can support the analytic workload generated by DirectQuery."
+  },
+  {
+    "question": "Which of the following best describes the role of DAX in Power BI?",
+    "choices": {
+      "A": "A query language used exclusively for paginated reports",
+      "B": "The language used for creating calculated columns and measures in Power BI models",
+      "C": "The query language used to connect Power BI directly to external databases",
+      "D": "A language used only in Excel's Analyze in Excel feature"
+    },
+    "correct_answer": "B",
+    "explanation": "DAX (Data Analysis Expressions) is the primary language used within Power BI to create calculated columns, measures, and expressions. It allows you to define custom calculations that extend the model’s analytical capabilities. Although MDX is also used (especially for paginated reports and Analyze in Excel), DAX is the standard for Power BI Desktop modeling and reporting."
+  },
+  {
+    "question": "What is a Power BI dataset?",
+    "choices": {
+      "A": "A live connection to an external database without any data imported",
+      "B": "A published Power BI model acting as a data source for reports and dashboards",
+      "C": "A raw data file imported into Power BI Desktop",
+      "D": "A set of Excel tables linked directly to Power BI"
+    },
+    "correct_answer": "B",
+    "explanation": "A Power BI dataset refers to the model published to the Power BI Service after development in Power BI Desktop. It acts as the source of data for reports and dashboards. Not all datasets are imported data; some represent live connections or streaming data, but the key point is that the dataset is a published artifact in the Power BI environment."
+  },
+  {
+    "question": "During the execution of an analytic query in Power BI, which phase involves dividing the query results into groups where filter values are visible in the output?",
+    "choices": {
+      "A": "Filter (Slicing)",
+      "B": "Summarize",
+      "C": "Group (Dicing)",
+      "D": "Import"
+    },
+    "correct_answer": "C",
+    "explanation": "The Group phase (also called dicing) divides the query results into visible groups, and the filter values used for grouping appear in the output (e.g., sales by customer or quarter). The Filter phase narrows data but the filter values are not visible in the result; Summarize produces aggregated values; Import is a storage mode and unrelated to query phases."
+  },
+  {
+    "question": "What is the main characteristic of a tabular model in Power BI?",
+    "choices": {
+      "A": "It is a multidimensional cube stored in SSAS",
+      "B": "It consists of tables with columns, relationships, hierarchies, and calculations",
+      "C": "It only supports flat file data sources",
+      "D": "It cannot contain calculated columns or measures"
+    },
+    "correct_answer": "B",
+    "explanation": "A Power BI model is a tabular model meaning it is structured as tables with columns, supports relationships between tables, hierarchies, and custom calculations (measures and calculated columns)."
+  },
+  {
+    "question": "In a star schema, what is the role of the fact table?",
+    "choices": {
+      "A": "Describes business entities such as customers or products",
+      "B": "Stores keys linking to dimension tables and numeric measures like sales amounts",
+      "C": "Acts as a lookup table for filtering dimensions",
+      "D": "Contains only text fields used for labeling"
+    },
+    "correct_answer": "B",
+    "explanation": "The fact table stores measurable, quantitative data such as sales orders or transactions. It contains foreign keys linking to dimension tables and columns for numeric measures. Dimension tables describe entities."
+  },
+  {
+    "question": "Which of the following storage modes allows Power BI to decide dynamically whether to query cached data or the data source?",
+    "choices": {
+      "A": "Import",
+      "B": "DirectQuery",
+      "C": "Dual",
+      "D": "Composite"
+    },
+    "correct_answer": "C",
+    "explanation": "Dual storage mode allows tables to be queried from cached data (like Import) or directly from the source (like DirectQuery), with Power BI optimizing for performance."
+  },
+  {
+    "question": "A composite model is defined as:",
+    "choices": {
+      "A": "A model where all tables use Import storage mode",
+      "B": "A model with tables all set to DirectQuery mode from the same source",
+      "C": "A model combining tables with different storage modes or multiple source groups",
+      "D": "A model that only uses calculated tables"
+    },
+    "correct_answer": "C",
+    "explanation": "Composite models mix tables with different storage modes (Import, DirectQuery) or come from multiple data sources (source groups)."
+  },
+  {
+    "question": "Which of the following statements about filters in analytic queries is TRUE?",
+    "choices": {
+      "A": "Filter values are always visible in the query result",
+      "B": "Filters can be applied at the report, page, or visual level in Power BI reports",
+      "C": "Row-Level Security (RLS) is unrelated to filtering",
+      "D": "Measures cannot apply filters"
+    },
+    "correct_answer": "B",
+    "explanation": "Filters can be applied at various levels in Power BI reports (report, page, visual). Filter values themselves are generally not visible in the query results. RLS is a security filter applied to data access and measures can apply filters using DAX."
+  },
+  {
+    "question": "Which language(s) does Power BI use for querying models?",
+    "choices": {
+      "A": "Only DAX",
+      "B": "Only MDX",
+      "C": "DAX for Power BI reports; MDX for paginated reports and Analyze in Excel",
+      "D": "SQL only"
+    },
+    "correct_answer": "C",
+    "explanation": "Power BI reports use DAX; paginated reports and Excel’s Analyze in Excel use MDX. SQL is used at the data source level, not within the model queries."
+  },
+  {
+    "question": "When designing a Power BI model, why is adopting a star schema beneficial?",
+    "choices": {
+      "A": "It simplifies the model by using a single large table",
+      "B": "It improves performance and usability by separating dimensions and facts",
+      "C": "It removes the need for relationships between tables",
+      "D": "It only works for models with fewer than 10 tables"
+    },
+    "correct_answer": "B",
+    "explanation": "The star schema organizes data into fact tables and dimension tables, optimizing query performance and making the model easier to understand and maintain."
+  },
+  {
+    "question": "Which of the following is NOT a phase of an analytic query in Power BI?",
+    "choices": {
+      "A": "Filter",
+      "B": "Group",
+      "C": "Aggregate",
+      "D": "Summarize"
+    },
+    "correct_answer": "C",
+    "explanation": "The three phases are Filter, Group, and Summarize. 'Aggregate' is not named as a separate phase; aggregation happens during summarization."
+  },
+  {
+    "question": "What does the source group refer to in the context of Power BI models?",
+    "choices": {
+      "A": "The collection of tables with the same storage mode setting",
+      "B": "The collection of tables that come from the same data source in a DirectQuery model",
+      "C": "A security group controlling access to datasets",
+      "D": "The set of calculated tables in a model"
+    },
+    "correct_answer": "B",
+    "explanation": "A source group is a set of tables that originate from the same data source, particularly relevant for DirectQuery models."
+  },
+  {
+    "question": "Why might you use DirectQuery mode instead of Import mode for a Power BI table?",
+    "choices": {
+      "A": "When you want faster query performance with cached data",
+      "B": "When the data changes frequently and must reflect real-time updates",
+      "C": "When you want to avoid complex queries",
+      "D": "When data size is very small"
+    },
+    "correct_answer": "B",
+    "explanation": "DirectQuery mode keeps data at the source and queries live data on-demand, ideal for scenarios requiring up-to-date data."
+  },
+  {
+    "question": "In Power BI, what is the primary difference between a calculated table and other tables in terms of storage mode?",
+    "choices": {
+      "A": "Calculated tables have no storage mode property",
+      "B": "Calculated tables are always stored as Import",
+      "C": "Calculated tables cannot have relationships",
+      "D": "Calculated tables use DirectQuery only"
+    },
+    "correct_answer": "A",
+    "explanation": "Calculated tables don’t have a storage mode property because they are computed within the model itself, rather than being imported or queried from an external source."
+  },
+  {
+    "question": "How does row-level security (RLS) interact with filters in an analytic query?",
+    "choices": {
+      "A": "RLS is applied before the filter phase and restricts data access",
+      "B": "RLS applies after summarization",
+      "C": "RLS replaces the grouping phase",
+      "D": "RLS only affects DirectQuery models"
+    },
+    "correct_answer": "A",
+    "explanation": "RLS filters data before the query processes, restricting the rows visible to the user based on their permissions. It is independent of storage mode."
+  },
+  {
+    "question": "Which of the following statements about hybrid datasets is true?",
+    "choices": {
+      "A": "Hybrid datasets combine Import and DirectQuery modes within the same table",
+      "B": "Hybrid datasets combine multiple source groups in a composite model",
+      "C": "Hybrid datasets are streaming datasets combined with push datasets",
+      "D": "Hybrid datasets always require MDX queries"
+    },
+    "correct_answer": "B",
+    "explanation": "Hybrid datasets refer to composite models with tables from different source groups, possibly combining Import and DirectQuery modes across tables."
+  },
+  {
+    "question": "What happens if you apply a slicer filter in a Power BI report?",
+    "choices": {
+      "A": "It applies a visible filter that affects the entire report including all pages",
+      "B": "It applies a filter only on the page or visual where the slicer is placed",
+      "C": "It applies an invisible filter narrowing down data used by visuals on the report page",
+      "D": "It disables the summarization phase of analytic queries"
+    },
+    "correct_answer": "C",
+    "explanation": "A slicer applies a filter that narrows the data subset for visuals, but the filter values themselves aren’t directly shown in the visuals."
+  },
+  {
+    "question": "In the context of Power BI, which scenario best illustrates grouping (dicing) in an analytic query?",
+    "choices": {
+      "A": "Filtering sales data to a specific year",
+      "B": "Summarizing total sales across all customers",
+      "C": "Displaying sales broken down by customer segment",
+      "D": "Importing data from Excel"
+    },
+    "correct_answer": "C",
+    "explanation": "Grouping (dicing) divides the data into visible groups such as customer segments, so the output shows summarized values per group."
+  },
+  {
+    "question": "What is a composite model in Power BI?",
+    "choices": {
+      "A": "A model that uses only DirectQuery storage mode",
+      "B": "A model that combines data from multiple tables with the same storage mode",
+      "C": "A model that combines more than one source group, typically import and DirectQuery",
+      "D": "A model that only uses imported data"
+    },
+    "correct_answer": "C",
+    "explanation": "A composite model combines data from more than one source group, typically mixing import and DirectQuery storage modes. This allows balancing performance and freshness. Options A, B, and D describe models with a single storage mode, so they do not qualify as composite models."
+  },
+  {
+    "question": "Which of the following is a key benefit of using composite models?",
+    "choices": {
+      "A": "Eliminates the need for data refresh",
+      "B": "Provides design flexibility by combining import and DirectQuery storage modes",
+      "C": "Guarantees no performance impact when combining queries from different sources",
+      "D": "Removes the need for relationships between tables"
+    },
+    "correct_answer": "B",
+    "explanation": "Composite models offer design flexibility by allowing a mix of imported and DirectQuery data, optimizing performance and data freshness. Imported data still requires refresh (A is false), combining queries can impact performance (C is false), and relationships are still needed (D is false)."
+  },
+  {
+    "question": "What limitation must you consider when combining imported data with DirectQuery tables?",
+    "choices": {
+      "A": "Imported data automatically syncs with DirectQuery data in real time",
+      "B": "Combining queries across source groups requires result consolidation, which can impact performance",
+      "C": "Relationships between imported and DirectQuery tables are always unlimited",
+      "D": "Imported data never requires refreshing"
+    },
+    "correct_answer": "B",
+    "explanation": "When queries combine imported and DirectQuery tables, Power BI must consolidate results from different source groups, which can slow performance. Imported data does not sync automatically (A false), relationships are often limited (C false), and imported data needs periodic refresh (D false)."
+  },
+  {
+    "question": "What does setting a table to \"dual storage mode\" enable?",
+    "choices": {
+      "A": "The table stores data only in DirectQuery mode",
+      "B": "The table dynamically chooses between import and DirectQuery modes at query time",
+      "C": "The table automatically disables incremental refresh",
+      "D": "The table cannot be used in slicers or filters"
+    },
+    "correct_answer": "B",
+    "explanation": "Dual storage mode allows a table to operate in both import and DirectQuery modes. Power BI decides the most efficient mode at query time, often answering queries from cached data, improving performance."
+  },
+  {
+    "question": "Why might you add import aggregation tables in a composite model?",
+    "choices": {
+      "A": "To force all queries to be answered by DirectQuery",
+      "B": "To cache higher-grain aggregations and improve query performance",
+      "C": "To eliminate the need for dual storage mode on dimension tables",
+      "D": "To prevent periodic refresh of imported data"
+    },
+    "correct_answer": "B",
+    "explanation": "Import aggregation tables store pre-aggregated data in import mode, which helps Power BI respond quickly to high-level queries without querying the source live. This boosts performance without eliminating refresh needs or forcing DirectQuery."
+  },
+  {
+    "question": "What are “limited relationships” in composite models?",
+    "choices": {
+      "A": "Relationships that always have a guaranteed \"one\" side with unique values",
+      "B": "Relationships spanning different source groups or with many-to-many cardinality, which can affect query evaluation",
+      "C": "Relationships that can only exist between tables in the same source group",
+      "D": "Relationships that are automatically optimized by Power BI without any restrictions"
+    },
+    "correct_answer": "B",
+    "explanation": "Limited relationships happen when relationships span different source groups or have many-to-many cardinality. They can affect query and calculation evaluation. Option A is incorrect as limited relationships do not guarantee uniqueness."
+  },
+  {
+    "question": "How does Power BI deliver real-time data in an import model with incremental refresh?",
+    "choices": {
+      "A": "By disabling DirectQuery and refreshing all data on every query",
+      "B": "By enabling “Get the latest data in real-time with DirectQuery,” creating a hybrid table with both import and DirectQuery partitions",
+      "C": "By forcing all data to be stored only in DirectQuery mode",
+      "D": "By requiring manual refreshes every minute"
+    },
+    "correct_answer": "B",
+    "explanation": "Enabling this option creates a hybrid table storing older data in import partitions and current data in a DirectQuery partition. Queries use cached data for older records and live queries for recent data, providing real-time updates efficiently. This feature requires a Premium license."
+  },
+  {
+    "question": "What potential risk exists when chaining DirectQuery to Power BI datasets in composite models?",
+    "choices": {
+      "A": "It eliminates the need for data refresh",
+      "B": "Changes in upstream models can break downstream models without impact analysis",
+      "C": "It improves performance regardless of dataset changes",
+      "D": "It automatically converts all tables to import mode"
+    },
+    "correct_answer": "B",
+    "explanation": "Chaining models can cause dependencies where changes upstream may break downstream datasets. It is important to perform dataset impact analysis before making changes. The other options are false or irrelevant."
+  },
+  {
+    "question": "Which feature is required to use automatic aggregations with composite models?",
+    "choices": {
+      "A": "Power BI Pro license",
+      "B": "Power BI Premium license",
+      "C": "Free Power BI account",
+      "D": "No special license, available to all users"
+    },
+    "correct_answer": "B",
+    "explanation": "Automatic aggregations are a Premium feature, requiring a Power BI Premium license."
+  },
+  {
+    "question": "Which of these statements about slicers and filter cards in composite models is true?",
+    "choices": {
+      "A": "They always query data live from the source using DirectQuery",
+      "B": "They render more slowly when using dual storage mode tables",
+      "C": "They typically render faster when based on columns in dual storage mode dimension tables because cached data is used",
+      "D": "They cannot be used with composite models"
+    },
+    "correct_answer": "C",
+    "explanation": "Slicers and filter cards on dimension tables set to dual storage mode render faster because queries are answered from cached data instead of live queries."
+  },
+   { 
+    "question": "Which model framework should you choose to ensure the best performance and most design flexibility for a typical enterprise Power BI report?",
+    "choices": {
+      "A": "DirectQuery",
+      "B": "Import",
+      "C": "Composite",
+      "D": "Live Connection"
+    },
+    "correct_answer": "B",
+    "explanation": "The Import model framework is recommended whenever possible because it offers the best performance by loading data into Power BI, and provides the most design flexibility. DirectQuery queries data at runtime, which may slow down performance. Composite models combine features but add complexity. Live Connection is used for external models, not described here."
+  },
+  {
+    "question": "Which of the following is true regarding conversions between table storage modes in Power BI Desktop?",
+    "choices": {
+      "A": "You can convert an Import table to a DirectQuery table anytime.",
+      "B": "You cannot convert a DirectQuery table to an Import table.",
+      "C": "You can convert a DirectQuery table to an Import table, but not vice versa.",
+      "D": "You can convert Import and DirectQuery tables interchangeably without restrictions."
+    },
+    "correct_answer": "C",
+    "explanation": "Power BI Desktop allows converting a DirectQuery table to an Import table to improve performance or reduce real-time dependencies, but it does NOT allow converting an Import table back to DirectQuery. This makes the initial choice important."
+  },
+  {
+    "question": "When is the DirectQuery model framework most appropriate?",
+    "choices": {
+      "A": "When you want to load minimal data into Power BI for best query speed.",
+      "B": "When your data source has very large volumes and you need near real-time data.",
+      "C": "When you want to combine data from multiple sources into a single dataset.",
+      "D": "When you want to extend an existing Power BI dataset with additional data."
+    },
+    "correct_answer": "B",
+    "explanation": "DirectQuery is best when the data source contains very large data volumes and the report requires near real-time data, because data is queried directly on the source without importing. Options A is more about Import models, and D relates more to composite models."
+  },
+  {
+    "question": "What is the main advantage of using aggregation tables in a DirectQuery model?",
+    "choices": {
+      "A": "They allow you to import the entire dataset for faster queries.",
+      "B": "They improve query performance by serving higher-level aggregations from cache.",
+      "C": "They enable Power BI to bypass the source system completely.",
+      "D": "They replace the need for dimension tables."
+    },
+    "correct_answer": "B",
+    "explanation": "Aggregation tables store pre-calculated summaries, either in Import or DirectQuery mode, to improve query performance. When dimension tables use dual mode, queries can be answered from cache, reducing source hits."
+  },
+  {
+    "question": "How can you deliver near real-time query results from an Import model?",
+    "choices": {
+      "A": "By using only DirectQuery tables.",
+      "B": "By creating a hybrid table with a DirectQuery partition for the current period.",
+      "C": "By switching all tables to DirectQuery mode.",
+      "D": "By refreshing the dataset every hour manually."
+    },
+    "correct_answer": "B",
+    "explanation": "Hybrid tables combine imported historical data with a DirectQuery partition for current data, enabling near real-time querying while keeping the benefits of Import for older data."
+  },
+  {
+    "question": "What does setting dimension tables to dual storage mode achieve when using import aggregation tables?",
+    "choices": {
+      "A": "It disables caching for all related queries.",
+      "B": "It allows queries to be answered fully from cache when possible.",
+      "C": "It forces Power BI to always use DirectQuery for those tables.",
+      "D": "It reduces data volume by compressing dimension tables."
+    },
+    "correct_answer": "B",
+    "explanation": "Dual storage mode enables tables to act as Import (cached) or DirectQuery depending on query context. This allows many queries to be served from cache, greatly improving performance."
+  },
+  {
+    "question": "Which statement best describes the role of a business analyst in extending Power BI core models using DirectQuery?",
+    "choices": {
+      "A": "They create core datasets used by IT.",
+      "B": "They extend existing core models by chaining with DirectQuery connections.",
+      "C": "They build all models from scratch without IT involvement.",
+      "D": "They only create Import models for better flexibility."
+    },
+    "correct_answer": "B",
+    "explanation": "Business analysts often extend core models delivered by IT by chaining via DirectQuery connections, adding additional data or logic without changing the core dataset."
+  },
+  {
+    "question": "What is a recommended practice to improve performance when using the Import model?",
+    "choices": {
+      "A": "Import the entire dataset regardless of size.",
+      "B": "Apply data reduction techniques to load only necessary data.",
+      "C": "Always use DirectQuery instead of Import.",
+      "D": "Use only composite models."
+    },
+    "correct_answer": "B",
+    "explanation": "Reducing the amount of data imported (filtering, partitions) improves Import model performance and load times by minimizing data volume."
+  },
+  {
+    "question": "Which of the following is NOT a purpose of the composite model framework?",
+    "choices": {
+      "A": "Boost the query performance of a DirectQuery model.",
+      "B": "Deliver near real-time query results from an Import model.",
+      "C": "Extend a Power BI dataset or AAS model with additional data.",
+      "D": "Automatically convert Import tables to DirectQuery tables."
+    },
+    "correct_answer": "D",
+    "explanation": "Composite models improve DirectQuery performance, enable near real-time data with Import, and extend datasets, but they do not automatically convert Import tables to DirectQuery."
+  },
+  {
+    "question": "Why is careful planning important when choosing a model framework in Power BI?",
+    "choices": {
+      "A": "Because converting Import tables to DirectQuery is simple and reversible.",
+      "B": "Because you cannot convert Import tables to DirectQuery tables once imported.",
+      "C": "Because DirectQuery always offers better performance.",
+      "D": "Because composite models do not support real-time data."
+    },
+    "correct_answer": "B",
+    "explanation": "Once a table is imported, you cannot convert it back to DirectQuery. This limitation means planning is crucial to meet data freshness and performance requirements."
+  },
+  {
+    "question": "Which of the following statements about connecting to data sources in Power BI is TRUE?",
+    "choices": {
+      "A": "Power BI only supports connecting to relational databases like SQL Server.",
+      "B": "Power Query is used to clean and transform data after loading it into reports.",
+      "C": "Power Query can connect to multiple types of data sources, including relational databases, files, and cloud services.",
+      "D": "Azure Analysis Services stores data exclusively in Excel files."
+    },
+    "correct_answer": "C",
+    "explanation": "Power Query is a versatile data connection and transformation tool that supports many types of data sources — relational databases (SQL Server), files (Excel), applications (Cosmos DB), and cloud services (Azure Analysis Services). Option A is false because Power BI supports more than just relational databases. Option B is incorrect because Power Query transforms data before it is loaded into reports. Option D is incorrect; Azure Analysis Services stores analytical models, not Excel files."
+  },
+  {
+    "question": "Tailwind Traders’ sales database contains details about sales transactions but lacks employee hire date and manager info. Where should this missing data be sourced from?",
+    "choices": {
+      "A": "Microsoft SQL Server",
+      "B": "Microsoft Excel files from Human Resources",
+      "C": "Cosmos DB JSON documents",
+      "D": "Azure Analysis Services projections"
+    },
+    "correct_answer": "B",
+    "explanation": "Employee hire date, title, and manager information are maintained by HR in Excel files, which is why you need to connect to those Excel files separately. SQL Server only contains sales transactions and some employee identifiers but not their HR details. Cosmos DB contains shipment data, and Azure Analysis Services holds sales projections."
+  },
+  {
+    "question": "Which storage mode in Power BI is best suited for data that changes frequently and requires near real-time reporting?",
+    "choices": {
+      "A": "Import Mode",
+      "B": "DirectQuery Mode",
+      "C": "Dual Mode",
+      "D": "Excel Mode"
+    },
+    "correct_answer": "B",
+    "explanation": "DirectQuery mode allows Power BI to query the data source directly each time a report is refreshed, making it suitable for frequently changing data that needs near real-time updates. Import mode imports data into Power BI, which can be out-of-date until refreshed. Dual mode combines both. \"Excel Mode\" is not a Power BI storage mode."
+  },
+  {
+    "question": "When combining data from multiple sources like SQL Server, Excel, and Cosmos DB, which Power BI tool helps you to clean and shape this data before building reports?",
+    "choices": {
+      "A": "Power Pivot",
+      "B": "Power Query",
+      "C": "Power View",
+      "D": "Power Automate"
+    },
+    "correct_answer": "B",
+    "explanation": "Power Query is the ETL (Extract, Transform, Load) tool in Power BI for connecting, cleaning, transforming, and combining data before it is used in reports. Power Pivot is mainly for data modeling, Power View is for visualizations, and Power Automate is for automation workflows."
+  },
+  {
+    "question": "Which of the following is NOT a typical data transformation you would perform in Power Query?",
+    "choices": {
+      "A": "Renaming columns",
+      "B": "Replacing values",
+      "C": "Building a semantic data model",
+      "D": "Removing errors from data"
+    },
+    "correct_answer": "C",
+    "explanation": "Building a semantic data model happens after data is cleaned and loaded, typically in Power BI Desktop’s data modeling view. Renaming columns, replacing values, and removing errors are common Power Query transformations."
+  },
+  {
+    "question": "What kind of data format does Cosmos DB store, which is used for shipment records at Tailwind Traders?",
+    "choices": {
+      "A": "Relational tables",
+      "B": "XML files",
+      "C": "JSON documents",
+      "D": "CSV files"
+    },
+    "correct_answer": "C",
+    "explanation": "Cosmos DB is a NoSQL database that stores data as JSON documents. It is designed for flexible, hierarchical data storage, unlike relational tables. XML or CSV are not native Cosmos DB formats."
+  },
+  {
+    "question": "What is the main benefit of publishing a semantic model and reports to Power BI Service?",
+    "choices": {
+      "A": "Only the original creator can view the reports",
+      "B": "It allows others to reuse the semantic model and create their own reports",
+      "C": "It disables report editing for everyone",
+      "D": "Reports are automatically exported to Excel"
+    },
+    "correct_answer": "B",
+    "explanation": "Publishing to Power BI Service enables collaboration. Other users can build reports on top of the shared semantic model or use existing reports. It promotes reusability and sharing, unlike options A or C. Exporting to Excel (D) is not automatic."
+  },
+  {
+    "question": "What should you do if you encounter performance issues after importing large datasets into Power BI?",
+    "choices": {
+      "A": "Delete unnecessary columns and filter rows during the Power Query transformation",
+      "B": "Import all available data without filtering to ensure completeness",
+      "C": "Use only Excel files as data sources",
+      "D": "Avoid using Power Query transformations"
+    },
+    "correct_answer": "A",
+    "explanation": "To improve performance, it’s best to reduce data size by filtering rows and removing unnecessary columns during the Power Query step. Importing all data can slow down reports. Using only Excel or avoiding transformations is not practical or helpful."
+  },
+  {
+    "question": "Which statement best describes Azure Analysis Services in the Tailwind Traders scenario?",
+    "choices": {
+      "A": "It stores transactional sales data in JSON format.",
+      "B": "It contains financial projections to predict future sales trends.",
+      "C": "It is a file-based data source like Excel.",
+      "D": "It manages employee data such as hire dates and managers."
+    },
+    "correct_answer": "B",
+    "explanation": "Azure Analysis Services is used to store analytical models, such as financial sales projections in this scenario. It does not store transactional or employee data nor is it a file-based source."
+  },
+  {
+    "question": "Why might the HR department at Tailwind Traders still be using Excel instead of SQL Server for employee data?",
+    "choices": {
+      "A": "SQL Server cannot store employee data",
+      "B": "Excel is more secure than SQL Server",
+      "C": "HR hasn’t yet migrated their data to SQL Server",
+      "D": "Cosmos DB replaced Excel for HR data"
+    },
+    "correct_answer": "C",
+    "explanation": "The text states that HR hasn’t had the chance to implement a SQL database yet, so they continue to use Excel files. SQL Server can store employee data, and Excel is generally less secure. Cosmos DB is used for shipment data, not HR."
+  },
+  {
+    "question": "What is the main difference between relational databases (e.g., SQL Server) and Cosmos DB in the context of Power BI?",
+    "choices": {
+      "A": "SQL Server stores data as tables, Cosmos DB stores data as JSON documents",
+      "B": "Cosmos DB is only used for financial projections",
+      "C": "SQL Server cannot handle large volumes of data",
+      "D": "Cosmos DB requires Power Pivot to connect"
+    },
+    "correct_answer": "A",
+    "explanation": "SQL Server is a relational database storing data in structured tables with rows and columns. Cosmos DB is a NoSQL database that stores data as flexible JSON documents, making it ideal for hierarchical or semi-structured data like shipment records."
+  },
+  {
+    "question": "Which of the following best describes the role of a semantic model in Power BI?",
+    "choices": {
+      "A": "A tool to clean data in Power Query",
+      "B": "A visual report created from raw data",
+      "C": "A structured model combining data from multiple sources for analysis",
+      "D": "An Excel workbook used for data storage"
+    },
+    "correct_answer": "C",
+    "explanation": "A semantic model is a logical, structured representation of combined data from various sources, designed to facilitate reporting and analysis. It acts as a layer between raw data and reports."
+  },
+  {
+    "question": "During Power Query data transformation, which action would best help to resolve errors during data import?",
+    "choices": {
+      "A": "Use the \"Remove Errors\" option to exclude rows with errors",
+      "B": "Ignore errors and proceed with data import",
+      "C": "Delete the entire query and start over",
+      "D": "Convert all data to text format"
+    },
+    "correct_answer": "A",
+    "explanation": "Power Query allows you to detect and remove rows with errors, ensuring clean data is loaded. Ignoring errors or deleting queries is inefficient. Converting all data to text doesn’t solve the root causes."
+  },
+  {
+    "question": "Why is it important to understand the nuances of each data source before connecting with Power Query?",
+    "choices": {
+      "A": "Because every data source has unique connection methods, data formats, and refresh capabilities",
+      "B": "It is not important; all data sources are connected the same way in Power BI",
+      "C": "Only SQL Server requires special handling in Power Query",
+      "D": "Power Query only works with Excel and CSV files"
+    },
+    "correct_answer": "A",
+    "explanation": "Different data sources like SQL Server, Excel, Cosmos DB, and Azure Analysis Services have different connection protocols, data structures, and refresh limitations. Understanding these helps optimize data retrieval and processing."
+  },
+  {
+    "question": "What does selecting an appropriate storage mode in Power BI impact?",
+    "choices": {
+      "A": "The color scheme of reports",
+      "B": "Performance, data freshness, and how data queries are processed",
+      "C": "The size of Excel files connected",
+      "D": "The number of reports you can publish"
+    },
+    "correct_answer": "B",
+    "explanation": "Storage modes such as Import or DirectQuery influence how quickly data loads, how fresh the data is, and whether queries run on the source system or on the imported data model, directly affecting performance."
+  },
+  {
+    "question": "Which of the following is TRUE about the Power BI service after publishing reports?",
+    "choices": {
+      "A": "Reports are static and cannot be modified by users",
+      "B": "Only people with Power BI Desktop can view reports",
+      "C": "Users can create new reports based on published semantic models",
+      "D": "Power BI service deletes all underlying data sources after publishing"
+    },
+    "correct_answer": "C",
+    "explanation": "Published semantic models can be reused by other users to create new reports in the Power BI service, facilitating collaboration. Reports are interactive and accessible via browser."
+  },
+  {
+    "question": "When would you prefer to use Power Query in Excel instead of Power BI?",
+    "choices": {
+      "A": "When creating simple data transformations for Excel reports",
+      "B": "When needing to publish to Power BI Service directly",
+      "C": "When connecting to Azure Analysis Services only",
+      "D": "When building semantic models for large datasets"
+    },
+    "correct_answer": "A",
+    "explanation": "Power Query in Excel is ideal for cleaning and transforming data within Excel for analysis there. Power BI is better suited for building comprehensive reports and models and publishing them online."
+  },
+  {
+    "question": "What is the benefit of combining query results in Power Query?",
+    "choices": {
+      "A": "To create a single unified dataset from multiple sources for easier analysis",
+      "B": "To delete unnecessary queries",
+      "C": "To export data to CSV files automatically",
+      "D": "To format reports visually"
+    },
+    "correct_answer": "A",
+    "explanation": "Combining queries merges data from multiple sources into one dataset, making it easier to analyze and visualize in reports. The other options are unrelated."
+  },
+  {
+    "question": "If an error occurs during data import from a data source in Power BI, what is the recommended troubleshooting step?",
+    "choices": {
+      "A": "Check the data types and formats in the source system",
+      "B": "Immediately delete the data source connection",
+      "C": "Disable Power Query transformations",
+      "D": "Restart your computer"
+    },
+    "correct_answer": "A",
+    "explanation": "Errors often stem from data type mismatches or unexpected formats. Checking and correcting these at the source or during transformation helps resolve import issues effectively."
+  },
+  {
+    "question": "What is the first step you must perform before creating reports in Power BI using multiple data sources?",
+    "choices": {
+      "A": "Build dashboards directly from raw data",
+      "B": "Extract and clean data from the various sources using Power Query",
+      "C": "Publish semantic models without data preparation",
+      "D": "Connect only to Excel files"
+    },
+    "correct_answer": "B",
+    "explanation": "The initial and essential step is to extract, clean, and organize data from all relevant sources using Power Query before building reports. This ensures data consistency and quality."
+  },
+  {
+    "question": "Which Power BI feature allows reports and models created by one user to be reused and extended by others?",
+    "choices": {
+      "A": "Power BI Desktop",
+      "B": "Semantic Model published to Power BI Service",
+      "C": "Power Query Editor",
+      "D": "Azure Analysis Services"
+    },
+    "correct_answer": "B",
+    "explanation": "Publishing the semantic model to Power BI Service enables collaboration where multiple users can build on and extend existing models and reports."
+  },
+  {
+    "question": "Which of the following best describes a flat file in the context of Power BI data sources?",
+    "choices": {
+      "A": "A file containing multiple tables with hierarchical relationships",
+      "B": "A file containing a single table with uniform row structure and no hierarchies",
+      "C": "A file that is always stored in the cloud and auto-updated in Power BI",
+      "D": "A file exclusively in Excel .xlsx format"
+    },
+    "correct_answer": "B",
+    "explanation": "A flat file contains only one table where every row follows the same structure and there are no hierarchies or nested data. It includes file types like .csv and .txt. Option A is incorrect because flat files do not have multiple related tables. Option C describes cloud storage syncing but not flat file structure. Option D is wrong because flat files are not exclusively Excel files."
+  },
+  {
+    "question": "When importing data from a local Excel file in Power BI Desktop, what happens when the original Excel file is modified after import?",
+    "choices": {
+      "A": "Power BI automatically detects and applies the changes in real-time",
+      "B": "Power BI creates a link and updates the data every time you open the report",
+      "C": "Power BI does not reflect changes made to the original file after import",
+      "D": "Power BI blocks you from importing files stored locally"
+    },
+    "correct_answer": "C",
+    "explanation": "When importing from a local file, Power BI creates a semantic model and imports the data once. There is no connection or sync afterward, so changes in the source file do not update the Power BI dataset automatically. Auto-sync is only available when files are stored in cloud locations like OneDrive or SharePoint."
+  },
+  {
+    "question": "Which of the following statements about using OneDrive for Business as a data source is FALSE?",
+    "choices": {
+      "A": "Power BI connects regularly to OneDrive for Business files to keep data synchronized",
+      "B": "Changes in Excel files on OneDrive for Business automatically update Power BI reports and dashboards",
+      "C": "Files stored on OneDrive for Business cannot be accessed by multiple users simultaneously",
+      "D": "Using OneDrive for Business helps keep Power BI semantic models in sync with source files"
+    },
+    "correct_answer": "C",
+    "explanation": "OneDrive for Business supports collaborative access, allowing multiple users to work on files simultaneously. Therefore, option C is false. Options A, B, and D correctly describe the advantages of OneDrive for Business for data syncing with Power BI."
+  },
+  {
+    "question": "You have a Power BI report connected to an Excel file stored on SharePoint Team Sites. If the file is moved to a different folder within the same SharePoint site, what must you do in Power BI to ensure the report continues working?",
+    "choices": {
+      "A": "Nothing; Power BI automatically tracks the new file location",
+      "B": "Re-import the Excel file from the new folder location as a new dataset",
+      "C": "Update the file path in the Data Source Settings to point to the new location",
+      "D": "Save the report to OneDrive instead"
+    },
+    "correct_answer": "C",
+    "explanation": "Power BI does not automatically detect file moves or renames. You need to update the file path in Data Source Settings to maintain the connection. Option A is false because no automatic tracking occurs. Option B is unnecessary if you update the path correctly. Option D is unrelated to fixing the broken path."
+  },
+  {
+    "question": "In Power BI Desktop, after selecting an Excel file to import, what is the purpose of the Navigator window?",
+    "choices": {
+      "A": "To edit the data using M language before loading",
+      "B": "To display available tables and preview their contents before loading or transforming",
+      "C": "To automatically load all tables without user selection",
+      "D": "To permanently link the Excel file to Power BI reports"
+    },
+    "correct_answer": "B",
+    "explanation": "The Navigator window allows users to preview available tables/entities from the data source and select which ones to load or transform. It does not edit M code (that is done in the Advanced Editor). It also does not force automatic loading (option C), nor does it create a permanent link (option D)."
+  },
+  {
+    "question": "Which Power BI feature should you use to clean and shape your data before loading it into the model?",
+    "choices": {
+      "A": "Data Source Settings",
+      "B": "Navigator Window",
+      "C": "Power Query Editor",
+      "D": "Advanced Editor"
+    },
+    "correct_answer": "C",
+    "explanation": "The Power Query Editor is the tool designed for data transformation, cleaning, and shaping before loading data into the Power BI model. The Data Source Settings manage connections, the Navigator helps select tables, and the Advanced Editor is used for advanced query script editing inside Power Query."
+  },
+  {
+    "question": "If your source Excel file’s structure changes (e.g., columns are deleted or renamed), what is the likely impact on your Power BI reports?",
+    "choices": {
+      "A": "The reports automatically adjust to the new structure without issues",
+      "B": "The data will fail to load or the reports will break due to schema mismatch",
+      "C": "Power BI prompts you to update the file structure automatically",
+      "D": "The changed columns will be ignored, and the rest will load normally"
+    },
+    "correct_answer": "B",
+    "explanation": "Power BI depends on the file’s schema (column names, order, types). Structural changes such as renaming or deleting columns will cause errors in queries or break visuals that depend on those fields. Power BI does not automatically adapt or ignore these changes."
+  },
+  {
+    "question": "Which of the following is NOT a recommended practice when changing the source file path in Power BI?",
+    "choices": {
+      "A": "Ensuring the new file has the same structure as the original",
+      "B": "Using the Change Source option in Data Source Settings",
+      "C": "Loading the data again without changing the source path",
+      "D": "Verifying the connection after updating the file path"
+    },
+    "correct_answer": "C",
+    "explanation": "Loading data again without updating the source path when the file has moved or changed location will cause errors. It is essential to use the Change Source option and verify the new connection. The other options are correct best practices."
+  },
+  {
+    "question": "Which type of data import scenario is most suitable for files that rarely change?",
+    "choices": {
+      "A": "OneDrive for Business connection",
+      "B": "SharePoint Team Sites connection",
+      "C": "Importing from a local file on your computer",
+      "D": "Using a live connection to a database"
+    },
+    "correct_answer": "C",
+    "explanation": "Importing from a local file is suitable for data that doesn't change frequently because Power BI does not sync changes automatically. Cloud-based options (OneDrive, SharePoint) are better for frequently updated data. Live connections are for databases, not flat files."
+  },
+  {
+    "question": "What is the main benefit of storing Power BI data source files on cloud services like OneDrive or SharePoint?",
+    "choices": {
+      "A": "They allow you to edit Power BI reports directly from the cloud",
+      "B": "They eliminate the need to use Power Query Editor",
+      "C": "They enable automatic synchronization between the source files and Power BI semantic models",
+      "D": "They prevent data from being imported into Power BI Desktop"
+    },
+    "correct_answer": "C",
+    "explanation": "Storing source files on OneDrive or SharePoint allows Power BI to regularly check for changes and automatically update semantic models, reports, and dashboards, ensuring synchronization. Options A, B, and D are incorrect or unrelated to this benefit."
+  },
+  {
+    "question": "In Power BI Desktop, where can you find the “Get data” option to import files such as Excel or CSV?",
+    "choices": {
+      "A": "View tab",
+      "B": "Home tab",
+      "C": "Insert tab",
+      "D": "Modeling tab"
+    },
+    "correct_answer": "B",
+    "explanation": "The Get data feature is located on the Home tab in Power BI Desktop, providing quick access to import data from various sources."
+  },
+  {
+    "question": "When connecting to a personal OneDrive account in Power BI, what must you do to ensure the connection remains active?",
+    "choices": {
+      "A": "Disable “Keep me signed in” for security",
+      "B": "Sign in and select “Keep me signed in” option",
+      "C": "No login is required for personal OneDrive accounts",
+      "D": "Use a work email instead"
+    },
+    "correct_answer": "B",
+    "explanation": "To maintain an active connection with OneDrive Personal files, you must sign in and select the “Keep me signed in” option; otherwise, the connection may drop and require reauthentication."
+  },
+  {
+    "question": "What does Power BI do when you import data from a local file (e.g., Excel) stored on your computer?",
+    "choices": {
+      "A": "Moves the file into Power BI storage",
+      "B": "Creates a live link to the file and updates dynamically",
+      "C": "Creates a new semantic model and loads data from the file without keeping a live link",
+      "D": "Uploads the file to OneDrive automatically"
+    },
+    "correct_answer": "C",
+    "explanation": "Power BI does not move or link the local file but creates a semantic model by loading the data once. It does not sync changes made in the original file after import."
+  },
+  {
+    "question": "In the Navigator window after selecting a file in Power BI Desktop, what options do you have before importing?",
+    "choices": {
+      "A": "Load data directly or transform data in Power Query Editor",
+      "B": "Only load data without any preview",
+      "C": "Transform data but cannot load it",
+      "D": "Edit the file externally before import"
+    },
+    "correct_answer": "A",
+    "explanation": "The Navigator window lets you preview available tables, then choose to either Load data directly or Transform Data using Power Query Editor for cleaning/shaping."
+  },
+  {
+    "question": "Which of the following statements about cloud file storage sync with Power BI is TRUE?",
+    "choices": {
+      "A": "Power BI stores a separate copy of your OneDrive files offline",
+      "B": "Power BI checks OneDrive and SharePoint files regularly to sync updates automatically",
+      "C": "Changes in OneDrive files require manual re-import into Power BI",
+      "D": "SharePoint Team Sites do not support file connections for Power BI"
+    },
+    "correct_answer": "B",
+    "explanation": "Power BI regularly connects to files stored on OneDrive for Business or SharePoint Team Sites to detect changes and automatically update semantic models and reports."
+  },
+  {
+    "question": "Which of the following authentication methods can be used when connecting Power BI Desktop to an on-premises SQL Server database? (Select all that apply)",
+    "choices": {
+      "A": "Windows Authentication (Azure Active Directory credentials)",
+      "B": "OAuth Authentication",
+      "C": "Database Authentication (SQL Server credentials)",
+      "D": "Microsoft Account Authentication"
+    },
+    "correct_answer": "A,C,D",
+    "explanation": "Power BI Desktop supports Windows Authentication (Azure AD), Database Authentication (SQL Server credentials), and Microsoft Account Authentication (mainly for Azure). OAuth Authentication is not a standard option for on-premises SQL Server."
+  },
+  {
+    "question": "When connecting Power BI to a SQL Server, which data connectivity mode is recommended for most scenarios, and why?",
+    "choices": {
+      "A": "DirectQuery, because it imports all data immediately",
+      "B": "Import, because it creates a cached copy in Power BI improving performance",
+      "C": "DirectQuery, because it allows offline work",
+      "D": "Import, because it only queries the database in real-time"
+    },
+    "correct_answer": "B",
+    "explanation": "Import mode pulls data into Power BI’s internal data model, making report performance faster since queries run locally. DirectQuery queries live data and can be slower due to database/network latency. Therefore, Import is generally recommended unless near-real-time data is required."
+  },
+  {
+    "question": "Which of the following are advantages of writing SQL queries directly in Power BI’s SQL Server database connector?",
+    "choices": {
+      "A": "Import only required columns and rows, reducing data size",
+      "B": "Improve report performance by minimizing data imported",
+      "C": "Avoid using WHERE clauses to speed up data loading",
+      "D": "Join tables and perform calculations before data import"
+    },
+    "correct_answer": "A,B,D",
+    "explanation": "Writing SQL queries lets you select specific columns and rows, reducing unnecessary data, improving performance. You can also join tables and run calculations before import. Avoiding WHERE clauses is incorrect; WHERE clauses help filter data efficiently."
+  },
+  {
+    "question": "Why is using the wildcard character (*) in a SELECT statement discouraged when importing data into Power BI?",
+    "choices": {
+      "A": "It imports all columns, possibly including unnecessary data",
+      "B": "It improves query performance by retrieving all data at once",
+      "C": "It causes redundant data leading to larger Power BI file sizes",
+      "D": "It makes data modeling and report maintenance more complex"
+    },
+    "correct_answer": "A,C,D",
+    "explanation": "Using SELECT * imports every column including irrelevant ones, leading to larger files and slower performance, and complicates data modeling and maintenance. It does not improve performance."
+  },
+  {
+    "question": "You have connected to a SQL Server database and imported sales data. The database password needs to be updated every 90 days. Which Power BI feature allows you to update your connection credentials without recreating the connection?",
+    "choices": {
+      "A": "Refresh Now",
+      "B": "Data source settings",
+      "C": "Transform Data > Query Editor",
+      "D": "Power BI Service Gateway"
+    },
+    "correct_answer": "B",
+    "explanation": "The Data source settings in Power BI Desktop allow you to update credentials, change or clear permissions without recreating connections. Refresh triggers data reload but doesn’t update credentials. Transform Data is for shaping data, and Gateway relates to service refreshes."
+  },
+  {
+    "question": "What is “Query Folding” in the context of Power BI and relational databases?",
+    "choices": {
+      "A": "A technique to compress data after import",
+      "B": "Power Query’s ability to translate transformations back to source SQL queries",
+      "C": "The process of manually writing SQL queries for import",
+      "D": "A Power BI visualization feature that groups queries"
+    },
+    "correct_answer": "B",
+    "explanation": "Query Folding means Power Query translates transformation steps back into SQL queries that are run on the source database, improving efficiency and reducing data load. It is not about compression, manual SQL, or visualization."
+  },
+  {
+    "question": "In which cases would you prefer to use a SQL View over embedding a complex SQL query directly inside Power BI?",
+    "choices": {
+      "A": "When you want to centralize business logic in the database for reuse",
+      "B": "When you want to allow Query Folding and improve performance",
+      "C": "When you want to avoid writing any SQL",
+      "D": "When the database administrator wants to control data access policies"
+    },
+    "correct_answer": "A,B,D",
+    "explanation": "SQL Views centralize logic for reuse, allow better Query Folding and performance, and let DBAs control access and optimizations. You still need SQL to create views, so avoiding SQL entirely is not possible."
+  },
+  {
+    "question": "What happens if you select multiple tables in the Navigator window and click “Load” without transforming the data?",
+    "choices": {
+      "A": "Power BI imports all selected tables as-is into the data model",
+      "B": "Power BI opens Power Query for data shaping automatically",
+      "C": "Data is imported only if you have written an SQL query",
+      "D": "Power BI creates relationships automatically between tables"
+    },
+    "correct_answer": "A",
+    "explanation": "Clicking Load imports selected tables directly without opening Power Query. Transformations happen only if you select Transform Data. Relationships may be auto-detected but are not guaranteed. SQL query writing is optional."
+  },
+  {
+    "question": "What are the potential consequences of importing unfiltered historical sales data that is not relevant to the report?",
+    "choices": {
+      "A": "Larger data models that slow down report performance",
+      "B": "Increased storage requirements in Power BI files",
+      "C": "Faster report refresh due to more data being available",
+      "D": "More complex data model requiring additional normalization"
+    },
+    "correct_answer": "A,B,D",
+    "explanation": "Importing irrelevant data increases model size, storage, and complexity, slowing performance. It does not speed up refresh; it actually slows it down."
+  },
+  {
+    "question": "Which Power BI window allows you to preview data from the connected database before importing?",
+    "choices": {
+      "A": "Data source settings",
+      "B": "Navigator",
+      "C": "Power Query Editor",
+      "D": "SQL Server Management Studio"
+    },
+    "correct_answer": "B",
+    "explanation": "The Navigator window previews tables/entities from the source and lets you select which data to import or transform. Data source settings manage connections, Power Query Editor is for transformation, and SSMS is a separate external tool."
+  },
+  {
+    "question": "In the SQL Server connection window, what is the purpose of the “Advanced options” section?",
+    "choices": {
+      "A": "To enter a custom SQL query to filter or transform data before import",
+      "B": "To choose between Import and DirectQuery modes",
+      "C": "To set the Windows or Database authentication method",
+      "D": "To preview the data in tables before import"
+    },
+    "correct_answer": "A",
+    "explanation": "The Advanced options section allows you to write a custom SQL query to specify exactly which columns and rows to import, improving efficiency. Import/DirectQuery mode and authentication settings are configured elsewhere."
+  },
+  {
+    "question": "Which of the following actions can you perform in Power Query after loading data from a relational database?",
+    "choices": {
+      "A": "Delete unnecessary rows or columns",
+      "B": "Group data to create summarized tables",
+      "C": "Remove errors and clean data",
+      "D": "Change server and database connection details"
+    },
+    "correct_answer": "A,B,C",
+    "explanation": "Power Query allows extensive data shaping such as deleting rows/columns, grouping data, and cleaning errors. Changing connection details is done via Data source settings, not inside data transformation."
+  },
+  {
+    "question": "How can you modify the data source settings directly from within Power Query?",
+    "choices": {
+      "A": "By clicking the gear icon next to the Source step in the Query Settings pane",
+      "B": "By editing the SQL query in the Advanced Editor",
+      "C": "By selecting Transform Data > Data source settings",
+      "D": "By refreshing the query in Power BI Desktop"
+    },
+    "correct_answer": "A",
+    "explanation": "Inside Power Query, the gear icon next to the Source step allows editing connection details such as server and database. The Advanced Editor edits query steps, Data source settings is accessed outside Power Query, and refresh only reloads data."
+  },
+  {
+    "question": "Which statement about the “Load” vs “Transform Data” options in Navigator is correct?",
+    "choices": {
+      "A": "Load imports data immediately without any transformation",
+      "B": "Transform Data opens Power Query Editor to allow data shaping before import",
+      "C": "Transform Data also loads data into the model automatically",
+      "D": "Load always uses DirectQuery mode"
+    },
+    "correct_answer": "A,B",
+    "explanation": "Load imports selected data immediately as-is. Transform Data opens Power Query for shaping data before loading. Transform Data does not immediately load data until applied. The data connectivity mode is set separately."
+  },
+  {
+    "question": "What are the consequences of changing data source credentials or server details in Power BI after data has been loaded?",
+    "choices": {
+      "A": "You must refresh the data to apply changes",
+      "B": "Reports automatically update without refresh",
+      "C": "You may need to re-enter credentials due to security policies",
+      "D": "Data transformations need to be redone"
+    },
+    "correct_answer": "A,C",
+    "explanation": "After changing connection details, a data refresh is required to load data from the new source. You often must re-enter credentials due to security. Existing transformations remain unless data structure changes."
+  },
+  {
+    "question": "What is the main advantage of using dynamic reports with parameters in Power BI?",
+    "choices": {
+      "A": "They allow the creation of multiple reports for each user.",
+      "B": "They enable a single report to be filtered and reused for different user inputs.",
+      "C": "They automatically generate visualizations without user interaction.",
+      "D": "They eliminate the need to connect to databases."
+    },
+    "correct_answer": "B",
+    "explanation": "Dynamic reports use parameters to filter data according to user input, allowing one report to serve multiple purposes. This reduces the number of static reports required, saving time and resources. Options A, C, and D are incorrect because dynamic reports do not multiply reports or remove database connections, nor do they create visuals without interaction."
+  },
+  {
+    "question": "When creating a parameter in Power Query Editor, which type and suggested value options should you select to allow any text input?",
+    "choices": {
+      "A": "Type: Number, Suggested Values: List",
+      "B": "Type: Text, Suggested Values: Any value",
+      "C": "Type: Boolean, Suggested Values: True or False",
+      "D": "Type: Date, Suggested Values: Fixed List"
+    },
+    "correct_answer": "B",
+    "explanation": "To accept flexible user inputs like salespersons’ names or IDs, the parameter should be of type Text with suggested values set to Any value. This ensures the user can input any string value. Other types (Number, Boolean, Date) are too restrictive or irrelevant here."
+  },
+  {
+    "question": "What must you do in the SQL query within the Advanced Editor to utilize the parameter in filtering data?",
+    "choices": {
+      "A": "Remove all WHERE clauses from the SQL query.",
+      "B": "Append the parameter with an ampersand (&) in the query string.",
+      "C": "Replace the entire query with a Power BI formula.",
+      "D": "Hardcode the parameter value into the SQL query."
+    },
+    "correct_answer": "B",
+    "explanation": "In Power Query’s Advanced Editor, you concatenate the parameter into the SQL query string using an ampersand (&), so Power BI substitutes the parameter value at runtime. This dynamic integration is essential. Options A, C, and D contradict dynamic parameter usage."
+  },
+  {
+    "question": "After creating a parameter and modifying the SQL query, you get a warning about permission to run native queries. What is the correct way to resolve this?",
+    "choices": {
+      "A": "Ignore the warning; the query will run anyway.",
+      "B": "Select Edit Permission and then Run to grant necessary permissions.",
+      "C": "Delete the query and create a new one.",
+      "D": "Disable parameter use to avoid native queries."
+    },
+    "correct_answer": "B",
+    "explanation": "Power BI requires explicit permission to execute native database queries for security reasons. You must select Edit Permission and then Run to allow the query. Ignoring or deleting is not a solution, and disabling parameters removes the feature’s benefit."
+  },
+  {
+    "question": "How do you create a dynamic report that filters on multiple values at once?",
+    "choices": {
+      "A": "Use a single text parameter and enter multiple values separated by commas.",
+      "B": "Create a parameter function and invoke it with a list of values imported from Excel.",
+      "C": "Use multiple individual parameters, one per value.",
+      "D": "You cannot filter on multiple values dynamically in Power BI."
+    },
+    "correct_answer": "B",
+    "explanation": "For multiple values, you import an Excel table with values (e.g., multiple SalesPersonIDs), create a function based on the original query, then invoke this function on each value. This approach is scalable and dynamic. Option A doesn’t work as a parameter accepts only a single value, C is impractical, and D is false."
+  },
+  {
+    "question": "Which of the following best describes a NoSQL database like Azure Cosmos DB?",
+    "choices": {
+      "A": "A database that stores data only in tabular relations with fixed schemas",
+      "B": "A non-relational, flexible database that stores data often in JSON documents",
+      "C": "A database optimized only for SQL queries and structured data",
+      "D": "A database that uses only XML format for data storage"
+    },
+    "correct_answer": "B",
+    "explanation": "NoSQL databases are non-relational and do not require fixed schemas or tables. Azure Cosmos DB stores data in flexible formats such as JSON documents, allowing nested and dynamic data structures unlike traditional relational databases."
+  },
+  {
+    "question": "When connecting Power BI Desktop to an Azure Cosmos DB instance for the first time, which credentials are mandatory to input?",
+    "choices": {
+      "A": "Only the database name and collection name",
+      "B": "The account endpoint URL and the account key (Primary Key)",
+      "C": "Just the account username and password",
+      "D": "The SQL query string for data retrieval"
+    },
+    "correct_answer": "B",
+    "explanation": "To connect to Azure Cosmos DB, you need the account endpoint URL (to specify which database instance to connect to) and the account key (usually the Primary Key) from the Azure portal for authentication. Usernames/passwords or SQL queries do not apply here."
+  },
+  {
+    "question": "Why is it necessary to \"expand\" JSON records in Power Query after importing data from Cosmos DB?",
+    "choices": {
+      "A": "To delete unwanted columns",
+      "B": "To convert nested JSON objects into tabular format suitable for analysis",
+      "C": "To encrypt the data for security reasons",
+      "D": "To connect multiple JSON files into one dataset"
+    },
+    "correct_answer": "B",
+    "explanation": "JSON data is often nested or hierarchical. The \"Expand\" operation in Power Query transforms these nested JSON records into flat tables (rows and columns), making the data usable for reporting and analysis in Power BI."
+  },
+  {
+    "question": "Where in the Azure portal can you find the account endpoint URL and Primary Key required to connect Power BI to Cosmos DB?",
+    "choices": {
+      "A": "In the Overview blade of the Cosmos DB account",
+      "B": "In the Keys blade of the Cosmos DB account",
+      "C": "In the Access Control (IAM) blade",
+      "D": "In the Diagnostic settings blade"
+    },
+    "correct_answer": "B",
+    "explanation": "The Keys blade of your Azure Cosmos DB account contains the endpoint URL and access keys (Primary and Secondary Keys) required to authenticate connections from tools like Power BI."
+  },
+  {
+    "question": "If you load JSON data directly from Cosmos DB into Power BI without any transformation, what issue will you most likely face?",
+    "choices": {
+      "A": "Data will load as a fully normalized table immediately",
+      "B": "Data will be encrypted and unusable",
+      "C": "Data will be represented as complex Record types, difficult to analyze without expansion",
+      "D": "Power BI will automatically create relationships between JSON records"
+    },
+    "correct_answer": "C",
+    "explanation": "Without transformation, JSON data appears as nested Record or List objects in Power BI, which cannot be directly analyzed. You must expand and normalize these records in Power Query."
+  },
+  {
+    "question": "In the Navigator window of Power BI when connecting to Cosmos DB, what does the preview pane typically show?",
+    "choices": {
+      "A": "The exact rows and columns of the database tables",
+      "B": "A list of Record items representing the JSON documents",
+      "C": "Only the database schema definitions",
+      "D": "SQL statements for querying the data"
+    },
+    "correct_answer": "B",
+    "explanation": "The preview pane shows JSON documents represented as Record types because Cosmos DB stores data as JSON documents rather than traditional tables."
+  },
+  {
+    "question": "What does unchecking the \"Use original column name as prefix\" option do when expanding records in Power Query?",
+    "choices": {
+      "A": "It renames columns with a prefix related to their parent column",
+      "B": "It keeps the original nested column names intact",
+      "C": "It removes the prefix from expanded columns for cleaner column names",
+      "D": "It deletes the columns after expansion"
+    },
+    "correct_answer": "C",
+    "explanation": "Unchecking this option prevents Power Query from adding the parent column name as a prefix to the expanded columns, resulting in simpler and cleaner column names."
+  },
+  {
+    "question": "After importing and transforming data from Cosmos DB, what is the next essential step before using the data in Power BI reports?",
+    "choices": {
+      "A": "Refresh the Azure Cosmos DB account keys",
+      "B": "Close & Apply changes in Power Query to load the data into Power BI Desktop",
+      "C": "Export the data to Excel first",
+      "D": "Delete unnecessary records directly from Cosmos DB"
+    },
+    "correct_answer": "B",
+    "explanation": "You must click Close & Apply in Power Query Editor to load the transformed data into Power BI Desktop’s data model, making it available for visualization and reporting."
+  },
+  {
+    "question": "Which data formats are most commonly used to transmit data between Cosmos DB and applications such as Power BI?",
+    "choices": {
+      "A": "XML and CSV",
+      "B": "JSON and BSON",
+      "C": "Plain text files only",
+      "D": "Binary large objects (BLOBs) only"
+    },
+    "correct_answer": "B",
+    "explanation": "JSON is the standard format used by Cosmos DB for data storage and transmission. BSON (Binary JSON) is sometimes used in similar NoSQL contexts, but JSON is the primary relevant format here."
+  },
+  {
+    "question": "How can data from Azure Cosmos DB be combined with other data sources in Power BI?",
+    "choices": {
+      "A": "By importing Cosmos DB data and establishing relationships in the Power BI data model",
+      "B": "By exporting Cosmos DB data to CSV first, then importing CSV separately",
+      "C": "Data cannot be combined from NoSQL sources with other data sources in Power BI",
+      "D": "By linking the Azure Cosmos DB portal directly to Excel"
+    },
+    "correct_answer": "A",
+    "explanation": "Once data from Cosmos DB is loaded and normalized into Power BI, it appears as tables and can be related to other imported datasets by creating relationships in the data model, enabling integrated reporting."
+  },
+  {
+    "question": "In Power BI Desktop, how do you find the Azure Cosmos DB connector when getting data?",
+    "choices": {
+      "A": "Under the Database category",
+      "B": "Under the Azure category, accessed via “More...” in Get Data",
+      "C": "Under the File category",
+      "D": "It is listed directly in the main Get Data menu"
+    },
+    "correct_answer": "B",
+    "explanation": "The Azure Cosmos DB connector is found by clicking Get Data > More..., then selecting the Azure category where it is listed."
+  },
+  {
+    "question": "Why are JSON documents considered a good choice for transmitting data between server and web applications?",
+    "choices": {
+      "A": "Because JSON documents are binary files",
+      "B": "Because JSON is a widely supported open standard format for data exchange and is human-readable",
+      "C": "Because JSON only supports fixed schemas",
+      "D": "Because JSON is encrypted by default"
+    },
+    "correct_answer": "B",
+    "explanation": "JSON is an open standard format, widely supported and human-readable, making it ideal for transmitting data between servers and web applications."
+  },
+  {
+    "question": "When selecting a database or collection in Power BI’s Navigator window, what are two ways to specify the data source?",
+    "choices": {
+      "A": "Typing the database and collection name manually or using the Navigator UI to browse and select",
+      "B": "Importing a CSV file instead",
+      "C": "Writing SQL queries to retrieve data",
+      "D": "Only typing the database name without collections"
+    },
+    "correct_answer": "A",
+    "explanation": "You can either manually enter the database and collection names or use the Navigator window to browse and select the relevant database and collection visually."
+  },
+  {
+    "question": "What type of data structure does Power BI assign to all records from Cosmos DB upon preview?",
+    "choices": {
+      "A": "Table format with rows and columns",
+      "B": "List type data",
+      "C": "Record type data representing JSON documents",
+      "D": "Binary data type"
+    },
+    "correct_answer": "C",
+    "explanation": "Power BI represents JSON documents from Cosmos DB as Record types before transformation, which need to be expanded to create tables."
+  },
+  {
+    "question": "Is it possible to relate Cosmos DB data imported into Power BI with data from other sources?",
+    "choices": {
+      "A": "No, Cosmos DB data is isolated",
+      "B": "Yes, once transformed and loaded, it behaves like any other table in Power BI and can be related",
+      "C": "Only by exporting to Excel first",
+      "D": "Only by using Power BI Premium features"
+    },
+    "correct_answer": "B",
+    "explanation": "Once Cosmos DB data is imported and properly transformed, it becomes part of the Power BI data model and can be linked to other tables for integrated analysis."
+  },
+   {
+    "question": "When connecting Power BI Desktop to a SharePoint Online List, which part of the SharePoint URL should you enter?\n\nSelect the best option:",
+    "choices": {
+      "A": "The full URL including the specific list or file path",
+      "B": "Only the SharePoint site URL without the specific list path",
+      "C": "The URL of the specific SharePoint file to import",
+      "D": "Any URL copied from the browser, no modification needed"
+    },
+    "correct_answer": "B",
+    "explanation": "Power BI requires only the site URL to establish the connection because once connected, it lists all available lists on that site. Entering the full path or file URL can cause errors. Sometimes you need to remove the last part of the URL to keep only the site address."
+  },
+  {
+    "question": "After successfully connecting to a SharePoint Online List, what does the Navigator window in Power BI Desktop display?\n\nSelect the best option:",
+    "choices": {
+      "A": "A preview of all SharePoint documents",
+      "B": "Only the default SharePoint homepage",
+      "C": "Tables and entities (lists) available on the SharePoint site",
+      "D": "The SharePoint site’s user permissions and access logs"
+    },
+    "correct_answer": "C",
+    "explanation": "The Navigator window displays tables and entities (typically SharePoint lists) available on the connected SharePoint site. It allows users to select which list(s) to import or transform. It does not show documents or permissions."
+  },
+  {
+    "question": "What happens if you select \"Load\" instead of \"Transform Data\" when importing data from SharePoint into Power BI?\n\nSelect the best option:",
+    "choices": {
+      "A": "The data is immediately loaded into the Power BI data model without any changes",
+      "B": "Power Query Editor opens to modify the data before loading",
+      "C": "The data import is canceled",
+      "D": "The data is imported as a CSV file to your computer"
+    },
+    "correct_answer": "A",
+    "explanation": "Selecting 'Load' imports the selected data directly into the Power BI data model without any transformation. Choosing 'Transform Data' opens Power Query Editor for shaping or filtering data before loading."
+  },
+  {
+    "question": "What kind of authentication does Power BI Desktop require when connecting to SharePoint Online?\n\nSelect the best option:",
+    "choices": {
+      "A": "No authentication is required if SharePoint is public",
+      "B": "Sign in with a Microsoft Account linked to the SharePoint site",
+      "C": "OAuth token from any online service",
+      "D": "SharePoint Administrator credentials only"
+    },
+    "correct_answer": "B",
+    "explanation": "Power BI requires signing in with a Microsoft Account authorized to access the SharePoint site. This ensures secure and authorized data connection. Public SharePoint sites rarely hold business data."
+  },
+  {
+    "question": "Why is it beneficial to connect Power BI to multiple online applications’ data, such as SharePoint and Dynamics 365?\n\nSelect the best option:",
+    "choices": {
+      "A": "To create duplicate datasets in Power BI",
+      "B": "To combine data from different sources for more meaningful insights",
+      "C": "To speed up the SharePoint site loading time",
+      "D": "To automatically create dashboards without user input"
+    },
+    "correct_answer": "B",
+    "explanation": "Connecting multiple data sources allows Power BI to merge and analyze data across systems, enabling richer, comprehensive insights that are not possible by analyzing individual data sources alone."
+  },
+  {
+    "question": "Which of the following is NOT a valid reason to remove the last part of the URL when connecting to SharePoint Online List?\n\nSelect the best option:",
+    "choices": {
+      "A": "The last part refers to a specific list or file path, which Power BI does not need at connection time",
+      "B": "Removing it ensures you connect to the SharePoint root site",
+      "C": "Power BI automatically fetches available lists from the site URL provided",
+      "D": "To avoid connecting to the wrong SharePoint server"
+    },
+    "correct_answer": "D",
+    "explanation": "Removing the last part of the URL is done to point to the SharePoint site root, not to avoid wrong servers. The server is determined by the domain name in the URL, which usually remains the same."
+  },
+  {
+    "question": "What should you do if you want to clean or filter data from a SharePoint list before loading it into Power BI Desktop?\n\nSelect the best option:",
+    "choices": {
+      "A": "Select \"Load\" and edit the data in the report view",
+      "B": "Open the list in SharePoint and make changes there",
+      "C": "Select \"Transform Data\" to open Power Query Editor before loading",
+      "D": "Export the data as Excel, edit it, then re-import into Power BI"
+    },
+    "correct_answer": "C",
+    "explanation": "Selecting 'Transform Data' opens Power Query Editor, the built-in tool to shape, clean, and filter data before loading it into Power BI. This is the most efficient and recommended approach."
+  },
+  {
+    "question": "What is the primary purpose of the Power BI Desktop’s \"Get Data\" feature when working with online services?\n\nSelect the best option:",
+    "choices": {
+      "A": "To export Power BI reports to SharePoint",
+      "B": "To connect and import data from external online applications into Power BI",
+      "C": "To backup Power BI datasets online",
+      "D": "To edit online service configurations"
+    },
+    "correct_answer": "B",
+    "explanation": "\"Get Data\" is the starting point in Power BI Desktop to connect and import data from many sources including online services like SharePoint, OneDrive, and others, for analysis and reporting."
+  },
+  {
+    "question": "What business value does importing sales goals from SharePoint into Power BI provide?\n\nSelect the best option:",
+    "choices": {
+      "A": "It helps the sales team communicate via email",
+      "B": "It allows sales managers to compare goals with actual sales and assess pipeline health",
+      "C": "It automatically updates SharePoint permissions",
+      "D": "It creates invoices based on sales goals"
+    },
+    "correct_answer": "B",
+    "explanation": "Importing sales goals allows sales managers to analyze and compare planned goals with actual sales data, helping them understand the current health of the sales pipeline and make better decisions."
+  },
+  {
+    "question": "Why might you need to edit the SharePoint URL before using it in Power BI?\n\nSelect the best option:",
+    "choices": {
+      "A": "To add your username and password in the URL",
+      "B": "To remove the last part if it points to a specific list or file, keeping only the site root",
+      "C": "To convert the URL to an FTP address",
+      "D": "To shorten it to just the domain name"
+    },
+    "correct_answer": "B",
+    "explanation": "Editing the URL by removing the last part (list or file path) ensures that Power BI connects to the SharePoint site root, enabling it to list all available lists for selection."
+  },
+  {
+    "question": "Which of the following are examples of other online services Power BI can connect to besides SharePoint?\n\nSelect the best option:",
+    "choices": {
+      "A": "Outlook and Excel Desktop",
+      "B": "OneDrive, Dynamics 365, Google Analytics",
+      "C": "Microsoft Word and PowerPoint",
+      "D": "Local CSV files only"
+    },
+    "correct_answer": "B",
+    "explanation": "Power BI supports connecting to various online services including OneDrive, Dynamics 365, and Google Analytics, which help combine data from diverse systems."
+  },
+  { 
+    "question": "Which of the following statements about the Import storage mode in Power BI is FALSE?",
+    "choices": {
+      "A": "Data is stored locally in the Power BI file and can be refreshed on schedule.",
+      "B": "Import mode supports all Power BI features including Q&A and Quick Insights.",
+      "C": "Data in Import mode is always live and does not require refresh.",
+      "D": "Import mode is the default mode when creating new Power BI reports."
+    },
+    "correct_answer": "C",
+    "explanation": "Import mode stores a snapshot of the data in Power BI. This data is NOT live by default; it requires manual or scheduled refreshes to update. Only DirectQuery mode provides live data querying without importing a copy."
+  },
+  { 
+    "question": "You have a very large dataset that cannot be efficiently imported due to performance constraints. The dataset also requires real-time updates. Which storage mode is most appropriate?",
+    "choices": {
+      "A": "Import",
+      "B": "DirectQuery",
+      "C": "Dual",
+      "D": "Aggregation"
+    },
+    "correct_answer": "B",
+    "explanation": "DirectQuery does not import the data but queries the source live, making it suitable for very large datasets and real-time updates. Import would be too slow and consume too much memory. Dual mode is more suitable when you want a mix of import and live data."
+  },
+  { 
+    "question": "Which of the following is a limitation of using DirectQuery mode?",
+    "choices": {
+      "A": "Inability to refresh data on schedule.",
+      "B": "Dependence on source system performance during queries.",
+      "C": "Data is cached in Power BI for faster access.",
+      "D": "Full support for all Power BI service features."
+    },
+    "correct_answer": "B",
+    "explanation": "DirectQuery mode relies on the source system to run queries in real time, so performance depends on the data source's speed and responsiveness. Data is NOT cached (option C is false). Some Power BI features may be limited in DirectQuery (D is false). Scheduled refresh is not needed because the data is queried live, so A is false."
+  },
+  { 
+    "question": "In Dual storage mode, how does Power BI determine whether to use Import or DirectQuery for a particular query?",
+    "choices": {
+      "A": "The user manually chooses the mode per query.",
+      "B": "Power BI automatically decides the most efficient mode to retrieve data.",
+      "C": "It always uses Import mode unless data is missing.",
+      "D": "It always queries the live data source first, then falls back to Import mode."
+    },
+    "correct_answer": "B",
+    "explanation": "Dual mode allows Power BI to dynamically decide the best mode for data retrieval, optimizing performance and freshness. The user does not manually select the mode per query."
+  },
+  { 
+    "question": "What is the primary reason an organization might choose DirectQuery mode over Import mode?",
+    "choices": {
+      "A": "To take advantage of faster query performance.",
+      "B": "To ensure data is always up to date and avoid local data storage due to security concerns.",
+      "C": "To use all Power BI features without limitation.",
+      "D": "To reduce dependency on the data source’s availability."
+    },
+    "correct_answer": "B",
+    "explanation": "DirectQuery mode ensures real-time data access and avoids local storage, which can be critical for security reasons or regulatory compliance. Import mode stores a copy locally and requires refresh. Query performance is typically slower in DirectQuery (so A is false). Some features are limited in DirectQuery (C is false). DirectQuery increases dependency on source availability (D is false)."
+  },
+  { 
+    "question": "Which Power BI feature is NOT fully supported when using DirectQuery mode?",
+    "choices": {
+      "A": "Q&A natural language queries",
+      "B": "Basic visualizations like bar charts",
+      "C": "Filters and slicers",
+      "D": "Real-time data updates"
+    },
+    "correct_answer": "A",
+    "explanation": "Q&A and some AI-driven features (like Quick Insights) are limited or unavailable in DirectQuery mode because these features rely on imported data models. Basic visuals, filters, and real-time data work in DirectQuery."
+  },
+  { 
+    "question": "How can you change the storage mode of a table in Power BI Desktop?",
+    "choices": {
+      "A": "From the Data view by right-clicking the table.",
+      "B": "In the Model view by selecting the table and using the Properties pane.",
+      "C": "In the Report view by selecting the visual connected to the table.",
+      "D": "From the Power BI Service portal settings."
+    },
+    "correct_answer": "B",
+    "explanation": "Storage mode is set in the Model view of Power BI Desktop. You select the table, then adjust the mode via the Properties pane’s Storage Mode drop-down."
+  },
+  { 
+    "question": "If you want some tables imported for faster querying and others queried live due to size or security, which storage mode do you use?",
+    "choices": {
+      "A": "Import",
+      "B": "DirectQuery",
+      "C": "Dual",
+      "D": "Live Connection"
+    },
+    "correct_answer": "C",
+    "explanation": "Dual mode (also called Composite mode) allows mixing Import and DirectQuery for different tables in the same model, optimizing performance and freshness."
+  },
+  { 
+    "question": "What happens if a table in Dual mode is queried for data that exists in both Import and DirectQuery cache?",
+    "choices": {
+      "A": "Power BI always uses the DirectQuery source.",
+      "B": "Power BI always uses the cached Import data.",
+      "C": "Power BI chooses the method that results in better performance.",
+      "D": "The query fails due to ambiguity."
+    },
+    "correct_answer": "C",
+    "explanation": "Power BI intelligently decides which mode to use (Import cache or DirectQuery) to maximize performance and efficiency."
+  },
+  { 
+    "question": "Why might an organization prohibit importing local copies of data into Power BI?",
+    "choices": {
+      "A": "To reduce file size of the Power BI report.",
+      "B": "Due to data security and compliance policies.",
+      "C": "Because Import mode is slower than DirectQuery.",
+      "D": "To avoid using Power BI features that require Import mode."
+    },
+    "correct_answer": "B",
+    "explanation": "Importing local copies can violate data governance or security policies, especially if data is sensitive or regulated. Reducing file size is secondary, and Import mode is usually faster (C is false). Avoiding Power BI features is unlikely to be a reason (D is false)."
+  },
+  {
+    "question": "What is a primary advantage of using the \"Connect live\" option when connecting Power BI to Azure Analysis Services?",
+    "choices": {
+      "A": "It allows you to import data faster than the Import option.",
+      "B": "It keeps DAX calculations and data refreshes centralized in Azure Analysis Services.",
+      "C": "It enables Power BI to write back data to the Azure Analysis Services model.",
+      "D": "It automatically converts MDX queries to T-SQL for better performance."
+    },
+    "correct_answer": "B",
+    "explanation": "\"Connect live\" keeps the data and DAX calculations within Azure Analysis Services, allowing centralized management and immediate refresh in reports without importing data into Power BI. Options A, C, and D are incorrect because import can be slower, Power BI cannot write back to AAS, and queries are not converted to T-SQL."
+  },
+  {
+    "question": "Which of the following languages can you use to query data directly from Azure Analysis Services models?",
+    "choices": {
+      "A": "T-SQL",
+      "B": "MDX",
+      "C": "DAX",
+      "D": "Both B and C"
+    },
+    "correct_answer": "D",
+    "explanation": "Azure Analysis Services models can be queried using MDX and DAX. T-SQL is used for SQL Server but not for AAS tabular models."
+  },
+  {
+    "question": "In Azure Analysis Services, why might you prefer to import all additional data sources into the AAS model and then connect live from Power BI instead of importing multiple data sources directly into Power BI?",
+    "choices": {
+      "A": "To reduce the size of the Power BI report.",
+      "B": "To consolidate semantic modeling and DAX calculations in a single place.",
+      "C": "To avoid using DAX calculations altogether.",
+      "D": "To prevent Power BI from authenticating to multiple data sources."
+    },
+    "correct_answer": "B",
+    "explanation": "Consolidating data sources in AAS centralizes semantic modeling and DAX logic, simplifying maintenance and improving performance. Options A, C, and D are incorrect as import size reduction is a side effect, DAX is still used, and authentication still happens."
+  },
+  {
+    "question": "What is a key difference between Azure Analysis Services and SQL Server when retrieving data for Power BI reports?",
+    "choices": {
+      "A": "Azure Analysis Services requires using T-SQL for queries.",
+      "B": "Azure Analysis Services provides pre-built calculations within the model.",
+      "C": "SQL Server can only be queried live, not imported.",
+      "D": "Power BI cannot authenticate to Azure Analysis Services servers."
+    },
+    "correct_answer": "B",
+    "explanation": "AAS models often contain pre-built calculations (measures) using DAX. SQL Server queries use T-SQL and lack this embedded semantic modeling. Other options are false."
+  },
+  {
+    "question": "When connecting Power BI to Azure Analysis Services, which of the following is NOT true?",
+    "choices": {
+      "A": "You must provide the server address and database name.",
+      "B": "You can select specific tables from the model for use.",
+      "C": "You can write back data changes to the Azure Analysis Services model directly from Power BI.",
+      "D": "You can use either Import or Connect live as a connection option."
+    },
+    "correct_answer": "C",
+    "explanation": "Power BI only reads data from AAS; it cannot write back data or changes. Other statements are true."
+  },
+  {
+    "question": "Which statement best describes the refresh behavior when using the “Connect live” option with Azure Analysis Services?",
+    "choices": {
+      "A": "Power BI schedules its own data refresh that happens independently from Azure Analysis Services.",
+      "B": "When data refreshes in Azure Analysis Services, Power BI reports reflect the changes immediately without a separate refresh.",
+      "C": "Connect live connections require manual refresh in Power BI every time data changes.",
+      "D": "The Connect live option disables data refresh capabilities entirely."
+    },
+    "correct_answer": "B",
+    "explanation": "With Connect live, Power BI queries data in real time from AAS. When AAS refreshes, reports immediately show updated data. Power BI does not require separate refresh for live connections."
+  },
+  {
+    "question": "Which of the following best describes the purpose of semantic models in Azure Analysis Services?",
+    "choices": {
+      "A": "To store raw transactional data from various sources.",
+      "B": "To provide a trusted, reusable layer combining data, calculations, and security for analytics.",
+      "C": "To replace Power BI datasets entirely.",
+      "D": "To enable data entry and manipulation via Excel spreadsheets."
+    },
+    "correct_answer": "B",
+    "explanation": "Semantic models unify data, calculations, and security, creating a trusted layer for analysis. They do not store raw transactional data primarily, nor replace Power BI datasets fully or allow data entry."
+  },
+  {
+    "question": "What is the correct sequence when retrieving data from Azure Analysis Services to Power BI?",
+    "choices": {
+      "A": "Authenticate → Pick the model → Select tables → Write back data",
+      "B": "Authenticate → Select tables → Pick the model → Query data",
+      "C": "Authenticate → Pick the model → Select tables → Query data",
+      "D": "Select tables → Authenticate → Pick the model → Query data"
+    },
+    "correct_answer": "C",
+    "explanation": "First authenticate, then choose the semantic model, select tables, then query data. Writing back is not supported."
+  },
+  {
+    "question": "Why might you choose to query specific fields or measures instead of importing entire tables from Azure Analysis Services?",
+    "choices": {
+      "A": "To improve query performance and reduce data volume.",
+      "B": "Because Azure Analysis Services does not allow importing entire tables.",
+      "C": "To avoid using DAX calculations.",
+      "D": "Because Power BI does not support full table imports from AAS."
+    },
+    "correct_answer": "A",
+    "explanation": "Querying specific fields/measures reduces data volume and improves performance. AAS does allow importing full tables, and DAX is still used."
+  },
+  {
+    "question": "How does Azure Analysis Services help secure data for enterprise use?",
+    "choices": {
+      "A": "By storing all data encrypted on-premises only.",
+      "B": "By providing a centralized, trusted semantic model with security roles applied.",
+      "C": "By automatically encrypting data inside Power BI reports.",
+      "D": "By restricting user access to only import mode in Power BI."
+    },
+    "correct_answer": "B",
+    "explanation": "AAS lets you define security roles and permissions on the semantic model, centralizing data access control. The other options are incorrect."
+  },
+  {
+    "question": "What does a “fast refresh schedule” in Azure Analysis Services enable?",
+    "choices": {
+      "A": "Power BI reports update immediately when the AAS data refreshes without manual refresh in Power BI.",
+      "B": "Power BI data imports faster but with delay in report updates.",
+      "C": "Azure Analysis Services refreshes data only once per day.",
+      "D": "Users have to refresh Power BI manually after AAS refresh."
+    },
+    "correct_answer": "A",
+    "explanation": "Fast refresh means Power BI live reports reflect data immediately after AAS refreshes, no manual refresh needed."
+  },
+  {
+    "question": "Why are Azure Analysis Services tabular models considered compatible with Power BI?",
+    "choices": {
+      "A": "Because both use the tabular model format and DAX for calculations.",
+      "B": "Because Power BI automatically converts tabular models to relational tables.",
+      "C": "Because both use T-SQL to query the data.",
+      "D": "Because tabular models only store data, no calculations."
+    },
+    "correct_answer": "A",
+    "explanation": "Both AAS and Power BI use the tabular model and DAX, making them fully compatible for live connections and shared calculations."
+  },
+  {
+    "question": "In the given scenario, why would Tailwind Traders use Azure Analysis Services to store financial projections but keep actual sales data in a different database?",
+    "choices": {
+      "A": "To separate modeling and transactional systems for better performance and manageability.",
+      "B": "Because Azure Analysis Services cannot store sales data.",
+      "C": "To avoid using Power BI for sales data analysis.",
+      "D": "Because actual sales data cannot be connected to Power BI."
+    },
+    "correct_answer": "A",
+    "explanation": "Separating projection data (analytical) from transactional sales data allows optimized storage and processing for each. AAS is designed for analytics, not transactional storage."
+  },
+  {
+    "question": "What advanced features does Azure Analysis Services provide to enhance data mashup and modeling?",
+    "choices": {
+      "A": "Predefined T-SQL queries for all data sources.",
+      "B": "Ability to combine data from multiple sources, define metrics, and create secure semantic models.",
+      "C": "Automatic generation of Power BI reports.",
+      "D": "Integration only with Excel and no other tools."
+    },
+    "correct_answer": "B",
+    "explanation": "AAS offers advanced mashup and modeling capabilities that let users combine data sources, define metrics, and secure the semantic model. It does not provide predefined T-SQL queries or automatic report generation."
+  },
+  {
+    "question": "Which of the following transformations in Power Query cannot be folded into a native SQL query?",
+    "choices": {
+      "A": "Filtering rows with a WHERE clause",
+      "B": "Renaming columns",
+      "C": "Adding an index column",
+      "D": "Grouping rows using GROUP BY"
+    },
+    "correct_answer": "C",
+    "explanation": "Adding an index column is a local transformation in Power Query that cannot be translated into a native SQL query, thus breaking query folding. Filtering, renaming columns, and grouping can be folded because they map directly to SQL operations."
+  },
+  {
+    "question": "What is the main benefit of query folding in Power BI?",
+    "choices": {
+      "A": "It compresses data automatically in Power BI Desktop",
+      "B": "It runs transformations on the source server to reduce workload in Power BI",
+      "C": "It converts all Power BI visuals into SQL statements",
+      "D": "It optimizes memory usage within the Power BI service"
+    },
+    "correct_answer": "B",
+    "explanation": "Query folding pushes data transformations to the source database, leveraging its processing power and reducing the workload on Power BI, which improves performance and refresh times."
+  },
+  {
+    "question": "In which of the following scenarios would query folding not occur?",
+    "choices": {
+      "A": "Applying a filter to a column in a SQL Server table",
+      "B": "Renaming columns in a SQL Server query",
+      "C": "Merging two tables from two different data sources",
+      "D": "Grouping rows with aggregation functions on a SQL Server table"
+    },
+    "correct_answer": "C",
+    "explanation": "Query folding requires that transformations be representable as a single SQL query on one data source. Merging tables from different sources breaks this requirement and disables folding."
+  },
+  {
+    "question": "What tool can you use in Power Query Editor to identify which step in your query is causing performance issues?",
+    "choices": {
+      "A": "Performance Analyzer",
+      "B": "Query Diagnostics",
+      "C": "Query Folding Viewer",
+      "D": "Data Profiling"
+    },
+    "correct_answer": "B",
+    "explanation": "Query Diagnostics in Power Query Editor helps monitor the execution time of each query step, identifying slow steps and bottlenecks during data transformations."
+  },
+  {
+    "question": "Which practice helps improve performance when using DirectQuery mode in Power BI?",
+    "choices": {
+      "A": "Importing all data into Power BI before applying transformations",
+      "B": "Using native SQL queries instead of stored procedures or CTEs",
+      "C": "Applying all data transformations inside Power BI Desktop",
+      "D": "Combining date and time columns into a single column"
+    },
+    "correct_answer": "B",
+    "explanation": "DirectQuery performance is better when native SQL queries are used, as stored procedures or CTEs can prevent query folding and reduce performance."
+  },
+  {
+    "question": "How do you verify if query folding is occurring for a given step in Power Query?",
+    "choices": {
+      "A": "Right-click the step and select 'View Native Query' if available",
+      "B": "Check the query folding status in the Performance Analyzer tool",
+      "C": "Use the Data Profiling pane to view folding indicators",
+      "D": "Export the query to SQL Server Management Studio"
+    },
+    "correct_answer": "A",
+    "explanation": "In Power Query Editor, right-clicking an applied step and selecting 'View Native Query' (if enabled) shows the SQL query generated by folding, confirming that folding is happening."
+  },
+  {
+    "question": "Why is it recommended to separate date and time columns before importing into Power BI?",
+    "choices": {
+      "A": "To enable query folding for date/time operations",
+      "B": "To increase compression and improve performance",
+      "C": "Because Power BI cannot read combined datetime fields",
+      "D": "To ensure compatibility with DirectQuery mode"
+    },
+    "correct_answer": "B",
+    "explanation": "Separating date and time columns helps VertiPaq compression algorithms work more efficiently, improving data compression and overall performance."
+  },
+  {
+    "question": "Which of the following best describes a limitation of query folding?",
+    "choices": {
+      "A": "Query folding works only with import mode, not DirectQuery",
+      "B": "It can only fold transformations that can be expressed as a single SELECT SQL statement",
+      "C": "Query folding automatically converts all Power BI queries into stored procedures",
+      "D": "It allows transformations to be executed only on the Power BI service"
+    },
+    "correct_answer": "B",
+    "explanation": "Query folding is limited to transformations representable as single SQL SELECT statements with clauses like WHERE, GROUP BY, JOIN. Complex transformations break folding."
+  },
+  {
+    "question": "Which of the following is NOT a recommended way to improve Power BI query performance?",
+    "choices": {
+      "A": "Process as much data as possible in the source database",
+      "B": "Use query diagnostics to find bottlenecks in Power Query transformations",
+      "C": "Use complex stored procedures extensively with DirectQuery",
+      "D": "Separate date and time columns for better compression"
+    },
+    "correct_answer": "C",
+    "explanation": "Complex stored procedures with DirectQuery can hinder query folding and degrade performance. It is better to use simple native SQL queries."
+  },
+  {
+    "question": "What does the Performance Analyzer tool in Power BI do?",
+    "choices": {
+      "A": "It analyzes query folding in Power Query Editor",
+      "B": "It identifies which visuals or filters take the longest to render in reports",
+      "C": "It diagnoses SQL server performance issues",
+      "D": "It automatically fixes performance issues in Power BI reports"
+    },
+    "correct_answer": "B",
+    "explanation": "Performance Analyzer measures the rendering time of report visuals and filters to help identify and troubleshoot performance bottlenecks at the report level."
+  },
+  {
+    "question": "Which storage modes in Power BI automatically support query folding?",
+    "choices": {
+      "A": "Import mode only",
+      "B": "DirectQuery and Dual storage modes",
+      "C": "Live Connection mode only",
+      "D": "None of the above"
+    },
+    "correct_answer": "B",
+    "explanation": "DirectQuery and Dual storage modes require and automatically support query folding because they rely on pushing transformations to the data source."
+  },
+  {
+    "question": "Why is query folding beneficial in terms of Power BI’s resource usage?",
+    "choices": {
+      "A": "It reduces the amount of data loaded by compressing it in memory",
+      "B": "It offloads data transformations to the source server, reducing workload on Power BI’s local computing resources",
+      "C": "It converts visuals to server-side rendering, saving client CPU",
+      "D": "It caches queries indefinitely to avoid refreshes"
+    },
+    "correct_answer": "B",
+    "explanation": "Query folding pushes transformations to the data source, thus reducing CPU and memory usage on the Power BI client or service."
+  },
+  {
+    "question": "If the 'View Native Query' option is not available for the last applied step, what should you do?",
+    "choices": {
+      "A": "Disable query folding in Power Query settings",
+      "B": "Remove all steps and start over",
+      "C": "Work backward through the Applied Steps until you find a step where 'View Native Query' is available",
+      "D": "Restart Power BI Desktop"
+    },
+    "correct_answer": "C",
+    "explanation": "If folding breaks at a certain step, you can identify where it stops by moving backward through Applied Steps to find the last step supporting query folding."
+  },
+  {
+    "question": "Which of the following SQL clauses are typically supported by query folding?",
+    "choices": {
+      "A": "GROUP BY, JOIN, WHERE, UNION ALL",
+      "B": "TRUNCATE, DROP, ALTER",
+      "C": "EXECUTE, CALL, BEGIN TRANSACTION",
+      "D": "INSERT, DELETE, UPDATE"
+    },
+    "correct_answer": "A",
+    "explanation": "Query folding supports SELECT statement clauses like GROUP BY, JOIN, WHERE, and UNION ALL, which correspond to Power Query transformations."
+  },
+  {
+    "question": "How does query folding impact incremental refresh in Power BI?",
+    "choices": {
+      "A": "It slows down refresh because data has to be imported again",
+      "B": "It enables more efficient incremental refresh by pushing filters and transformations to the data source",
+      "C": "It has no impact on incremental refresh",
+      "D": "It disables incremental refresh functionality"
+    },
+    "correct_answer": "B",
+    "explanation": "Query folding enables incremental refresh to run efficiently by filtering and processing data partitions at the source, reducing load and improving refresh speed."
+  },
+   {
+    "question": "What is the best strategy to resolve a \"Query Timeout Expired\" error when importing data from a SQL Server into Power BI?",
+    "choices": {
+      "A": "Increase the timeout settings in Power BI options.",
+      "B": "Import all the data at once and filter it later in Power BI.",
+      "C": "Break down the query into smaller parts and merge them in Power Query.",
+      "D": "Use Excel to load the data instead of SQL Server."
+    },
+    "correct_answer": "C",
+    "explanation": "The 'Query Timeout Expired' error occurs because the query is too complex or returns too much data, exceeding the server’s timeout limit. Increasing timeout in Power BI is not always possible or recommended, and importing all data at once will likely cause the same issue. The best practice is to divide the data into smaller, more manageable queries and then merge or append these queries in Power Query, reducing the load on the relational database and avoiding timeouts."
+  },
+  {
+    "question": "You encounter the error \"We couldn't find any data formatted as a table\" when importing from Excel. What must you do to fix this issue?",
+    "choices": {
+      "A": "Save the Excel file in CSV format.",
+      "B": "Convert the Excel range into a table using Ctrl + T.",
+      "C": "Rename the Excel worksheet to 'Table'.",
+      "D": "Manually enter the data into Power BI."
+    },
+    "correct_answer": "B",
+    "explanation": "Power BI expects data imported from Excel to be formatted as an official Excel table (not just a cell range). Using Ctrl + T formats the selected range as a table with headers, which Power BI can recognize and import properly. Saving as CSV or renaming the worksheet will not fix this specific issue."
+  },
+  {
+    "question": "When Power BI shows the \"Couldn't find file\" error during data import, what is the most likely cause and how should you fix it?",
+    "choices": {
+      "A": "The file was deleted; you must restore it from backup.",
+      "B": "The file path changed; update the file location in Power Query source settings.",
+      "C": "Power BI cannot open large files; reduce the file size.",
+      "D": "Your computer is offline; connect to the internet."
+    },
+    "correct_answer": "B",
+    "explanation": "This error usually means that Power BI can no longer locate the source file because it was moved or renamed. To fix it, open Power Query, select the query, then edit the Source step to update the file path to the correct location."
+  },
+  {
+    "question": "Why might columns appear blank after importing data from SQL Server, and how can this be prevented?",
+    "choices": {
+      "A": "Power BI does not support some SQL data types; convert columns to supported types in the query.",
+      "B": "The SQL Server is offline; restart the server.",
+      "C": "Power BI only loads data when all columns are numeric.",
+      "D": "The query results are too large; filter the results to fewer rows."
+    },
+    "correct_answer": "A",
+    "explanation": "Blank columns often result from Power BI failing to interpret data types correctly. Casting or converting columns explicitly to supported types (e.g., varchar) in the SQL query prevents this issue by ensuring compatible data formats are sent to Power BI."
+  },
+  {
+    "question": "Which of the following best explains why relational databases implement query timeouts that can affect Power BI data imports?",
+    "choices": {
+      "A": "To stop queries that try to access restricted data.",
+      "B": "To prevent a single query from monopolizing system resources, protecting overall performance.",
+      "C": "To disconnect users who are inactive for long periods.",
+      "D": "To enforce company-wide data privacy policies."
+    },
+    "correct_answer": "B",
+    "explanation": "Query timeouts limit execution time of queries to prevent any single user or query from using excessive resources, which could degrade performance for others. This mechanism ensures fair resource sharing among many concurrent users or applications accessing the same database."
+  },
+  {
+    "question": "If you need to import a large dataset with many columns from SQL Server but face timeout errors, which approach is recommended?",
+    "choices": {
+      "A": "Import all columns in one query but increase timeout.",
+      "B": "Import half of the columns in one query and the rest in another, then merge in Power Query.",
+      "C": "Import only numeric columns to reduce processing time.",
+      "D": "Use direct query mode instead of import mode."
+    },
+    "correct_answer": "B",
+    "explanation": "Splitting columns into smaller queries and merging them in Power Query reduces query complexity and execution time. Increasing timeout may not be possible or advisable, and importing only numeric columns unnecessarily limits the dataset."
+  },
+  {
+    "question": "You want to fix an error caused by changes in file permissions of a data source file. What steps should you take?",
+    "choices": {
+      "A": "Change the file permissions to allow Power BI access or contact your system administrator.",
+      "B": "Move the file to a different folder without changing permissions.",
+      "C": "Rename the file extension to .csv.",
+      "D": "Delete the file and recreate it."
+    },
+    "correct_answer": "A",
+    "explanation": "If permissions change and Power BI cannot access the file, you need to ensure Power BI has the necessary read permissions. This may require changing file/folder permissions or involving IT support."
+  },
+  {
+    "question": "Which of the following is NOT a recommended action when facing an unknown Power BI data import error?",
+    "choices": {
+      "A": "Searching Microsoft documentation for the error message.",
+      "B": "Breaking down the data import into smaller chunks using Power Query.",
+      "C": "Reformatting the entire data source from scratch without investigation.",
+      "D": "Checking and correcting data types at the data source or query level."
+    },
+    "correct_answer": "C",
+    "explanation": "Reformatting the entire data source without understanding the error is inefficient and unnecessary. Instead, research the error, optimize queries, and check data types."
+  },
+  {
+    "question": "Which external factors outside of Power BI and data sources can cause data import errors?",
+    "choices": {
+      "A": "Network issues and slow internet connection.",
+      "B": "File permissions and hard drive errors.",
+      "C": "Operating system updates or failures.",
+      "D": "All of the above."
+    },
+    "correct_answer": "D",
+    "explanation": "Data import errors can arise from many external factors including network interruptions, file permissions, hardware issues, and OS-level problems affecting data accessibility during import."
+  },
+  {
+    "question": "If you encounter a data import error not described in official Power BI documentation, what should be your best course of action?",
+    "choices": {
+      "A": "Ignore the error and retry the import repeatedly.",
+      "B": "Search for the exact error message on Microsoft documentation and community forums.",
+      "C": "Delete all queries and restart the Power BI project.",
+      "D": "Contact your database administrator without investigating."
+    },
+    "correct_answer": "B",
+    "explanation": "The best approach is to research the exact error message using official Microsoft docs and trusted community forums. This often provides specific resolutions or workarounds."
+  }
+  ]
+}
