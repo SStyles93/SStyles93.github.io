@@ -16,7 +16,7 @@ const projects = (await getCollection("projects"))
 		return a.data.order - b.data.order;
 	});
 const MAX_PROJECTS = 5;
-const shownProjects = projects.slice(0, MAX_PROJECTS - 1);
+const shownProjects = projects.slice(0, MAX_PROJECTS);
 // const lastProject = projects[MAX_PROJECTS - 1];
 ---
 
