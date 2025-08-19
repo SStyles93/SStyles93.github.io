@@ -14,7 +14,6 @@ export async function GET() {
         const fileContent = await fs.readFile(filePath, 'utf-8');
         const jsonData = JSON.parse(fileContent);
 
-        // --- NEW LOGIC ---
         // If the subject is a valid, non-empty string, use it. Otherwise, set it to null.
         const subject = (jsonData.subject && String(jsonData.subject).trim()) 
                         ? String(jsonData.subject).trim() 

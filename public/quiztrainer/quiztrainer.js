@@ -95,7 +95,7 @@ class QuizTrainer {
         if (typeof text !== 'string') return ''; // Guard against non-string input
         let formatted = this.escapeHtml(text);
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        formatted = formatted.replace(/\n/g, ' ');
+        formatted = formatted.replace(/\n/g, '<br>');
         return formatted;
     }
 
