@@ -46,7 +46,7 @@
                 "A",
                 "C"
             ],
-            "explanation": "Mathf.SmoothDamp gradually changes a value towards a desired goal over time, making it ideal for smooth camera movements without sharp acceleration. [4] Mathf.SmoothStep interpolates between 0 and 1 with ease-in and ease-out, which is perfect for creating a smooth transition factor that can be used with Mathf.Lerp to avoid abrupt starts and stops. [5] Together, they provide the necessary control for a smooth, precise transition."
+            "explanation": "Mathf.SmoothDamp gradually changes a value towards a desired goal over time, making it ideal for smooth camera movements without sharp acceleration. Mathf.SmoothStep interpolates between 0 and 1 with ease-in and ease-out, which is perfect for creating a smooth transition factor that can be used with Mathf.Lerp to avoid abrupt starts and stops. Together, they provide the necessary control for a smooth, precise transition."
         },
         {
             "question": "An application has the user place Flora around a Tower. The Flora can be a variety of trees and bushes. Any Flora placed will spawn an identical Flora on the opposite side of the Tower, equidistant from the Tower. If a straight line is drawn from the two Flora objects, the Tower will be in the middle of the line. The y value of the Tower and every Flora will always be 0. The Tower's world position is cached into a Vector3 named towerPosition. A Programmer is writing the following method: public Vector3 GetOppositePointOfTower(Vector3 originalPosition) { } What should the Programmer write in the body of the method so that it returns a point on the opposite side of the Tower from where the first Flora's original position is?",
@@ -83,7 +83,7 @@
                 "D",
                 "E"
             ],
-            "explanation": "Physics-related code, especially applying forces and torques to a Rigidbody, should always be in FixedUpdate() for consistent behavior independent of frame rate. [8] Additionally, applying force and torque separately for each thruster can be complex. The rb.AddForceAtPosition() method is designed for this scenario; it applies a force at a specific point on the Rigidbody, which correctly calculates both the linear force and the resulting torque (spin) automatically, simplifying the code and correcting the spin axis. "
+            "explanation": "You should change Update() to FixedUpdate() and use rb.AddForceAtPosition() in place of both calls to fix the code. Physics-based operations on a RigidBody component should always occur on FixedUpdate() and not on Update().\n\nAlso, because the AddForce method applies the force at the center of the GameObject, you should use AddForceAtPosition() and specify the position of the thrusters. The torque will be handled automatically.\n\nYou should not check whether rb is null in Update() to fix the code. This is not required because the class has the attribute [RequireComponent(typeof(Rigidbody))]. This ensures that this component can only be used in gameObjects that have a RigidBody. Also, checking for null does not fix any of the issues described.\n\n You should not add ForceMode.Forceto the AddTorque() call to fix the code. The default parameter for the AddTorque() method is already ForceMode.Force.\n\nYou should not replace transform.position with rb.centerOfMass() to fix the code. centerOfMass is not even a method. It is a property and should be used without parentheses. Also, using the center of mass to apply the torque would not fix the rotation problem."
         },
         {
             "question": "A Programmer is creating a racing simulation. The simulation uses a straight road with no curves. The entire road must be visible. The Programmer needs to create a lighting type that is analogous to sunlight. Which lighting type should the Programmer use?",
@@ -115,8 +115,8 @@
                 "C": "Convert Animal and Plant to interfaces. Create a new class named BurrowingAnimal that inherits from both Animal and Plant interfaces.",
                 "D": "Create a new class named BurrowingAnimal that inherits from Animal. Include a method for reacting to soil conditions."
             },
-            "correct_answer": "B",
-            "explanation": "C# does not allow multiple inheritance from classes, making option A impossible. The new 'BurrowingAnimal' needs the behaviors of 'Animal' and the soil-reacting functionality of 'Plant'. The best architectural choice is to extract the shared functionality into an interface. By converting the soil-reacting part of 'Plant' into an interface like `ISoilReactor`, the `BurrowingAnimal` class can inherit from the `Animal` class and also implement the `ISoilReactor` interface, cleanly combining the required behaviors without code duplication or violating language rules. "
+            "correct_answer": "D",
+            "explanation": "The programmer should create a new class named BurrowingAnimal that inherits from Animal and write the functionality for reacting to soil here. Portions of the Plant code may be copied, but the class will not inherit from Plant.\n\nThe programmer cannot create a class that inherits from both Animal and Plant. A class in C# cannot inherit from multiple classes. A class can inherit from only one class and any number of interfaces. However, Animal and Plant cannot be converted to interfaces because they inherit from Monobehaviour and rely on the Awake method."
         },
         {
             "question": "A Programmer is reviewing the code placed on a GameObject and notices that one of the class names must be changed to reflect the new function it serves. After making the changes, the programmer runs the application and finds that all Unity Messages are no longer being called. What should the Programmer do to resolve this issue?",
@@ -295,8 +295,8 @@
                 "C": "Replace the primitive Colliders with MeshColliders",
                 "D": "Increase the length of the raycast"
             },
-            "correct_answer": "B",
-            "explanation": "There are two key optimizations here. First, `Physics.Raycast()` allocates memory for the `RaycastHit` result, which can cause garbage collection spikes when called frequently in `Update()`. `Physics.RaycastNonAlloc()` uses a pre-allocated array, avoiding this garbage. Second, the raycast is checking against all colliders in the scene. By providing a layer mask to the raycast function, it can be told to only check for collisions on specific layers (e.g., only other ships), significantly reducing the number of checks the physics engine needs to perform. "
+            "correct_answer": "C",
+            "explanation": "The Programmer should replace the primitive Colliders with MeshColliders, as the MeshColliders provide a more accurate representation of the high-polygon spaceships' shapes. Primitive Colliders (like box, sphere, or capsule colliders) are simpler and less precise, which can lead to inaccurate collision detection, especially for complex shapes. By using MeshColliders, the raycasts will interact more accurately with the ships' surfaces, leading to more reliable Al decision-making. However, it is important to note that MeshColliders can be more computationally expensive, so they should be used judiciously, particularly for static objects or objects with complex shapes that require precise collision detection.\n\n You should not increase the length of the raycast to optimize its performance. The raycast length only dictates the maximum distance the raycast checks for collisions. It does not affect the raycast's performance.\n\n You should not decrease the Fixed Timestep in TimeManager to optimize raycast performance. The performance cost of the raycast is not affected by the Fixed Timestep value. Also, decreasing the Fixed Timestep increases the number of times physics-related calculations are run, which has a negative effect on performance.\n\n You should not replace Physics.Raycast() with Physics.RaycastNonAlloc() and make use of the Physics layers. Physics.RaycastNonAlloc() is useful for reducing garbage collection overhead by reusing an array of RaycastHit objects, which can be beneficial in scenarios with a high frequency of raycasts. However, the primary performance bottleneck in this scenario is likely the complexity of the collision shapes and the number of raycasts being performed. While using Physics layers can help by filtering out unnecessary collisions, the main issue remains the accuracy and computational cost of the collision detection. Therefore, optimizing the colliders themselves (by using MeshColliders) addresses the root cause more directly."
         },
         {
             "question": "An application has a robust search feature in its crafting HUD. A Programmer must alter the methods that UI Buttons call when clicked, depending on options set by the user. The first task involves working on a Button named filterResults. What is the simplest method the Programmer can call on filterResults to add a call to a method at runtime?",
@@ -345,10 +345,10 @@
         {
             "question": "A Programmer must implement a bomb for a game. After the explosion, a fire is created by instantiating a fire particle system. Based on the size of the payload, the fire should burn for a longer period of time. The Programmer must set the Particle System duration equal to the payloadSize variable. Which solution should be used to accomplish this?",
             "choices": {
-                "A": "var duration = fireParticleSystem.main.duration; duration = payloadSize;",
-                "B": "var mainModule = fireParticleSystem.main; var duration = mainModule.duration; duration = payloadSize;",
+                "A": "var duration = fireParticleSystem.main.duration;\nduration = payloadSize;",
+                "B": "var mainModule = fireParticleSystem.main;\nvar duration = mainModule.duration;\nduration = payloadSize;",
                 "C": "fireParticleSystem.duration = payloadSize;",
-                "D": "var mainModule = fireParticleSystem.main; mainModule.duration = payloadSize;"
+                "D": "var mainModule = fireParticleSystem.main;\nmainModule.duration = payloadSize;"
             },
             "correct_answer": "D",
             "explanation": "In modern versions of Unity, Particle System modules (like `main`) are structs, not classes. This means you cannot modify their properties directly on the returned struct. You must first get a copy of the module into a local variable, modify the property on that copy, and then assign the entire modified module back to the particle system. Option D correctly follows this pattern. "
@@ -366,7 +366,7 @@
                 "A",
                 "B"
             ],
-            "explanation": "To make the agent move to a location (either the target or its original position), you set its `destination` property. [5] To check for line-of-sight on the NavMesh (i.e., to see if there is a valid path without obstructions), you use `NavMeshAgent.Raycast()`. This method casts a ray along the NavMesh to see if it can reach a target point, which is distinct from a physics raycast for visual line-of-sight. "
+            "explanation": "The Al script must access destination. When destination is set, the agent moves to the navmesh position closest to the destination. Path calculation is done automatically.\n\nThe Al script must also access Raycast(Vector3, NavMeshHit). Raycast() traces a ray toward a position (the Vector3 argument). If the ray hits an object along the way, the function returns true and also stores data about the hit object into NavMeshHit. This is used to detect the entity in line-of-sight. The Al script does not need to access Move(Vector3). NavMeshAgent.Move() is one way to move the agent by taking an argument that acts as its movement delta. This is similar to CharacterController.Move(). Because you want it to pursue a specific entity and because the agent will automatically move once a destination is set, this member does not need to be accessed.\n\nThe Al script does not need to access nextPosition. The nextPosition member is the simulation position of the agent. Also, this member is tied to Transform.position in that they can be coupled to reflect the same values or decoupled to be independent of each other. This is not required because setting the destination automatically moves the agent to its target destination.\n\nThe Al script does not need to access speed. The speed determines the maximum speed at which the agent can move. The agent automatically will never exceed this value."
         },
         {
             "question": "A successful high-end game for PC is receiving a limited port to mobile devices. The important goal is to reach as wide an audience as possible, so older mobile hardware needs to be supported. What change should a Programmer make to achieve better performance on the targeted hardware?",
@@ -376,8 +376,8 @@
                 "C": "Reduce LOD levels from four to two.",
                 "D": "Increase the Mip Map Priority of all Textures."
             },
-            "correct_answer": "C",
-            "explanation": "Level of Detail (LOD) systems improve performance by using simpler models for objects that are far away. Mobile hardware is significantly less powerful than PC hardware. Reducing the number of LOD levels and ensuring the remaining levels use much lower polygon models is a major optimization that directly reduces the rendering workload on the GPU, which is crucial for performance on older mobile devices. "
+            "correct_answer": "A",
+            "explanation": "The Programmer should convert the project from linear color space to gamma. Linear color space is newer but is more calculation intensive. Older devices, especially with mobile, do not have the capability of processing linear color space assets and have no way to convert these to gamma. A large portion of the intended demographic will be excluded without this change.\n\nThe Programmer should not convert audio clips from stereo to mono. This is not a restriction of mobile hardware. Most mobile devices will automatically convert stereo to mono if there is not support to play stereo audio files.\n\nThe Programmer should not increase Mip Map Priority of any Textures. This controls the priority of streaming mip maps, as well as the quality. At best this would have no effect, and at worst it would decrease performance.\n\nThe Programmer should not reduce LOD levels to two. This would likely have minimal impact, or negatively impact the game. LODs are used to decrease the complexity of models and materials rendered at a distance where details cannot be perceived. Reducing the number of levels will cause objects to be culled too near the viewer, or noticeably transition from one LOD to another. At worst, highly detailed models will be used farther out than needed."
         },
         {
             "question": "A Programmer is working with a scene that contains hundreds of 3D objects. The GPU performs slowly. The Programmer has created a GPU instancing-enabled material. What additional requirements must the scene 3D objects meet for GPU Instancing to be an effective solution?",
@@ -399,7 +399,7 @@
                 "D": "Vector3 movementInput = new Vector3(Input.GetAxisRaw(\"Horizontal\"),0,Input.GetAxisRaw(\"Vertical\"));\ntransform.Translate(movementInput.normalized * speed * Time.deltaTime);"
             },
             "correct_answer": "D",
-            "explanation": "The requirements are: no smoothing and consistent speed. `Input.GetAxisRaw` is used for immediate, non-smoothed input. [9] When moving diagonally, a vector like (1, 0, 1) has a magnitude of ~1.41, which is faster than moving along one axis (magnitude 1). Using `.normalized` on the input vector ensures its magnitude is always 1, resulting in a consistent speed in all directions. "
+            "explanation": "The requirements are: no smoothing and consistent speed. `Input.GetAxisRaw` is used for immediate, non-smoothed input. When moving diagonally, a vector like (1, 0, 1) has a magnitude of ~1.41, which is faster than moving along one axis (magnitude 1). Using `.normalized` on the input vector ensures its magnitude is always 1, resulting in a consistent speed in all directions. "
         },
         {
             "question": "Textures in a game appear blurry when viewed at extreme angles. The game is targeting a wide range of hardware, and texture appearance should scale with performance. What code should a Programmer execute to reduce the blurry texture issue when running on the best hardware?",
@@ -431,8 +431,8 @@
                 "C": "Store character customizations as ScriptableObject and use ScriptableObject.CreateInstance to save configurations.",
                 "D": "Store character customization in a class that inherits from the ISerializable interface, and use SerializationObjectManager to save configurations."
             },
-            "correct_answer": "C",
-            "explanation": "ScriptableObjects are ideal for complex data configurations like this. They can store not only simple data (proportions, colors) but also references to other Unity assets like Meshes (props), Materials (clothing), AudioClips, and Particle Systems. This makes them perfectly suited for the current needs and the desired future features, providing a robust, editor-friendly way to manage character data that can be easily serialized and deserialized. "
+            "correct_answer": "B",
+            "explanation": "The Programmer should store character customization in a struct with the [System.Serializable] attribute, and use JsonUtility.ToJson to save configurations. Using a struct with the [System.Serializable] attribute and JsonUtility.ToJson allows for straightforward serialization and deserialization of character customization data. This method is efficient and easy to implement, making it ideal for saving and loading configurations. The use of JSON format ensures compatibility and ease of data transfer between different save files, which is crucial for the desired feature of importing customizations from one save file to another. This approach also supports future customization features, such as user-selected audio and particle effects, by allowing for flexible and scalable data structures.\n\nThe Programmer should not store character customization as a CSV and use a StreamWriter and String builder to save configurations. Storing character customization as a CSV and using a StreamWriter and StringBuilder is not ideal for complex data structures.\n\nThe Programmer should not store character customization in a class that inherits from the ISerializable interface, and use SerializationObjectManager to save configurations. Using a class that inherits from the ISerializable interface and SerializationObjectManager is more complex and less efficient for this scenario.\n\nThe Programmer should not store character customizations as ScriptableObject and use ScriptableObject.Createlnstance to save configurations. ScriptableObject is designed for creating assets that are part of the Unity editor, not for runtime data storage. While ScriptableObject can be used to store data, it is not ideal for saving and loading configurations dynamically during gameplay."
         },
         {
             "question": "A Programmer is developing a mining simulation game where the player can dig a tunnel that intersects an existing cave system. Any audio that occurs in the caves or new tunnels should have reverb. The Programmer needs to make sure the user is consistently in the closest cave's ReverbZone. How should the Programmer manipulate the AudioReverbZone properties?",
@@ -454,7 +454,7 @@
                 "D": "Detect the arrow keys for movement using the Input.GetAxisRaw method and the spacebar for shooting by using the Input.GetButton method."
             },
             "correct_answer": "C",
-            "explanation": "`Input.GetAxisRaw` is ideal for continuous movement input like holding down arrow keys, as it provides a -1, 0, or 1 value without smoothing. [9] `Input.GetKeyDown` is perfect for single-shot actions like firing a bullet, as it returns true only during the single frame the key is first pressed down, preventing continuous fire when the key is held. "
+            "explanation": "`Input.GetAxisRaw` is ideal for continuous movement input like holding down arrow keys, as it provides a -1, 0, or 1 value without smoothing. `Input.GetKeyDown` is perfect for single-shot actions like firing a bullet, as it returns true only during the single frame the key is first pressed down, preventing continuous fire when the key is held. "
         },
         {
             "question": "A Programmer uses `SceneManager.LoadScene(\"GameScene\", LoadSceneMode.Additive);` to load a game scene. A significant lag between scenes occurs when the game is played on a mobile device. How should the Programmer minimize this disruption when the scene is already optimized?",
@@ -500,8 +500,8 @@
                 "C": "Set light.shadows to LightShadows.Hard.",
                 "D": "Set light.range to 10."
             },
-            "correct_answer": "B",
-            "explanation": "The light's intensity is being changed every frame in Update(), which means it is a dynamic light. For a dynamic light to cast light and shadows at runtime, its bake type must be set to 'Realtime'. 'Mixed' and 'Baked' lights have their lighting information pre-calculated and cannot be changed dynamically at runtime. "
+            "correct_answer": "A",
+            "explanation": "You should set light.type to LightType.Point to make the code to work as required. Since the light and shadow need to be \"dancing,\" the light.lightMapBakeType needs to be LightMapBakeType.Realtime or LightMapBakeType.Mixed. Because LightType.Area only works in LightMapBakeType.Baked mode, you must choose a LightType that supports LightMapBakeType.Realtime or LightMapBakeType.Mixed (such as LightType.Point)."
         },
         {
             "question": "A space flight combat simulator features hundreds of ship designs and expansive maps. All movement is physics-based. Projectiles are instantiated and destroyed. The game is suffering from performance issues, and the Profiler has revealed severe spikes in garbage collection. What solution will address the issue?",
@@ -588,8 +588,8 @@
                 "C": "TAA",
                 "D": "SMAA"
             },
-            "correct_answer": "C",
-            "explanation": "While MSAA is generally incompatible with Deferred Rendering, modern render pipelines like URP and HDRP have workarounds. However, for XR, Temporal Anti-Aliasing (TAA) is often the best balance of quality and performance. It is very effective at reducing jagged edges and specular aliasing, which are highly noticeable in VR headsets. While it can introduce some blur on fast movements, its overall smoothing capability is crucial for immersion and reducing distracting shimmering in XR. "
+            "correct_answer": "B",
+            "explanation": "The Programmer should use Fast Approximate Anti-aliasing (FXAA). It is supported in Deferred Rendering and is the least demanding on the GPU.\n\nThe Programmer should not use Subpixel Morphological Anti-aliasing (SMAA) or Temporal Anti-aliasing (TAA), although both are supported by Deferred Rendering. Each is more demanding on the GPU, which is being pushed to its limit.\n\nThe Programmer should not use Multisample Anti-aliasing (MSAA). That is an option for Forward Rendering."
         },
         {
             "question": "A Programmer uses Unity Analytics. The Programmer must add tracking for how much gold a player accumulates in each stage by using a custom parameter named stage_gold. The value must come from a field named Score.gold. The Programmer decides to use the LevelComplete method in the AnalyticsEvent class. What code should the Programmer use?",
@@ -1136,6 +1136,28 @@
             },
             "correct_answer": "A",
             "explanation": "Damping values control how quickly the camera responds to target movement. Increasing damping creates smoother, less jarring camera movement by slowing the camera's response to sudden player movements. This is the primary setting for camera smoothness in Cinemachine. "
+        },
+        {
+            "question": "The Programmer decides to write unit tests for the inventory system. What qualifies as an optimal unit test?",
+            "choices":{
+                "A":"When a player collects an item, test whether the item gets added to the inventory.",
+                "B":"If a player has nothing in inventory and collects an item, test whether the inventory has exactly one item.",
+                "C":"When a player collects an item, test whether the appropriate sound clip is played for the action.",
+                "D":"If a player collects an item, test whether the item gets added to the inventory and the player receives a notification."
+            },
+            "correct_answer": "B",
+            "explanation":"Testing whether the inventory has exactly one item if a player has nothing in inventory and collects an item is an optimal unit test. Because the collection of one item in an inventory of known quantity is tested, the result is predictable.\n\nTesting whether the item gets added to the inventory when a player collects an item does not qualify as an optimal unit test. In this case, even if the test succeeds in adding an item to the inventory, it does not thoroughly test how the inventory slots are handled.\n\nTesting whether the item gets added to the inventory and the player receives a notification is not an optimal unit test. In this case, two separate things are tested: the inventory and the notification. Unit tests should test only one single feature or behavior. Also, notification has nothing to do with the inventory system itself.\n\nTesting whether the appropriate sound clip is played for the action when a player collects an item is not an optimal unit test. Because the sound clip should be independent of the inventory system, it should not be part of the unit test."
+        },
+        {
+            "question": "A game has missiles that the player must shoot down. The Missile class inherits from MonoBehaviour. It will attempt to reach a target and will explode if it reaches the target or is shot down.\n\nWhen it explodes, the Missile issues a callback from the Explode() method that informs nearby GameObjects of the explosion. Destroying a Missile close to other Missile objects can push them back from the target or even make them explode if they are near enough. Each Missile also has a countdown timer and will cease trying to reach the target when the timer runs out. The Programmer has been asked to test Missile.",
+            "choices":{
+                "A":"Alter Missile to also inherit from the IMonoBehaviourTest interface. In the Explode() method, set the IsTestFinished Property to true. Write a [UnityTest] method that uses a MonoBehaviourTest<Missile>() coroutine.",
+                "B":"Alter Missile to also inherit from the IMonoBehaviourTest interface. Return true from the IsTestFinished Property when the timer reaches zero. Write a [UnityTest] method that uses a MonoBehaviourTest<Missile>() coroutine.",
+                "C":"Alter Missile to also inherit from the ITestRunCallbackinterface. Return true from the IsTestFinished Property when the timer reaches zero. Write a [TestRunCallback] method that uses a MonoBehaviourTest<Missile>() coroutine.",
+                "D":"Alter Missile to also inherit from the ITestRunCallback interface. In the Explode() method, call the TestFinished method. Write a [TestRunCallback] method that uses a MonoBehaviourTest<Missile>() coroutine."
+            },
+            "correct_answer": "B",
+            "explanation":"The Programmer should add inheritance from the IMonoBehaviourTest to the Missile. This will add the IsTestFinished Property. IsTestFinished should have (return if timer <= Of;] as its get code. By writing a method that uses the [UnityTest] attribute and returns an IEnumerator, the Programmer can call a coroutine using {yield return new MonoBehaviourTest<Missile>();} to test for when the Missile's timer reaches zero.\n\nThe Programmer should not return a completed test from the Explode method. This is not what needs to be tested. An exploded Missile's timer will not necessarily have run out.\n\nThe Programmer should not use the [TestRunCallback] attribute or inherit from ITestRunCallbackinterface. This is used to initiate call-after functions during steps taken during testing. Although Explode may issue a callback, it has specific functionality towards other GameObjects and is not used to inform the testing functions."
         }
     ]
 }
