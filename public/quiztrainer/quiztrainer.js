@@ -448,7 +448,7 @@ class QuizTrainer {
 
         feedbackIcon.className = isCorrect ? 'fas fa-check-circle' : 'fas fa-times-circle';
         feedbackTitle.textContent = isCorrect ? 'Correct!' : 'Incorrect';
-        explanationElement.innerHTML = this.formatText(explanation);
+        explanationElement.innerHTML = this.formatCodeAndText(explanation);
     }
 
     hideFeedback() {

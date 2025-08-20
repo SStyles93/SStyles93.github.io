@@ -340,16 +340,16 @@
             "explanation": "A flashlight emits light in a cone shape, which is exactly what a Spotlight does. To make it behave like a helmet flashlight, the Spotlight should be attached as a child object to the character's head or helmet. This ensures it moves and rotates correctly with the character's view, illuminating whatever they are looking at."
         },
         {
-    "question": "A Programmer must implement a bomb for a game. After the explosion, a fire is created by instantiating a fire particle system. Based on the size of the payload, the fire should burn for a longer period of time. Examine the following code:\n\n```csharp\nvoid Ignite(float payloadSize)\n{\n    var fireParticleSystem = Instantiate(firePrefab);\n    // Code goes here\n}\n```\n\nHow should the Programmer correctly set the Particle System duration equal to the payload size?",
-    "choices": {
-        "A": "var duration = fireParticleSystem.main.duration;\n duration = payloadSize;",
-        "B": "var mainModule = fireParticleSystem.main;\n var duration = mainModule.duration;\n duration = payloadSize;",
-        "C": "fireParticleSystem.duration = payloadSize;",
-        "D": "var mainModule = fireParticleSystem.main;\n mainModule.duration = payloadSize;"
-    },
-    "correct_answer": "D",
-    "explanation": "Particle System modules (such as `main`) are implemented as structs in Unity. Because of this, you cannot set properties directly on the particle system or on temporary values. You must first get a copy of the module, assign the property on that module, and Unity internally applies it back. The correct way to set the duration is:\n```csharp\nvar mainModule = fireParticleSystem.main;\nmainModule.duration = payloadSize;\n```\nTrying to assign `fireParticleSystem.duration` directly does not work, and copying the duration into a local variable (`var duration = ...`) just modifies a temporary value, not the actual particle system."
-},
+            "question": "A Programmer must implement a bomb for a game. After the explosion, a fire is created by instantiating a fire particle system. Based on the size of the payload, the fire should burn for a longer period of time. Examine the following code:\n\n```csharp\nvoid Ignite(float payloadSize)\n{\n    var fireParticleSystem = Instantiate(firePrefab);\n    // Code goes here\n}\n```\n\nHow should the Programmer correctly set the Particle System duration equal to the payload size?",
+            "choices": {
+                "A": "var duration = fireParticleSystem.main.duration;\n duration = payloadSize;",
+                "B": "var mainModule = fireParticleSystem.main;\n var duration = mainModule.duration;\n duration = payloadSize;",
+                "C": "fireParticleSystem.duration = payloadSize;",
+                "D": "var mainModule = fireParticleSystem.main;\n mainModule.duration = payloadSize;"
+            },
+            "correct_answer": "D",
+            "explanation": "Particle System modules (such as `main`) are implemented as structs in Unity. Because of this, you cannot set properties directly on the particle system or on temporary values. You must first get a copy of the module, assign the property on that module, and Unity internally applies it back. The correct way to set the duration is:\n```csharp\nvar mainModule = fireParticleSystem.main;\nmainModule.duration = payloadSize;\n```\nTrying to assign `fireParticleSystem.duration` directly does not work, and copying the duration into a local variable (`var duration = ...`) just modifies a temporary value, not the actual particle system."
+        },
         {
             "question": "A Programmer is creating an AI agent that pursues another entity only when it has line-of-sight of the entity. Otherwise, the AI agent will return to its original position. Which two NavMeshAgent members must this AI script access? (Choose two.)",
             "choices": {
@@ -365,17 +365,17 @@
             ],
             "explanation": "To make the agent move to a location (either the target or its original position), you set its `destination` property. To check for line-of-sight on the NavMesh (i.e., to see if there is a valid path without obstructions), you use `NavMeshAgent.Raycast()`. This method casts a ray along the NavMesh to see if it can reach a target point, which is distinct from a physics raycast for visual line-of-sight."
         },
-          {
-    "question": "A successful high-end game for PC is receiving a limited port to mobile devices. The goal is to support older hardware and maintain good performance. What change should a Programmer make to achieve better performance on the targeted devices?",
-    "choices": {
-        "A": "Convert the project from linear to gamma.",
-        "B": "Convert all audio clips from stereo to mono.",
-        "C": "Reduce LOD levels from four to two.",
-        "D": "Increase the Mip Map Priority of all Textures."
-    },
-    "correct_answer": "A",
-    "explanation": "Linear color space provides more accurate lighting and shading, but it is more computationally expensive because lighting calculations are done in linear space before being converted to gamma for display. Mobile GPUs, especially on older devices, are less powerful and struggle with linear rendering.\n By switching the project from linear to gamma color space, lighting calculations become simpler and less GPU-intensive, which improves performance while maintaining acceptable visual quality on older hardware.\n\n Other options like reducing LOD levels or changing audio formats may have some effect, but converting to gamma directly reduces rendering workload, which is the most critical factor for performance on older mobile devices."
-},
+        {
+            "question": "A successful high-end game for PC is receiving a limited port to mobile devices. The goal is to support older hardware and maintain good performance. What change should a Programmer make to achieve better performance on the targeted devices?",
+            "choices": {
+                "A": "Convert the project from linear to gamma.",
+                "B": "Convert all audio clips from stereo to mono.",
+                "C": "Reduce LOD levels from four to two.",
+                "D": "Increase the Mip Map Priority of all Textures."
+            },
+            "correct_answer": "A",
+            "explanation": "Linear color space provides more accurate lighting and shading, but it is more computationally expensive because lighting calculations are done in linear space before being converted to gamma for display. Mobile GPUs, especially on older devices, are less powerful and struggle with linear rendering.\n By switching the project from linear to gamma color space, lighting calculations become simpler and less GPU-intensive, which improves performance while maintaining acceptable visual quality on older hardware.\n\n Other options like reducing LOD levels or changing audio formats may have some effect, but converting to gamma directly reduces rendering workload, which is the most critical factor for performance on older mobile devices."
+        },
         {
             "question": "A Programmer is working with a scene that contains hundreds of 3D objects. The GPU performs slowly. The Programmer has created a GPU instancing-enabled material. What additional requirements must the scene 3D objects meet for GPU Instancing to be an effective solution?",
             "choices": {
@@ -421,16 +421,16 @@
             "explanation": "`File.WriteAllText(string path, string contents)` from the `System.IO` namespace is the most direct and correct method for this task. It handles creating the file if it doesn't exist and overwriting the file if it does exist, all in a single, simple function call."
         },
         {
-    "question": "A story-centric game features an in-depth character customization system. A key feature is the ability to store and load these customizations, which include proportions, props, clothing, colors, and in the future, user-selected audio and particle effects. What technique should a Programmer use to allow for this functionality?",
-    "choices": {
-        "A": "Store character customization as a CSV and use a StreamWriter and StringBuilder to save configurations.",
-        "B": "Store character customization in a struct with the [System.Serializable] attribute, and use JsonUtility.ToJson to save configurations.",
-        "C": "Store character customizations as ScriptableObject assets and use ScriptableObject.CreateInstance to save configurations.",
-        "D": "Store character customization in a class that inherits from the ISerializable interface, and use SerializationObjectManager to save configurations."
-    },
-    "correct_answer": "B",
-    "explanation": "The Programmer should store character customization in a struct with the [System.Serializable] attribute, and use JsonUtility.ToJson to save configurations. Using a struct with the [System.Serializable] attribute and JsonUtility.ToJson allows for straightforward serialization and deserialization of character customization data. This method is efficient and easy to implement, making it ideal for saving and loading configurations. The use of JSON format ensures compatibility and ease of data transfer between different save files, which is crucial for the desired feature of importing customizations from one save file to another. This approach also supports future customization features, such as user-selected audio and particle effects, by allowing for flexible and scalable data structures.\n\nThe Programmer should not store character customization as a CSV and use a StreamWriter and StringBuilder to save configurations. Storing character customization as a CSV and using a StreamWriter and StringBuilder is not ideal for complex data structures. CSV is better suited for tabular data and lacks the flexibility needed to handle nested or hierarchical data, such as character customizations. Additionally, managing CSV files can become cumbersome and error-prone when dealing with frequent updates and imports.\n\nThe Programmer should not store character customization in a class that inherits from the ISerializable interface, and use SerializationObjectManager to save configurations. Using a class that inherits from the ISerializable interface and SerializationObjectManager is more complex and less efficient for this scenario. The ISerializable interface requires custom serialization logic, which can be cumbersome and error-prone, especially when dealing with frequent save and load operations. This approach is generally reserved for more complex serialization scenarios.\n\nThe Programmer should not store character customizations as ScriptableObject and use ScriptableObject.CreateInstance to save configurations. ScriptableObject is designed for creating assets that are part of the Unity editor, not for runtime data storage. While ScriptableObject can be used to store data, it is not ideal for saving and loading configurations dynamically during gameplay. Using ScriptableObject.CreateInstance would also complicate the process of importing and exporting customizations between save files, as it is not inherently designed for serialization in the same way as JSON."
-},
+            "question": "A story-centric game features an in-depth character customization system. A key feature is the ability to store and load these customizations, which include proportions, props, clothing, colors, and in the future, user-selected audio and particle effects. What technique should a Programmer use to allow for this functionality?",
+            "choices": {
+                "A": "Store character customization as a CSV and use a StreamWriter and StringBuilder to save configurations.",
+                "B": "Store character customization in a struct with the [System.Serializable] attribute, and use JsonUtility.ToJson to save configurations.",
+                "C": "Store character customizations as ScriptableObject assets and use ScriptableObject.CreateInstance to save configurations.",
+                "D": "Store character customization in a class that inherits from the ISerializable interface, and use SerializationObjectManager to save configurations."
+            },
+            "correct_answer": "B",
+            "explanation": "The Programmer should store character customization in a struct with the [System.Serializable] attribute, and use JsonUtility.ToJson to save configurations. Using a struct with the [System.Serializable] attribute and JsonUtility.ToJson allows for straightforward serialization and deserialization of character customization data. This method is efficient and easy to implement, making it ideal for saving and loading configurations. The use of JSON format ensures compatibility and ease of data transfer between different save files, which is crucial for the desired feature of importing customizations from one save file to another. This approach also supports future customization features, such as user-selected audio and particle effects, by allowing for flexible and scalable data structures.\n\nThe Programmer should not store character customization as a CSV and use a StreamWriter and StringBuilder to save configurations. Storing character customization as a CSV and using a StreamWriter and StringBuilder is not ideal for complex data structures. CSV is better suited for tabular data and lacks the flexibility needed to handle nested or hierarchical data, such as character customizations. Additionally, managing CSV files can become cumbersome and error-prone when dealing with frequent updates and imports.\n\nThe Programmer should not store character customization in a class that inherits from the ISerializable interface, and use SerializationObjectManager to save configurations. Using a class that inherits from the ISerializable interface and SerializationObjectManager is more complex and less efficient for this scenario. The ISerializable interface requires custom serialization logic, which can be cumbersome and error-prone, especially when dealing with frequent save and load operations. This approach is generally reserved for more complex serialization scenarios.\n\nThe Programmer should not store character customizations as ScriptableObject and use ScriptableObject.CreateInstance to save configurations. ScriptableObject is designed for creating assets that are part of the Unity editor, not for runtime data storage. While ScriptableObject can be used to store data, it is not ideal for saving and loading configurations dynamically during gameplay. Using ScriptableObject.CreateInstance would also complicate the process of importing and exporting customizations between save files, as it is not inherently designed for serialization in the same way as JSON."
+        },
         {
             "question": "A Programmer is developing a mining simulation game where the player can dig a tunnel that intersects an existing cave system. Any audio that occurs in the caves or new tunnels should have reverb. The Programmer needs to make sure the user is consistently in the closest cave's ReverbZone. How should the Programmer manipulate the AudioReverbZone properties?",
             "choices": {
@@ -490,16 +490,16 @@
             "explanation": "A UI affordance must work with the input methods of both platforms. Highlighting an item works with a mouse cursor on desktop and with gaze on HoloLens. Illuminating an object when looked at also works with both mouse-over/raycasting on desktop and gaze on HoloLens. Anchoring to the screen is a standard 2D UI concept that doesn't translate well to HoloLens's spatial environment, and sound on physical movement is specific to XR."
         },
         {
-    "question": "A Programmer is working in a dark room and must create a flickering torch that casts a dancing shadow. The project uses HDRP. The light's intensity is changed every frame in Update(). The torch does not cast any light or shadow during run time. What should the Programmer change for this code to work as required?",
-    "choices": {
-        "A": "Set light.type to LightType.Point.",
-        "B": "Set light.lightmapBakeType to LightmapBakeType.Realtime.",
-        "C": "Set light.shadows to LightShadows.Hard.",
-        "D": "Set light.range to 10."
-    },
-    "correct_answer": "A",
-    "explanation": "In HDRP, not all light types support real-time dynamic shadows in all scenarios. The Programmer is changing the intensity every frame, so the light must be a type that emits light in all directions from a single point.\n\n Setting light.type to LightType.Point ensures the torch behaves as a real-world point light, casting dynamic lighting and shadows during runtime.\n\n Changing only the bake type or shadow settings will not make a directional or spot light behave like a flickering torch in all directions."
-},
+            "question": "A Programmer is working in a dark room and must create a flickering torch that casts a dancing shadow. The project uses HDRP. The light's intensity is changed every frame in Update(). The torch does not cast any light or shadow during run time. What should the Programmer change for this code to work as required?",
+            "choices": {
+                "A": "Set light.type to LightType.Point.",
+                "B": "Set light.lightmapBakeType to LightmapBakeType.Realtime.",
+                "C": "Set light.shadows to LightShadows.Hard.",
+                "D": "Set light.range to 10."
+            },
+            "correct_answer": "A",
+            "explanation": "In HDRP, not all light types support real-time dynamic shadows in all scenarios. The Programmer is changing the intensity every frame, so the light must be a type that emits light in all directions from a single point.\n\n Setting light.type to LightType.Point ensures the torch behaves as a real-world point light, casting dynamic lighting and shadows during runtime.\n\n Changing only the bake type or shadow settings will not make a directional or spot light behave like a flickering torch in all directions."
+        },
         {
             "question": "A space flight combat simulator features hundreds of ship designs and expansive maps. All movement is physics-based. Projectiles are instantiated and destroyed. The game is suffering from performance issues, and the Profiler has revealed severe spikes in garbage collection. What solution will address the issue?",
             "choices": {
@@ -578,16 +578,16 @@
             "explanation": "The issue is that the `_pitch` variable can increase or decrease indefinitely. To prevent the camera from rotating over the top or bottom, the pitch value must be constrained. `Mathf.Clamp(value, min, max)` is the standard function for this. By adding `_pitch = Mathf.Clamp(_pitch, -90f, 90f);` after calculating the pitch, the vertical rotation will be limited to a standard range."
         },
         {
-    "question": "An XR project is under development using Deferred Rendering. The GPU has been identified as the limiting resource, but the Designer has deemed anti-aliasing necessary. Which type of anti-aliasing should the Programmer introduce to the project?",
-    "choices": {
-        "A": "MSAA",
-        "B": "FXAA",
-        "C": "TAA",
-        "D": "SMAA"
-    },
-    "correct_answer": "B",
-    "explanation": "FXAA (Fast Approximate Anti-Aliasing) is a post-processing technique that is very lightweight on the GPU. It effectively smooths jagged edges without the heavy performance cost associated with MSAA or the potential artifacts of TAA.\n\nMSAA (Multisample Anti-Aliasing) is generally incompatible with Deferred Rendering and can be very costly on GPU resources, especially in XR where performance is critical.\n\nTemporal Anti-Aliasing (TAA) can introduce unwanted motion blur or ghosting, which is particularly noticeable in VR/XR environments and can reduce immersion.\n\nSMAA is also post-process based and efficient, but FXAA is widely preferred in XR projects because it provides a good balance between performance and visual quality, ensuring smooth frame rates on constrained hardware."
-},
+            "question": "An XR project is under development using Deferred Rendering. The GPU has been identified as the limiting resource, but the Designer has deemed anti-aliasing necessary. Which type of anti-aliasing should the Programmer introduce to the project?",
+            "choices": {
+                "A": "MSAA",
+                "B": "FXAA",
+                "C": "TAA",
+                "D": "SMAA"
+            },
+            "correct_answer": "B",
+            "explanation": "FXAA (Fast Approximate Anti-Aliasing) is a post-processing technique that is very lightweight on the GPU. It effectively smooths jagged edges without the heavy performance cost associated with MSAA or the potential artifacts of TAA.\n\nMSAA (Multisample Anti-Aliasing) is generally incompatible with Deferred Rendering and can be very costly on GPU resources, especially in XR where performance is critical.\n\nTemporal Anti-Aliasing (TAA) can introduce unwanted motion blur or ghosting, which is particularly noticeable in VR/XR environments and can reduce immersion.\n\nSMAA is also post-process based and efficient, but FXAA is widely preferred in XR projects because it provides a good balance between performance and visual quality, ensuring smooth frame rates on constrained hardware."
+        },
         {
             "question": "A Programmer uses Unity Analytics. The Programmer must add tracking for how much gold a player accumulates in each stage by using a custom parameter named stage_gold. The value must come from a field named Score.gold. The Programmer decides to use the LevelComplete method in the AnalyticsEvent class. What code should the Programmer use?",
             "choices": {
