@@ -630,7 +630,7 @@
                 "D": "Use a static value to store the score data so it will be available in the next play session."
             },
             "correct_answer": "A",
-            "explanation": "The requirement to retrieve the score on a *different device* is key. This necessitates a server-based solution. Data serialization (e.g., to JSON) is the process of converting the data into a format that can be stored or transmitted. The most reliable method is to serialize the score data and upload it to a server associated with the player's account. This makes it independent of any single device."
+            "explanation": "The requirement to retrieve the score on a **different device** is key. This necessitates a server-based solution. Data serialization (e.g., to JSON) is the process of converting the data into a format that can be stored or transmitted. The most reliable method is to serialize the score data and upload it to a server associated with the player's account. This makes it independent of any single device."
         },
         {
             "question": "A Programmer is working on a VR game where the player is a blind samurai. The player hears enemy footsteps and must rotate to fend off attacks. When an enemy is close, the tone and tempo of the footsteps raise to alert the player. Which AudioSource property will create this effect?",

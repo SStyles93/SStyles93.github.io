@@ -96,10 +96,11 @@ class QuizTrainer {
         let formatted = this.escapeHtml(text);
         // Line breaks
         formatted = formatted.replace(/\n/g, '<br>');
-        // Bold formatting
-        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         // Inline code formatting (single backticks)
         formatted = formatted.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+        // Bold formatting
+        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        
         return formatted;
     }
 
