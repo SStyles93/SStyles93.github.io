@@ -94,8 +94,12 @@ class QuizTrainer {
     formatText(text) {
         if (typeof text !== 'string') return ''; // Guard against non-string input
         let formatted = this.escapeHtml(text);
-        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        // Line breaks
         formatted = formatted.replace(/\n/g, '<br>');
+        // Bold formatting
+        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        // Inline code formatting (single backticks)
+        formatted = formatted.replace(/`([^`\n]+)`/g, '<code>$1</code>');
         return formatted;
     }
 
@@ -533,24 +537,25 @@ class QuizTrainer {
     showError(message) { alert(`Error: ${message}`); }
 
     formatCodeAndText(text) {
-        if (typeof text !== 'string') return ''; // Guard against non-string input
-        const parts = text.split(/(```(?:\w+)?\n[\s\S]*?```)/g);
+        if (typeof text !== 'string') return '';
+
+        // Normalize line endings
+        text = text.replace(/\r\n/g, '\n');
+
+        // Split by triple backticks
+        const parts = text.split(/(```[\s\S]*?```)/g);
 
         return parts.map(part => {
             if (part.startsWith('```')) {
-                const match = part.match(/```(\w+)?\n([\s\S]*?)```/);
-                if (!match) return this.escapeHtml(part); // Good guard clause
+                const match = part.match(/```(\w+)?\n?([\s\S]*?)```/);
+                if (!match) return this.escapeHtml(part);
 
-                // The language is the first captured group (match[1])
                 const language = match[1] || 'plaintext';
-
-                // The code is the second captured group (match[2])
-                // THIS IS THE FIX: Access match[2] before trimming
-                const code = this.escapeHtml(match[2].trim());
+                const code = this.escapeHtml(match[2]);
 
                 return `<pre><code class="language-${language}">${code}</code></pre>`;
             }
-            // Otherwise, it's regular text. Apply the standard formatting.
+            // Format regular text, including inline code
             return this.formatText(part);
         }).join('');
     }

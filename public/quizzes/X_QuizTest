@@ -2,16 +2,6 @@
     "subject":"TEST",
     "questions":
     [
-        {
-            "question": "A Programmer must implement a bomb for a game. After the explosion, a fire is created by instantiating a fire particle system. Based on the size of the payload, the fire should burn for a longer period of time. Examine the following code:\n\n```csharp\nvoid Ignite(float payloadSize)\n{\n    var fireParticleSystem = Instantiate(firePrefab);\n    // Code goes here\n}\n```\n\nHow should the Programmer correctly set the Particle System duration equal to the payload size?",
-            "choices": {
-                "A": "var duration = fireParticleSystem.main.duration;\n duration = payloadSize;",
-                "B": "var mainModule = fireParticleSystem.main;\n var duration = mainModule.duration;\n duration = payloadSize;",
-                "C": "fireParticleSystem.duration = payloadSize;",
-                "D": "var mainModule = fireParticleSystem.main;\n mainModule.duration = payloadSize;"
-            },
-            "correct_answer": "D",
-            "explanation": "Particle System modules (such as `main`) are implemented as structs in Unity. Because of this, you cannot set properties directly on the particle system or on temporary values. You must first get a copy of the module, assign the property on that module, and Unity internally applies it back. The correct way to set the duration is:\n```csharp\nvar mainModule = fireParticleSystem.main;\nmainModule.duration = payloadSize;\n```\nTrying to assign `fireParticleSystem.duration` directly does not work, and copying the duration into a local variable (`var duration = ...`) just modifies a temporary value, not the actual particle system."
-        }
+      {}
     ]
 }

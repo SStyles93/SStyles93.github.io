@@ -401,7 +401,7 @@
         {
             "question": " Textures in a game appear blurry when viewed at extreme angles. The game is targeting a wide range of hardware, and texture appearance should scale with performance. What code should a Programmer execute to reduce the blurry texture issue when running on the best hardware?",
             "choices": {
-                "A": "QualitySettings.anisotropicFiltering = AnisotropicFiltering.Enable; Texture.anisoLevel = 9;",
+                "A": "QualitySettings.anisotropicFiltering = AnisotropicFiltering.Enable;\n Texture.anisoLevel = 9;",
                 "B": "Texture.mipMapBias = -0.5f;",
                 "C": "Texture.filterMode = FilterMode.Trilinear;",
                 "D": "Texture.wrapMode = TextureWrapMode.Clamp;"
