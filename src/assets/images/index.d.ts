@@ -1,6 +1,7 @@
 declare module "*";
 
 export declare const images: {
+  bachelorproject_Banner_png: string;
   bachelorproject_Picture1_png: string;
   bachelorproject_Picture10_png: string;
   bachelorproject_Picture11_png: string;
@@ -93,6 +94,13 @@ export declare const images: {
   bachelorproject_Picture90_png: string;
   bachelorproject_Picture91_png: string;
   bachelorproject_Picture92_png: string;
+  billythezombie_BillythezombieGame_gif: string;
+  billythezombie_BillythezombieIntro_gif: string;
+  billythezombie_BillythezombieUpdate_gif: string;
+  catfight_CatfightGame_gif: string;
+  catfight_RpshG1_png: string;
+  catfight_RpshG2_png: string;
+  catfight_RpshIntro_png: string;
   csvconverter_after_png: string;
   csvconverter_before_png: string;
   csvconverter_hero_png: string;
@@ -100,6 +108,7 @@ export declare const images: {
   mediablur_after_png: string;
   mediablur_before_png: string;
   mediablur_hero_png: string;
+  mhard_MhardGame_png: string;
   opengl_backpack_png: string;
   opengl_blend_png: string;
   opengl_combinedARM_png: string;
@@ -110,6 +119,7 @@ export declare const images: {
   opengl_gBufferProblem_png: string;
   opengl_instancing_png: string;
   opengl_lastScene_png: string;
+  opengl_OpenglScene_png: string;
   opengl_scene1_png: string;
   opengl_SceneFlow_png: string;
   opengl_Screenshot_2023_07_07_185010_png: string;
@@ -139,6 +149,11 @@ export declare const images: {
   opengl_stencil_png: string;
   opengl_triangle_png: string;
   opengl_upsampling_png: string;
+  pcg_PcgGame_gif: string;
+  pcg_PcgGame1_gif: string;
+  pcg_PcgGame2_gif: string;
+  pcg_PcgGame3_gif: string;
+  pcg_PcgMenu_png: string;
   pcg_picture1_png: string;
   pcg_picture10_png: string;
   pcg_picture11_png: string;
@@ -159,6 +174,7 @@ export declare const images: {
   pcg_picture7_png: string;
   pcg_picture8_png: string;
   pcg_picture9_png: string;
+  physicsengine_Physicsengine_gif: string;
   postmortemgk_Art_ref_png: string;
   postmortemgk_Art_ref2_png: string;
   postmortemgk_Art_ref3_png: string;
@@ -197,6 +213,11 @@ export declare const images: {
   quiztrainer_quiztrainer_png: string;
   quiztrainer_quiztrainier_1_png: string;
   quiztrainer_quiztrainier_2_png: string;
+  r4yl_R4ylBegin_gif: string;
+  r4yl_R4ylGame_gif: string;
+  r4yl_R4ylGame1_gif: string;
+  r4yl_R4ylMasks_gif: string;
+  r4yl_R4ylWin_gif: string;
   rasterizer_BM_BBTri_NoParams_png: string;
   rasterizer_BM_BBTri_Params_png: string;
   rasterizer_FirstGraph_png: string;
@@ -222,6 +243,18 @@ export declare const images: {
   rollback_Loading_png: string;
   rollback_PlayAnim_png: string;
   rollback_Update_png: string;
+  sga2025_SgaLab_png: string;
+  sga2025_SgaLab_fire_png: string;
+  sga2025_SgaLab_ItemData_png: string;
+  sga2025_SgaLab_Teddy_png: string;
+  sga2025_SgaLab_v1_png: string;
+  sga2025_SgaLab_v2_png: string;
+  sga2025_SgaLab_v3_png: string;
+  sga2025_SgaLab_v4_png: string;
+  synthcity_SynthCityGame_gif: string;
+  synthcity_SynthCityIntro_png: string;
+  synthcity_SynthCityMap_png: string;
+  synthcity_SynthCityMenu_png: string;
   tool_CameraValues_png: string;
   tool_Components_png: string;
   tool_DynamicRotations_png: string;
@@ -229,6 +262,8 @@ export declare const images: {
   tool_PodPawn_png: string;
   tool_PodRacerRef_png: string;
   tool_Result_png: string;
+  tothemoon_tothemoon_gif: string;
+  tothemoon_ToTheMoonIntro_png: string;
   tothetmoonandback_ToTheMoonAndBack_Game_gif: string;
   tothetmoonandback_ToTheMoonAndBack_Menu_png: string;
   uepython_UeConsole_png: string;

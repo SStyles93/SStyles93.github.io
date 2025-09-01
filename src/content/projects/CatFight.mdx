@@ -1,53 +1,293 @@
 ---
-title: "Cat Fight - An ECS multiplayer rollback project"
-description: "A little game made during my second year at the SAE-Institute during a module focused of network"
-creationDate: "Nov 02 2022"
+title: "CatFight - Animation System in an ECS multiplayer Rollback project"
+description: "Creation of an animation system in multiplayer game with ECS and rollback."
 order: 0
-heroImage: "/src/assets/projects/catfight/CatfightGame.gif"
+heroImage: "/src/assets/images/rollback/Gameplay.gif"
+creationDate: "Nov 01 2022"
 teamSize: 1
-timeFrame: "1 month"
+timeFrame: "3 months"
 toolUsed: "C++/SFML"
 ---
-
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
 import Button from "../../components/Button.astro";
+
+## Contextualisation
 
 During my second year of bachelor’s degree in Game Programming, one of the modules we had to study was Networking. 
 For that module we had to present a multiplayer game project based on an 
 [ECS (entity-component-system)](https://en.wikipedia.org/wiki/Entity_component_system) – 
-[Rollback](https://en.wikipedia.org/wiki/Netcode#Rollback) engine in which we implemented [our own physics engine](../projects/physicsengine) done in a previous module.
+[Rollback](https://en.wikipedia.org/wiki/Netcode#Rollback) engine in which we implemented our own physics engine done in a previous module.
 
-First, we started with a small **chat** application to learn how networking worked.
-For that app, I used [Dear ImGui](https://github.com/ocornut/imgui) for the user 
-interface and [SFML](https://www.sfml-dev.org/) to be able to use sockets.
+Since we only had a limited amount of time, we were given a “template” project on which we had to build our game and change/add elements to fit our needs. 
+At first the project was a simple battleship shooter and it looked like this.
 
-Then we had to do a **turn-based game**. The game I decided to implement was **Rock-Paper-Scissors** but with a funny turn.  
+<MdImage src={images.rollback_BasicProject_png} alt="Basic Project" class="w-full"/>
 
-![Rock-Paper-Scissors-Hand](../../assets/projects/catfight/RpshG1.png)
+From that “template” project I decided to do an action game where entities engaged in a fight by throwing projectiles at each other.
 
-At the end I decided to call the game "Rock-Paper-Scissors-**Hand**" that would transform to "Rock-Paper-Scissors-**Stump**"
-if a player used **scissors** **against** a **hand**.
+My animation system is based on ECS where entities are updated according to the different flags they hold. 
+Since I’m focusing on the AnimationManger I made and not on ECS, I am not doing to go too much into details relative to the ECS
 
-After having fun with that little game, I started implementing **CatFight**.  
+## The first step
 
-![CatFight Game](../../assets/projects/catfight/CatfightGame.gif)
+At the beginning I had to use my physics engine to resolve collisions between entities. 
+Since the “template” was relatively well built it wasn’t that hard to implement all the features in it.
+Once that part was done, I had to decide what to use from the project, what to “throw away” and how.
 
-You can **read more** on my **blog post** about or **checkout the repository** on my **Github Page** with the buttons below
+For every physical interaction my decision was to only use circle collisions. 
+The players as the projectiles could use the circle colliders as triggers or colliders and there was no need for anything more. 
+For the rest of the project, I had to change various methods in the different managers such as the player spawning or the resolution of collisions for the 
+RollbackManager or the physical update of the PlayerCharacterManager.
 
+Once the behaviour was basically the way I wanted, I had to implement all the graphical elements. 
+Since I wanted a fighting game with cats, I could not keep triangles as my characters and a white dotted background as my environment.
+
+## Getting into graphics
+
+The first part I started resolving, graphically talking, was the player’s graphics. 
+Because I already had spent a certain time on the physics implementation, 
+I wanted the game to look nice even if there wasn’t any fancy background or visual effects. 
+For that reason, I started by adding animation states for the player and a vector of textures to store all the sprites. 
+Ultimately the structure I made would lead to an incrementation of the animation speed per player. 
+Thanks to a colleague with whom we exchanged over the architecture of the system, the initial version of my animation system got much better, 
+and I was able to avoid multiple speed incrementation issues. The final version looked like this.
+
+```c++
+namespace game
+{
+class GameManager;
+
+enum class AnimationState
+{
+    IDLE,
+    WALK,
+    JUMP,
+    SHOOT,
+    NONE
+};
+struct AnimationData
+{
+    float time = 0;
+    int textureIdx = 0;
+    AnimationState animationState = AnimationState::NONE;
+};
+struct Animation
+{
+    std::vector<sf::Texture> textures{};
+};
+/**
+ * \brief AnimationManager is a ComponentManager that holds all the animations in one place.
+ */
+class AnimationManager : public core::ComponentManager<AnimationData, static_cast<core::EntityMask>(ComponentType::ANIMATION)>
+{
+
+public:
+
+    AnimationManager(core::EntityManager& entityManager, core::SpriteManager& spriteManager, GameManager& gameManager);
+   
+    void LoadTexture(std::string_view path, Animation& animation) const;
+    
+    void PlayAnimation(const core::Entity& entity, const Animation& animation, AnimationData& animationData, float speed) const;
+    void LoopAnimation(const core::Entity& entity, const Animation& animation, AnimationData& animationData, float speed) const;
+
+    void UpdateEntity(core::Entity entity, AnimationState animationState, sf::Time dt);
+
+    Animation catIdle;
+    Animation catWalk;
+	Animation catJump;
+	Animation catShoot;
+
+private:
+
+	core::SpriteManager& spriteManager_;
+    GameManager& gameManager_;
+};
+}
+```
+
+## Loading textures
+
+As I really didn’t want to have to deal with the size of the texture vectors, 
+I spent a certain amount of time designing a method
+that would automatically load textures in the different animations.
+For that purpose, I used `#include <filesystem>`  
+to check the number of sprites contained in a folder at a specific path and load 
+them recursively into the different texture vectors with `#include <fmt/format.h>`.
+
+```c++
+void AnimationManager::LoadTexture(const std::string_view path, Animation& animation) const
+{
+	auto format = fmt::format("data/sprites/{}", path);
+	auto dirIter = std::filesystem::directory_iterator(fmt::format("data/sprites/{}",path));
+	const int textureCount = std::count_if(
+		begin(dirIter),
+		end(dirIter),
+		[](auto& entry) { return entry.is_regular_file() && entry.path().extension() == ".png"; });
+
+	//LOAD SPRITES
+	for (size_t i = 0; i < textureCount; i++)
+	{
+		sf::Texture newTexture{};
+		const auto fullPath = fmt::format("data/sprites/{}/{}{}.png",path, path, i);
+		if (!newTexture.loadFromFile(fullPath))
+		{
+			core::LogError(fmt::format("Could not load data/sprites/{}/{}{}.png sprite",path, path, i));
+		}
+		animation.textures.push_back(newTexture);
+	}
+}
+```
+
+With that method it was very easy to add animations to my AnimationManager.
+Basically, I just needed to create a folder with the same name as the contained sprites and add a sprite index for each sprite
+
+<MdImage src={images.rollback_Loading_png} alt="Folder hierarchy" class="w-full"/> 
+
+and then load them in the newly created Animation of the AnimationManager.
+
+```c++
+animationManager_.LoadTexture("cat_idle", animationManager_.catIdle);
+	animationManager_.LoadTexture("cat_walk", animationManager_.catWalk);
+	animationManager_.LoadTexture("cat_jump", animationManager_.catJump);
+	animationManager_.LoadTexture("cat_shoot", animationManager_.catShoot);
+```
+
+After that I just called my method on the ClientGameManger and in that way my animation was ready to use
+
+## Playing animations
+
+Once the animations were loaded, I just had to loop over them and display them in the SpriteManager. 
+To do so, I made a method to switch between animations according to the player’s animation state that is called in the ClientGameManager’s Update. 
+
+```c++
+void AnimationManager::UpdateEntity(core::Entity entity, AnimationState animationState, sf::Time dt)
+{
+	AnimationData& data = GetComponent(entity);
+	data.time += dt.asSeconds();
+
+	const auto playerCharacter = gameManager_.GetRollbackManager().GetPlayerCharacterManager().GetComponent(entity);
+
+	if(data.animationState != playerCharacter.animationState)
+	{
+		data.textureIdx = 0;
+	}
+
+	switch (animationState)
+	{
+	case AnimationState::IDLE:
+		data.animationState = AnimationState::IDLE;
+		LoopAnimation(entity, catIdle, data, 1.0f);
+		break;
+
+	case AnimationState::WALK:
+		data.animationState = AnimationState::WALK;
+		LoopAnimation(entity, catWalk, data, 1.0f);
+		break;
+
+	case AnimationState::JUMP:
+		data.animationState = AnimationState::JUMP;
+		PlayAnimation(entity, catJump, data, 2.0f);
+		break;
+
+	case AnimationState::SHOOT:
+		data.animationState = AnimationState::SHOOT;
+		LoopAnimation(entity, catShoot, data, 1.0f);
+		break;
+
+	case AnimationState::NONE:
+		break;
+
+	default:
+		core::LogError("AnimationState Default, not supposed to happen !");
+		break;
+	}
+}
+```
+
+Inside that method are called two methods `PlayAnimation()` to play animations once and `LoopAnimation()` that, as its name says, 
+loops over animations continually. Both play animations with a given speed. The only difference is that the LoopAnimation sets the `animationData.textureIdx` to 0. 
+
+```c++
+void AnimationManager::PlayAnimation(const core::Entity& entity, const Animation& animation, AnimationData& animationData, const float speed) const
+{
+	auto& playerSprite = spriteManager_.GetComponent(entity);
+
+	if (animationData.time >= ANIMATION_PERIOD / speed)
+	{
+		animationData.textureIdx++;
+		if (animationData.textureIdx >= animation.textures.size())
+		{
+			//blocks the animation on last texture
+			animationData.textureIdx = animation.textures.size() - 1;
+		}
+		animationData.time = 0;
+	}
+	if (animationData.textureIdx >= animation.textures.size())
+	{
+		animationData.textureIdx = animation.textures.size() - 1;
+	}
+	playerSprite.setTexture(animation.textures[animationData.textureIdx]);
+}
+```
+
+## Setting animation states
+
+Once the AnimationManager was done I just needed to set the player’s animation state according to given conditions (idle, jumping, walking, shooting). 
+To do that I had to set it in the PlayerCharacterManager.
+
+```c++
+ //Set player AnimationState
+        if(!playerCharacter.isShooting)
+        {
+            if (playerBody.position.y <= LOWER_LIMIT)
+            {
+                playerCharacter.isGrounded = true;
+                playerCharacter.animationState = AnimationState::IDLE;
+
+            }
+            playerCharacter.animationState = (right || left) && !up && !shoot && playerCharacter.isGrounded ?
+                AnimationState::WALK : playerCharacter.animationState;
+
+            playerCharacter.animationState = up && !shoot && !playerCharacter.isGrounded ?
+                AnimationState::JUMP : playerCharacter.animationState;
+
+            ////UNCOMMENT / COMMENT to use shoot in the air or not
+            playerCharacter.animationState = shoot && playerCharacter.shootingTime >= PLAYER_SHOOTING_PERIOD ?
+            //playerCharacter.animationState = shoot && playerCharacter.isGrounded ?
+                AnimationState::SHOOT : playerCharacter.animationState;
+        }
+    	else
+        {
+            playerCharacter.animationState = AnimationState::SHOOT;
+        }
+```
+
+At the end the result looks like this
+
+<MdImage src={images.rollback_Gameplay_gif} alt="Gameplay" class="w-full"/> 
+
+## Conclusion
+
+At the beginning my AnimationManager wasn’t doing its work correctly and it took quite a moment of thinking, redoing, and testing before I really got it going. 
+But once the architecture was correctly done it really worked out quite well.
+
+During this project I lost a lot of time with physics issues and creating a correct animation system. 
+The most complicated part of all was understanding how the ECS worked and how to replicate behaviours of managers and be sure to apply them at the correct place and moment.
+
+At the end of the project, all the time I had lost creating such a system was actually well spent, 
+I was able to implement a SoundManager using the exact same hierarchy and practically duplicating the methods I already had. 
+It also helped my colleagues since they were able to use my manager more or less as it was and not lose precious time designing a system I had already created.
+
+Overall, it was complicated to understand at the beginning and really took time to get used to ECS, 
+but it was really interesting and once I had a good understanding of how it worked, it really started to be fun to use. 
+
+My only regret on this project is not having more time to improve it. I would of liked to be able to test and implement more features in order to have a more attractive game.
+
+You can checkout the project from my Github repository
 <div class="flex justify-center">
-    <Button href="/blogs/rollbackblogpost/">Read Blog</Button>
-    <Button href="https://github.com/SStyles93/SAE921-GPR5100-Network">Access GitHub Page</Button>
+<Button href="https://github.com/SStyles93/SAE921-GPR5100-Network">GitHub</Button>
 </div>
-
-## What I learned
-<ul class="list-disc mx-6">
-<li>C++</li>
-<li>SFML</li>
-<li>Networking principles</li>
-<li>UDP/TCP Protocoles</li>
-<li>Rollback system</li>
-<li>ECS architecture</li>
-</ul>
-
 
 import {SocialShare} from "astro-social-share";
 
@@ -55,4 +295,3 @@ import {SocialShare} from "astro-social-share";
     description={frontmatter.description}
     title={frontmatter.title}
 />
-

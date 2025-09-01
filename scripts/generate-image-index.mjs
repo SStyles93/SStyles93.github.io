@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 // 📁 Root images folder
-const rootDir = "./src/assets/blogs";
+const rootDir = "./src/assets/images";
 
 // 📄 Output files
 const outputFile = path.join(rootDir, "index.ts");

@@ -1,0 +1,58 @@
+---
+title: "Cat Fight - An ECS multiplayer rollback project"
+description: "A little game made during my second year at the SAE-Institute during a module focused of network"
+creationDate: "Nov 02 2022"
+order: 0
+heroImage: "/src/assets/images/catfight/CatfightGame.gif"
+teamSize: 1
+timeFrame: "1 month"
+toolUsed: "C++/SFML"
+---
+
+import Button from "../../components/Button.astro";
+
+During my second year of bachelor’s degree in Game Programming, one of the modules we had to study was Networking. 
+For that module we had to present a multiplayer game project based on an 
+[ECS (entity-component-system)](https://en.wikipedia.org/wiki/Entity_component_system) – 
+[Rollback](https://en.wikipedia.org/wiki/Netcode#Rollback) engine in which we implemented [our own physics engine](../projects/physicsengine) done in a previous module.
+
+First, we started with a small **chat** application to learn how networking worked.
+For that app, I used [Dear ImGui](https://github.com/ocornut/imgui) for the user 
+interface and [SFML](https://www.sfml-dev.org/) to be able to use sockets.
+
+Then we had to do a **turn-based game**. The game I decided to implement was **Rock-Paper-Scissors** but with a funny turn.  
+
+![Rock-Paper-Scissors-Hand](../../assets/images/catfight/RpshG1.png)
+
+At the end I decided to call the game "Rock-Paper-Scissors-**Hand**" that would transform to "Rock-Paper-Scissors-**Stump**"
+if a player used **scissors** **against** a **hand**.
+
+After having fun with that little game, I started implementing **CatFight**.  
+
+![CatFight Game](../../assets/images/catfight/CatfightGame.gif)
+
+You can **read more** on my **blog post** about or **checkout the repository** on my **Github Page** with the buttons below
+
+<div class="flex justify-center">
+    <Button href="/blogs/rollbackblogpost/">Read Blog</Button>
+    <Button href="https://github.com/SStyles93/SAE921-GPR5100-Network">Access GitHub Page</Button>
+</div>
+
+## What I learned
+<ul class="list-disc mx-6">
+<li>C++</li>
+<li>SFML</li>
+<li>Networking principles</li>
+<li>UDP/TCP Protocoles</li>
+<li>Rollback system</li>
+<li>ECS architecture</li>
+</ul>
+
+
+import {SocialShare} from "astro-social-share";
+
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/>
+

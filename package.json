@@ -9,23 +9,23 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "img:index": "node scripts/generate-image-index.mjs",
+    "img:idx": "node scripts/generate-image-index.mjs",
     "img:replacemdx": "node scripts/replace-images-cli.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.9",
-    "@astrojs/rss": "^4.0.11",
-    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.5.1",
     "@astrojs/tailwind": "^5.1.5",
-    "astro": "^4.16.18",
+    "astro": "^4.16.19",
     "astro-social-share": "^2.2.0",
-    "daisyui": "^4.12.23",
-    "dayjs": "^1.11.13",
+    "daisyui": "^4.12.24",
+    "dayjs": "^1.11.18",
     "sharp": "^0.33.5",
     "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
-    "sass": "^1.85.0"
+    "sass": "^1.91.0"
   }
 }
