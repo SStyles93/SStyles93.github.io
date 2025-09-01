@@ -31,28 +31,19 @@ After having fun with that little game, I started implementing **CatFight**.
 
 ![CatFight Game](../../assets/images/catfight/CatfightGame.gif)
 
-You can **read more** on my **blog post** about or **checkout the repository** on my **Github Page** with the buttons below
+You can **read more** or **checkout the repository** on my **Github Page** with the buttons below
 
 <div class="flex justify-center">
-    <Button href="/blogs/rollbackblogpost/">Read Blog</Button>
+    <Button href="/blogs/rollbackblogpost/">Read More</Button>
     <Button href="https://github.com/SStyles93/SAE921-GPR5100-Network">Access GitHub Page</Button>
 </div>
 
-## What I learned
-<ul class="list-disc mx-6">
-<li>C++</li>
-<li>SFML</li>
-<li>Networking principles</li>
-<li>UDP/TCP Protocoles</li>
-<li>Rollback system</li>
-<li>ECS architecture</li>
-</ul>
-
-
 import {SocialShare} from "astro-social-share";
 
-<SocialShare
+<div class="social-share-wrapper my-4">
+  <SocialShare
     description={frontmatter.description}
     title={frontmatter.title}
-/>
+  />
+</div>
 

@@ -1,60 +1,67 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import HorizontalCard from "../../components/HorizontalCard.astro";
+import Button from "../../components/Button.astro";
 import type { BlogSchema } from "../../content/config";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import dayjs from "dayjs";
 
 interface Pages {
-	data: BlogSchema[];
+  data: BlogSchema[];
 }
 
 export async function getStaticPaths({ paginate }) {
-	const blogs = await getCollection("blogs");
-	return paginate(blogs, { pageSize: 50 });
+  const blogs = await getCollection("blogs");
+  return paginate(blogs, { pageSize: 5 });
 }
 
 interface Props {
-	page: Pages;
+  page: Pages;
 }
 
 const { page } = Astro.props;
 
+// Sort blogs by order first, then by creation date (newest first)
 page.data.sort((a: BlogSchema, b: BlogSchema) => {
-	if (a.data.order === b.data.order) {
-		const aDate = dayjs(a.data.creationDate);
-		const bDate = dayjs(b.data.creationDate);
-		return bDate - aDate;
-	}
-	return a.data.order - b.data.order;
+  if (a.data.order === b.data.order) {
+    const aDate = dayjs(a.data.creationDate);
+    const bDate = dayjs(b.data.creationDate);
+    return bDate.valueOf() - aDate.valueOf();
+  }
+  return a.data.order - b.data.order;
 });
 ---
 
 <BaseLayout title="Blog">
-	<div>
-		<div class="text-3xl w-full font-bold mb-5">Posts</div>
-	</div>
+  <div class="text-3xl w-full font-bold mb-5">Posts</div>
 
-	<ul>
-		{
-			page.data.sort().map((blog: BlogSchema) => (
-				<>
-					<HorizontalCard
-						title={blog.data.title}
-						img={blog.data.heroImage}
-						desc={blog.data.description}
-						url={"/blogs/" + blog.slug}
-						target="_self"
-						teamSize={blog.data.teamSize}
-						timeFrame={blog.data.timeFrame}
-						toolUsed={blog.data.toolUsed}
-						creationDate={dayjs(blog.data.creationDate).format(
-							"MMMM YYYY",
-						)}
-					/>
-					<div class="divider my-0" />
-				</>
-			))
-		}
-	</ul>
+  <ul class="space-y-12">
+    {await Promise.all(page.data.map(async (blog: BlogSchema) => {
+      const { Content } = await render(blog);
+
+      return (
+        <li class="border rounded-xl shadow p-6 prose max-w-none">
+          <h2 class="text-2xl font-bold mb-4">
+            <a href={"/blogs/" + blog.slug} class="hover:underline">
+              {blog.data.title}
+            </a>
+          </h2>
+
+          <!-- Full blog content including SocialShare -->
+          <div class="mdx-content">
+            <Content />
+          </div>
+
+          <div class="text-sm text-gray-500 mt-6">
+            Created on {dayjs(blog.data.creationDate).format("MMMM YYYY")}
+          </div>
+        </li>
+      );
+    }))}
+  </ul>
+
+  <!-- Pagination -->
+  <nav class="flex justify-between mt-12">
+    {page.url.prev ? <Button href={page.url.prev}>← Previous</Button> : <span />}
+    {page.url.next ? <Button href={page.url.next}>Next →</Button> : <span />}
+  </nav>
 </BaseLayout>

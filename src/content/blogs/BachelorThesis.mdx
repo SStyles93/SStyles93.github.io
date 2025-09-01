@@ -28,22 +28,16 @@ allowfullscreen>
 </div>
 
 
-
-#### What I learned
-<ul class="list-disc mx-6">
-<li>Unity</li>
-<li>C#</li>
-<li>HLSL</li>
-</ul>
-
-<div class="flex justify-center">
+<div class="flex justify-center my-6">
     <Button href="/projects/bachelorproject/">Read More</Button>
     <Button href="/pdf/Bachelor_Thesis.pdf">PDF Version</Button>
 </div>
 
-import {SocialShare} from "astro-social-share";
+import { SocialShare } from "astro-social-share";
 
-<SocialShare
+<div class="social-share-wrapper my-4">
+  <SocialShare
     description={frontmatter.description}
     title={frontmatter.title}
-/>
+  />
+</div>

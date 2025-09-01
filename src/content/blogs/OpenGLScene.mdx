@@ -13,10 +13,6 @@ toolUsed: "C++/OpenGL"
 
 import Button from "../../components/Button.astro";
 
-<div class="flex justify-center">
-    <Button href="/quiz-trainer/quizztrainer.html">Read Blog</Button>
-</div>
-
 This project was an [OpenGL](https://www.opengl.org/) graphics engine created from scratch during a computer graphics module given at 
 the [**SAE-Institute Geneva**](https://www.sae.edu/ch-ge/).
 
@@ -33,15 +29,9 @@ The elements I implemented were:
 
 Unfortunately my **only regret** was to **not** have enough time to **refactor**, **clean** and do good **abstractions** with my code.
 
-## What I learned
-<ul class="list-disc mx-6">
-<li>The [OpenGL](https://www.opengl.org/) API</li>
-<li>[GLSL](https://en.wikipedia.org/wiki/OpenGL_Shading_Language)</li>
-<li>The **importance** of **abstractions** !</li>
-</ul>
 
 <div class="flex justify-center">
-    <Button href="/blogs/openglscene/">Read Blog</Button>
+    <Button href="/blogs/openglscene/">Read More</Button>
     &nbsp; or
     <Button href="https://github.com/SStyles93/GPR5300_OpenGL">Access GitHub Page</Button>
 </div>
@@ -54,7 +44,9 @@ import ScreenshotList from "../../components/ScreenshotList.astro";
 
 import {SocialShare} from "astro-social-share";
 
-<SocialShare
+<div class="social-share-wrapper my-4">
+  <SocialShare
     description={frontmatter.description}
     title={frontmatter.title}
-/>
+  />
+</div>

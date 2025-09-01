@@ -2,5 +2,29 @@
     display: none;
 }
 
+.social-share-wrapper {
+  display: flex;
+  justify-content: center;  /* centers the buttons */
+  align-items: center;
+}
+
+.social-share-wrapper a {
+  display: inline-flex;      /* ensures icons are inline */
+  transition: transform 0.2s, color 0.2s; /* smooth hover effect */
+}
+
+.social-share-wrapper svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Hover effect: scale up slightly and change color */
+.social-share-wrapper a:hover svg {
+  transform: scale(1.2);
+  color: #1d4ed8; /* example: blue on hover, adjust to match your theme */
+}
+
+
+
 
 

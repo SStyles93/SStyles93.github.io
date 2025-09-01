@@ -29,22 +29,17 @@ allowfullscreen>
 The **goal** of the game is to **find** a **golden coin** that gives access to the **boss room** and **defeat** the **boss** inside.  
 Every time the game is played, the **generation of rooms** is done and a different layout is created.
 
-## What I learned
-<ul class="list-disc mx-6">
-<li>Unity</li>
-<li>C#</li>
-<li>PCG Algorithms</li>
-</ul>
-
 <div class="flex justify-center">
 	<Button href="https://sstyles.itch.io/pcg">Try on Itch.io</Button>
     <Button href="https://github.com/SStyles93/SAE921-GPR4400-CSharp-PCG">Access GitHub Page</Button>
-    <Button href="/blogs/proceduralgeneration/">Read Blog</Button>
+    <Button href="/blogs/proceduralgeneration/">Read More</Button>
 </div>
 
 import {SocialShare} from "astro-social-share";
 
-<SocialShare
+<div class="social-share-wrapper my-4">
+  <SocialShare
     description={frontmatter.description}
     title={frontmatter.title}
-/>
+  />
+</div>
