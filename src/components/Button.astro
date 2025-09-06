@@ -5,6 +5,10 @@ export interface Props {
 
 const { href } = Astro.props;
 ---
-<a href={href} target="_blank" class="btn btn-outline ml-5 mr-5">
-    <slot />
+<a 
+  href={href} 
+  target="_blank" 
+  class="btn btn-outline mx-1 px-[clamp(0.5rem,2vw,1.5rem)] py-[clamp(0.25rem,1vw,0.75rem)] text-[clamp(0.75rem,2vw,1rem)]"
+>
+  <slot />
 </a>
