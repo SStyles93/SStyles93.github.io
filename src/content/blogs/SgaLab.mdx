@@ -1,0 +1,44 @@
+---
+title: "Advanced Programming course - Swiss Game Academy"
+description: "..."
+creationDate: "Jul 11 2025"
+order: 0
+heroImage: "/src/assets/images/sga2025/SgaLab.png"
+teamSize: 2
+timeFrame: "5 days"
+toolUsed: "Unity/C#/Powershell"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+During summer 2025, I gave a course about "advanced" programming practices in general and in the [Unity 6](https://unity.com/releases/unity-6) engine 
+for the [Swiss Game Academy (SGA)](https://gameacademy.ch/SGA/) at the [HEIA-FR](https://www.heia-fr.ch/) University
+
+<MdImage src={images.sga2025_SgaLab_Teddy_png} alt="" class="w-full"/>
+
+This course was designed to go beyond basic scripting and teach students how to think like software architects. The Key topics included were the following:
+
+*   **S.O.L.I.D. Principles:** Practical, in-engine examples of Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion.
+*   **Unity Attributes:** Using attributes like `[Header]`, `[SerializeField]`, `[Tooltip]`, and `[Range]` to create clean, designer-friendly inspectors.
+*   **Advanced C# Features:** Delegates, `Action` events, the Observer Pattern, `switch` expressions with type pattern matching, and coroutines for asynchronous operations.
+*   **Architectural Patterns:** Implementing Singletons, data-driven design with Scriptable Objects, and decoupled UI systems.
+*   **Robust Save/Load System:** Building a flexible persistence system using interfaces (`ISaveable`), JSON serialization (`Newtonsoft.Json`), and Data Transfer Objects (DTOs).
+*   **Editor Tooling:** Using Gizmos (`OnDrawGizmosSelected`) to provide clear visual feedback for designers and developers.
+
+<div class="flex justify-center">
+    <Button href="https://github.com/SStyles93/SGA_LAB_Advanced/tree/main">Access GitHub Page</Button>
+</div>
+<div class="flex justify-center my-5">
+    <Button href="/projects/alchemisteddy/">Read More</Button>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="social-share-wrapper my-4">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

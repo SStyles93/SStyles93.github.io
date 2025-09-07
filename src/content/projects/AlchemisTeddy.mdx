@@ -39,7 +39,7 @@ so that the project would include all the necessary features.
 <MdImage src={images.sga2025_SgaLab_ItemData_png} alt="" class="w-full"/> 
 
 ### Art
-The art was defined and created by [Johanna](https://www.linkedin.com/in/johannapjaneiro/), a friend of mine. Thanks to her I wasn't obliged to rely 
+The art was defined and created by [Jo A.](https://www.artstation.com/yoyoj). Thanks to her I wasn't obliged to rely 
 on primitive shapes and materials and my project was brought to life in **3 days**.
 <MdImage src={images.sga2025_SgaLab_Teddy_png} alt="" class="w-full"/>
 
@@ -225,44 +225,44 @@ Since some students used MacOS computers, I also created a **.sh** Terminal scri
 # This script is designed to be placed in your Unity project's root folder.
 # It automates checking out a specific Git tag and launching the corresponding Unity Editor version.
 
-# --- Configuration (Optional) ---
+## Configuration (Optional)
 # If your Unity Hub Editor installations are in a non-standard location, you can uncomment and modify this line:
 # UNITY_HUB_EDITORS_PATH="/Applications/Unity/Hub/Editor"
 # For Windows, this would typically be handled by the PowerShell script.
 
-# --- Script Logic ---
+## Script Logic
 
 if [ -z "$1" ]; then
-    echo "❌ Error: No tag name pro12313vided."
+    echo "Error: No tag name pro12313vided."
     echo "Usage: gototag <tag-name>"
     exit 1
 fi
 
 TAG=$1
 
-echo "🛑 Closing Unity if running..."
+echo "Closing Unity if running..."
 pkill -x "Unity" 2>/dev/null
 sleep 2
 
-echo "🧹 Cleaning working directory (pre-checkout)..."
+echo "Cleaning working directory (pre-checkout)..."
 git reset --hard
 git clean -xfd
 
-echo "🔁 Checking out tag: $TAG"
+echo "Checking out tag: $TAG"
 git checkout tags/$TAG
 if [ $? -ne 0 ]; then
-    echo "❌ Failed to checkout tag \'$TAG\'. Does the tag exist?"
+    echo "Failed to checkout tag \'$TAG\'. Does the tag exist?"
     exit 1
 fi
 
-echo "🧼 Final reset and clean after switching..."
+echo "Final reset and clean after switching..."
 git reset --hard
 git clean -xfd
 
 # Extract Unity version from ProjectSettings
 UNITY_VERSION_FILE="ProjectSettings/ProjectVersion.txt"
 if [ ! -f "$UNITY_VERSION_FILE" ]; then
-    echo "❌ Cannot find $UNITY_VERSION_FILE. Is this a Unity project?"
+    echo "Cannot find $UNITY_VERSION_FILE. Is this a Unity project?"
     exit 1
 fi
 
@@ -276,21 +276,21 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
     # Linux path (common for Unity on Linux, adjust if needed)
     UNITY_PATH="${UNITY_HUB_EDITORS_PATH:-/opt/Unity/Hub/Editor}/$UNITY_VERSION/Editor/Unity"
 else
-    echo "❌ Unsupported operating system for direct Unity launch via this script."
+    echo "Unsupported operating system for direct Unity launch via this script."
     echo "Please use the Windows PowerShell script (gototag.ps1) on Windows."
     exit 1
 fi
 
 if [ ! -f "$UNITY_PATH" ]; then
-    echo "❌ Unity Editor not found at: $UNITY_PATH"
+    echo "Unity Editor not found at: $UNITY_PATH"
     echo "Please make sure that version $UNITY_VERSION is installed via Unity Hub and the path is correct."
     exit 1
 fi
 
-echo "🚀 Launching Unity Editor version $UNITY_VERSION..."
+echo "Launching Unity Editor version $UNITY_VERSION..."
 "$UNITY_PATH" -projectPath "$(pwd)"
 
-echo "✅ Done. Tag \'$TAG\' is now active."
+echo "Done. Tag \'$TAG\' is now active."
 ```
 </Dropdown>
 
@@ -309,7 +309,8 @@ or go to the repository of the course
 
 import {SocialShare} from "astro-social-share";
 
+<div class="flex justify-center">
 <SocialShare
     description={frontmatter.description}
     title={frontmatter.title}
-/>
+/></div>

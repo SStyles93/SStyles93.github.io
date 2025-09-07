@@ -3,7 +3,6 @@ title: "Quiz Trainer"
 description: "A Simple web tool to train for exams"
 creationDate: "Jul 14 2025"
 order: 0
-pinned: true
 heroImage: "/src/assets/images/quiztrainer/quiztrainer.png"
 teamSize: 1
 timeFrame: "1 day"
@@ -19,9 +18,7 @@ import * as images from "/src/assets/images";
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
     </svg>
-        <Button href="/quiztrainer">
-        Go to QuizTrainer
-        </Button> 
+        <Button href="/quiztrainer">Go to QuizTrainer</Button> 
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
     </svg>
@@ -789,7 +786,8 @@ new QuizTrainer();
 
 import {SocialShare} from "astro-social-share";
 
+<div class="flex justify-center">
 <SocialShare
     description={frontmatter.description}
     title={frontmatter.title}
-/>
+/></div>

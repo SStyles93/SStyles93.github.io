@@ -10,7 +10,17 @@ interface Pages {
 }
 
 export async function getStaticPaths({ paginate }) {
-  const blogs = await getCollection("blogs");
+  let blogs = await getCollection("blogs");
+
+  blogs.sort((a: BlogSchema, b: BlogSchema) => {
+    if (a.data.order === b.data.order) {
+      const aDate = dayjs(a.data.creationDate);
+      const bDate = dayjs(b.data.creationDate);
+      return bDate.valueOf() - aDate.valueOf(); // newest first
+    }
+    return a.data.order - b.data.order;
+  });
+
   return paginate(blogs, { pageSize: 5 });
 }
 
@@ -19,16 +29,6 @@ interface Props {
 }
 
 const { page } = Astro.props;
-
-// Sort blogs by order first, then by creation date (newest first)
-page.data.sort((a: BlogSchema, b: BlogSchema) => {
-  if (a.data.order === b.data.order) {
-    const aDate = dayjs(a.data.creationDate);
-    const bDate = dayjs(b.data.creationDate);
-    return bDate.valueOf() - aDate.valueOf();
-  }
-  return a.data.order - b.data.order;
-});
 ---
 
 <BaseLayout title="Blog">

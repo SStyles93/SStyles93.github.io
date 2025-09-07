@@ -24,7 +24,7 @@ page.data.sort((a: ProjectSchema, b: ProjectSchema) => {
 	if (a.data.order === b.data.order) {
 		const aDate = dayjs(a.data.creationDate);
 		const bDate = dayjs(b.data.creationDate);
-		return bDate - aDate;
+		return bDate.valueOf() - aDate.valueOf();
 	}
 	return a.data.order - b.data.order;
 });
