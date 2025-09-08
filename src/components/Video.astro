@@ -1,17 +1,18 @@
 ---
 export interface Props {
     href: string;
+    title?: string;
 }
 
-const { href } = Astro.props;
+const { href, title } = Astro.props;
 ---
 
-<div class="grid place-items-center">
+<div class="grid place-items-center responsive-video">
     <iframe
         width="560"
         height="315"
         src={href}
-        title="YouTube video player"
+        title={title}
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen></iframe>

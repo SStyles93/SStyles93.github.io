@@ -1,0 +1,30 @@
+---
+title: "To The Moon And Back"
+description: "A simple spaceship survival game made in a week at the SAE-Institute during my first year"
+creationDate: "Dec 22 2021"
+order: 0
+heroImage: "/src/assets/images/tothemoon/ToTheMoonIntro.png"
+teamSize: 1
+timeFrame: "1 week"
+toolUsed: "C++/SFML/Box2D"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+This simple spaceship game was my **first C++ game** made during a module of introduction to C++ programming at the [**SAE-Institute Geneva**](https://www.sae.edu/ch-ge/).
+
+<div class="flex justify-center"><MdImage src={images.tothemoon_ToTheMoonIntro_png} alt="" class=""/></div>
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/tothemoonandback/">Read More</Button>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>

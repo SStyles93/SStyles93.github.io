@@ -11,27 +11,14 @@ toolUsed: "C++/OpenGL"
 ---
 
 import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
 
 This project was an [OpenGL](https://www.opengl.org/) graphics engine created from scratch during a computer graphics module given at 
 the [**SAE-Institute Geneva**](https://www.sae.edu/ch-ge/).
 
-The elements I implemented were:
-- Image Based Lighting (IBL)
-- Physically Based Rendering (PBR)
-- Screen Space Ambient Occlusion (SSAO)
-- ACES HDR Tone Mapping
-- Deferred Rendering
-- Bloom & Blur
-- Shadow Maps
-- Normal Mapping
-- Model Loading (OBJ)
+<MdImage src={images.opengl_lastScene_png} alt="LastScene" class="w-full"/> 
 
-Unfortunately my **only regret** was to **not** have enough time to **refactor**, **clean** and do good **abstractions** with my code.
-
-
-<div class="flex justify-center">
-    <Button href="https://github.com/SStyles93/GPR5300_OpenGL">Access GitHub Page</Button>
-</div>
 <div class="flex justify-center my-5">
     <Button href="/projects/openglscene/">Read More</Button>
 </div>

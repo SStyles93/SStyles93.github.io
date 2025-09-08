@@ -17,17 +17,19 @@ toolUsed: "C++/Glm/OMP"
 ---
 
 import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
 
 During my second year of bachelor’s degree in Game Programming, 
 one of the modules we studied was about **optimization**. 
 What tools we had to **measure**, **profile**, understand and in the end **optimize** our programs 
 for them to be more efficient and use less energy to be run.
 
-The **entire process** is explained [HERE](https://sstyles93.github.io/blog/posts/RasterizerOptimization/) or with the button below
-
-<div class="flex justify-center">
-    <Button href="https://github.com/SStyles93/5204-Optimization">Access GitHub Page</Button>
+<div class="flex">
+<MdImage src={images.rasterizer_RenderScene_png} alt="Scene Render" class=""/> 
+<MdImage src={images.rasterizer_RasterizerFlags_png} alt="BM Rasterizer Flags" class=""/> 
 </div>
+
 <div class="flex justify-center my-5">
     <Button href="/projects/rasterizeroptimization/">Read More</Button>
 </div>

@@ -1,0 +1,32 @@
+---
+title: "Physics Engine"
+description: "A 2D Physics engine coded from scratch."
+creationDate: "Jul 15 2022"
+order: 0
+heroImage: "/src/assets/images/physicsengine/Physicsengine.gif"
+teamSize: 1
+timeFrame: "1 month"
+toolUsed: "C++/SFML"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+This project was made during my first year at the SAE-Institute. The purpose of this project was to use [SFML](https://www.sfml-dev.org/)
+for the rendering and **code** our own **2D physics engine**.
+
+<MdImage src={images.physicsengine_Physicsengine_gif} alt="Example of Quiz" class="w-full"/>
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/physicsengine/">Read More</Button>
+</div>
+
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>

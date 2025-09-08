@@ -1,0 +1,32 @@
+---
+title: "Run4YourLight"
+description: "Initially a GameJam project made in a week at the SGA that was finally published on steam"
+creationDate: "Aug 14 2021"
+order: 0
+pinned: true
+heroImage: "/src/assets/images/r4yl/R4ylMasks.gif"
+teamSize: 5
+timeFrame: "1 week"
+toolUsed: "C#/Unity"
+---
+
+import Button from "../../components/Button.astro";
+import Video from "../../components/Video.astro";
+
+This project was made in **1 Week** at the **[SGA](https://gameacademy.ch/SGA/)** (Swiss Game Academy) in summer 2021.
+Initially I was there to teach and help candidates but I ended up by being part of the team.  
+This project was the beginning of what was to become a long term collaboration.
+
+<Video href="https://www.youtube.com/embed/lxvhiWjJuo4?si=MrJHK_jB8NS828X3&autoplay=1&autohide=1&mute=1&modestbranding=1&playsinline=1&loop=1&playlist=lxvhiWjJuo4"></Video>
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/run4yourlight/">Read More</Button>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>

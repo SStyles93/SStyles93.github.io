@@ -1,0 +1,33 @@
+---
+title: "Billy The Zombie"
+description: "A 2D twinstick shooter where you play a little Zombie who has to survive in a devastated city.
+Upgrade you're arms (wepons) and fight your way through."
+creationDate: "Jun 09 2022"
+order: 0
+pinned: true
+heroImage: "/src/assets/images/billythezombie/BillythezombieIntro.gif"
+teamSize: 1
+timeFrame: "1 months"
+toolUsed: "C#/Unity"
+---
+
+import Button from "../../components/Button.astro";
+import Video from "../../components/Video.astro";
+
+
+**Billy the Zombie** was a game I made for a **game design exam** at the **SAE-Institute**.
+For that exam I had to **create** a [**GDD**](/pdf/GDD_BillyTheZombie.pdf) (Game Design Document),
+a [**pitch**](/pdf/Pitch_BillyTheZombie.pdf) presentation and **program** the entire game from sratch.
+
+<Video href="https://www.youtube.com/embed/6FXUF0KgkMk?si=85UpOMF0QCw8TFk1&autoplay=1&autohide=1&mute=1&modestbranding=1&playsinline=1&loop=1&playlist=6FXUF0KgkMk"></Video>
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/billythezombie">Read More</Button>
+</div>
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>

@@ -1,0 +1,30 @@
+---
+title: "Unreal Stylized Shaders - Specialization projects"
+description: "Creating stylized shaders with a specific artistic direction in a student game project was the reason of the research and work exposed in this blogpost."
+creationDate: "Feb 16 2024"
+order: 0
+heroImage: "/src/assets/images/ueshaderwork/FireFly.gif"
+teamSize: 31
+timeFrame: "6 months"
+toolUsed: "C++/UE5"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+Another part of my work during the project mentioned in the previous blog was to create the pipeline that would mimic a **"water painting"** visual.
+
+<MdImage src={images.ueshaderwork_Final_Result_gif} alt="Scene evolution" class="w-full"/>
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/unrealdynamicshaders/">Read More</Button>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>

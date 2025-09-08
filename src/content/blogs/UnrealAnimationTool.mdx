@@ -1,0 +1,38 @@
+---
+title: "SubCaelo - Creating an animation tool in UnrealEngine5"
+description: "Using Unreal Engine and C++ to create a friendly interface to animate vehicles in a Pod-racer game"
+order: 0
+heroImage: "/src/assets/images/tool/FirstMethod.gif"
+creationDate: "Nov 23 2022"
+teamSize: 1
+timeFrame: "5 days"
+toolUsed: "C++/UE5"
+---
+import MdImage from "../../components/MdImage.astro";
+import Button from "../../components/Button.astro";
+import Video from "../../components/Video.astro";
+import * as images from "/src/assets/images";
+
+
+During my second year of bachelor's degree in Game Programming, one of the modules we had to study was about 
+tool creation.
+For that module we had to help the third year Game Programmers on a project they were creating. 
+The name of the project is called SubCaelo, a Pod-Racer multiplayer game created on 
+[Unreal Engine 5](https://www.unrealengine.com/en-US/unreal-engine-5).
+
+<Video href="https://www.youtube.com/embed/oIjLWjUcs2o?si=85UpOMF0QCw8TFk1&autoplay=1&autohide=1&mute=1&modestbranding=1&playsinline=1&loop=1&playlist=oIjLWjUcs2o"></Video>
+
+Thanks to the exposed properties the game designers would be able 
+to change all values in order to modify them according to their will directly in the "Detail" window of the editor.
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/unrealanimationtool/">Read More</Button>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>

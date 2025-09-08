@@ -1,0 +1,37 @@
+---
+title: "MediaBlur - Python media bluring tool"
+description: "A simple python .exe to blur parts of pdf files."
+heroImage: "/src/assets/images/mediablur/hero.png"
+order: 0
+creationDate: "Jul 21 2025"
+teamSize: 1
+timeFrame: "3 days"
+toolUsed: "Python/PyQt"
+---
+
+import Downloadable from '../../components/Downloadable.astro';
+import Dropdown from '../../components/Dropdown.astro';
+import MdImage from "../../components/MdImage.astro";
+import Button from "../../components/Button.astro";
+import * as images from "/src/assets/images";
+
+I wanted to develop my own tool to be able to blur-out parts of documents without having to rely on web tools or specific softwares that require subscription or payments to access "an Entire World of possibilities" 
+where actually I just needed one specific feature.
+
+<div class="flex">
+<MdImage src={images.mediablur_before_png} alt="" class=""/> 
+<MdImage src={images.mediablur_after_png} alt="" class=""/> 
+</div>
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/mediablur/">Read More</Button>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="social-share-wrapper my-4">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

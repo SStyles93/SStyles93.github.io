@@ -1,0 +1,33 @@
+---
+title: Unreal Engine - Renaming Tool
+description: "Explanation of a script made to rename and organize Unreal Engine projects"
+heroImage: "/src/assets/images/uepython/UeConsole.png"
+order: 0
+creationDate : "Nov 10 2024"
+teamSize: 1
+timeFrame: "2 days"
+toolUsed: "Python/UE5"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+During my studies, I worked for projects at Styles Studio SàRL. During that time I sometimes had to integrate objects from divers origins into Unreal projects. Since the naming conventions weren't strictly established I often had to rename objects and folder.
+
+Renaming a unique object isn't a problem, but when there are thousands it can be time consuming.
+For that reason I decided to create a script that would automatically rename object according to the desired input.
+
+<MdImage src={images.uepython_UeConsole2_png} alt="UE Materials & Python Console"/>
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/unrealrenamingtool/">Read More</Button>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>

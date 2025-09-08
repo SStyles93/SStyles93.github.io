@@ -1,0 +1,36 @@
+---
+title: "Unreal Dynamic Shaders - Specialization projects"
+description: "The necessity of creating interactive visual effects in an Unreal Engine game resulted in this research, the work that followed and finally this blogpost."
+heroImage: "/src/assets/images/ueshaderwork/Outline_Use.gif"
+order: 0
+pinned: true
+creationDate: "Feb 09 2024"
+teamSize: 31
+timeFrame: "6 months"
+toolUsed: "C++/UE5"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+
+During the last year of bachelor's degree in Game Programming at the SAE-Institute, the students of the 
+Games Programming section had to create two games in collaboration with the Game Art and Audio Engineering sections. 
+The purpose of the module was to simulate what was, for some, a first work experience in a professional-like environment.
+
+For this module I had the opportunity to work on multiple aspects of the game with **Unreal Engine 5.3**.
+
+<MdImage src={images.ueshaderwork_MF_Fade_Final_gif} alt="Plant Growth" class="w-full"/>  
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/unrealdynamicshaders/">Read More</Button>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>

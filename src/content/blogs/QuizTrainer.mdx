@@ -1,0 +1,46 @@
+---
+title: "Quiz Trainer"
+description: "A Simple web tool to train for exams"
+creationDate: "Jul 28 2025"
+order: 0
+heroImage: "/src/assets/images/quiztrainer/quiztrainer.png"
+teamSize: 1
+timeFrame: "1 day"
+toolUsed: "HTML/CSS/JavaScript"
+---
+import Button from "../../components/Button.astro";
+import Dropdown from "../../components/Dropdown.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+During my time at [Lab4Tech](https://www.lab4tech.ch/), I was training to obtain different certifications like the  
+**C++** [CLA](https://cppinstitute.org/cla) & [CPP](https://cppinstitute.org/cpp) and the [Unity Professional Programmer](https://unity.com/products/unity-certifications/professional-programmer).
+
+The only problem was that the question pool was so little, it made it impossible to truly train on a vast amount of questions.
+
+<div class="flex justify-center">For that reason I decided to create my own tool that I named</div>
+
+<div class="flex justify-center my-5">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+    </svg>
+        <Button href="/quiztrainer">QuizTrainer</Button> 
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+    </svg>
+</div>
+
+<MdImage src={images.quiztrainer_quiztrainer_png} alt="Example of Quiz" class="w-full"/>
+
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/quiztrainer/">Read More</Button>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>

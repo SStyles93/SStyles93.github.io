@@ -1,0 +1,33 @@
+---
+title: "CsvConverter - Python CSV to Excel tool"
+description: "A simple python .exe to to convert Csv files to Excel spreadsheets."
+heroImage: "/src/assets/images/csvconverter/hero.png"
+order: 0
+creationDate: "Jul 14 2025"
+teamSize: 1
+timeFrame: "3 days"
+toolUsed: "Python/PyQt"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+I wanted to develop my own tool to be able to convert CSVs into excel spreadsheets. Although, a lot of programs already have that feature, I wanted to have a try and do my own.
+
+<div class="flex">
+<MdImage src={images.csvconverter_middle_png} alt="" class="w-full"/> 
+<MdImage src={images.csvconverter_after_png} alt="" class="w-full"/> 
+</div>
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/catfight/">Read More</Button>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>

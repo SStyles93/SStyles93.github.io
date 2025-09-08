@@ -1,0 +1,40 @@
+---
+title: "SynthCity"
+description: "A Synthwave game made during the LvlUp GameJam"
+creationDate: "Feb 21 2021"
+order: 0
+heroImage: "/src/assets/images/synthcity/SynthCityIntro.png"
+screenshots:
+    [
+        "/src/assets/images/synthcity/SynthCityIntro.png",
+        "/src/assets/images/synthcity/SynthCityMenu.png",
+        "/src/assets/images/synthcity/SynthCityMap.png",
+    ]
+teamSize: 5
+timeFrame: "2 days"
+toolUsed: "C#/Unity"
+---
+
+import Button from "../../components/Button.astro";
+import Video from "../../components/Video.astro";
+
+This game was made with **[Unity](https://unity.com/)** in **2 days** at the [SwissGameCenter](https://swissgamecenter.ch/lvlup.php?lang=fr)'s 
+[**LvlUp**](https://lvlupgamejam.ch/) **GameJam** at 
+[**Fribourg**](https://en.wikipedia.org/wiki/Fribourg) in **Switzerland**.
+
+<Video href="https://www.youtube.com/embed/UW_cWhv1mAY?si=MrJHK_jB8NS828X3&autoplay=1&autohide=1&mute=1&modestbranding=1&playsinline=1&loop=1&playlist=UW_cWhv1mAY"></Video>
+
+It was my first experience with Unity and during the game jam I discovered how to program a game from start to end 
+and create simple visual effects using Unity's **[Shader Graph](https://docs.unity3d.com/Manual/shader-graph.html)**
+
+<div class="flex justify-center my-5">
+<a href="https://tobler0ne.itch.io/synth-city" target="_blank" class="btn btn-outline ml-5">Try on Itch.io</a>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>

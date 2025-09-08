@@ -21,7 +21,7 @@ export async function getStaticPaths({ paginate }) {
     return a.data.order - b.data.order;
   });
 
-  return paginate(blogs, { pageSize: 5 });
+  return paginate(blogs, { pageSize: 10 });
 }
 
 interface Props {
@@ -41,9 +41,7 @@ const { page } = Astro.props;
       return (
         <li class="border rounded-xl shadow p-6 prose max-w-none">
           <h2 class="text-2xl font-bold mb-4">
-            <a href={"/blogs/" + blog.slug} class="hover:underline">
-              {blog.data.title}
-            </a>
+            {blog.data.title}
           </h2>
 
           <!-- Full blog content including SocialShare -->
