@@ -16,6 +16,7 @@ import Dropdown from '../../components/Dropdown.astro';
 import MdImage from "../../components/MdImage.astro";
 import * as images from "/src/assets/images";
 
+
 ## Context
 During summer 2025, I gave a course about "advanced" programming practices in general and in the [Unity 6](https://unity.com/releases/unity-6) engine 
 for the [Swiss Game Academy (SGA)](https://gameacademy.ch/SGA/) at the [HEIA-FR](https://www.heia-fr.ch/) University
@@ -52,8 +53,8 @@ obtained on the Unity Asset Store from [PixelPulse](https://assetstore.unity.com
 ## Project Structure & Course Flow
 The project was divided into branches or folders, each representing a stage of the course. The learning path was designed to be completed sequentially from V1.0 to V5.0. Each version builds upon the last, with students filling in missing code to complete the exercises.
 
+### V1.0: The Designer's Item
 <Dropdown title="Course Flow V1.0 - The Designer's Item">
-### **V1.0: The Designer's Item**
 *   **Focus:** Attributes, Enums, Scriptable Objects, Inheritance & Liskov Substitution.
 *   **Student Objective:** Configure data scripts to be powerful and easy to use for designers.
     1.  **`ItemData.cs`**: Add `[Header]`, `[Tooltip]`, `[Space]`, and other attributes to organize the Inspector.
@@ -64,8 +65,8 @@ The project was divided into branches or folders, each representing a stage of t
 <MdImage src={images.sga2025_SgaLab_v1_png} alt="" class="w-full"/> 
 </Dropdown>
 
+### V2.0: The Interactive UI
 <Dropdown title="Course Flow V2.0 - The Interactive UI">
-### **V2.0: The Interactive UI**
 *   **Focus:** Delegates, Events (Observer Pattern), and UI scripting.
 *   **Student Objective:** Decouple the game's data layer from its presentation (UI) layer.
     1.  **`PlayerInventoryManager.cs`**: Declare a public `Action` event `OnInventoryChanged` and invoke it in `AddItem()` and `RemoveItem()`.
@@ -74,8 +75,8 @@ The project was divided into branches or folders, each representing a stage of t
 <MdImage src={images.sga2025_SgaLab_v2_png} alt="" class="w-full"/> 
 </Dropdown>
 
+### V3.0: Interacting with the World
 <Dropdown title="Course Flow V3.0 - Interacting with the World">
-### **V3.0: Interacting with the World**
 *   **Focus:** Interfaces (ISP), Raycasting, Coroutines, and Gizmos.
 *   **Student Objective:** Build a "move-then-interact" system for the player.
     1.  **`PlayerInteraction.cs`**: 
@@ -88,8 +89,8 @@ The project was divided into branches or folders, each representing a stage of t
 <MdImage src={images.sga2025_SgaLab_v3_png} alt="" class="w-full"/> 
 </Dropdown>
 
+### V4.0: Making it Persistent
 <Dropdown title="Course Flow V4.0 - Making it Persistent">
-### **V4.0: Making it Persistent**
 *   **Focus:** Advanced Delegates, JSON Serialization, Singleton Pattern.
 *   **Student Objective:** Implement a system to save and load the player's state.
     1.  **`PlayerHealth.cs`**: 
@@ -102,8 +103,8 @@ The project was divided into branches or folders, each representing a stage of t
 <MdImage src={images.sga2025_SgaLab_v4_png} alt="" class="w-full"/> 
 </Dropdown>
 
+### V5.0: The Final Polish
 <Dropdown title="Course Flow V5.0 - The Final Polish">
-### **V5.0: The Final Polish**
 *   **Focus:** Reviewing all concepts and ensuring the final project is robust and complete.
 *   **Student Objective:** This version represents the completed project. It serves as a reference and a demonstration of how all the systems work together in harmony.
 </Dropdown>
