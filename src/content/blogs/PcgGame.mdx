@@ -7,6 +7,7 @@ heroImage: "/src/assets/images/pcg/PcgMenu.png"
 teamSize: 2
 timeFrame: "1 week"
 toolUsed: "C#/Unity"
+isProject: true
 ---
 
 import Button from "../../components/Button.astro";
@@ -23,7 +24,7 @@ to learn and integrate **procedural generation**.
 
 import {SocialShare} from "astro-social-share";
 
-<div class="social-share-wrapper my-4">
+<div class="social-share-wrapper my-4 flex justify-center my-5">
   <SocialShare
     description={frontmatter.description}
     title={frontmatter.title}

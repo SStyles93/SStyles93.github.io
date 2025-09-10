@@ -7,6 +7,7 @@ creationDate: "Jul 21 2025"
 teamSize: 1
 timeFrame: "3 days"
 toolUsed: "Python/PyQt"
+isProject: true
 ---
 
 import Downloadable from '../../components/Downloadable.astro';
@@ -29,7 +30,7 @@ where actually I just needed one specific feature.
 
 import {SocialShare} from "astro-social-share";
 
-<div class="social-share-wrapper my-4">
+<div class="social-share-wrapper my-4 flex justify-center my-5">
   <SocialShare
     description={frontmatter.description}
     title={frontmatter.title}

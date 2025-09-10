@@ -7,6 +7,7 @@ heroImage: "/src/assets/images/sga2025/SgaLab.png"
 teamSize: 2
 timeFrame: "5 days"
 toolUsed: "Unity/C#/Powershell"
+isProject: true
 ---
 
 import Button from "../../components/Button.astro";
@@ -26,7 +27,7 @@ This course was designed to go beyond basic scripting and teach students how to 
 
 import {SocialShare} from "astro-social-share";
 
-<div class="social-share-wrapper my-5">
+<div class="social-share-wrapper my-5 flex justify-center">
   <SocialShare
     description={frontmatter.description}
     title={frontmatter.title}

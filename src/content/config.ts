@@ -25,6 +25,7 @@ const blogCollection = defineCollection({
 		teamSize: z.number().optional(),
 		timeFrame: z.string().optional(),
 		toolUsed: z.string().optional(),
+		isProject: z.boolean().default(false),
 	})
 });
 

@@ -7,6 +7,7 @@ heroImage: "/src/assets/images/catfight/CatfightGame.gif"
 teamSize: 1
 timeFrame: "1 month"
 toolUsed: "C++/SFML"
+isProject: true
 ---
 
 import Button from "../../components/Button.astro";
@@ -33,7 +34,7 @@ After having fun with that little game, I started implementing **CatFight**.
 
 import {SocialShare} from "astro-social-share";
 
-<div class="social-share-wrapper my-4">
+<div class="social-share-wrapper my-4 flex justify-center my-5">
   <SocialShare
     description={frontmatter.description}
     title={frontmatter.title}

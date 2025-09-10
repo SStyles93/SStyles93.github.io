@@ -12,6 +12,7 @@ const {
 	teamSize,
 	timeFrame,
 	toolUsed,
+	isBlog
 } = Astro.props;
 dayjs.extend(localizedFormat);
 const displayDate = dayjs(creationDate).format("MMMM YYYY");

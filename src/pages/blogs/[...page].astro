@@ -4,19 +4,18 @@ import Button from "../../components/Button.astro";
 import type { BlogSchema } from "../../content/config";
 import { getCollection, render } from "astro:content";
 import dayjs from "dayjs";
+import { SocialShare } from "astro-social-share";
 
 interface Pages {
   data: BlogSchema[];
 }
 
 export async function getStaticPaths({ paginate }) {
-  let blogs = await getCollection("blogs");
+  const blogs = await getCollection("blogs");
 
   blogs.sort((a: BlogSchema, b: BlogSchema) => {
     if (a.data.order === b.data.order) {
-      const aDate = dayjs(a.data.creationDate);
-      const bDate = dayjs(b.data.creationDate);
-      return bDate.valueOf() - aDate.valueOf(); // newest first
+      return dayjs(b.data.creationDate).valueOf() - dayjs(a.data.creationDate).valueOf();
     }
     return a.data.order - b.data.order;
   });
@@ -35,31 +34,58 @@ const { page } = Astro.props;
   <div class="text-3xl w-full font-bold mb-5">Posts</div>
 
   <ul class="space-y-12">
-    {await Promise.all(page.data.map(async (blog: BlogSchema) => {
-      const { Content } = await render(blog);
+    {await Promise.all(
+      page.data.map(async (blog: BlogSchema) => {
+        const { Content } = await render(blog);
+        const isProject = blog.data.isProject === true;
 
-      return (
-        <li class="border rounded-xl shadow p-6 prose max-w-none">
-          <h2 class="text-2xl font-bold mb-4">
-            {blog.data.title}
-          </h2>
+        return (
+          <li class="border rounded-xl shadow p-6 prose max-w-none">
+            <h2 class="text-2xl font-bold mb-4">{blog.data.title}</h2>
 
-          <!-- Full blog content including SocialShare -->
-          <div class="mdx-content">
-            <Content />
-          </div>
+            {/** MDX preview container */}
+            <div class={isProject?"":"mdx-preview"}>
+              <Content />
+            </div>
 
-          <div class="text-sm text-gray-500 mt-6">
-            Created on {dayjs(blog.data.creationDate).format("MMMM YYYY")}
-          </div>
-        </li>
-      );
-    }))}
+            {!isProject && (
+              <>
+                <div class="flex justify-center my-5 preview-only">
+                  <Button href={`/blogs/${blog.slug}/`}>Read More</Button>
+                </div>
+
+                <div class="social-share-wrapper my-5 flex justify-center preview-only">
+                  <SocialShare
+                    description={blog.data.description}
+                    title={blog.data.title}
+                  />
+                </div>
+              </>
+            )}
+
+            <div class="text-sm text-gray-500 mt-6">
+              Created on {dayjs(blog.data.creationDate).format("MMMM YYYY")}
+            </div>
+          </li>
+        );
+      })
+    )}
   </ul>
 
-  <!-- Pagination -->
   <nav class="flex justify-between mt-12">
     {page.url.prev ? <Button href={page.url.prev}>← Previous</Button> : <span />}
     {page.url.next ? <Button href={page.url.next}>Next →</Button> : <span />}
   </nav>
+
+  <style is:global>
+    /* Truncate everything after the 3rd child (paragraph, heading, image, etc.) */
+    .mdx-preview > *:nth-child(n+3) {
+      display: none;
+    }
+
+    /* Optional: add some spacing for the preview-only controls */
+    .preview-only {
+      margin-top: 1rem;
+    }
+  </style>
 </BaseLayout>
