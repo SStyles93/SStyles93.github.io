@@ -23,7 +23,7 @@ const displayDate = dayjs(creationDate).format("MMMM YYYY");
 <nav id="toc" class="toc-sidebar">
   <div class="toc-header">
     <small><b>Table of Content:</b></br>{title}</small>
-    <button id="toc-toggle" aria-label="Toggle TOC">📕</button>
+    <button id="toc-toggle" aria-label="Toggle TOC">📖</button>
   </div>
   <ul></ul>
 </nav>
@@ -138,7 +138,7 @@ const displayDate = dayjs(creationDate).format("MMMM YYYY");
 <script type="module">
 const content = document.getElementById('post-content');
 const toc = document.querySelector('#toc ul');
-const headings = content.querySelectorAll('h2, h3');
+const headings = content?.querySelectorAll('h2, h3');
 
 // Simple slugify function to create safe IDs
 function slugify(text) {
@@ -151,14 +151,14 @@ function slugify(text) {
 }
 
 // Ensure headings have valid IDs
-headings.forEach(h => {
+headings?.forEach(h => {
   let rawId = h.id || slugify(h.textContent);
   if (/^\d/.test(rawId)) rawId = '_' + rawId;
   h.id = rawId;
 });
 
 // Build TOC
-headings.forEach(h => 
+headings?.forEach(h => 
 {
   if (h.tagName.toLowerCase() === 'h2') 
 {
@@ -174,9 +174,9 @@ headings.forEach(h =>
     subUl.classList.add('sub-toc', 'hidden'); // start hidden
     li.appendChild(subUl);
 
-    toc.appendChild(li);
+    toc?.appendChild(li);
 	} else if (h.tagName.toLowerCase() === 'h3') {
-		const lastH2 = toc.querySelector('li:last-child ul.sub-toc');
+		const lastH2 = toc?.querySelector('li:last-child ul.sub-toc');
 		if (lastH2) 
 			{
 				const li = document.createElement('li');
@@ -227,7 +227,7 @@ function updateTOC() {
 
     if (h.tagName.toLowerCase() === 'h2') {
       link.classList.toggle('active', headingArray[currentH2Index] === h);
-      const subToc = link.parentElement.querySelector('.sub-toc');
+      const subToc = link.parentElement?.querySelector('.sub-toc');
       if (subToc) {
         subToc.classList.toggle('hidden', headingArray[currentH2Index] !== h);
       }
@@ -257,7 +257,7 @@ window.addEventListener('scroll', () => {
 
   if (lastVisibleH2Index !== currentH2Index) {
     currentH2Index = lastVisibleH2Index;
-    updateTOC(currentH2Index);
+    updateTOC();
   }
 });
 
@@ -278,12 +278,12 @@ const tocNav = document.getElementById('toc');
 const tocToggle = document.getElementById('toc-toggle');
 const savedState = localStorage.getItem('toc-collapsed');
 if (savedState === 'true') {
-  tocNav.classList.add('collapsed');
+  tocNav?.classList.add('collapsed');
   tocToggle.textContent = '📕';
 }
 
 tocToggle?.addEventListener('click', () => {
-  tocNav.classList.toggle('collapsed');
+  tocNav?.classList.toggle('collapsed');
   const isCollapsed = tocNav.classList.contains('collapsed');
   tocToggle.textContent = isCollapsed ? '📕' : '📖';
   localStorage.setItem('toc-collapsed', isCollapsed);
