@@ -1,3 +1,6 @@
+export { default as alchemisteddy_Cauldron_png } from "./alchemisteddy/Cauldron.png";
+export { default as alchemisteddy_Cauldron_Gizmo_png } from "./alchemisteddy/Cauldron_Gizmo.png";
+export { default as alchemisteddy_Cauldron_Shader_png } from "./alchemisteddy/Cauldron_Shader.png";
 export { default as bachelorproject_Banner_png } from "./bachelorproject/Banner.png";
 export { default as bachelorproject_Picture1_png } from "./bachelorproject/Picture1.png";
 export { default as bachelorproject_Picture10_png } from "./bachelorproject/Picture10.png";
