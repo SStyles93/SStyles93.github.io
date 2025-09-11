@@ -1,0 +1,98 @@
+---
+title: "Unity Tips - Making Your Unity Inspector Cleaner with Headers"
+description: "How ScriptableObjects and Inspector Attributes Make Unity Game Development Cleaner and Safer"
+creationDate: "Sep 11 2025"
+order: 0
+heroImage: "/src/assets/images/sga2025/SgaLab.png"
+teamSize: 2
+timeFrame: "5 days"
+toolUsed: "Unity/C#/Powershell"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+import SketchfabEmbed from "../../components/SketchfabViewer.astro";
+
+<SketchfabEmbed
+  uid="c3f626fabe9d40a0b0d37541a6c95899"
+  title="Crafting Table"
+  author="Ada J."
+  authorUrl="https://sketchfab.com/johannapalminha"
+  modelUrl="https://sketchfab.com/3d-models/crafting-table-c3f626fabe9d40a0b0d37541a6c95899"
+/>
+
+For the Swiss Game Academy, I had to build a project to teach students some good practices to use in Unity. 
+The first chapter of [the course](/projects/alchemisteddy) was focused on [Attributes](https://docs.unity3d.com/6000.2/Documentation/Manual/unity-attributes.html), 
+[ScriptableObjects](https://docs.unity3d.com/6000.2/Documentation/Manual/class-ScriptableObject.html), 
+[Enums](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/enum) and 
+[Inheritance](https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)).  
+This post talks about the Unity Attributes.
+
+### Example
+
+When building tools or data-driven systems in Unity, the Inspector can quickly become cluttered. 
+Luckily, Unity provides attributes like `[Header]`, `[Tooltip]`, `[Range]`, and more
+to make your scripts much more user-friendly!  
+
+Here’s a quick example with a ScriptableObject Item:
+
+```js
+[CreateAssetMenu(fileName = "New Item", menuName = "Alchemist's Inventory/Item")]
+public class ItemData : ScriptableObject
+{
+    [Header("Core Item Information")]
+    [Tooltip("The name of the item shown in the UI.")]
+    public string itemName;
+
+    [Tooltip("The description of the item.")]
+    [TextArea(3, 5)]
+    public string description;
+
+    [Tooltip("The monetary value of the item.")]
+    [Range(0, 999)]
+    public int value;
+
+    [Space(15)]
+    [Header("Item Graphical Settings")]
+    [Tooltip("The icon that represents this item.")]
+    public Sprite icon;
+
+    [Tooltip("The prefab spawned in the world.")]
+    public GameObject prefab;
+
+    [Tooltip("Trail colors when the object is spawned.")]
+    [ColorUsage(true, true)]
+    public Color[] trailColors = new Color[2];
+}
+```
+### Result
+Here are the results:
+_Before using attributes_ | _After using attributes_
+:-----:|:-----:
+<MdImage src={images.unitytips_ItemData_NoHeader_png} alt="" class="flex justify-center"/> | <MdImage src={images.unitytips_ItemData_Header_png} alt="" class="flex justify-center"/>
+
+In this case fields are still readable but this is a simple item. On much larger ones, the result might be much more confusing.  
+
+### Conclusion
+
+That is why we use Attributes like:
+-  `[Header("The name of the header")]` To creates categories in the Inspector for readability
+- `[Tooltip]` To add hover descriptions _(great for designers on your team)_
+- `[Space]` to add visual separation between sections.
+- `[Range]` to add a slider, preventing invalid values
+- `[TextArea]` to let you write multi-line text fields
+- `[ColorUsage]` to enable HDR colors for vibrant effects
+
+These tiny attributes may look simple, but they dramatically improve workflow and collaboration, especially when working with non-programmers.  
+There are multiple other attributes that can be useful and a github page lists some of the most useful ones [HERE](https://github.com/teebarjunk/Unity-Built-In-Attributes) 
+
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>
