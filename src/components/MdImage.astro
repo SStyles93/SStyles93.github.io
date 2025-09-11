@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 const props = Astro.props;
 ---
 
-<div data-lightbox="true">
+<div data-lightbox="true" class={props.class}>
 	<Image
 		src={props.src}
 		widths={[240, 540, 720, 1600, props.widths]}
