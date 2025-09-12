@@ -1,10 +1,16 @@
 declare module "*";
 
 export declare const images: {
+  alchemisteddy_Cauldron_gif: string;
   alchemisteddy_Cauldron_png: string;
   alchemisteddy_Cauldron_Gizmo_png: string;
   alchemisteddy_Cauldron_Plate_png: string;
   alchemisteddy_Cauldron_Shader_png: string;
+  alchemisteddy_StorageChest_png: string;
+  alchemisteddy_StorageChest_Animation_gif: string;
+  alchemisteddy_StorageChest_Gizmo_png: string;
+  alchemisteddy_StorageChest_GizmoMod_gif: string;
+  alchemisteddy_StorageChest_Spawn_gif: string;
   alchemisteddy_Table_png: string;
   bachelorproject_Banner_png: string;
   bachelorproject_Picture1_png: string;

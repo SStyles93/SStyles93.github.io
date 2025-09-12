@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { Image } from "astro:assets";
+import { SocialShare } from "astro-social-share";
 
 const {
 	title,
@@ -121,6 +122,12 @@ const displayDate = dayjs(creationDate).format("MMMM YYYY");
 			}
 			<div class="divider my-2"></div>
 			<slot />
+			<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+  </div>
 		</article>
 	</main>
 </BaseLayout>

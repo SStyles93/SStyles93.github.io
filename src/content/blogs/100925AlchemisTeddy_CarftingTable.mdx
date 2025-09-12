@@ -29,7 +29,7 @@ while hand-painted details and a custom cauldron shader add artistic depth and a
 Built through close **collaboration** between **art** and **programming**, this piece reflects our ability to merge technical constraints with creative direction. 
 It demonstrates a pipeline suitable for real-time applications, optimized performance, and modular scene integration.
 
-This crafting table features two scripts and one shader.
+This crafting table features two scripts and one shader as explained below.
 
 ## Scripts
 
@@ -255,6 +255,11 @@ The shader is applied directly to the cauldron mesh and linked to the crafting l
 This dynamic response turns the crafting table into more than just a container of ingredients: 
 it becomes a living part of the scene, reinforcing feedback loops between art, design, and code.
 
+<div class="flex justify-center">
+<MdImage src={images.alchemisteddy_Cauldron_gif} alt="" class="w-3/4"/>
+</div>
+
+
 ## Conclusion
 
 The alchemist’s crafting table represents more than a single asset, it’s a proof of concept for our pipeline.  
@@ -268,3 +273,12 @@ This balance of technical clarity and artistic direction is central to how we ap
 Each piece is designed not just to look good, but to integrate smoothly into a playable environment, optimized, extensible, and ready for iteration.
 
 **In short**: the crafting table is a small **example of how code and art converge** to create interactive storytelling elements in games.
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+  </div>

@@ -1,7 +1,13 @@
+export { default as alchemisteddy_Cauldron_gif } from "./alchemisteddy/Cauldron.gif";
 export { default as alchemisteddy_Cauldron_png } from "./alchemisteddy/Cauldron.png";
 export { default as alchemisteddy_Cauldron_Gizmo_png } from "./alchemisteddy/Cauldron_Gizmo.png";
 export { default as alchemisteddy_Cauldron_Plate_png } from "./alchemisteddy/Cauldron_Plate.png";
 export { default as alchemisteddy_Cauldron_Shader_png } from "./alchemisteddy/Cauldron_Shader.png";
+export { default as alchemisteddy_StorageChest_png } from "./alchemisteddy/StorageChest.png";
+export { default as alchemisteddy_StorageChest_Animation_gif } from "./alchemisteddy/StorageChest_Animation.gif";
+export { default as alchemisteddy_StorageChest_Gizmo_png } from "./alchemisteddy/StorageChest_Gizmo.png";
+export { default as alchemisteddy_StorageChest_GizmoMod_gif } from "./alchemisteddy/StorageChest_GizmoMod.gif";
+export { default as alchemisteddy_StorageChest_Spawn_gif } from "./alchemisteddy/StorageChest_Spawn.gif";
 export { default as alchemisteddy_Table_png } from "./alchemisteddy/Table.png";
 export { default as bachelorproject_Banner_png } from "./bachelorproject/Banner.png";
 export { default as bachelorproject_Picture1_png } from "./bachelorproject/Picture1.png";

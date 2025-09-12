@@ -1,0 +1,216 @@
+---
+title: "Storage Chest - AlchemisTeddy"
+description: "The creation of a game ready Storage Chest"
+creationDate: "Sep 11 2025"
+order: 0
+heroImage: "/src/assets/images/alchemisteddy/StorageChest.png"
+teamSize: 2
+timeFrame: "5 days"
+toolUsed: "Unity/C#/Powershell"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+import SketchfabEmbed from "../../components/SketchfabViewer.astro";
+
+This animated low-poly alchemist’s chest is designed for real-time gameplay.
+
+The model uses flat colors to ensure clear readability of interactive elements, while hand-painted details 
+(potion bottle, mushroom) highlight secondary features for added clarity and interest.  
+The animation was implemented with gameplay integration in mind, showcasing both technical setup and artistic direction. 
+Optimized for performance, this asset represents an early test of the art–code pipeline within a larger playable WIP project.
+
+<SketchfabEmbed
+  uid="86f157c2721140458feabc4fe3672a6b"
+  title="Crafting Table"
+  author="Jo. A"
+  authorUrl="https://www.artstation.com/jo_a_visuals"
+  modelUrl="https://sketchfab.com/3d-models/storage-chest-alchemisteddy-86f157c2721140458feabc4fe3672a6b"
+/>
+
+This game-ready asset is composed of 3 scripts and an animator system as explained below.
+
+## Script
+
+The chest functionality relies on three primary scripts:
+- **TreasureChest.cs** – handles activation, damage, and persistence.
+- **ItemSpawner.cs** – spawns items along a parabolic arc with visual feedback.
+- **ChestAnimator.cs** – links the chest’s open/close state to an Animator.
+
+This separation ensures **modularity**: each script has a clear responsibility, making the system easy to extend or reuse.
+
+### TreasureChest.cs
+
+The TreasureChest script implements multiple small interfaces 
+(`IActivatable`, `IDamageable`, `ISaveable`) to define its behavior without forcing unused methods.  
+It controls:
+- **Opening/closing** in response to player interaction.
+- **Item spawning** when opened.
+- **Damage handling** via TakeDamage.
+- **State persistence** for saving/loading game sessions.
+
+
+
+#### Examples 
+Toggling the chest open state and spawning items is handled elegantly with events:
+```csharp
+    /// <summary>
+    /// Activates the chest component
+    /// </summary>
+    /// <param name="activator"></param>
+    public void Activate(GameObject activator)
+    {
+        // Return if chest has health
+        if (currentHealth > 0) return;
+        OnChestChangeState?.Invoke(isOpen = !isOpen);
+
+        if (items.Count > 0)
+        {   // Spawn Items in the items list
+            foreach (ItemData item in items)
+            {
+                itemSpawner.SpawnItem(item);
+            }
+            items.Clear();
+        }
+    }
+```
+<div class="flex justify-center">
+<MdImage src={images.alchemisteddy_StorageChest_Animation_gif} alt="" class="w-full"/>
+</div>
+
+Persistence is managed through a lightweight string-based serialization system, mapping item IDs back to assets at load time:
+```csharp
+public Dictionary<string, string> CaptureState()
+{
+    List<string> itemIDs = items.Select(item => item.ItemID).ToList();
+    string itemStateString = string.Join(",", itemIDs);
+
+    return new Dictionary<string, string>
+    {
+        { "isOpen", isOpen.ToString() },
+        { "items", itemStateString }
+    };
+}
+```
+
+
+This design demonstrates clean event-driven programming, modularity, and runtime + persistent state management without bloating the script.
+
+### ItemSpawner.cs
+
+ItemSpawner allows items to be launched along a customizable parabolic arc, providing dynamic feedback to the player.
+
+<div class="flex justify-center">
+<MdImage src={images.alchemisteddy_StorageChest_Spawn_gif} alt="" class="w-3/4"/>
+</div>
+
+**Key features** include:
+- **Randomized landing positions** within a radius.
+- **Configurable arc** height and travel duration.
+- **Coroutine-based movement** with optional trail effects.
+- **Editor Gizmos** for setup visualization.
+
+
+
+#### Example
+
+This code snippet show how the arc is drawn in the Editor with Gizmos.
+```csharp
+   /// <summary>
+   /// Draws Gizmos in the editor when the object is selected to visualize the spawn trajectory.
+   /// </summary>
+   private void OnDrawGizmos()
+   {
+       // Ensure we have a spawn point to draw from.
+       if (spawnPoint == null) return;
+
+       // --- Draw the Landing Zone ---
+       Handles.color = Color.green;
+       // The third parameter is the "normal" or the direction the circle should face. Vector3.up makes it flat on the XZ plane.
+       Handles.DrawWireDisc(landingPoint.position, Vector3.up, landingRadius);
+
+       // --- Draw the Arc Path ---
+       Gizmos.color = Color.cyan;
+       Vector3 previousPoint = spawnPoint.position;
+
+       // Loop through a number of steps to draw the arc.
+       for (int i = 1; i <= gizmoPathResolution; i++)
+       {
+           // Calculate the 't' value (normalized progress) for this step.
+           float t = (float)i / gizmoPathResolution;
+
+           // Use the same math as the coroutine to calculate the point on the arc.
+           Vector3 linearPosition = Vector3.Lerp(spawnPoint.position, landingPoint.position, t);
+           float arc = 4 * arcHeight * (t - (t * t));
+           Vector3 currentPoint = linearPosition + new Vector3(0, arc, 0);
+
+           // Draw a line from the previous point to the current one.
+           Gizmos.DrawLine(previousPoint, currentPoint);
+           previousPoint = currentPoint;
+       }
+   }
+```
+
+This system is modular, so any item with a prefab can be launched without additional scripting, and designers can adjust trajectories visually in the editor.
+
+<div class="flex justify-center">
+<MdImage src={images.alchemisteddy_StorageChest_GizmoMod_gif} alt="" class="w-3/4"/>
+</div>
+
+## Animation
+
+Chest animations are handled by a small, dedicated script: ChestAnimator.cs. Its job is simple but crucial: respond to chest state changes and update the Animator parameters.
+
+```csharp
+public void OpenChest(bool value)
+{
+    animator.SetBool(isOpenHash, value);
+}
+```
+
+The animator listens to the same `OnChestChangeState` event from [TreasureChest.cs](#treasurechestcs), **ensuring decoupling between gameplay logic and animation**. 
+This event-driven approach allows the animation system to be reused or swapped without touching the chest’s core logic.
+
+### Optimization
+
+A small but important optimization is applied in the animation system:
+
+```csharp
+void Start()
+{
+    isOpenHash = Animator.StringToHash("isOpen");
+}
+```
+
+By caching the parameter hash once at startup, the script avoids repeated string lookups each frame. 
+This is **much more performant in real-time gameplay**, especially when multiple chests exist in the scene. 
+It’s a simple change that demonstrates attention to **both technical efficiency and scalable design**.
+
+### Design Considerations
+
+This setup demonstrates modular, scalable architecture:
+- **TreasureChest**: gameplay logic, persistence, damage.
+- **ItemSpawner**: visual and interactive feedback for items.
+- **ChestAnimator**: purely visual animation tied to game state.
+
+By separating responsibilities and using events, the system is robust, easy to debug, and ready to extend with new features such as alternative animations, 
+loot systems, or multiplayer synchronization.
+
+## Conclusion
+
+The alchemist’s storage chest is more than a decorative prop, it’s a **fully integrated gameplay system**.
+- The **scripts** handle activation, durability, persistence, and item spawning, making the chest modular and adaptable to different design needs.
+- The **animation system** cleanly ties into gameplay events, with optimizations that ensure smooth, scalable performance in real-time scenes.
+
+Together, these elements show how **art and code converge** in a single prefab. The chest is readable, 
+performant, and ready for integration into a larger playable environment, demonstrating a pipeline that balances **technical rigor with creative direction**.
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+  </div>
