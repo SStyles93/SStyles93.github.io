@@ -17,70 +17,47 @@ const {
   author,
   authorUrl,
   modelUrl,
-  width = "640",
-  height = "480",
-  projectColor="color: #f8f8f8ff;",
+  width = "600",
+  height = "300",
+  projectColor="#f8f8f8ff;",
   authorColor="color: #ffb222ff;"
 } = Astro.props;
 ---
-<div class="flex justify-center">
-<div class="sketchfab-embed-wrapper">
-  <iframe
-    title={title}
-    frameborder="0"
-    allowfullscreen
-    mozallowfullscreen="true"
-    webkitallowfullscreen="true"
-    allow="autoplay; fullscreen; xr-spatial-tracking"
-    xr-spatial-tracking
-    execution-while-out-of-viewport
-    execution-while-not-rendered
-    web-share
-    width={width}
-    height={height}
-    src={`https://sketchfab.com/models/${uid}/embed`}
-  >
-  </iframe>
-  <p class="sketchfab-attrib flex justify-center">
+<div class="flex flex-col items-center">
+  <div class="sketchfab-embed-wrapper">
+    <iframe
+      title={title}
+      frameborder="0"
+      allowfullscreen
+      mozallowfullscreen="true"
+      webkitallowfullscreen="true"
+      allow="autoplay; fullscreen; xr-spatial-tracking"
+      xr-spatial-tracking
+      execution-while-out-of-viewport
+      execution-while-not-rendered
+      web-share
+      width={width}
+      height={height}
+      src={`https://sketchfab.com/models/${uid}/embed`}
+    ></iframe>
+  </div>
+  <p class="sketchfab-attrib mt-2 text-center">
     <a
       href={modelUrl}
       target="_blank"
       rel="nofollow"
-      style={`${projectColor}; font-weight: bold; text-decoration:underline;`}
+      style={`${projectColor}; font-weight: bold; text-decoration: underline;`}
     >
       {title}
     </a>
-    &nbsp;
-    by
-    &nbsp;
+    &nbsp;by&nbsp;
     <a
       href={authorUrl}
       target="_blank"
       rel="nofollow"
-      style={`${authorColor}; font-weight: bold; text-decoration:underline;`}
+      style={`${authorColor}; fontWeight: bold; text-Decoration: underline;`}
     >
       {author}
-    </a>{" "}
+    </a>
   </p>
 </div>
-</div>
-<style>
-  .sketchfab-embed-wrapper {
-    max-width: 100%;
-    margin: 1rem auto;
-    text-align: center;
-  }
-  .sketchfab-embed-wrapper iframe {
-    border: none;
-    border-radius: 0.5rem;
-  }
-  .sketchfab-attrib {
-    font-size: 13px;
-    font-weight: normal;
-    margin: 5px;
-    color: #4A4A4A;
-  }
-  .sketchfab-attrib a {
-    text-decoration: none;
-  }
-</style>
