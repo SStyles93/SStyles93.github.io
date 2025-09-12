@@ -1,0 +1,56 @@
+---
+title: "Bottles Shader & Script - AlchemisTeddy"
+description: "The creation of a game ready Storage Chest"
+creationDate: "Sep 12 2025"
+order: 0
+heroImage: "/src/assets/images/alchemisteddy/Bottles_InGame.gif"
+teamSize: 2
+timeFrame: "5 days"
+toolUsed: "Unity/C#/Powershell"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+import SketchfabEmbed from "../../components/SketchfabViewer.astro";
+
+Developed as part of the asset range of AlchemisTeddy, this set of bottles combines hand-painted and shader-driven approaches. 
+Five bottles have subtle shading variations, each featuring a specific hand-painted detail. In addition, two bottles use a custom shader.
+
+<SketchfabEmbed
+  uid="fb070996a5104e37a994d0e9999c9d4e"
+  title="Shader - LowPoly"
+  author="Jo. A"
+  authorUrl="https://www.artstation.com/jo_a_visuals"
+  modelUrl="hhttps://sketchfab.com/3d-models/bottles-handpainted-shader-lowpoly-fb070996a5104e37a994d0e9999c9d4e"
+/>
+
+The shader was designed with flexibility in mind: it simulates a nebulous liquid that can be adjusted for fill level, 
+allowing the same model to represent multiple potion types. The artist provided custom noise textures, which are integrated into the shader to 
+ensure visual differentiation across the bottles.
+
+<div class="flex justify-center">
+<MdImage src={images.alchemisteddy_Bottles_InGame_gif} alt="" class="w-full"/>
+</div>
+
+
+This workflow highlights how art and code decisions were made together to achieve both creative direction and technical efficiency. 
+The bottles are optimized for real-time use and form part of a larger playable project (WIP).
+
+
+<div class="flex justify-center">
+<MdImage src={images.alchemisteddy_Bottles_gif} alt="" class="w-3/4"/>
+</div>
+
+<div class="flex justify-center">
+<MdImage src={images.alchemisteddy_Bottles_Wobble_gif} alt="" class="w-3/4"/>
+</div>
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+  </div>

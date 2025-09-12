@@ -1,6 +1,10 @@
 declare module "*";
 
 export declare const images: {
+  alchemisteddy_Bottles_gif: string;
+  alchemisteddy_Bottles_InGame_gif: string;
+  alchemisteddy_Bottles_InGame_png: string;
+  alchemisteddy_Bottles_Wobble_gif: string;
   alchemisteddy_Cauldron_gif: string;
   alchemisteddy_Cauldron_png: string;
   alchemisteddy_Cauldron_Gizmo_png: string;

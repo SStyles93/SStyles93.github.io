@@ -1,3 +1,7 @@
+export { default as alchemisteddy_Bottles_gif } from "./alchemisteddy/Bottles.gif";
+export { default as alchemisteddy_Bottles_InGame_gif } from "./alchemisteddy/Bottles_InGame.gif";
+export { default as alchemisteddy_Bottles_InGame_png } from "./alchemisteddy/Bottles_InGame.png";
+export { default as alchemisteddy_Bottles_Wobble_gif } from "./alchemisteddy/Bottles_Wobble.gif";
 export { default as alchemisteddy_Cauldron_gif } from "./alchemisteddy/Cauldron.gif";
 export { default as alchemisteddy_Cauldron_png } from "./alchemisteddy/Cauldron.png";
 export { default as alchemisteddy_Cauldron_Gizmo_png } from "./alchemisteddy/Cauldron_Gizmo.png";
