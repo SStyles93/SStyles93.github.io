@@ -1,0 +1,273 @@
+---
+title: "Crafting Table - AlchemisTeddy"
+description: "The creation of a game ready Crafting Table"
+creationDate: "Sep 10 2025"
+order: 0
+heroImage: "/src/assets/images/alchemisteddy/Table.png"
+teamSize: 2
+timeFrame: "5 days"
+toolUsed: "Unity/C#/Powershell"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+import SketchfabEmbed from "../../components/SketchfabViewer.astro";
+
+This stylized low-poly prefab represents an alchemist’s crafting table, designed as part of a larger playable project.
+The asset balances functionality and aesthetics: flat colors clearly highlight interactive elements for gameplay, 
+while hand-painted details and a custom cauldron shader add artistic depth and atmosphere.
+
+
+<SketchfabEmbed
+  uid="c3f626fabe9d40a0b0d37541a6c95899"
+  title="Crafting Table"
+  author="Jo. A"
+  authorUrl="https://www.artstation.com/jo_a_visuals"
+  modelUrl="https://sketchfab.com/3d-models/crafting-table-c3f626fabe9d40a0b0d37541a6c95899"
+  width="600"
+  height="300"
+/>
+
+Built through close **collaboration** between **art** and **programming**, this piece reflects our ability to merge technical constraints with creative direction. 
+It demonstrates a pipeline suitable for real-time applications, optimized performance, and modular scene integration.
+
+This crafting table features two scripts and one shader.
+
+## Scripts
+
+The crafting table relies on **two key scripts**: one managing the overall crafting logic, and another handling individual ingredient slots.  
+Together, they form the core gameplay loop: the player places items on stations, activates the table, and, if a valid recipe exists, receives the crafted result.
+
+This modular approach makes the system highly reusable: ingredient stations can be added or removed without rewriting the crafting logic, 
+and the whole table integrates seamlessly with the player’s inventory and save system.
+
+### CraftingTable.cs
+
+The CraftingTable script serves as the **central brain** of the system. When the player interacts with the table, 
+the script collects all items currently placed on connected ingredient stations and compares them against the list of available recipes in the player’s inventory.
+
+<div class="flex justify-center">
+<MdImage src={images.alchemisteddy_Cauldron_png} alt="" class="w-3/4"/>
+</div>
+
+If a recipe match is found, the system consumes the ingredients, clears the stations, and either:  
+**Grants the crafted item** directly to the player’s inventory, or
+**Spawns the item** in the world through an optional ItemSpawner component.
+
+This separation ensures flexibility: designers can choose whether results should be instantly stored or physically spawned into the scene.
+
+The **Key responsibilities** of this script include:
+
+- **Querying** all ingredient stations.
+- **Validating** combinations against available recipes.
+- **Handling** success and failure feedback.
+- **Maintaining** modularity via the IActivatable interface.
+
+For example, the recipe-matching function is deliberately kept small and clear:
+```csharp
+/// <summary>
+/// Checks the provided ingredients against all available recipes.
+/// </summary>
+/// <returns>The matching CraftingRecipe, or null if no match is found.</returns>
+private CraftingRecipe FindMatchingRecipe(List<ItemData> ingredients)
+{
+    foreach (var recipe in playerInventory.GetAvailableRecipes())
+    {
+        // Check if the recipe can be crafted with the ingredients.
+        // Also ensure the number of ingredients matches to prevent crafting with extra items on the table.
+        if (recipe.ingredients.Count == ingredients.Count && recipe.CanCraft(ingredients))
+        {
+            return recipe;
+        }
+    }
+    return null;
+}
+```
+
+This concise check ensures no false positives occur if extra items are placed, while still making it easy to extend with new recipe logic.
+
+This orchestration keeps the crafting logic clean and self-contained, while remaining adaptable to future extensions 
+(e.g., timed crafting, animations, or multiplayer interactions).
+
+### IngredientStation.cs
+
+Each IngredientStation **acts as a slot** where players can place or remove items. 
+The script ensures only valid ingredient-type items can be placed, instantiates a corresponding 3D prefab for feedback, 
+and returns items to the inventory if removed.
+
+<div class="flex justify-center">
+<MdImage src={images.alchemisteddy_Cauldron_Plate_png} alt="" class="w-3/4"/>
+</div>
+
+From a **gameplay perspective**, this makes the system intuitive: the player sees the ingredients laid out visually on the table, ready for combination.
+
+From a **technical perspective**, the script includes:
+- **Interaction handling**: opening the inventory UI when empty, returning items when full.
+- **Visual updates**: spawning item prefabs at a defined slot location.
+- **Persistence**: implementing `ISaveable` to record which item was present at save time and restoring it on load.
+- **Editor feedback**: using `OnDrawGizmos` to visualize station states (empty vs filled) directly in the Unity scene view.
+
+The placement method shows this defensive approach clearly:
+
+```csharp
+    /// <summary>
+    /// Places an item on this station.
+    /// </summary>
+    public void PlaceItem(ItemData item, PlayerInventoryManager placerInventory = null)
+    {
+        // We should only accept items that are ingredients.
+        if (item.itemType == ItemType.Ingredient)
+        {
+            currentItem = item;
+            Debug.Log($"Placed {item.itemName} on station {gameObject.name}.");
+
+            // Update visual model.
+            if(currentWorldItem != null) { Destroy(currentWorldItem); currentWorldItem = null; }
+            currentWorldItem = Instantiate(currentItem.prefab, worldItemPosition.transform.position, Quaternion.identity, worldItemPosition.transform);
+            currentWorldItem.GetComponent<WorldItem>().enabled = false;
+            currentWorldItem.layer = 0;
+        }
+        else
+        {
+            Debug.LogWarning($"{item.name} is not an ingredient and cannot be placed here.");
+            // If a non-ingredient was somehow selected, give it back to the player.
+            placerInventory.AddItem(item);
+        }
+    }
+```
+
+It validates the item type, cleans up any existing world object, and re-instantiates the prefab in the correct position, all while gracefully handling invalid cases.
+
+To support **saving** and **loading**, the station also implements lightweight persistence:
+#### Saving
+
+```csharp
+    /// <summary>
+    /// Captures the state of the ingredient station for saving.
+    /// </summary>
+    /// <returns>A dictionary containing the ID of the item on the station, or an empty dictionary if there is no item.</returns>
+    public Dictionary<string, string> CaptureState()
+    {
+        var state = new Dictionary<string, string>();
+        // Check if there is an item currently on the station.
+        if (currentItem != null)
+        {
+            // If there is, save its unique ItemID string.
+            // use of a clear key like "currentItemId" to know what this data represents.
+            state.Add("currentItemId", currentItem.ItemID);
+        }
+        // If currentItem is null, simply return an empty dictionary.
+        // The absence of the key on load will tell the station was empty.
+        return state;
+    }
+```
+#### Loading
+```csharp
+    /// <summary>
+    /// Restores the state of the ingredient station from loaded data.
+    /// </summary>
+    /// <param name="state">The dictionary containing the saved data.</param>
+    public void RestoreState(Dictionary<string, string> state)
+    {
+        // Check if the loaded data contains a value for our item.
+        if (state.TryGetValue("currentItemId", out string savedItemId))
+        {
+            // If an ID was saved, we need to find the corresponding ItemData asset.
+            // /!\ This lookup logic should be centralized for efficiency /!\
+            // For simplicity we can use Resources.FindObjectsOfTypeAll here at the moment.
+            var allItems = Resources.FindObjectsOfTypeAll<ItemData>();
+            ItemData foundItem = null;
+            foreach (var itemAsset in allItems)
+            {
+                if (itemAsset.ItemID == savedItemId)
+                {
+                    foundItem = itemAsset;
+                    break; // Found the item, no need to search further.
+                }
+            }
+            if (foundItem != null)
+            {
+                // If matching ItemData asset was found, place it on the station.)
+                PlaceItem(foundItem);
+            }
+            else
+            {
+                Debug.LogWarning($"IngredientStation {gameObject.name} could not find an ItemData asset with saved ID: {savedItemId}. Station will be empty.");
+                currentItem = null; // Ensure station is empty if item not found.
+                if(currentWorldItem != null) Destroy(currentWorldItem);  
+            }
+        }
+        else
+        {
+            // If no ID was found in the save data, it means the station was empty.
+            // Ensure the currentItem is null.
+            currentItem = null;
+            if (currentWorldItem != null) Destroy(currentWorldItem);
+        }
+    }
+```
+
+This approach keeps data handling minimal while still robust. Items are identified by their unique ID, 
+making it straightforward to restore them into the scene, or cleanly reset the station if the asset can’t be found.
+
+This focus on modularity means the same component could be reused in different contexts such as potion brewing, 
+blacksmithing, or even non-crafting interactions like puzzle pedestals.
+
+### Design Considerations
+
+Both scripts emphasize **extensibility** and **clarity**.  
+By relying on interfaces (IActivatable, ISaveable) and modular components, 
+the system remains lightweight, testable, and adaptable. 
+Designers can extend the crafting experience by simply creating new recipes or stations, without touching core logic.
+
+In practice, this allows the crafting table to serve as more than a one-off object: it becomes a scalable foundation for a wide range 
+of interactive systems across the project.
+
+## Shader
+
+While the scripts define the crafting logic, the shader brings the table’s visual identity to life. The cauldron isn’t just a static prop—it reacts dynamically, helping players instantly recognize that something magical is happening.
+
+The shader was designed with **two goals** in mind:
+- **Gameplay readability**: clear feedback when crafting is possible or in progress.
+- **Stylized aesthetics**: hand-painted detail balanced with procedural motion.
+
+### Cauldron Shader
+
+At its core, the cauldron shader blends flat stylized colors with animated surface effects. By using time-based noise and custom rim lighting, the shader simulates bubbling liquid that feels alive while still fitting into a low-poly art direction.
+
+**Key features** include:
+- **Color zones**: a simple gradient creates depth without relying on heavy textures.
+- **UV distortion**: subtle scrolling noise adds surface movement to mimic liquid.
+- **Emission highlights**: glowing edges emphasize the magical energy of the brew.
+- **Parameter control**: intensity, speed, and color can be tuned to match the recipe or environment.
+
+<div class="flex justify-center">
+<MdImage src={images.alchemisteddy_Cauldron_Shader_png} alt="" class="w-3/4"/>
+</div>
+
+Because the shader was built with real-time constraints in mind, it remains lightweight, optimized for performance while still delivering strong atmosphere.
+
+### Integration
+
+The shader is applied directly to the cauldron mesh and linked to the crafting logic, making it easy to trigger visual states such as:
+- **Idle** (calm, faint bubbling).
+- **Active** (stronger glow, faster distortion).
+- **Success** (a flash or pulse upon crafting).
+
+This dynamic response turns the crafting table into more than just a container of ingredients: 
+it becomes a living part of the scene, reinforcing feedback loops between art, design, and code.
+
+## Conclusion
+
+The alchemist’s crafting table represents more than a single asset, it’s a proof of concept for our pipeline.  
+
+By combining modular scripts with a lightweight stylized shader, we created an object that is both **functional for gameplay** and **rich in artistic detail**.
+
+**The scripts ensure modularity**, persistence, and flexibility, making the system easy to expand with new recipes or stations.  
+**The shader adds atmosphere** and communicates game states visually, keeping the player immersed without extra UI clutter.
+
+This balance of technical clarity and artistic direction is central to how we approach real-time asset creation. 
+Each piece is designed not just to look good, but to integrate smoothly into a playable environment, optimized, extensible, and ready for iteration.
+
+**In short**: the crafting table is a small **example of how code and art converge** to create interactive storytelling elements in games.

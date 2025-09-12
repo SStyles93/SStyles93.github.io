@@ -3,7 +3,9 @@ declare module "*";
 export declare const images: {
   alchemisteddy_Cauldron_png: string;
   alchemisteddy_Cauldron_Gizmo_png: string;
+  alchemisteddy_Cauldron_Plate_png: string;
   alchemisteddy_Cauldron_Shader_png: string;
+  alchemisteddy_Table_png: string;
   bachelorproject_Banner_png: string;
   bachelorproject_Picture1_png: string;
   bachelorproject_Picture10_png: string;
