@@ -1,12 +1,12 @@
 ---
-title: "Bottles Shader & Script - AlchemisTeddy"
+title: "Main Character - AlchemisTeddy"
 description: "The creation of a game ready Storage Chest"
-creationDate: "Sep 12 2025"
+creationDate: "Sep 13 2025"
 order: 0
-heroImage: "/src/assets/images/alchemisteddy/Bottles_InGame.gif"
+heroImage: "/src/assets/images/sga2025/SgaLab_Teddy.png"
 teamSize: 2
 timeFrame: "5 days"
-toolUsed: "Unity/C#/Powershell"
+toolUsed: "Unity/C#"
 ---
 
 import Button from "../../components/Button.astro";
@@ -14,76 +14,24 @@ import MdImage from "../../components/MdImage.astro";
 import * as images from "/src/assets/images";
 import SketchfabEmbed from "../../components/SketchfabViewer.astro";
 
-Developed as part of the asset range of AlchemisTeddy, a set of bottles combines hand-painted and shader-driven approaches. 
-Five bottles have subtle shading variations, each featuring a specific hand-painted detail. In addition, two bottles use a custom shader.
+{/* <div class="flex justify-center">
+<MdImage src={images.sga2025_SgaLab_Teddy_png} alt="" class="w-full"/>
+</div> */}
 
-<div class="flex justify-center">
-<MdImage src={images.alchemisteddy_Bottles_InGame_gif} alt="" class="w-full"/>
-</div>
+blablablablabal
 
-The shader was designed with flexibility in mind: it simulates a nebulous liquid that can be adjusted for fill level, 
-allowing the same model to represent multiple potion types.  
-The artist provided custom noise textures, which are integrated into the shader to 
-ensure visual differentiation across the bottles.  
-
-The entire set looks like this:
+blablablablabal
 
 <SketchfabEmbed
-  uid="fb070996a5104e37a994d0e9999c9d4e"
-  title="Shader - LowPoly"
+  uid="046e88976e044884873e12e39484afd9"
+  title="AlchemisTeddy - Main Character - Low Poly"
   author="Jo. A"
   authorUrl="https://jo_a_visuals.artstation.com/"
-  modelUrl="hhttps://sketchfab.com/3d-models/bottles-handpainted-shader-lowpoly-fb070996a5104e37a994d0e9999c9d4e"
+  modelUrl="https://sketchfab.com/3d-models/alchemisteddy-main-character-low-poly-046e88976e044884873e12e39484afd9"
 />
 
-This workflow highlights how art and code decisions were made together to achieve both creative direction and technical efficiency. 
-The bottles are optimized for real-time use and form part of a larger playable project (WIP).
+blablablablabal  
 
-## Script
-
-The bottles include a custom `Wobble.cs` script that drives small liquid-like movements based on the object’s motion.
-- **Motion-based input**: The script tracks both linear velocity (movement in space) and angular velocity (rotation changes).
-- **Procedural wobble**: These values are converted into subtle sine-wave oscillations on the X and Z axes.
-- **Shader communication**: At runtime, the script passes the wobble values to the material via the `WobbleX` and `WobbleZ` shader properties.
-
-<div class="flex justify-center"> 
-<MdImage src={images.alchemisteddy_Bottles_Wobble_gif} alt="" class="w-3/4"/> 
-</div>
-
-This setup ensures that the bottle contents appear reactive, tilting, sloshing, and “settling” naturally as the object moves in the scene. 
-The wobble intensity is clamped and gradually recovers over time, giving a convincing physical feel without requiring expensive fluid simulations.
-
-
-
-## Shader
-
-The custom shader handles the liquid simulation inside the bottles:
-- **Fill-level control** allows designers to reuse the same asset for multiple potion states.
-- **Custom noise textures** (hand-painted) add variation across bottles while still fitting the same visual style.
-- **Integration** with the wobble script makes the shader feel dynamic and physically reactive, without the overhead of actual fluid dynamics.
-
-<div class="flex justify-center">
-<MdImage src={images.alchemisteddy_Bottles_Level_gif} alt="" class="w-full"/>
-<MdImage src={images.alchemisteddy_Bottles_Emissive_gif} alt="" class="w-full"/>
-</div>
-
-This shader-driven workflow lets a single mesh and material cover many potion types. Efficient for memory and performant in real-time.
-
-
-
-## Conclusion
-
-The bottles showcase how hand-painted detail and procedural motion can be combined into one asset. 
-Instead of static props, they behave like interactive game objects: wobbling, tilting, and visually differentiating through shader variation.
-
-
-<div class="flex justify-center">
-<MdImage src={images.alchemisteddy_Bottles_gif} alt="" class="w-3/4"/>
-</div>
-
-This workflow demonstrates a scalable approach: artists define the creative direction through textures and colors, 
-while programmers add physical responsiveness and shader logic. Together, the result is both performant and immersive, 
-ready for integration into a larger playable project.
 
 import {SocialShare} from "astro-social-share";
 
