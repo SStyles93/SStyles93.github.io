@@ -1,0 +1,84 @@
+---
+title: "Unity Tips - New Input System - Mouse Events"
+description: "Transition of old mouse events for Unity's new Input System"
+creationDate: "Sep 14 2025"
+order: 0
+heroImage: "/src/assets/images/sga2025/SgaLab_v1.png"
+teamSize: 2
+timeFrame: "5 days"
+toolUsed: "Unity/C#/Powershell"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+Working with Unity’s new Input System can sometimes feel frustrating at first, even though the long-term benefits in terms of cross-platform support are significant.  
+A useful tip I want to share is how to update Unity’s older approach for handling mouse events so that it remains compatible with the new Input System.
+
+**Previously**, this could be done with simple MonoBehaviour methods such as:
+```csharp
+private void OnMouseEnter()
+{
+    // Example: Debug.Log($"Mouse is over {this.name}");
+}
+
+private void OnMouseExit()
+{
+    // Example: Debug.Log($"Mouse has exited {this.name}");
+}
+```
+
+**With the new Input System**, a few additional steps are required.
+
+**First**, the script must include `using UnityEngine.EventSystems` so that the pointer events can be detected.  
+
+**Second**, the class needs to implement the interfaces `IPointerEnterHandler` and `IPointerExitHandler`.
+
+For example:
+```csharp
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+/// <summary>
+/// Represents an item that exists in the game world and can be picked up.
+/// </summary>
+[RequireComponent(typeof(Collider))] // Ensures this object always has a collider
+public class WorldItem : MonoBehaviour, ICollectable, IPointerEnterHandler, IPointerExitHandler
+{
+    // Class implementation
+}
+```
+
+These interfaces require the following methods to be implemented:
+```csharp
+public void OnPointerEnter(PointerEventData eventData)
+{
+    // Example: Debug.Log($"Mouse is over {this.name}");
+}
+
+public void OnPointerExit(PointerEventData eventData)
+{
+    // Example: Debug.Log($"Mouse has exited {this.name}");
+}
+```
+
+**Finally**, make sure the camera has a `PhysicsRaycaster` component attached and that you have an `EventSystems` in your hierarchy.
+
+<div class="flex justify-center"> 
+<MdImage src={images.unitytips_InputSystem_Camera_png} alt="" class="w-2/4"/> 
+<MdImage src={images.unitytips_InputSystem_EventSystem_png} alt="" class="w-3/4"/> 
+</div>
+
+Once these steps are completed, the script will recognize mouse interactions in the same way it did before the new Input System was introduced.
+
+I hope this proves useful.
+
+import {SocialShare} from "astro-social-share";
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+  </div>

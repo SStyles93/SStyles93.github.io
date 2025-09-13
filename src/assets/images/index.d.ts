@@ -357,6 +357,8 @@ export declare const images: {
   ueshaderwork_VT_Path_png: string;
   ueshaderwork_VT_RTVT_png: string;
   ueshaderwork_Watercolor_Use_png: string;
+  unitytips_InputSystem_Camera_png: string;
+  unitytips_InputSystem_EventSystem_png: string;
   unitytips_ItemData_Header_png: string;
   unitytips_ItemData_NoHeader_png: string;
 };
