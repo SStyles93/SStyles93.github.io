@@ -51,22 +51,18 @@ const hasConsent = typeof window !== "undefined" && localStorage.getItem("analyt
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
-<!-- Script that auto-loads GA if consent is already given -->
 <!-- Google Analytics via Partytown / Only in PROD -->
-{import.meta.env.PROD && (
-<script is:inline>
-  if (typeof window !== "undefined" && localStorage.getItem("analytics-consent") === "granted") {
-    const gaScript = document.createElement("script");
-    gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-55XW4V0S7F";
-    gaScript.async = true;
-    document.head.appendChild(gaScript);
-
-    gaScript.onload = () => {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){window.dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-55XW4V0S7F');
-    };
-  }
+{import.meta.env.PROD && hasConsent && (
+<script 
+  type="text/partytown" 
+  async 
+  src="https://www.googletagmanager.com/gtag/js?id=G-55XW4V0S7F">
 </script>
-)};
+
+<script type="text/partytown">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-55XW4V0S7F');
+</script>
+)}
