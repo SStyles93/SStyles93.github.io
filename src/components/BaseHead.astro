@@ -18,9 +18,6 @@ const {
 	image = "/favicon-16x16.png",
 	ogType = "website",
 } = Astro.props;
-
-// Check consent (runs at build, but also double-checked client-side)
-const hasConsent = typeof window !== "undefined" && localStorage.getItem("analytics-consent") === "granted";
 ---
 
 <!-- Global Metadata -->
@@ -50,19 +47,3 @@ const hasConsent = typeof window !== "undefined" && localStorage.getItem("analyt
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
-
-<!-- Google Analytics via Partytown / Only in PROD -->
-{import.meta.env.PROD && hasConsent && (
-<script 
-  type="text/partytown" 
-  async 
-  src="https://www.googletagmanager.com/gtag/js?id=G-55XW4V0S7F">
-</script>
-
-<script type="text/partytown">
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-55XW4V0S7F');
-</script>
-)}
