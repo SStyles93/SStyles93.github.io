@@ -871,7 +871,7 @@ XBDEV.net. (n.d.). Fur rendering. [online] Available [here](https://www.xbdev.ne
 <MdImage src={images.bachelorproject_Picture92_png} alt="" class="w-full"/>
 
 ### Appendix C: Shell_Original.shader code
-```C#
+```csharp
 Shader "Custom/Fur_Original" {
 	SubShader {
 		Tags {
@@ -983,7 +983,7 @@ Shader "Custom/Fur_Original" {
 			ENDCG}}} 
 ```
 ### Appendix D: Shell.shader code
-```C#
+```csharp
 Shader "Custom/Fur" {
 	SubShader {
 		Tags {
@@ -1125,7 +1125,7 @@ Shader "Custom/Fur" {
 }
 ```
 ### Appendix E: SimpleShell.cs code
-```C#
+```csharp
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1242,7 +1242,7 @@ public class SimpleShell : MonoBehaviour {
 }
 ``` 
 ### Appendix F: SimpleCameraController.cs code
-```C#
+```csharp
 using UnityEngine;
 
 namespace UnityTemplateProjects
@@ -1290,7 +1290,7 @@ namespace UnityTemplateProjects
 }
 ```
 ### Appendix G: HLSLGeom.shader code
-```C#
+```csharp
 Shader "Custom/HLSLGeom" {
     Properties 
     {
@@ -1386,7 +1386,7 @@ Shader "Custom/HLSLGeom" {
 }
 ```
 ### Appendix H: Fur.hlsl code
-```C#
+```csharp
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 #include "Common.hlsl"
 
@@ -1542,7 +1542,7 @@ half4 Fragment(GeometryOutput input) : SV_Target
 } 
 ```
 ### Appendix I: Common.hlsl code
-```C#
+```csharp
 #ifndef COMMON
 #define COMMON
 
@@ -1689,7 +1689,7 @@ Shader "Custom/HLSLComplex" {
 }
 ```
 ### Appendix K: FurComplex.hlsl code
-```C#
+```csharp
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 #include "Common.hlsl"
 
@@ -1831,7 +1831,7 @@ half4 Fragment(GeometryOutput input) : SV_Target {
 }
 ```
 ### Appendix L: HLSLGeom_Controller.cs script
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -1885,7 +1885,7 @@ public class HLSLGeom_Controller : MonoBehaviour
 }
 ```
 ### Appendix M: HLSLComplex_Controller.cs script
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -1934,7 +1934,7 @@ public class HLSLComplex_Controller : MonoBehaviour
 }
 ```
 ### Appendix N: FurSceneManager.cs script
-```C#
+```csharp
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -2013,7 +2013,7 @@ public class FurSceneManager : MonoBehaviour
 }
 ```
 ### Appendix O: SO_SceneData.cs script
-```C#
+```csharp
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SceneData", menuName = "ScriptableObjects/SceneData", order = 1)]
@@ -2023,7 +2023,7 @@ public class SceneData : ScriptableObject
 }
 ```
 ### Appendix P: DataExtractor.cs script
-```C#
+```csharp
 using Unity.Profiling;
 using UnityEngine;
 using System.IO;

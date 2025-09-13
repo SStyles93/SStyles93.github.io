@@ -119,7 +119,7 @@ replacing the X by the chapter number.
 The **.ps1** code was wrapped in a **.bat** script for Window to bypass ExecutionPolicy restrictions
 <Dropdown title="See gototag.bat and .ps1">
 The .bat script
-```
+```bat
 @echo off
 :: Windows batch wrapper for gototag PowerShell script
 :: This script is designed to be placed in your Unity project's root folder.
@@ -132,7 +132,7 @@ set TAG=%1
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0gototag.ps1" %TAG%
 ```
 The .ps1 script
-```
+```ps1
 param (
     [string]$TagName,
     [switch]$Clean
@@ -220,7 +220,7 @@ Write-Host "`Done. Tag '$TagName' is now active.`n"
 Since some students used MacOS computers, I also created a **.sh** Terminal script
 
 <Dropdown title="See gototag.sh">
-```
+```bash
 #!/bin/bash
 
 # This script is designed to be placed in your Unity project's root folder.

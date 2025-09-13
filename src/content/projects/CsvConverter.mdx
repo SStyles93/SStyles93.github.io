@@ -27,17 +27,17 @@ To achieve my Csv converter tool I used Python's
 Despite the normal Input/Output logic and some GUI features implemented with PyQt.  
 The core principle of this tools is to use pandas to read files with:
 
-```pd.read_csv(csv_file)```
+`pd.read_csv(csv_file)`
 
 Pathlib to deal with file paths 
-```
+```python
 # Create output path for individual file
 csv_path = Path(csv_file)
 output_file = Path(self.output_path) / f"{csv_path.stem}.xlsx"
 ```
 and finally use pandas again to write a new file with 
 
-```df.to_excel(output_file, index=False)```
+`df.to_excel(output_file, index=False)`
 
 ## Result
 The result is the following.  

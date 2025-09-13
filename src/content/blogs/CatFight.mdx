@@ -11,6 +11,8 @@ isProject: true
 ---
 
 import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
 
 During my second year of bachelor’s degree in Game Programming, one of the modules we had to study was Networking. 
 For that module we had to present a multiplayer game project based on an 
@@ -19,14 +21,14 @@ For that module we had to present a multiplayer game project based on an
 
 The game I decided to implement was **Rock-Paper-Scissors** but with a funny turn.  
 
-![Rock-Paper-Scissors-Hand](../../assets/images/catfight/RpshG1.png)
+<div class="flex justify-center">
+<MdImage src={images.catfight_RpshG1_png} alt="" class="w-full"/>
+</div>
 
 
 After having fun with that little game, I started implementing **CatFight**.  
 
-<div class="flex justify-center">
-![CatFight Game](../../assets/images/catfight/CatfightGame.gif)
-</div>
+
 
 <div class="flex justify-center my-5">
     <Button href="/projects/catfight/">Read More</Button>
