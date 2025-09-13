@@ -18,6 +18,9 @@ const {
 	image = "/favicon-16x16.png",
 	ogType = "website",
 } = Astro.props;
+
+// Check consent (runs at build, but also double-checked client-side)
+const hasConsent = typeof window !== "undefined" && localStorage.getItem("analytics-consent") === "granted";
 ---
 
 <!-- Global Metadata -->
@@ -48,18 +51,22 @@ const {
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
+<!-- Script that auto-loads GA if consent is already given -->
 <!-- Google Analytics via Partytown / Only in PROD -->
 {import.meta.env.PROD && (
-<script 
-  type="text/partytown" 
-  async 
-  src="https://www.googletagmanager.com/gtag/js?id=G-55XW4V0S7F">
-</script>
+<script is:inline>
+  if (typeof window !== "undefined" && localStorage.getItem("analytics-consent") === "granted") {
+    const gaScript = document.createElement("script");
+    gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-55XW4V0S7F";
+    gaScript.async = true;
+    document.head.appendChild(gaScript);
 
-<script type="text/partytown">
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-55XW4V0S7F');
+    gaScript.onload = () => {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-55XW4V0S7F');
+    };
+  }
 </script>
-)}
+)};
