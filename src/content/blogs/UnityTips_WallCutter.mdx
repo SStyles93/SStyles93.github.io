@@ -109,6 +109,18 @@ void Update()
 
 This ensures **walls in front** of the camera **fade out**, while walls **behind** or **under** remain **visible**.
 
+## Player Setup
+
+The final piece of the system is the **Cutter object**.  
+In this implementation, it’s a simple sphere attached to the player character and assigned to the `Cutter` layer.  
+
+<div class="flex justify-center"> 
+<MdImage src={images.unitytips_WallCutter_png} alt="Cutter object setup on the player" class="w-full"/> 
+</div>
+
+As the player moves, this sphere continuously updates the stencil buffer, ensuring that any obstructing walls are correctly masked out in real time.
+
+
 ## Retrospective 
 ### Performance Considerations
 While this system works well in small to mid-scale levels, there are a few things to watch out for:  

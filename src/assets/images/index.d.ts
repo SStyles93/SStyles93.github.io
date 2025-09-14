@@ -361,6 +361,8 @@ export declare const images: {
   unitytips_InputSystem_EventSystem_png: string;
   unitytips_ItemData_Header_png: string;
   unitytips_ItemData_NoHeader_png: string;
+  unitytips_SeeThrough_png: string;
   unitytips_URP_AssetRenderer_Cutter_png: string;
   unitytips_URP_AssetRenderer_SeeThrough_png: string;
+  unitytips_WallCutter_png: string;
 };
