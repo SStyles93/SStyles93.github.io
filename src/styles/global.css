@@ -5,20 +5,27 @@
 /* #region astro-social-share */
 
 .astro-social-share {
-  margin: 20px 0px;
-  height: 24px;
   display: flex;
-  justify-content: center;  /* centers the buttons */
-  align-items: center;
-} 
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 20px 0;
+  /* position: relative;  <-- Comment this out or remove it */
+}
+
 .astro-social-share a {
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
-  margin-right: 10px;
 }
+
 .astro-social-share svg {
-  height: 24px;
+  width: clamp(20px, 5vw, 28px);
+  height: auto;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
-.astro-social-share a:hover svg  {
+
+.astro-social-share a:hover svg {
   transform: scale(1.2);
   color: rgb(129, 129, 129);
 }
@@ -80,8 +87,3 @@
 }
 
 /* #endregion */
-
-
-
-
-

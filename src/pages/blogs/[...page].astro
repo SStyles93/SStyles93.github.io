@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/Button.astro";
+import SocialShare from "../../components/SocialShare.astro";
 import type { BlogSchema } from "../../content/config";
 import { getCollection, render } from "astro:content";
 import dayjs from "dayjs";
-import { SocialShare } from "astro-social-share";
 
 interface Pages {
   data: BlogSchema[];
@@ -40,33 +40,35 @@ const { page } = Astro.props;
         const isProject = blog.data.isProject === true;
 
         return (
-          <li class="border rounded-xl shadow p-6 prose max-w-none">
-            <h2 class="text-2xl font-bold mb-4">{blog.data.title}</h2>
+<li class="border rounded-xl shadow p-4 sm:p-6 prose max-w-none flex flex-col">
+  {/* Main content area */}
+  <div class="flex-grow">
+    <h2 class="text-2xl font-bold mb-4">{blog.data.title}</h2>
 
-            {/** MDX preview container */}
-            <div class={isProject?"":"mdx-preview"}>
-              <Content />
-            </div>
+    <div class={isProject ? "" : "mdx-preview"}>
+      <Content />
+    </div>
 
-            {!isProject && (
-              <>
-                <div class="flex justify-center my-5 preview-only">
-                  <Button href={`/blogs/${blog.slug}/`}>Read More</Button>
-                </div>
+    {!isProject ? (
+      <>
+        <div class="flex justify-center my-5 preview-only">
+          <Button href={`/blogs/${blog.slug}/`}>Read More</Button>
+        </div>
+        <div class="my-5 flex justify-center">
+          <SocialShare
+            title={blog.data.title}
+            description={blog.data.description}
+            url={Astro.url.origin + `/blogs/${blog.slug}/`}
+          />
+        </div>
+      </>
+    ) : null}
+  </div>
 
-                <div class="social-share-wrapper my-5 flex justify-center preview-only">
-                  <SocialShare
-                    description={blog.data.description}
-                    title={blog.data.title}
-                  />
-                </div>
-              </>
-            )}
-
-            <div class="text-sm text-gray-500 mt-6">
-              Created on {dayjs(blog.data.creationDate).format("MMMM YYYY")}
-            </div>
-          </li>
+  <div class="text-sm text-gray-500 mt-auto text-center pt-4">
+    Created on {dayjs(blog.data.creationDate).format("MMMM YYYY")}
+  </div>
+</li>
         );
       })
     )}

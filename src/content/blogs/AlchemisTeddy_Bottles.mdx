@@ -85,11 +85,11 @@ This workflow demonstrates a scalable approach: artists define the creative dire
 while programmers add physical responsiveness and shader logic. Together, the result is both performant and immersive, 
 ready for integration into a larger playable project.
 
-import {SocialShare} from "astro-social-share";
+import SocialShare from "../../components/SocialShare.astro";
 
 <div class="flex justify-center">
   <SocialShare
-    description={frontmatter.description}
     title={frontmatter.title}
+    description={frontmatter.description}
   />
   </div>

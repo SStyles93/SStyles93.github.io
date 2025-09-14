@@ -23,9 +23,6 @@ dependencies:
   astro:
     specifier: ^4.16.19
     version: 4.16.19(sass@1.91.0)(typescript@5.9.2)
-  astro-social-share:
-    specifier: ^2.2.0
-    version: 2.2.0
   daisyui:
     specifier: ^4.12.24
     version: 4.12.24(postcss@8.5.6)
@@ -1402,10 +1399,6 @@ packages:
   /astring@1.9.0:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
-    dev: false
-
-  /astro-social-share@2.2.0:
-    resolution: {integrity: sha512-Z5ebhO6Yw4GLggw7wsTahdpS0f4pf/XuVjQlBpWZ0zyt0cKaVrlG/+u6RzrzN9B2t27wxp90XiosZNwvBZqA+Q==}
     dev: false
 
   /astro@4.16.19(sass@1.91.0)(typescript@5.9.2):
