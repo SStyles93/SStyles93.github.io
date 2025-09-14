@@ -13,7 +13,6 @@ const {
 	teamSize,
 	timeFrame,
 	toolUsed,
-	isBlog
 } = Astro.props;
 dayjs.extend(localizedFormat);
 const displayDate = dayjs(creationDate).format("MMMM YYYY");
@@ -124,8 +123,8 @@ const displayDate = dayjs(creationDate).format("MMMM YYYY");
 			<slot />
 			<div class="flex justify-center">
   <SocialShare
-    description={frontmatter.description}
-    title={frontmatter.title}
+    description={description}
+    title={title}
   />
   </div>
 		</article>
