@@ -358,3 +358,5 @@ export { default as unitytips_InputSystem_Camera_png } from "./unitytips/InputSy
 export { default as unitytips_InputSystem_EventSystem_png } from "./unitytips/InputSystem_EventSystem.png";
 export { default as unitytips_ItemData_Header_png } from "./unitytips/ItemData_Header.png";
 export { default as unitytips_ItemData_NoHeader_png } from "./unitytips/ItemData_NoHeader.png";
+export { default as unitytips_URP_AssetRenderer_Cutter_png } from "./unitytips/URP_AssetRenderer_Cutter.png";
+export { default as unitytips_URP_AssetRenderer_SeeThrough_png } from "./unitytips/URP_AssetRenderer_SeeThrough.png";

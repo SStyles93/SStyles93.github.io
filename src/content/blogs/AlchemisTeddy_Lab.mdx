@@ -1,0 +1,53 @@
+---
+title: "Lab - AlchemisTeddy 🧪🐻"
+description: "The creation of Teddy's Lab"
+creationDate: "Sep 14 2025"
+order: 0
+heroImage: "/src/assets/images/sga2025/SgaLab_Teddy.png"
+teamSize: 2
+timeFrame: "5 days"
+toolsUsed: "Unity, C#"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+import SketchfabEmbed from "../../components/SketchfabViewer.astro";
+
+Welcome to **AlchemisTeddy’s Lab**, a whimsical experiment where alchemy meets teddy-bear charm.  
+
+This project was created in just **five days** during the [Swiss Game Academy](https://gameacademy.ch/SGA/), with the challenge of building a functional and visually engaging prototype under tight time pressure.
+
+<SketchfabEmbed
+  uid="082d7d4d0ba24794bdd6b089ee095d57"
+  title="AlchemisTeddy - Main Character - Low Poly"
+  author="Jo. A"
+  authorUrl="https://jo_a_visuals.artstation.com/"
+  modelUrl="https://sketchfab.com/3d-models/alchemisteddy-lab-environment-low-poly-082d7d4d0ba24794bdd6b089ee095d57"
+/>
+
+Explore our **environment** in this Sketchfab viewer, spin, zoom, and get a closer look at the details.  
+You’ll also find links to other creations that blend art, programming, and technical artistry.
+
+### The Challenge
+To showcase the importance of collaboration, we structured our workflow around **functionality first**.  
+This meant defining the essential features early on, ensuring that gameplay and interaction always had priority.
+
+### The Process
+- **Programming & Features**: I outlined the required mechanics and implemented them step by step.  
+- **Art & Concepts**: My teammate provided base sketches and models, which we refined together for integration.  
+- **Iteration & Polish**: Each asset was tested, adjusted, and enhanced with **hand-painted details** to make interactive objects stand out and improve the overall player experience.
+
+### Closing Thoughts
+This project reminded us how much **collaboration fuels creativity**.  
+In just five days, AlchemisTeddy’s Lab grew from sketches on paper into a playful interactive world and we had a lot of fun bringing it to life.
+
+
+import SocialShare from "../../components/SocialShare.astro";
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>
