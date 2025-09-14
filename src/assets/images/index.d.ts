@@ -12,6 +12,12 @@ export declare const images: {
   alchemisteddy_Cauldron_Gizmo_png: string;
   alchemisteddy_Cauldron_Plate_png: string;
   alchemisteddy_Cauldron_Shader_png: string;
+  alchemisteddy_Environment_01_png: string;
+  alchemisteddy_Environment_02_png: string;
+  alchemisteddy_Environment_03_png: string;
+  alchemisteddy_Environment_04_png: string;
+  alchemisteddy_Shelf_01_png: string;
+  alchemisteddy_Shelf_02_png: string;
   alchemisteddy_StorageChest_png: string;
   alchemisteddy_StorageChest_Animation_gif: string;
   alchemisteddy_StorageChest_Gizmo_png: string;

@@ -29,6 +29,9 @@ dependencies:
   dayjs:
     specifier: ^1.11.18
     version: 1.11.18
+  glightbox:
+    specifier: ^3.3.1
+    version: 3.3.1
   sharp:
     specifier: ^0.33.5
     version: 0.33.5
@@ -2055,6 +2058,10 @@ packages:
 
   /github-slugger@2.0.0:
     resolution: {integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==}
+    dev: false
+
+  /glightbox@3.3.1:
+    resolution: {integrity: sha512-nXoKfJRnQTDaAFAw5799hjpfAAHx5aLvOLG0SIGudeMCwtHgO3P2/avNYapJ+SL4UEZxO2YNBPtq6pzMhSx42g==}
     dev: false
 
   /glob-parent@5.1.2:

@@ -9,6 +9,12 @@ export { default as alchemisteddy_Cauldron_png } from "./alchemisteddy/Cauldron.
 export { default as alchemisteddy_Cauldron_Gizmo_png } from "./alchemisteddy/Cauldron_Gizmo.png";
 export { default as alchemisteddy_Cauldron_Plate_png } from "./alchemisteddy/Cauldron_Plate.png";
 export { default as alchemisteddy_Cauldron_Shader_png } from "./alchemisteddy/Cauldron_Shader.png";
+export { default as alchemisteddy_Environment_01_png } from "./alchemisteddy/Environment_01.png";
+export { default as alchemisteddy_Environment_02_png } from "./alchemisteddy/Environment_02.png";
+export { default as alchemisteddy_Environment_03_png } from "./alchemisteddy/Environment_03.png";
+export { default as alchemisteddy_Environment_04_png } from "./alchemisteddy/Environment_04.png";
+export { default as alchemisteddy_Shelf_01_png } from "./alchemisteddy/Shelf_01.png";
+export { default as alchemisteddy_Shelf_02_png } from "./alchemisteddy/Shelf_02.png";
 export { default as alchemisteddy_StorageChest_png } from "./alchemisteddy/StorageChest.png";
 export { default as alchemisteddy_StorageChest_Animation_gif } from "./alchemisteddy/StorageChest_Animation.gif";
 export { default as alchemisteddy_StorageChest_Gizmo_png } from "./alchemisteddy/StorageChest_Gizmo.png";
