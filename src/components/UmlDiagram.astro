@@ -1,0 +1,63 @@
+---
+// src/components/PlantUml.astro
+
+interface Props {
+  code: string;
+}
+
+const { code } = Astro.props;
+
+async function encodePlantUml(text: string): Promise<string> {
+  const stream = new Blob([text]).stream();
+  const compressedStream = stream.pipeThrough(new CompressionStream('deflate'));
+  const chunks = [];
+  for await (const chunk of compressedStream) {
+    chunks.push(chunk);
+  }
+  const deflated = new Uint8Array(await new Blob(chunks).arrayBuffer());
+  const C = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_';
+  let result = '';
+  for (let i = 0; i < deflated.length; i += 3) {
+    const b1 = deflated[i];
+    const b2 = i + 1 < deflated.length ? deflated[i + 1] : 0;
+    const b3 = i + 2 < deflated.length ? deflated[i + 2] : 0;
+    const c1 = b1 >> 2;
+    const c2 = ((b1 & 3) << 4) | (b2 >> 4);
+    const c3 = ((b2 & 15) << 2) | (b3 >> 6);
+    const c4 = b3 & 63;
+    result += C.charAt(c1) + C.charAt(c2) + C.charAt(c3) + C.charAt(c4);
+  }
+  return '~1' + result;
+}
+
+const cleanedCode = code.replace(/@startuml/g, '').replace(/@enduml/g, '').trim();
+const encodedCode = await encodePlantUml(cleanedCode);
+const plantUmlUrl = `https://www.plantuml.com/plantuml/svg/${encodedCode}`;
+---
+
+<div data-lightbox="true" class="plantuml-container">
+  <img src={plantUmlUrl} alt="PlantUML Diagram" loading="lazy" />
+</div>
+
+<style>
+  .plantuml-container {
+    /* --- Styles adapted from your cookie-banner --- */
+    background-color: var(--fallback-b1, oklch(var(--b1 ) / var(--tw-bg-opacity)));
+    --tw-bg-opacity: 0.9;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    
+    /* --- Original layout styles --- */
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    overflow-x: auto;
+  }
+
+  .plantuml-container img {
+    opacity: 0.95;
+    border-radius: 4px; /* Slightly rounded corners for the image itself */
+    max-width: 100%;
+    height: auto;
+  }
+</style>
