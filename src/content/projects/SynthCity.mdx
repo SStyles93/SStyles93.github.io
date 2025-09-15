@@ -4,12 +4,6 @@ description: "A Synthwave game made during the LvlUp GameJam"
 creationDate: "Feb 21 2021"
 order: 0
 heroImage: "/src/assets/images/synthcity/SynthCityIntro.png"
-screenshots:
-    [
-        "/src/assets/images/synthcity/SynthCityIntro.png",
-        "/src/assets/images/synthcity/SynthCityMenu.png",
-        "/src/assets/images/synthcity/SynthCityMap.png",
-    ]
 teamSize: 5
 timeFrame: "2 days"
 toolUsed: "C#/Unity"
@@ -33,6 +27,14 @@ and create simple visual effects using Unity's **[Shader Graph](https://docs.uni
 <li>Unity</li>
 <li>ShaderGraph</li>
 </ul>
+
+import ImageGallery from "../../components/ImageGallery.astro";
+
+<ImageGallery images={[
+        "/src/assets/images/synthcity/SynthCityIntro.png",
+        "/src/assets/images/synthcity/SynthCityMenu.png",
+        "/src/assets/images/synthcity/SynthCityMap.png",
+    ]}/>
 
 <div class="flex justify-center">
 <a href="https://tobler0ne.itch.io/synth-city" target="_blank" class="btn btn-outline ml-5">

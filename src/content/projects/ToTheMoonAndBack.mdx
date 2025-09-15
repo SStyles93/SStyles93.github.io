@@ -4,10 +4,6 @@ description: "A simple spaceship survival game made in a week at the SAE-Institu
 creationDate: "Dec 22 2021"
 order: 0
 heroImage: "/src/assets/images/tothemoon/ToTheMoonIntro.png"
-screenshots:
-    [
-        "/src/assets/images/tothemoon/tothemoon.gif",
-    ]
 teamSize: 1
 timeFrame: "1 week"
 toolUsed: "C++/SFML/Box2D"
@@ -21,9 +17,11 @@ At the end of the module we had to create a game **in a week** with what we had 
 **[SFML](https://www.sfml-dev.org/)** was used for the rendering and **[Box2D](https://box2d.org/)** for the physics.
 
 
-import ScreenshotList from "../../components/ScreenshotList.astro";
+import ImageGallery from "../../components/ImageGallery.astro";
 
-<ScreenshotList screenshots={frontmatter.screenshots} imageClasses="w-full" />
+<ImageGallery images={[
+  "/src/assets/images/tothemoon/ToTheMoonIntro.png",
+  "/src/assets/images/tothemoon/tothemoon.gif"]}/>
 
 For this project I went **a step further** than what was asked for the module by 
 integrating a **scoring system** that would keep track of the players last score locally.
