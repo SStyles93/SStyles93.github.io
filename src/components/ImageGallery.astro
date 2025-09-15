@@ -1,73 +1,89 @@
 ---
 // src/components/ImageGallery.astro
-
 import { Image } from 'astro:assets';
+import path from 'node:path';
 
-// Define the props the component will accept.
-// It expects an array of image paths (strings).
+// --- PROPS ---
+// This component accepts an array of image file paths (strings).
 interface Props {
   images: string[];
+  class?: string;
 }
+const { images: imagePaths, class: className } = Astro.props;
 
-// Get the images array from the component's props.
-const { images } = Astro.props;
 
-// Create a unique ID for this gallery instance. This is crucial
-// for ensuring that clicking an image in one gallery doesn't
-// open images from another gallery on the same page.
+// --- DATA FETCHING ---
+// Use import.meta.glob to find and process all possible images at build time.
+// This is the key to making string paths work reliably with Astro's <Image> component.
+// The `{ eager: true }` option loads the image metadata immediately.
+const allImageModules = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
+  { eager: true }
+);
+
+
+// --- DATA PROCESSING ---
+// Map the string paths you provide to the actual, processed image data.
+const processedImages = imagePaths.map((imagePath) => {
+  // Find the corresponding image module from the glob results.
+  const imageModule = allImageModules[imagePath];
+
+  // If an image path is incorrect, we'll log an error and skip it.
+  if (!imageModule) {
+    console.error(`[ImageGallery] Image not found at path: ${imagePath}. Please check the path in your component call.`);
+    return null;
+  }
+
+  const image = imageModule.default;
+
+  // Automatically generate a clean alt text from the filename.
+  // e.g., "/path/to/Environment_01.png" -> "Environment 01"
+  const filename = path.basename(image.src, path.extname(image.src)).split('.')[0];
+  const altText = filename.replace(/[-_]/g, ' ');
+
+  return {
+    src: image,
+    alt: altText,
+  };
+}).filter(Boolean); // The .filter(Boolean) removes any nulls from incorrect paths.
+
+
+// --- SETUP ---
+// Create a unique ID for each gallery to ensure they are isolated from each other.
 const galleryId = `gallery-${crypto.randomUUID()}`;
-
-// GLightbox works by finding anchor tags (<a>) with a specific class.
-// We will use this unique ID to create a unique selector for GLightbox.
 const lightboxSelector = `.glightbox-${galleryId}`;
 ---
 
-<!-- 
-  This section renders the grid of thumbnail images.
-  We use Astro's class:list directive to apply Tailwind CSS classes for styling.
--->
-<div class:list={["grid grid-cols-2 md:grid-cols-3 gap-4"]}>
+<!-- --- TEMPLATE --- -->
+<div class:list={["grid grid-cols-2 md:grid-cols-3 gap-4", className]}>
   {
-    images.map((src) => (
+    processedImages.map((image) => (
       <a
-        href={src}
+        href={image.src.src}
         class={`glightbox ${lightboxSelector.substring(1)}`}
         data-gallery={galleryId}
+        data-title={image.alt}
       >
         <Image
-          src={import(/* @vite-ignore */ src)}
-          alt="Gallery image"
-          class="h-auto max-w-full rounded-lg hover:opacity-90 transition-opacity"
-          width={400}
-          height={300}
+          src={image.src}
+          alt={image.alt}
+          widths={[240, 540, 720, 1080]}
+          sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, 720px"
+          class="h-auto max-w-full rounded-lg object-cover aspect-square hover:opacity-90 transition-opacity"
         />
       </a>
     ))
   }
 </div>
 
-<!-- 
-  This <script> tag contains the client-side JavaScript needed to initialize GLightbox.
-  It's essential because GLightbox manipulates the DOM after the page has loaded.
--->
+
+<!-- --- CLIENT-SIDE SCRIPT --- -->
 <script>
-  // Import GLightbox and its CSS. The CSS is required for the lightbox to look correct.
   import GLightbox from "glightbox";
   import "glightbox/dist/css/glightbox.min.css";
 
-  // This function initializes GLightbox on a specific selector.
-  // It's designed to be called for each gallery on the page.
-  function initializeLightbox(selector: string) {
-    GLightbox({
-      selector: selector, // The unique class for this gallery's links
-      touchNavigation: true,
-      loop: true,
-      autoplayVideos: true,
-    });
-  }
-
-  // Find all unique gallery selectors on the current page.
-  // We use a Set to avoid initializing the same gallery multiple times.
+  // This script finds all unique galleries on the page and initializes them.
+  // It's designed to be efficient and run only once.
   const gallerySelectors = new Set<string>();
   document.querySelectorAll("[data-gallery]").forEach((el) => {
     const galleryId = (el as HTMLElement).dataset.gallery;
@@ -76,8 +92,13 @@ const lightboxSelector = `.glightbox-${galleryId}`;
     }
   });
 
-  // Initialize GLightbox for each unique gallery found.
   gallerySelectors.forEach((selector) => {
-    initializeLightbox(selector);
+    GLightbox({
+      selector: selector,
+      touchNavigation: true,
+      loop: true,
+      autoplayVideos: true,
+      titleAttribute: 'data-title',
+    });
   });
 </script>
