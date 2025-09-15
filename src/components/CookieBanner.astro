@@ -1,8 +1,7 @@
 <div client:load>
   <div id="cookie-banner" class="cookie-banner" style="display:none;">
     <p>I use cookies for analytics, this helps me improve my Portfolio.
-      <br/>
-      <br/> Do you accept my cookie ? 🍪</p>
+      <br/><br/> Do you accept my cookie ? 🍪</p>
       <br/>
     <div class="buttons">
       <button id="accept-cookies">Accept</button>
@@ -37,17 +36,19 @@
           gtag('config', '${GA_ID}');
         `;
         document.head.appendChild(inlineScript);
+
+        console.log("[CookieBanner] Google Analytics injected ✅");
       };
 
       const consent = localStorage.getItem("analytics-consent");
 
       if (consent === "granted") {
         injectGA(); // auto-load if already accepted
-        return; // hide banner
+        return; // banner stays hidden
       }
-      if (consent === "denied") return; // hide banner
+      if (consent === "denied") return; // hide banner too
 
-      // Show banner if no consent
+      // Show banner if no consent yet
       banner.style.display = "block";
 
       const acceptBtn = document.getElementById("accept-cookies");
@@ -56,8 +57,7 @@
       acceptBtn.addEventListener("click", () => {
         localStorage.setItem("analytics-consent", "granted");
         banner.style.display = "none";
-        injectGA();
-        location.reload(); // reload the page to trigger GA in BaseHead
+        injectGA(); // no reload needed
       });
 
       rejectBtn.addEventListener("click", () => {
