@@ -1,91 +1,108 @@
 ---
 // src/components/ImageGallery.astro
-import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
+
+import "glightbox/dist/css/glightbox.min.css";
 
 export interface Props {
-    images: string[];
-    galleryName?: string;
-    containerClasses?: string;
-    imageClasses?: string;
+  images: string[];
+  galleryName?: string;
+  containerClasses?: string;
+  imageClasses?: string;
 }
 
 const {
-    images: imagePaths = [],
-    galleryName = `gallery-${Math.random().toString(36).substring(2, 9)}`,
-    containerClasses = "flex flex-wrap justify-center gap-4",
-    imageClasses = "w-72 h-auto cursor-pointer rounded-lg shadow-md transition-shadow hover:shadow-xl",
+  images: imagePaths = [],
+  galleryName = `gallery-${Math.random().toString(36).substring(2, 9)}`,
+  containerClasses = "flex flex-wrap justify-center gap-4",
+  imageClasses = "w-72 h-auto cursor-pointer rounded-lg shadow-md transition-shadow hover:shadow-xl",
 } = Astro.props;
 
-const allImages = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/assets/**/*.{jpeg,jpg,png,gif,webp,avif}"
+// This server-side logic finds and resolves the image paths you provide.
+const allImageModules = await import.meta.glob<{ default: { src: string } }>(
+  "/src/assets/images/**/*.{jpeg,jpg,png,gif,webp,avif}"
 );
 
-for (const path of imagePaths) {
-    if (!allImages[path]) {
-        throw new Error(
-            `[ImageGallery] The image "${path}" was not found. Make sure it exists in "/src/assets/".`
-        );
+const resolvedImages = await Promise.all(
+  imagePaths.map(async (path) => {
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    const importFunc = allImageModules[normalizedPath];
+
+    if (!importFunc) {
+      throw new Error(`[ImageGallery] Image not found at path: ${normalizedPath}.`);
     }
-}
+
+    const module = await importFunc();
+    
+    return {
+      src: module.default.src,
+      alt: normalizedPath.split('/').pop()?.replace(/\.[^/.]+$/, "") || "Gallery image"
+    };
+  })
+);
 ---
 
-<!-- 
-  The 'client:load' directive ensures this component and its script are loaded
-  and executed immediately in the browser.
--->
-<div client:load>
-    <div class:list={containerClasses}>
-        {
-            imagePaths.map(async (path) => {
-                const imageModule = await allImages[path]();
-                return (
-                    <a
-                        href={imageModule.default.src}
-                        class="glightbox"
-                        data-gallery={galleryName}
-                    >
-                        <Image
-                            src={imageModule.default}
-                            alt="Project screenshot"
-                            class={imageClasses}
-                            loading="lazy"
-                        />
-                    </a>
-                );
-            })
+<div client:visible>
+  <div class:list={containerClasses}>
+    {resolvedImages.map((image) => (
+      <a
+        href={image.src}
+        class="glightbox"
+        data-gallery={galleryName}
+        aria-label={`View image ${image.alt}`}
+      >
+        <img
+          src={image.src}
+          alt={image.alt}
+          class:list={imageClasses}
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+    ))}
+  </div>
+
+  <script is:inline>
+    // This inline script runs on the client-side.
+    (() => {
+      // Function to load an external script and return a promise.
+      function loadScript(src) {
+        return new Promise((resolve, reject) => {
+          // Check if the script is already on the page to avoid loading it multiple times.
+          if (document.querySelector(`script[src="${src}"]`)) {
+            resolve();
+            return;
+          }
+          const script = document.createElement('script');
+          script.src = src;
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error(`Script load error for ${src}`));
+          document.head.appendChild(script);
+        });
+      }
+
+      // Main logic to set up the gallery.
+      async function setupGallery() {
+        try {
+          // ✅ **THE FIX IS HERE:**
+          // We now point to the correct path inside your `public/scripts/` folder.
+          await loadScript('/scripts/glightbox.min.js');
+          
+          // Once the script is loaded, GLightbox() will be available.
+          if (typeof GLightbox === "function") {
+            GLightbox({
+              loop: true,
+              touchNavigation: true,
+            });
+          } else {
+            console.error("GLightbox function not found even after attempting to load the script.");
+          }
+        } catch (error) {
+          console.error("Failed to load GLightbox script from /scripts/glightbox.min.js:", error);
         }
-    </div>
+      }
 
-    <!-- 
-      This inline script will run as soon as the component is loaded on the page.
-      It dynamically loads the Glightbox library and its CSS, then initializes it.
-    -->
-    <script is:inline>
-        // We wrap everything in an IIFE to avoid polluting the global scope.
-        (() => {
-            // Dynamically create and inject the Glightbox CSS file into the <head>.
-            const cssLink = document.createElement('link');
-            cssLink.rel = 'stylesheet';
-            cssLink.href = '/node_modules/glightbox/dist/css/glightbox.min.css'; // Adjust path if needed
-            document.head.appendChild(cssLink);
-
-            // Dynamically create and inject the Glightbox JS library.
-            const script = document.createElement('script');
-            script.src = '/node_modules/glightbox/dist/js/glightbox.min.js'; // Adjust path if needed
-            script.async = true;
-
-            // When the script has finished loading, initialize Glightbox.
-            script.onload = () => {
-                if (typeof GLightbox === 'function') {
-                    const lightbox = GLightbox({
-                        loop: true,
-                        touchNavigation: true,
-                    });
-                }
-            };
-            
-            document.body.appendChild(script);
-        })();
-    </script>
+      // Use the 'astro:page-load' event to ensure this runs on every page navigation.
+      document.addEventListener('astro:page-load', setupGallery);
+    })();
+  </script>
 </div>

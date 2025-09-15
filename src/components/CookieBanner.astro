@@ -46,8 +46,10 @@
         injectGA(); // auto-load if already accepted
         return; // banner stays hidden
       }
-      if (consent === "denied") return; // hide banner too
-
+      if (consent === "denied") {
+        console.log("[CookieBanner] Google Analytics denied ❌");
+        return; // hide banner too
+      }
       // Show banner if no consent yet
       banner.style.display = "block";
 
