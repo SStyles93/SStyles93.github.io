@@ -12,12 +12,11 @@ export interface Props {
 
 const {
   images: imagePaths = [],
-  galleryName = `gallery-${Math.random().toString(36).substring(2, 9)}`,
+  galleryName = `gallery-${Math.random( ).toString(36).substring(2, 9)}`,
   containerClasses = "flex flex-wrap justify-center gap-4",
   imageClasses = "w-72 h-auto cursor-pointer rounded-lg shadow-md transition-shadow hover:shadow-xl",
 } = Astro.props;
 
-// This server-side logic finds and resolves the image paths you provide.
 const allImageModules = await import.meta.glob<{ default: { src: string } }>(
   "/src/assets/images/**/*.{jpeg,jpg,png,gif,webp,avif}"
 );
@@ -39,6 +38,9 @@ const resolvedImages = await Promise.all(
     };
   })
 );
+
+// ✅ Pass Astro's BASE_URL to the client-side script.
+const { BASE_URL } = import.meta.env;
 ---
 
 <div client:visible>
@@ -61,13 +63,11 @@ const resolvedImages = await Promise.all(
     ))}
   </div>
 
-  <script is:inline>
-    // This inline script runs on the client-side.
+  <script is:inline define:vars={{ BASE_URL }}>
+    // The `define:vars` directive makes the BASE_URL from the server available here.
     (() => {
-      // Function to load an external script and return a promise.
       function loadScript(src) {
         return new Promise((resolve, reject) => {
-          // Check if the script is already on the page to avoid loading it multiple times.
           if (document.querySelector(`script[src="${src}"]`)) {
             resolve();
             return;
@@ -80,28 +80,25 @@ const resolvedImages = await Promise.all(
         });
       }
 
-      // Main logic to set up the gallery.
       async function setupGallery() {
         try {
-          // ✅ **THE FIX IS HERE:**
-          // We now point to the correct path inside your `public/scripts/` folder.
-          await loadScript('/scripts/glightbox.min.js');
+          const scriptPath = `${BASE_URL.replace(/\/$/, '')}/scripts/glightbox.min.js`;
           
-          // Once the script is loaded, GLightbox() will be available.
+          await loadScript(scriptPath);
+          
           if (typeof GLightbox === "function") {
             GLightbox({
               loop: true,
               touchNavigation: true,
             });
           } else {
-            console.error("GLightbox function not found even after attempting to load the script.");
+            console.error("GLightbox function not found after loading script.");
           }
         } catch (error) {
-          console.error("Failed to load GLightbox script from /scripts/glightbox.min.js:", error);
+          console.error("Failed to load GLightbox script:", error);
         }
       }
 
-      // Use the 'astro:page-load' event to ensure this runs on every page navigation.
       document.addEventListener('astro:page-load', setupGallery);
     })();
   </script>
