@@ -1,8 +1,14 @@
+---
+const { GA_ID } = Astro.props;
+---
+
 <div client:load>
   <div id="cookie-banner" class="cookie-banner" style="display:none;">
-    <p>I use cookies for analytics, this helps me improve my Portfolio.
-      <br/><br/> Do you accept my cookie ? 🍪</p>
-      <br/>
+    <p>
+      I use cookies for analytics, this helps me improve my Portfolio.
+      <br/><br/>
+      Do you accept cookies? 🍪
+    </p>
     <div class="buttons">
       <button id="accept-cookies">Accept</button>
       <button id="reject-cookies">Reject</button>
@@ -10,64 +16,85 @@
   </div>
 
   <script is:inline>
+
     (() => {
-      const GA_ID = "G-55XW4V0S7F"; // your GA4 ID
+      // Run only once per session
+      if (window.__cookieBannerInitialized) return;
+      window.__cookieBannerInitialized = true;
+
       const banner = document.getElementById("cookie-banner");
       if (!banner) return;
 
-      const injectGA = () => {
-        if (window.__gaInjected) return;
-        window.__gaInjected = true;
+      const showBanner = () => {
+        const consent = localStorage.getItem("analytics-consent");
 
-        // Load GA script via Partytown
-        const gaScript = document.createElement("script");
-        gaScript.type = "text/partytown";
-        gaScript.async = true;
-        gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-        document.head.appendChild(gaScript);
+        const GA_ID = "${GA_ID}";
 
-        // Configure GA
-        const inlineScript = document.createElement("script");
-        inlineScript.type = "text/partytown";
-        inlineScript.text = `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){ dataLayer.push(arguments); }
-          gtag('js', new Date());
-          gtag('config', '${GA_ID}');
-        `;
-        document.head.appendChild(inlineScript);
+        // Already accepted -> configure GA immediately
+        if (consent === "granted") {
+          if (GA_ID) {
+            const waitForGtag = () => {
+              if (typeof gtag === "function") {
+                gtag('config', GA_ID);
+                console.log("[CookieBanner] GA injected ✅");
+              } else {
+                setTimeout(waitForGtag, 50);
+              }
+            };
+            waitForGtag();
+          }
+          banner.style.display = "none";
+          return;
+        }
 
-        console.log("[CookieBanner] Google Analytics injected ✅");
+        // Already declined -> hide banner, do NOT configure GA
+        if (consent === "denied") {
+          banner.style.display = "none";
+          console.log("[CookieBanner] GA injection declined ❌");
+          return;
+        }
+
+        // No consent yet -> show banner
+        banner.style.display = "block";
+
+        const acceptBtn = document.getElementById("accept-cookies");
+        const rejectBtn = document.getElementById("reject-cookies");
+
+        acceptBtn?.addEventListener("click", () => {
+          localStorage.setItem("analytics-consent", "granted");
+          banner.style.display = "none";
+
+          // Configure GA after consent
+          if (GA_ID) {
+            const waitForGtag = () => {
+              if (typeof gtag === "function") {
+                gtag('config', GA_ID);
+                console.log("[CookieBanner] GA injected ✅");
+              } else {
+                setTimeout(waitForGtag, 50);
+              }
+            };
+            waitForGtag();
+          }
+        });
+
+        rejectBtn?.addEventListener("click", () => {
+          localStorage.setItem("analytics-consent", "denied");
+          banner.style.display = "none";
+          console.log("[CookieBanner] GA injection declined ❌");
+        });
       };
 
-      const consent = localStorage.getItem("analytics-consent");
+      // Run on first load
+      showBanner();
 
-      if (consent === "granted") {
-        injectGA(); // auto-load if already accepted
-        return; // banner stays hidden
-      }
-      if (consent === "denied") {
-        console.log("[CookieBanner] Google Analytics denied ❌");
-        return; // hide banner too
-      }
-      // Show banner if no consent yet
-      banner.style.display = "block";
-
-      const acceptBtn = document.getElementById("accept-cookies");
-      const rejectBtn = document.getElementById("reject-cookies");
-
-      acceptBtn.addEventListener("click", () => {
-        localStorage.setItem("analytics-consent", "granted");
-        banner.style.display = "none";
-        injectGA(); // no reload needed
-      });
-
-      rejectBtn.addEventListener("click", () => {
-        localStorage.setItem("analytics-consent", "denied");
-        banner.style.display = "none";
-      });
+      // SPA navigation: re-run check
+      document.addEventListener("astro:page-load", showBanner);
     })();
   </script>
+</div>
+
+
 
   <style>
     .cookie-banner {
