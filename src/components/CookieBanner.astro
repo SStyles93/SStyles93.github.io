@@ -13,16 +13,65 @@
 
   <script is:inline>
     (() => {
-
       if (window.__cookieBannerInitialized) return;
       window.__cookieBannerInitialized = true;
 
       const banner = document.getElementById("cookie-banner");
       if (!banner) return;
 
+      const GA_ID = "G-55XW4V0S7F";
+
+      const injectGA = () => {
+        if (window.__gaInjected) return;
+        window.__gaInjected = true;
+
+        // Load GA script
+        const gaScript = document.createElement("script");
+        gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+        gaScript.async = true;
+        document.head.appendChild(gaScript);
+
+        // Init GA
+        const inlineScript = document.createElement("script");
+        inlineScript.textContent = `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA_ID}', {
+            page_path: window.location.pathname,
+            page_title: document.title
+          });
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        `;
+        document.head.appendChild(inlineScript);
+
+        console.log("[CookieBanner] GA dynamically injected ✅");
+
+        // Track initial pageview
+        trackPageView();
+
+        // Track Astro transitions
+        document.addEventListener("astro:page-load", trackPageView);
+      };
+
+      const trackPageView = () => {
+        if (window.gtag) {
+          window.gtag("event", "page_view", {
+            page_path: window.location.pathname,
+            page_title: document.title
+          });
+          console.log("[CookieBanner] GA page_view sent ✅", window.location.pathname);
+        }
+      };
+
       const showBanner = () => {
         const consent = localStorage.getItem("analytics-consent");
-        
+
         if (consent === "granted") {
           banner.style.display = "none";
           injectGA();
@@ -38,48 +87,17 @@
         // Show banner if no consent
         banner.style.display = "block";
 
-        const acceptBtn = document.getElementById("accept-cookies");
-        const rejectBtn = document.getElementById("reject-cookies");
-
-        acceptBtn?.addEventListener("click", () => {
+        document.getElementById("accept-cookies")?.addEventListener("click", () => {
           localStorage.setItem("analytics-consent", "granted");
           banner.style.display = "none";
           injectGA();
         });
 
-        rejectBtn?.addEventListener("click", () => {
+        document.getElementById("reject-cookies")?.addEventListener("click", () => {
           localStorage.setItem("analytics-consent", "denied");
           banner.style.display = "none";
           console.log("[CookieBanner] GA injection declined ❌");
         });
-      };
-
-      const injectGA = () => {
-        if (window.__gaInjected) return;
-        window.__gaInjected = true;
-
-        // Inject GA script dynamically
-        const gaScript = document.createElement("script");
-        gaScript.src = `https://www.googletagmanager.com/gtag/js?id=G-55XW4V0S7F`;
-        gaScript.async = true;
-        document.head.appendChild(gaScript);
-
-        const inlineScript = document.createElement("script");
-        inlineScript.textContent = `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-55XW4V0S7F');
-          gtag('consent', 'update', {
-            ad_storage: 'granted',
-            ad_user_data: 'granted',
-            ad_personalization: 'granted',
-            analytics_storage: 'granted'
-          });
-        `;
-        document.head.appendChild(inlineScript);
-
-        console.log("[CookieBanner] GA dynamically injected ✅");
       };
 
       showBanner();
@@ -87,6 +105,7 @@
     })();
   </script>
 </div>
+
 
   <style>
     .cookie-banner {
