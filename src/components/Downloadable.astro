@@ -26,7 +26,12 @@ const getFileNameFromUrl = (url: string) => {
 const buttonText = fileName || getFileNameFromUrl(url);
 ---
 <div class="flex justify-center">
-<a href={url} download={fileName} class="download-button" target="_blank" rel="noopener noreferrer">
+<a 
+href={url} 
+download={fileName} 
+class="download-button" 
+target="_blank" 
+rel="noopener noreferrer">
   Download "{buttonText}"
 </a>
 </div>
@@ -49,3 +54,5 @@ const buttonText = fileName || getFileNameFromUrl(url);
     background-color: #0073e6;
   }
 </style>
+
+
