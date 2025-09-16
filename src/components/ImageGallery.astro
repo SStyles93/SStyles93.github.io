@@ -4,19 +4,18 @@ const { images = [] } = Astro.props;
 ---
 
 <div class="image-gallery grid grid-cols-2 gap-4">
-  {images.map((src, idx) => (
-    <a
-      href={src}
-      class="glightbox"
-      data-gallery="gallery1"
-    >
-      <img
-        src={src}
-        alt={`Gallery image ${idx + 1}`}
-        class="rounded-lg shadow-md hover:opacity-80 transition"
-      />
-    </a>
-  ))}
+  {images.map((img, idx) => {
+    const src = typeof img === "string" ? img : img.src; // support both
+    return (
+      <a href={src} class="glightbox" data-gallery="gallery1">
+        <img 
+          src={src} 
+          alt={`Gallery image ${idx + 1}`} 
+          class="rounded-lg shadow-md hover:opacity-80 transition" 
+        />
+      </a>
+    );
+  })}
 </div>
 
 <script>
