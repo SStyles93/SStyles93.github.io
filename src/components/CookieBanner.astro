@@ -1,11 +1,7 @@
----
-const { GA_ID } = Astro.props;
----
-
-<div client:load>
+<div client:load transition:persist>
   <div id="cookie-banner" class="cookie-banner" style="display:none;">
     <p>
-      I use cookies for analytics, this helps me improve my Portfolio.
+      I use cookies for analytics. This helps me improve my Portfolio.
       <br/><br/>
       Do you accept cookies? 🍪
     </p>
@@ -16,9 +12,8 @@ const { GA_ID } = Astro.props;
   </div>
 
   <script is:inline>
-
     (() => {
-      // Run only once per session
+
       if (window.__cookieBannerInitialized) return;
       window.__cookieBannerInitialized = true;
 
@@ -27,34 +22,20 @@ const { GA_ID } = Astro.props;
 
       const showBanner = () => {
         const consent = localStorage.getItem("analytics-consent");
-
-        const GA_ID = "${GA_ID}";
-
-        // Already accepted -> configure GA immediately
+        
         if (consent === "granted") {
-          if (GA_ID) {
-            const waitForGtag = () => {
-              if (typeof gtag === "function") {
-                gtag('config', GA_ID);
-                console.log("[CookieBanner] GA injected ✅");
-              } else {
-                setTimeout(waitForGtag, 50);
-              }
-            };
-            waitForGtag();
-          }
           banner.style.display = "none";
+          injectGA();
           return;
         }
 
-        // Already declined -> hide banner, do NOT configure GA
         if (consent === "denied") {
           banner.style.display = "none";
           console.log("[CookieBanner] GA injection declined ❌");
           return;
         }
 
-        // No consent yet -> show banner
+        // Show banner if no consent
         banner.style.display = "block";
 
         const acceptBtn = document.getElementById("accept-cookies");
@@ -63,19 +44,7 @@ const { GA_ID } = Astro.props;
         acceptBtn?.addEventListener("click", () => {
           localStorage.setItem("analytics-consent", "granted");
           banner.style.display = "none";
-
-          // Configure GA after consent
-          if (GA_ID) {
-            const waitForGtag = () => {
-              if (typeof gtag === "function") {
-                gtag('config', GA_ID);
-                console.log("[CookieBanner] GA injected ✅");
-              } else {
-                setTimeout(waitForGtag, 50);
-              }
-            };
-            waitForGtag();
-          }
+          injectGA();
         });
 
         rejectBtn?.addEventListener("click", () => {
@@ -85,16 +54,39 @@ const { GA_ID } = Astro.props;
         });
       };
 
-      // Run on first load
-      showBanner();
+      const injectGA = () => {
+        if (window.__gaInjected) return;
+        window.__gaInjected = true;
 
-      // SPA navigation: re-run check
+        // Inject GA script dynamically
+        const gaScript = document.createElement("script");
+        gaScript.src = `https://www.googletagmanager.com/gtag/js?id=G-55XW4V0S7F`;
+        gaScript.async = true;
+        document.head.appendChild(gaScript);
+
+        const inlineScript = document.createElement("script");
+        inlineScript.textContent = `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-55XW4V0S7F');
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        `;
+        document.head.appendChild(inlineScript);
+
+        console.log("[CookieBanner] GA dynamically injected ✅");
+      };
+
+      showBanner();
       document.addEventListener("astro:page-load", showBanner);
     })();
   </script>
 </div>
-
-
 
   <style>
     .cookie-banner {

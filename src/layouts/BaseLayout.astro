@@ -31,21 +31,21 @@ const {
     {TRANSITION_API && <ViewTransitions />}
 
     {GA_ID && (
-      <>
-        <!-- Load GA library via Partytown -->
-        <script
-          type="text/partytown"
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        ></script>
-        <script type="text/partytown">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-          `}
-        </script>
-      </>
+      <script is:inline>
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          // Default deny consent
+          gtag('consent', 'default', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: 'denied'
+          });
+        `}
+      </script>
     )}
   </head>
   <body>
@@ -53,8 +53,10 @@ const {
       <input id="my-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content bg-base-100">
         <Header title={SITE_TITLE} />
+
+        <!-- Persistent CookieBanner outside slot -->
+        <CookieBanner/>
         <div class="md:flex md:justify-center">
-          <CookieBanner GA_ID={GA_ID} />
           <main class="p-6 pt-10 max-w-[900px]">
             <slot />
           </main>
