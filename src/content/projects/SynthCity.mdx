@@ -11,6 +11,7 @@ toolUsed: "C#/Unity"
 
 import Button from "../../components/Button.astro";
 import Video from "../../components/Video.astro";
+import * as images from "/src/assets/images";
 
 This game was made with **[Unity](https://unity.com/)** in **2 days** at the [SwissGameCenter](https://swissgamecenter.ch/lvlup.php?lang=fr)'s 
 [**LvlUp**](https://lvlupgamejam.ch/) **GameJam** at 
@@ -31,9 +32,9 @@ and create simple visual effects using Unity's **[Shader Graph](https://docs.uni
 import ImageGallery from "../../components/ImageGallery.astro";
 
 <ImageGallery images={[
-        "/src/assets/images/synthcity/SynthCityIntro.png",
-        "/src/assets/images/synthcity/SynthCityMenu.png",
-        "/src/assets/images/synthcity/SynthCityMap.png",
+        images.synthcity_SynthCityIntro_png,
+        images.synthcity_SynthCityMenu_png,
+        images.synthcity_SynthCityMap_png
     ]}/>
 
 <div class="flex justify-center">

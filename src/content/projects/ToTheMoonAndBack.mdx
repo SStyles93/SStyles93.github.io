@@ -8,8 +8,8 @@ teamSize: 1
 timeFrame: "1 week"
 toolUsed: "C++/SFML/Box2D"
 ---
-
 import Button from "../../components/Button.astro";
+import * as images from "/src/assets/images";
 
 This simple spaceship game was my **first C++ game** made during a module of introduction to programming at the [**SAE-Institute Geneva**](https://www.sae.edu/ch-ge/).
 At the end of the module we had to create a game **in a week** with what we had learned.  
@@ -20,8 +20,9 @@ At the end of the module we had to create a game **in a week** with what we had 
 import ImageGallery from "../../components/ImageGallery.astro";
 
 <ImageGallery images={[
-  "/src/assets/images/tothemoon/ToTheMoonIntro.png",
-  "/src/assets/images/tothemoon/tothemoon.gif"]}/>
+  images.tothemoon_tothemoon_gif,
+  images.tothemoon_ToTheMoonIntro_png,
+  ]}/>
 
 For this project I went **a step further** than what was asked for the module by 
 integrating a **scoring system** that would keep track of the players last score locally.

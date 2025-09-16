@@ -21,13 +21,18 @@ const { images = [] } = Astro.props;
 <script>
   import GLightbox from "glightbox";
 
-  // wait for the DOM, then initialize
-  if (typeof window !== "undefined") {
-    const lightbox = GLightbox({
+  function setupLightbox() {
+    GLightbox({
       selector: ".glightbox",
       touchNavigation: true,
       loop: true,
       autoplayVideos: true,
     });
+  }
+
+  // run once on load
+  if (typeof window !== "undefined") {
+    setupLightbox();
+    document.addEventListener("astro:page-load", setupLightbox);
   }
 </script>

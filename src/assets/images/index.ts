@@ -284,8 +284,6 @@ export { default as tool_PodRacerRef_png } from "./tool/PodRacerRef.png";
 export { default as tool_Result_png } from "./tool/Result.png";
 export { default as tothemoon_tothemoon_gif } from "./tothemoon/tothemoon.gif";
 export { default as tothemoon_ToTheMoonIntro_png } from "./tothemoon/ToTheMoonIntro.png";
-export { default as tothetmoonandback_ToTheMoonAndBack_Game_gif } from "./tothetmoonandback/ToTheMoonAndBack_Game.gif";
-export { default as tothetmoonandback_ToTheMoonAndBack_Menu_png } from "./tothetmoonandback/ToTheMoonAndBack_Menu.png";
 export { default as uepython_UeConsole_png } from "./uepython/UeConsole.png";
 export { default as uepython_UeConsole2_png } from "./uepython/UeConsole2.png";
 export { default as uepython_UeMats_png } from "./uepython/UeMats.png";
