@@ -6,7 +6,7 @@ import SideBar from "../components/SideBar.astro";
 import { ViewTransitions } from "astro:transitions";
 import CookieBanner from "../components/CookieBanner.astro";
 
-import { SITE_TITLE, SITE_DESCRIPTION, TRANSITION_API, GA_ID } from "../config";
+import { SITE_TITLE, SITE_DESCRIPTION, TRANSITION_API } from "../config";
 
 const {
   image,
@@ -30,7 +30,6 @@ const {
 
     {TRANSITION_API && <ViewTransitions />}
 
-    {GA_ID && (
       <script is:inline>
         {`
           window.dataLayer = window.dataLayer || [];
@@ -46,7 +45,7 @@ const {
           });
         `}
       </script>
-    )}
+
   </head>
   <body>
     <div class="bg-base-100 drawer lg:drawer-open">
