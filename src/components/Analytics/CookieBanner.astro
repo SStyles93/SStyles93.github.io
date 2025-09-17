@@ -1,0 +1,49 @@
+---
+/* src/components/CookieBanner.astro */
+---
+
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 w-full bg-gray-800 text-white p-4 z-50 hidden">
+  <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center">
+    <p class="text-center sm:text-left mb-2 sm:mb-0 sm:mr-4">
+      I use cookies for analytics to improve my portfolio. Do you accept my cookies? 🍪
+    </p>
+    <div class="flex-shrink-0">
+      <button id="accept-cookies" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mr-2">
+        Accept 🍪
+      </button>
+      <button id="refuse-cookies" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+        Refuse
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const banner = document.getElementById("cookie-banner");
+    const acceptBtn = document.getElementById("accept-cookies");
+    const refuseBtn = document.getElementById("refuse-cookies");
+
+    const consent = localStorage.getItem("cookie_consent");
+
+    if (consent === null) {
+      banner.classList.remove("hidden");
+    }
+
+    acceptBtn.addEventListener("click", () => {
+      localStorage.setItem("cookie_consent", "true");
+      banner.classList.add("hidden");
+
+      // 🔑 Tell GoogleAnalytics.astro to load GA now
+      window.dispatchEvent(new Event("cookie-consent-accepted"));
+    });
+
+    refuseBtn.addEventListener("click", () => {
+      localStorage.setItem("cookie_consent", "false");
+      banner.classList.add("hidden");
+
+      // Optional: tell other scripts about refusal
+      window.dispatchEvent(new Event("cookie-consent-declined"));
+    });
+  });
+</script>

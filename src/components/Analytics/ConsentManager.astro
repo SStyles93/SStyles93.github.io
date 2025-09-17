@@ -1,0 +1,17 @@
+---
+// src/components/ConsentManager.astro
+---
+<div class="flex justify-center">
+<button id="manage-consent-btn" class="underline hover:text-gray-400">
+  Manage Cookie Consent
+</button>
+</div>
+
+<script>
+  document.getElementById('manage-consent-btn').addEventListener('click', () => {
+    // Remove the stored consent choice
+    localStorage.removeItem('cookie_consent');
+    // Reload the page to show the banner again
+    window.location.reload();
+  });
+</script>

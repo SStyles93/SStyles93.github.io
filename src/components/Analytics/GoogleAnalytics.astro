@@ -1,0 +1,25 @@
+<script>
+  function loadGA() {
+    if (window.__gaLoaded) return; // prevent duplicate init
+    window.__gaLoaded = true;
+
+    const gtagScript = document.createElement("script");
+    gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-55XW4V0S7F";
+    gtagScript.async = true;
+    document.head.appendChild(gtagScript);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag; // expose globally if needed
+    gtag("js", new Date());
+    gtag("config", "G-55XW4V0S7F");
+  }
+
+  // 1. Load GA if cookie already set
+  if (document.cookie.includes("cookie_consent=true")) {
+    loadGA();
+  }
+
+  // 2. Listen for consent event (emitted by ConsentManager or CookieBanner)
+  window.addEventListener("cookie-consent-accepted", loadGA);
+</script>
