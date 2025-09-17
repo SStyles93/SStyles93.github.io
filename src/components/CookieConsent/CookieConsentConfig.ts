@@ -9,6 +9,8 @@ declare global {
 
 export const config: CookieConsentConfig = {
     root: "#cc-container",
+    mode: 'opt-in',
+    page_script: true,
   guiOptions: {
     consentModal: {
       layout: 'box inline',
@@ -27,10 +29,8 @@ export const config: CookieConsentConfig = {
       enabled: true,
     },
     functionality: {
-        enabled: true,
     },
     analytics: {
-         enabled: true,
       services: {
         ga4: {
           label: "Google Analytics (GA4)",
@@ -43,6 +43,12 @@ export const config: CookieConsentConfig = {
               ad_user_data: 'granted',
               ad_personalization: 'granted',
               analytics_storage: 'granted',
+            });
+
+            window.gtag('event', 'page_view', {
+              page_path: window.location.pathname,
+              page_location: window.location.href,
+              page_title: document.title,
             });
           },
           onReject: () => {
