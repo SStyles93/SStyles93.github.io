@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 import SideBar from "../components/SideBar.astro";
 import { ViewTransitions } from "astro:transitions";
 //Cookie check
-import CookieBanner from "../components/CookieBanner.astro";
+import CookieConsent from "../components/CookieConsent/CookieConsent.astro";
 
 import { SITE_TITLE, SITE_DESCRIPTION, TRANSITION_API } from "../config";
 
@@ -29,6 +29,28 @@ const {
       ogType={ogType}
     />
     {TRANSITION_API && <ViewTransitions />}
+
+    <!-- GA4 -->
+  <script is:inline src="https://www.googletagmanager.com/gtag/js?id=G-55XW4V0S7F"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag(...args) {
+    window.dataLayer.push(args);
+  };
+
+  document.addEventListener('astro:page-load', () => {
+    window.gtag('js', new Date());
+    window.gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+    });
+    window.gtag('config', 'G-55XW4V0S7F');
+  });
+</script>
+
   </head>
   <body>
     <div class="bg-base-100 drawer lg:drawer-open">
@@ -38,9 +60,27 @@ const {
         <div class="md:flex md:justify-center">
           <main class="p-6 pt-10 max-w-[900px]">
             <slot />
-            <CookieBanner/>
-            <!-- {import.meta.env.PROD && (
+              
+            <div transition:persist="transition" id="cc-container">
+                <CookieConsent />
+                    <script is:inline>
+                      // Restore the `show--consent` class if it was present before the page swap
+                      document.addEventListener('astro:before-preparation', (event) => {
+                        const htmlClassName = window.document.documentElement.className;
+                        const consentClassPresent = htmlClassName.includes('show--consent') ? true : false;
+                        window._showConsentClass = consentClassPresent;
+                      });
+
+                      document.addEventListener('astro:before-swap', (event) => {
+                        const showConsent = window._showConsentClass ? ` show--consent` : '';
+                        event.newDocument.documentElement.className += showConsent;
+                      });
+                    </script>
+              </div>
+            <!-- {!import.meta.env.PROD && (
+              
             )} -->
+
           </main>
         </div>
         <Footer />
