@@ -1,9 +1,10 @@
 ---
 export interface Props {
   href: string;
+  track?: boolean; // optional toggle for analytics
 }
 
-const { href } = Astro.props;
+const { href, track = true } = Astro.props;
 
 // auto-detect external links
 const isExternal = href.startsWith("http://") || href.startsWith("https://");
@@ -14,6 +15,30 @@ const isExternal = href.startsWith("http://") || href.startsWith("https://");
   target={isExternal ? "_blank" : "_self"} 
   rel={isExternal ? "noopener noreferrer" : undefined}
   class="btn btn-outline mx-1 px-[clamp(0.5rem,2vw,1.5rem)] py-[clamp(0.25rem,1vw,0.75rem)] text-[clamp(0.75rem,2vw,1rem)]"
+  data-analytics-link
 >
   <slot />
 </a>
+
+{track && (
+  <script>
+    function attachTracking() {
+      const el = document.getElementById("{id}");
+      if (!el) return;
+
+      el.addEventListener("click", () => {
+        if (typeof gtag === "function") {
+          gtag("event", "click", {
+            event_category: "link",
+            event_label: el.href,
+          });
+        }
+      }, { once: true }); // ensure no duplicate listeners
+    }
+
+    // attach after first load
+    document.addEventListener("astro:page-load", attachTracking);
+    // re-attach after every view transition swap
+    document.addEventListener("astro:after-swap", attachTracking);
+  </script>
+)}

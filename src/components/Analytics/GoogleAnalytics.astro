@@ -1,3 +1,7 @@
+---
+/* src/components/Analytics/GoogleAnalytics.astro */
+---
+
 <script>
   function loadGA() {
     if (window.__gaLoaded) return; // prevent duplicate init
@@ -11,15 +15,27 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     window.gtag = gtag; // expose globally if needed
-    gtag("js", new Date());
-    gtag("config", "G-55XW4V0S7F");
+
+    gtag('js', new Date());
+    gtag('config', 'G-55XW4V0S7F');
   }
 
-  // 1. Load GA if cookie already set
-  if (document.cookie.includes("cookie_consent=true")) {
-    loadGA();
+  function checkConsentAndLoad() {
+    const consent = localStorage.getItem("cookie_consent");
+    if (consent === "true") {
+      loadGA();
+    }
   }
 
-  // 2. Listen for consent event (emitted by ConsentManager or CookieBanner)
+  // 1. Run after initial load
+  document.addEventListener("astro:page-load", checkConsentAndLoad);
+
+  // 2. Run again after each view transition swap
+  document.addEventListener("astro:after-swap", checkConsentAndLoad);
+
+  // 3. Run immediately if already accepted (handles first visit or reload)
+  checkConsentAndLoad();
+
+  // 4. Listen for consent events from CookieBanner
   window.addEventListener("cookie-consent-accepted", loadGA);
 </script>
