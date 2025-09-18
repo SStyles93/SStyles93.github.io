@@ -1,0 +1,457 @@
+---
+title: "Unity Tips - Creating Native DLLs for Procedural Generation"
+description: "The process of creating a native DLL and integrating it in Unity"
+creationDate: "Sep 18 2025"
+order: 0
+heroImage: "/src/assets/images/unitytips/Unity_DLL.png"
+teamSize: 1
+timeFrame: "10 days"
+toolUsed: "Unity/C#/C++/VS/CMake/vcpkg/SFML/ImGui"
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import UmlDiagram from "../../components//UmlDiagram.astro";
+import ImageGallery from "../../components/ImageGallery.astro";
+import * as images from "/src/assets/images";
+
+During my time at **Lab4Tech**, I was actively preparing for industry-recognized certifications:
+- **C++** [CLA](https://cppinstitute.org/cla) & [CPP](https://cppinstitute.org/cpp) from the **C++ Institute**
+- [Unity Professional Programmer](https://unity.com/products/unity-certifications/professional-programmer) from **Unity**
+
+I wanted more than textbook knowledge. I needed a real-world project where I could combine high-performance `C++` with Unity’s `C#` ecosystem.  
+
+That became the motivation behind **Dungeon Forge**: a `native C++` **DLL** powering procedural dungeon generation, fully integrated into Unity.
+
+This project was more than just "making a DLL". It was an exploration into:  
+- **Cross-language interop** (C++ ↔ C#).
+- **Designing** efficient, reusable **libraries**.
+- **Profiling** and **optimizing** game-related **systems**.
+- **Building** custom **Unity Editor tooling** for seamless developer experience.
+
+## The Problem: Procedural Generation at Scale
+
+Procedural content generation in Unity often runs into two bottlenecks:
+- **Performance**:  
+`C#` alone can be limiting for heavy algorithmic workloads (e.g., cellular automata iterations, BSP tree construction).
+- **Extensibility**:  
+Unity projects rarely expose low-level optimization levers for procedural workflows.
+
+## Technical Solution: Dungeon Forge DLL
+My goal was to encapsulate advanced map generation algorithms in a native library, making them reusable across projects without rewriting the same logic in Unity each time.
+
+The DLL provides multiple map generation algorithms, each with different use cases: 
+- [Binary Space Partitioning](https://en.wikipedia.org/wiki/Binary_space_partitioning) *(BSP)*: Recursive space subdivision for structured dungeons.
+- [Cellular Automata](https://en.wikipedia.org/wiki/Cellular_automaton) *(CA)*: Organic cave-like environments.
+- [Drunkard’s Walk](https://en.wikipedia.org/wiki/The_Drunkard%27s_Walk): Random walk-based tunnels, suitable for roguelike layouts.
+- [Perlin Noise](https://en.wikipedia.org/wiki/Perlin_noise): Used primarily for benchmarking randomness and map density.
+
+I initially experimented with [Wave Function Collapse](https://en.wikipedia.org/wiki/Wave_function_collapse) *(WFC)*.  
+However, its complexity (non-trivial constraint propagation, state explosion, and edge cases) 
+made it unstable within my initial 10-day timeframe. 
+This was an important engineering decision: I prioritized robustness and maintainability over incomplete features.
+
+## Engineering the Native Library (C++)
+### Build System & Tooling
+
+- [CMake](https://cmake.org/) was used for cross-platform build management.  
+- [vcpkg](https://vcpkg.io/en/) handled dependency management (e.g., SFML, ImGui). 
+- [Tracy Profiler](https://github.com/wolfpld/tracy) enabled performance instrumentation at the C++ level.  
+
+A critical part of the CMake configuration was ensuring proper DLL export symbols:  
+
+```make
+cmake_minimum_required(VERSION 3.31)
+
+project("DungeonForge")
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STRANDARD_REQUIRED ON) 
+
+# {... Rest of the CMake File ...}
+
+#DLL EXPORT
+# Enable automatic symbol export
+SET(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+include_directories(include/)
+
+# Collect source files
+file(GLOB_RECURSE LIB_FILES src/ *.cpp include/ *.hpp)
+
+# Build shared library
+add_library(DungeonForgeLib SHARED ${LIB_FILES})
+
+# Generate export header
+include(GenerateExportHeader)
+generate_export_header(DungeonForgeLib)
+
+```
+
+This setup ensured that class methods and functions were properly exposed to Unity.
+
+### DLL Export Strategy
+
+`C++` classes cannot be directly marshaled into Unity `C#`. To solve this, I designed a **C API layer** over my `C++` classes:
+```c++
+//dllexport.h
+#pragma once
+
+#ifndef EXPORTS
+#define DF_API __declspec(dllexport)
+#else
+#define DF_API __declspec(dllimport)
+#endif
+```
+The Generator class (encapsulating procedural logic) was then wrapped with **C-style exports**:
+```c++
+//Generator.hpp
+#pragma once
+#include "dllexport.h"
+#include "Map.hpp"
+//{... All the C++ includes needed ...}
+
+class Generator
+{
+public:
+private:
+};
+extern "C" 
+{
+    DF_API Generator* CreateGenerator(unsigned int width, unsigned int height);
+    DF_API void DeleteGenerator(Generator* instance);
+    DF_API void Generate(Generator* instance);
+    // {... Rest of the exported funtions ...}
+}
+```
+
+```c++
+//Generator.cpp
+#include "Generator.hpp"
+//DLL EXPORT
+#pragma region DLL
+DF_API Generator* CreateGenerator(unsigned int width, unsigned int height)
+{
+    return new Generator(width, height);
+}
+DF_API void DeleteGenerator(Generator* instance)
+{
+    delete instance;
+}
+DF_API void Generate(Generator* instance)
+{
+    if (instance == nullptr) return;
+    instance->generate();
+}
+//{... Rest of the Exported functions ...}
+```
+
+This pattern allowed Unity to hold a raw pointer (IntPtr in C#), without needing to understand C++ object layouts.  
+
+This is the diagram shows how data and calls move across the language boundary:  
+<UmlDiagram code={`
+@startuml
+title DLL_Integration_Flow
+
+class Unity{
+  +Editor Window
+  +Generator.cs
+}
+
+class DLL {
+  +Generator Class
+  +Algorithms
+  +Random Engine
+}
+
+class Runtime {
+  +GameObjects
+  +Meshes
+  +Prefabs
+}
+
+Unity <-> DLL : extern "C" API%n()(IntPtr, C exports)
+Unity --> Runtime : Marshaled Map Data%n()(size, seed, tiles)
+
+@enduml
+`}/>
+
+### Memory Management & Safety
+
+The DLL interface was carefully designed to avoid dangling pointers and leaks:  
+- **Factory/Destructor pattern** (CreateGenerator / DeleteGenerator).
+- **Null-check** guards before running operations.
+- **Seed management** via std::mt19937 for reproducible procedural results.
+
+This ensured deterministic behavior while keeping Unity free from memory management concerns.
+
+## Unity Integration (C# Wrapper)
+### DLL Import
+On the Unity side, I created a thin **C# wrapper** using `DllImport`:
+```csharp
+//Generator.cs
+ private static IntPtr generatorInstance;
+
+ [DllImport("DungeonForgeLib.dll")]
+ private static extern IntPtr CreateGenerator(uint width, uint height);
+
+ [DllImport("DungeonForgeLib.dll")]
+ private static extern void DeleteGenerator(IntPtr generatorInstance);
+
+ [DllImport("DungeonForgeLib.dll")]
+ private static extern void Generate(IntPtr generatorInstance);
+ //{... Rest of the methods declaration ...}
+```
+This allowed Unity to **allocate, configure, and trigger generation** entirely from managed code:
+```csharp 
+//Generator.cs
+        public static void Generate()
+        {
+            generatorInstance = CreateGenerator((uint)mapSize.x, (uint)mapSize.y);
+            SetSeed(generatorInstance, m_seed);
+            SetAlgorithm(generatorInstance, (int)m_algorithmType);
+            switch (m_algorithmType)
+            {
+               //{... Algorithm parameters ...}
+            }
+            Generate(generatorInstance);
+            GeneratePhisicalMap(m_mapSize, m_mapHeight, m_mapCenter);
+        }
+```
+The biggest challenge here was interop debugging: mismatched calling conventions, struct marshalling, 
+and parameter mismatches all led to runtime crashes. By carefully isolating responsibilities (C++ for algorithms, C# for orchestration), 
+I minimized the error surface.
+
+Here is a diagram showing how the procedural engine runs independently of Unity before passing results back:  
+<UmlDiagram code={`
+@startuml
+title Map_Generation_Workflow
+
+class Generator {
+  +C++ Class
+}
+
+class Algorithm {
+  +BSP
+  +Cellular Automata
+  +Drunkard’s Walk
+  +Perlin Noise
+}
+
+class RNG {
+  +std::mt19937
+  +Seed Management
+}
+
+class Iteration {
+  +Grid Modifications
+  +Procedural Steps
+}
+
+class Map {
+  +2D Tile Data
+  +0 = Ground
+  +1 = Wall
+}
+
+Generator --> Algorithm : Generate()
+Algorithm -right-> RNG
+RNG -right-> Iteration
+Algorithm -down-> Map
+
+@enduml
+`}/>
+
+### Developer Experience: Unity Editor Window
+
+To make the system usable by other developers, I built a custom Unity Editor Window:
+```csharp
+//DungeonForgeEditorWindow.cs
+[MenuItem("Tools/DungeonForge/MapGenerator")]
+static void Init()
+{
+    // Get existing open window or if none, make a new one:
+    DungeonForgeEditorWindow window = (DungeonForgeEditorWindow)EditorWindow.GetWindow(typeof(DungeonForgeEditorWindow));
+    window.Show();
+}
+```
+with the following features:
+- **Foldout groups** for clean organization of algorithm settings.  
+Example: `Foldout` groups for the "Generator Rules":
+```csharp
+//DungeonForgeEditorWindow.cs
+ m_generatorRules = EditorGUILayout.Foldout(m_generatorRules, new GUIContent(
+"Generator Rules",
+"Possibility to change the Type of Algorithm and the Seed used for map generation"));
+ if (m_generatorRules)
+ { /*{... Content of the generator rules ...}*/}
+```
+
+- **Undo/Redo support** (via Undo.RecordObject).
+- **Immediate Repaint** on changes for responsive UI.  
+Example: Selecting algorithms via `EnumPopup` with full undo support:
+```csharp
+//DungeonForgeEditorWindow.cs
+EditorGUI.BeginChangeCheck();
+AlgorithmType algorithmType = (AlgorithmType)EditorGUILayout.EnumPopup
+(
+       new GUIContent
+       (
+           /*{... Description content ...}*/
+        ), m_algorithmType
+);
+if (EditorGUI.EndChangeCheck())
+{
+    Undo.RecordObject(this, "Modified AlgorithmType");
+    m_algorithmType = algorithmType;
+    DungeonForge.Generator.SetAlgorithmType(m_algorithmType);
+    EditorUtility.SetDirty(this);
+    Repaint();
+}
+```
+
+- **Buttons** directly calling DLL functions.  
+Example: `Button` calling the `Generate()` function of the DLL
+```csharp
+//DungeonForgeEditorWindow.cs
+if (GUILayout.Button("Generate Map"))
+{
+    DungeonForge.Generator.Generate();
+}
+```
+This approach meant that designers could iterate procedurally generated maps without writing code.
+
+Here is a diagram showing developer ergonomics: not just code, but how someone actually uses this system.
+<UmlDiagram code={`
+@startuml
+title Unity_Editor_UX_Flow
+
+class UnityEditorWindow {
+  +Foldouts (Algo, Seed)
+  +Buttons (Generate, Save)
+}
+
+class Wrapper {
+  +Calls DLL Functions
+  +Manages IntPtr
+  +Applies Map to Scene
+}
+
+class Scene {
+  +Instantiated Prefabs
+  +Map Visualization
+  +JSON Save/Load
+}
+
+UnityEditorWindow -right-> Wrapper
+Wrapper -right-> Scene
+
+@enduml
+`}/>
+
+### Bonus: Map Persistence
+
+I implemented JSON-based save/load for maps:
+- Save: Serializes grid data (1 = wall, 0 = ground, "\n" = new line) into `JSON`.  
+```csharp
+/// <summary>
+/// Save the currently displayed map
+/// </summary>
+/// <param name="invertLines">if true inverts the Y writing order (starts at the bottom-left)(</param>
+public static void SaveMap(bool invertLines = false, bool isDataPersistent = false)
+{
+    SaveData mapData = new SaveData();
+    mapData.mapSize = m_mapSize;
+    mapData.mapHeight = m_mapHeight;
+
+    string mapString = "";
+    /*{... Nested for loop on x and y, writing:
+     "1" walls, "0" ground, "\n" new line
+     }*/
+    mapData.mapTiles = mapString;
+    string json = JsonUtility.ToJson(mapData);
+
+    string path; 
+    path = isDataPersistent ? Application.persistentDataPath : Application.dataPath;
+    File.WriteAllText(path + "/SavedMap.json", json);
+    
+}
+```
+- Load: Reconstructs physical maps directly from `JSON` files.  
+```csharp
+/// <summary>
+/// Loads a JSON file and reinterprets it in an instantiated 3D map
+/// </summary>
+public static void LoadMap(bool wasDataPersistent = false)
+{
+  // 1. Loading of the Map 
+  // 2. Deletion of previous physical map
+  // 3. Instantiation of loaded map*/
+}
+```
+- Custom class: Saves data for `JSON` parsing:
+```csharp
+    [System.Serializable]
+    class SaveData
+    {
+        public Vector2Int mapSize;
+        public uint mapHeight;
+        public string mapTiles;
+    }
+```
+
+This feature made maps shareable and persistent, bridging procedural workflows with level design workflows.
+
+## Lessons Learned & Engineering Takeaways
+
+- Interop is brittle.  
+Small mismatches (struct alignment, calling conventions) can crash Unity. 
+Testing in isolation (SFML + ImGui test project) was invaluable before moving into Unity.
+- Profiling matters.  
+Using Tracy revealed algorithm bottlenecks (especially with cellular automata iterations). 
+Optimizing random number generation and memory allocations gave noticeable performance gains.
+- Abstraction layers pay off.  
+The C API between C++ and Unity simplified debugging and future-proofed the library.
+- DX (Developer Experience) is as important as performance.  
+A custom Editor Window transformed the project from “interesting” to “usable.”
+
+## Conclusion
+
+This project gave me **end-to-end exposure** to:
+- Building and exporting **native C++ DLLs**.
+- Marshaling data and ensuring safe cross-language integration.
+- Profiling and optimizing procedural algorithms.
+- Creating intuitive **Unity Editor tooling** for production use.
+
+Dungeon Forge was more than a side project. It was a demonstration of **engineering workflows**, blending 
+**low-level C++ performance** with **Unity’s accessibility**.
+
+
+<ImageGallery images={[
+  images.unitytips_DLL_CPP_Perlin_png,
+  images.unitytips_DLL_Unity_Perlin_png,
+  images.unitytips_DLL_CPP_BSP_png,
+  images.unitytips_DLL_Unity_BSP_png,
+  images.unitytips_DLL_CPP_CA_png,
+  images.unitytips_DLL_Unity_CA_png,
+  images.unitytips_DLL_CPP_DW_png,
+  images.unitytips_DLL_Unity_DW_png,
+]}/>
+
+---
+👉 If you’re a Unity or C++ engineer, you’ll recognize the challenges hidden in cross-language systems.  
+This project taught me how to **navigate those pitfalls** and design solutions that are both **powerful** and **user-friendly**.
+
+---
+
+<div class="flex justify-center">
+<Button href="https://github.com/SStyles93/DungeonForge">DLL on GitHub</Button>
+</div>
+
+import SocialShare from "../../components/SocialShare.astro";
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+  </div>

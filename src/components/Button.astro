@@ -14,7 +14,7 @@ const isExternal = href.startsWith("http://") || href.startsWith("https://");
   href={href} 
   target={isExternal ? "_blank" : "_self"} 
   rel={isExternal ? "noopener noreferrer" : undefined}
-  class="btn btn-outline mx-1 px-[clamp(0.5rem,2vw,1.5rem)] py-[clamp(0.25rem,1vw,0.75rem)] text-[clamp(0.75rem,2vw,1rem)]"
+  class="btn btn-outline mx-1 px-[clamp(0.5rem,2vw,1.5rem)] py-[clamp(0.25rem,1vw,0.75rem)] text-[clamp(0.75rem,2vw,1rem)] my-5"
   data-analytics-link
 >
   <slot />
