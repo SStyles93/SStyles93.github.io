@@ -351,7 +351,7 @@ Wrapper -right-> Scene
 ### Bonus: Map Persistence
 
 I implemented JSON-based save/load for maps:
-- Save: Serializes grid data (1 = wall, 0 = ground, "\n" = new line) into `JSON`.  
+- **Save**: Serializes grid data (1 = wall, 0 = ground, "\n" = new line) into `JSON`.  
 ```csharp
 /// <summary>
 /// Save the currently displayed map
@@ -376,7 +376,7 @@ public static void SaveMap(bool invertLines = false, bool isDataPersistent = fal
     
 }
 ```
-- Load: Reconstructs physical maps directly from `JSON` files.  
+- **Load**: Reconstructs physical maps directly from `JSON` files.  
 ```csharp
 /// <summary>
 /// Loads a JSON file and reinterprets it in an instantiated 3D map
@@ -388,7 +388,7 @@ public static void LoadMap(bool wasDataPersistent = false)
   // 3. Instantiation of loaded map*/
 }
 ```
-- Custom class: Saves data for `JSON` parsing:
+- **Custom class**: Saves data for `JSON` parsing:
 ```csharp
     [System.Serializable]
     class SaveData
@@ -403,24 +403,27 @@ This feature made maps shareable and persistent, bridging procedural workflows w
 
 ## Lessons Learned & Engineering Takeaways
 
-- Interop is brittle.  
+- **Interop is brittle**  
 Small mismatches (struct alignment, calling conventions) can crash Unity. 
-Testing in isolation (SFML + ImGui test project) was invaluable before moving into Unity.
-- Profiling matters.  
+Testing in isolation (SFML + ImGui test project) was invaluable before moving into Unity.  
+
+- **Profiling matters**  
 Using Tracy revealed algorithm bottlenecks (especially with cellular automata iterations). 
-Optimizing random number generation and memory allocations gave noticeable performance gains.
-- Abstraction layers pay off.  
-The C API between C++ and Unity simplified debugging and future-proofed the library.
-- DX (Developer Experience) is as important as performance.  
+Optimizing random number generation and memory allocations gave noticeable performance gains.  
+
+- **Abstraction layers pay off**  
+The C API between C++ and Unity simplified debugging and future-proofed the library.  
+
+- **DX *(Developer Experience)* is as important as performance**  
 A custom Editor Window transformed the project from “interesting” to “usable.”
 
 ## Conclusion
 
 This project gave me **end-to-end exposure** to:
-- Building and exporting **native C++ DLLs**.
-- Marshaling data and ensuring safe cross-language integration.
-- Profiling and optimizing procedural algorithms.
-- Creating intuitive **Unity Editor tooling** for production use.
+- **Building** and exporting **native C++ DLLs**.
+- **Marshaling data** and ensuring safe cross-language integration.
+- **Profiling** and optimizing procedural algorithms.
+- **Creating** intuitive **Unity Editor tooling** for production use.
 
 Dungeon Forge was more than a side project. It was a demonstration of **engineering workflows**, blending 
 **low-level C++ performance** with **Unity’s accessibility**.
