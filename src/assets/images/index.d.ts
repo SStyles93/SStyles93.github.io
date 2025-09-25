@@ -378,4 +378,12 @@ export declare const images: {
   unitytips_URP_AssetRenderer_Cutter_png: string;
   unitytips_URP_AssetRenderer_SeeThrough_png: string;
   unitytips_WallCutter_png: string;
+  unitytips_WallOcclusion_gif: string;
+  unitytips_WallOcclusion_Gizmo_gif: string;
+  unitytips_WallOcclusion_Lerp_gif: string;
+  unitytips_WallOcclusion_Mat_png: string;
+  unitytips_WallOcclusion_Scene_gif: string;
+  unitytips_WallOcclusion_Shader_Mask_png: string;
+  unitytips_WallOcclusion_Shader_Radius_png: string;
+  unitytips_WallOcclusion_Shader_Vectors_png: string;
 };

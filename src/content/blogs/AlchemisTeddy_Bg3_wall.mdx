@@ -1,0 +1,45 @@
+---
+title: "Occlusion Cutout Effect - AlchemisTeddy 🧪🐻"
+description: "Reproducing Baldur's Gate III Occlusion Cutout Effect"
+creationDate: "Sep 23 2025"
+order: 0
+heroImage: "/src/assets/images/unitytips/WallOcclusion.gif"
+teamSize: 1
+timeFrame: "1 day"
+toolUsed: "Unity/C#/ShaderGraph"
+isProject: true
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+import Video from "../../components/Video.astro";
+
+After experimenting with a **stencil-based see-through effect** 
+[Unity Tips – Creating a Stencil See-Through Effect in Unity 6](), 
+I quickly noticed limitations. In scenarios such as **tight tunnels** or **parallel wall intersections**, the stencil solution introduced artifacts and did not feel robust.
+
+For a second attempt, I drew inspiration from **Baldur’s Gate III**'s beautiful occlusion cutout system.
+
+<Video href="https://www.youtube.com/embed/SCO6ETXpc78?si=MrJHK_jB8NS828X3&autoplay=1&autohide=1&mute=1&modestbranding=1&playsinline=1&loop=1&playlist=SCO6ETXpc78"></Video>
+
+Luckily, Mojang’s Senior Technical Artist **Brendan “Sully” Sullivan** had already broken down the technique in Unreal Engine 
+[80.lv article](https://80.lv/articles/artist-recreated-baldur-s-gate-3-occlusion-cutout-effect), 
+which served as a strong reference.
+
+The challenge was now clear: **How do we reproduce this effect inside Unity?**
+
+<div class="flex justify-center">The full process is described below...</div>
+
+<div class="flex justify-center my-5">
+    <Button href="/projects/alchemisteddy_bg3_wall/">Read More</Button>
+</div>
+
+import SocialShare from "../../components/SocialShare.astro";
+
+<div class="flex justify-center">
+  <SocialShare
+    title={frontmatter.title}
+    description={frontmatter.description}
+  />
+  </div>
