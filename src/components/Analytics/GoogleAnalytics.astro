@@ -2,7 +2,7 @@
 /* src/components/Analytics/GoogleAnalytics.astro */
 ---
 
-<script>
+<!-- <script data-astro-rerun>
   function loadGA() {
     if (window.__gaLoaded) return; // prevent duplicate init
     window.__gaLoaded = true;
@@ -17,7 +17,10 @@
     window.gtag = gtag; // expose globally if needed
 
     gtag('js', new Date());
-    gtag('config', 'G-55XW4V0S7F');
+    gtag('config', 'G-55XW4V0S7F',{
+      'storage': 'none',
+      'anonymize_ip': true
+    });
   }
 
   function checkConsentAndLoad() {
@@ -38,4 +41,32 @@
 
   // 4. Listen for consent events from CookieBanner
   window.addEventListener("cookie-consent-accepted", loadGA);
+</script> -->
+
+<!-- NO COOKIE BANNER VERSION BELOW -->
+
+<script data-astro-rerun>
+  if (!window.__gaLoaded) {
+    window.__gaLoaded = true;
+
+    // Load the GA script
+    const gtagScript = document.createElement("script");
+    gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-55XW4V0S7F";
+    gtagScript.async = true;
+    document.head.appendChild(gtagScript);
+
+    // Setup GA with no cookies and IP anonymisation
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+
+    gtag('js', new Date());
+    gtag('config', 'G-55XW4V0S7F', {
+      'storage': 'none',         // disables all cookies
+      'anonymize_ip': true,      // anonymises IPs
+      'client_storage': 'none',  // ensure no local/session storage
+      'allow_google_signals': false, // disables ad personalization
+      'allow_ad_personalization_signals': false
+    });
+  }
 </script>
