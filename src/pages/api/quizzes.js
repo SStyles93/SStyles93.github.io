@@ -1,4 +1,3 @@
-// src/pages/api/quizzes.js
 import { promises as fs } from 'fs';
 import path from 'path';
 
