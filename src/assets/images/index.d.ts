@@ -128,6 +128,9 @@ export declare const images: {
   csvconverter_before_png: string;
   csvconverter_hero_png: string;
   csvconverter_middle_png: string;
+  filefusion_FileFusion_Main_png: string;
+  filefusion_Main_png: string;
+  filefusion_Qt_Designer_png: string;
   mediablur_after_png: string;
   mediablur_before_png: string;
   mediablur_hero_png: string;

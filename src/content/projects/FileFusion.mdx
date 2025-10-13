@@ -1,0 +1,158 @@
+---
+title: "FileFusion: Python Pdf Converter"
+description: "A Multi-Format File Converter & Merger with Python + Qt"
+heroImage: "/src/assets/images/filefusion/FileFusion_Main.png"
+order: 0
+creationDate: "Jul 14 2025"
+teamSize: 1
+timeFrame: "1 week"
+toolUsed: "Python/PyQt/Qt-Designer"
+---
+
+import Downloadable from '../../components/Downloadable.astro';
+import Dropdown from '../../components/Dropdown.astro';
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+Over the past few weeks, I’ve been developing **FileFusion**, a desktop application built with **Python** and **Qt (PyQt5)**, 
+designed to **convert and merge files into PDFs** in a clean, intuitive interface.
+
+This project was both a technical deep dive and a UI/UX exercise, combining **threaded background processing**, **file I/O handling**, 
+and **dynamic Qt widgets** to deliver a professional-grade user experience.
+
+## Overview🧩
+
+FileFusion allows users to:
+- 🗂️ **Convert** `.doc`, `.docx`, and common image formats (`.png`, `.jpg`, `.bmp`, `.tiff`) to PDF
+- 📎 **Merge** multiple PDFs into a single document
+- ⚙️ **Track progress** and conversion logs in real time
+- 🖱️ **Drag and drop files** directly into the app
+- 🧠 Handle both **single and batch operations** smoothly
+
+The app’s UI adapts dynamically based on context, showing or hiding widgets such as the merge checkbox or output folder selector.
+
+## Architecture 🏗️
+
+The app follows a **modular MVC-like structure**, with a clean separation between the **engine** (conversion logic) and the UI (PyQt5 front-end):
+```
+📂 Project Structure
+├── converter_engine.py     # Core conversion and merging logic
+├── app.py                 # Main window, threading, and UI logic
+├── main_window_ui.py       # Generated PyQt5 UI file
+├── preview_window.py       # PDF preview dialog
+└── resources/
+    ├── icons/
+    └── styles.qss
+```
+
+## Core Processing 🔧
+
+At the heart of the system is the `ConverterEngine` class, a self-contained conversion and merge manager.   
+It supports:
+- **Document Conversion** using `docx2pdf`
+- **Image Conversion** with `Pillow`
+- **PDF Merging** via `PyPDF2.PdfMerger`
+- **Progress Feedback** through callback functions
+
+Each conversion operation is saved to a temporary file, logged, and a cleanup system ensures this temporary files are properly deleted, even after errors.
+
+```csharp
+ def _cleanup(self, file_paths: List[str]):
+        """Removes temporary files."""
+        for path in file_paths:
+            try:
+                os.remove(path)
+                logging.info(f"Cleaned up temporary file: {path}")
+            except OSError as e:
+                logging.error(f"Error cleaning up file {path}: {e}")
+
+```
+
+## Threading & Responsiveness 🧵
+To keep the UI responsive, long-running conversions are handled on a **background thread** via a dedicated `Worker` object that 
+communicates with the main thread using **Qt signals**:
+```csharp
+class Worker(QObject):
+    finished = pyqtSignal(bool, str, str)
+    progress = pyqtSignal(int)
+    status_update = pyqtSignal(str)
+```
+
+This allows real-time updates to the:
+- Progress bar
+- Status label
+- Log messages
+
+without blocking the main event loop.
+
+## User Interface & UX 🎨
+
+The interface, built with **Qt Designer**
+<MdImage src={images.filefusion_Qt_Designer_png} alt="" class="w-full"/> 
+
+The style is designed around a dark, modern theme with a clear focus on usability:
+- **Drag-and-drop support** for quick file input
+- **Dynamic widget visibility** depending on user actions (e.g., merge mode hides output folder input)
+- **Consistent visual hierarchy** using custom Qt stylesheet:
+
+```csharp
+self.setStyleSheet("""
+    QWidget { background-color: #2b2b2b; color: #ffffff; font-family: Segoe UI; }
+    QPushButton { background-color: #0078d7; border-radius: 4px; }
+    QPushButton:hover { background-color: #005a9e; }
+    QProgressBar::chunk { background-color: #0078d7; border-radius: 4px; }
+""")
+```
+
+The visual result is the following:
+<MdImage src={images.filefusion_FileFusion_Main_png} alt="" class="w-full"/>
+<MdImage src={images.filefusion_Main_png} alt="" class="w-full"/> 
+
+
+## Design Decisions 🧠
+
+A few important implementation choices:
+- **Threaded Processing**   
+Avoids freezing the UI and supports real-time progress reporting.   
+- **Signal-based Communication**   
+Keeps background logic decoupled from UI updates, a must for Qt apps.  
+- **Flexible Output Handling**   
+The `convert_to_pdf()` method now supports an optional output directory argument, ensuring clean separation between merge workflows and individual conversions.  
+- **Automatic Resource Cleanup**   
+Temporary PDFs used for merging are safely deleted after completion to prevent file clutter.  
+
+## Challenges & Lessons Learned 🧪
+- **Thread-safe logging** required a custom Qt log handler that emits status updates to the GUI safely.
+- **PDF merging** with `PyPDF2` needed careful file handling (binary mode, file handles closed properly).
+- **Progress reporting** had to work seamlessly across mixed file types and dynamic workloads.
+
+## Tech Stack 🧰
+| Component | Library |
+| :- | :-: |
+| GUI |	`PyQt5` |
+| File Conversion	| `docx2pdf`, `Pillow` |
+| PDF Merging	| `PyPDF2` |
+| Logging | Python `logging` module |
+|Threading | `QThread` + custom `QObject` worker |
+
+## Takeaway 🏁
+FileFusion was an excellent exercise in **desktop application engineering with Python**, balancing real-world file operations, 
+asynchronous workflows, and user experience design.  
+It’s open for future extension, and demonstrates how `Python`, when combined with `Qt`, can produce clean, professional-grade applications beyond the command line.
+
+
+## Try it yourself !
+If you want to try it, you can download it directly from here, unzip, and launch the .exe
+
+<Downloadable url="https://github.com/SStyles93/PythonProjects/releases/download/FF-V1.0.1/FileFusion.zip" fileName="FileFusion V1.0.1"/>
+
+
+Please note that this `.exe` might fire security warnings. This is a normal behaviour since this little app hasn't been signed through a [Certificate Authority (CA)](https://en.wikipedia.org/wiki/Certificate_authority#:~:text=A%20certificate%20authority%20(CA)%20is,and%20knows%20its%20public%20key).
+
+import SocialShare from "../../components/SocialShare.astro";
+
+<div class="flex justify-center">
+<SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+/></div>
