@@ -1,317 +1,290 @@
----
----
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Word → PDF Converter</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Quiz Trainer - Interactive Learning Platform</title>
+        <!-- The href path assumes your CSS file is in public/quiztrainer.css -->
+        <link rel="stylesheet" href="/quiztrainer/quiztrainer.css" />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <div class="container">
+            <!-- Header -->
+            <header class="header">
+                <h1><i class="fas fa-brain"></i> Quiz Trainer</h1>
+                <p>
+                    Select a quiz from the server or upload your own JSON file
+                    to start practicing.
+                </p>
+            </header>
 
-    <!-- your existing CSS (keeps current look) -->
-    <link rel="stylesheet" href="/converter/converter.css" />
+            <!-- Setup Section -->
+            <section id="setup-section" class="setup-section">
+                <div class="server-selection">
+                    <h3><i class="fas fa-server"></i> Select a Quiz</h3>
+                    <p>Choose from quizzes available on the server.</p>
 
-    <!-- Browser-ready builds (guaranteed to work client-side) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  </head>
+                    <!-- STEP 1: ADDED SUBJECT FILTER DROPDOWN -->
+                    <div class="select-container" style="margin-bottom: 15px;">
+                        <select id="subject-select">
+                            <option value="all">-- All Subjects --</option>
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </div>
 
-  <body>
-    <div class="container">
-      <header class="header">
-        <h1><i class="fas fa-file-export"></i> Word to PDF Converter</h1>
-        <p>Convert .docx files to PDF in your browser. Tables and images are preserved visually.</p>
-      </header>
+                    <!-- Existing Quiz Dropdown (Modified default text ) -->
+                    <div class="select-container">
+                        <select id="quiz-select">
+                            <option value=""
+                                >-- Select a subject first --</option
+                            >
+                        </select>
+                    </div>
+                </div>
 
-      <section id="converter-section" class="converter-section">
-        <div class="upload-area" id="upload-area">
-          <div class="upload-content">
-            <i class="fas fa-cloud-upload-alt upload-icon"></i>
-            <h3>Upload Your Word Document</h3>
-            <p>Drag & drop a .docx file here, or click to browse.</p>
-            <input type="file" id="file-input" accept=".docx" hidden />
-            <button class="upload-btn" onclick="document.getElementById('file-input').click()">
-              <i class="fas fa-folder-open"></i> Choose File
-            </button>
-          </div>
+                <div class="divider">OR</div>
+
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <h3>Upload Your Quiz File</h3>
+                        <p>
+                            Drag and drop your JSON file here or click to
+                            browse.
+                        </p>
+                        <input
+                            type="file"
+                            id="file-input"
+                            accept=".json"
+                            hidden
+                        />
+                        <button
+                            class="upload-btn"
+                            onclick="document.getElementById('file-input').click()"
+                        >
+                            <i class="fas fa-folder-open"></i> Choose File
+                        </button>
+                    </div>
+                </div>
+
+                <div class="file-info" id="file-info" style="display: none;">
+                    <div class="file-details">
+                        <i class="fas fa-file-alt"></i>
+                        <span id="file-name"></span>
+                    </div>
+
+                    <div class="quiz-options">
+                        <div class="option-item">
+                            <label for="question-amount"
+                                >Number of Questions:</label
+                            >
+                            <input type="number" id="question-amount" min="1" />
+                            <span id="question-count"></span>
+                        </div>
+                    </div>
+
+                    <!-- Start Button -->
+                    <button class="start-btn" id="start-quiz">
+                        <i class="fas fa-play"></i> Start Quiz
+                    </button>
+
+                    <!-- Foldout Trigger Button -->
+                    <button class="options-toggle-btn" id="options-toggle">
+                        Advanced Options <i class="fas fa-chevron-down"></i>
+                    </button>
+
+                    <!-- Collapsible Panel for Randomization Options -->
+                    <div class="options-panel" id="options-panel">
+                        <div class="option-item">
+                            <input
+                                type="checkbox"
+                                id="randomize-questions"
+                                checked
+                            />
+                            <label for="randomize-questions"
+                                >Randomize Question Order</label
+                            >
+                        </div>
+                        <div class="option-item">
+                            <input
+                                type="checkbox"
+                                id="randomize-answers"
+                                checked
+                            />
+                            <label for="randomize-answers"
+                                >Randomize Answer Order</label
+                            >
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="enable-timer" />
+                            <label for="enable-timer">Enable Timer</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contribution Section -->
+            <section id="contribution-section" class="contribution-section">
+                <div class="contribution-content">
+                    <h3>
+                        <i class="fas fa-hands-helping"></i> Want to Contribute a
+                        Quiz?
+                    </h3>
+                    <p>
+                        If you have created a high-quality quiz, email your <code
+                            >.json</code
+                        > file <a href="mailto:samuel.styles93@gmail.com"
+                            >HERE</a
+                        > for review. We will consider implementing it in the data
+                        base. --- You can also click <a
+                            href="/projects/quiztrainer/#format">HERE</a
+                        > to see how to format your <code>.json</code>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Quiz Section -->
+            <section
+                id="quiz-section"
+                class="quiz-section"
+                style="display: none;"
+            >
+                <div id="quiz-header-info" class="quiz-header-info">
+                    <!-- The timer inserted here by JavaScript -->
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span id="current-question">1</span> of <span
+                            id="total-questions">0</span
+                        >
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="score-info">
+                        Score: <span id="current-score">0</span>/<span
+                            id="attempted-questions">0</span
+                        >
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question-header">
+                        <h2>Question <span id="question-number">1</span></h2>
+                        <p id="question-type-info" class="question-type-info">
+                        </p>
+                    </div>
+                    <div class="question-content">
+                        <div id="question-text"></div>
+                    </div>
+
+                    <div class="choices-container" id="choices-container"></div>
+
+                    <div class="submit-container">
+                        <button class="submit-btn" id="submit-answer-btn">
+                            <i class="fas fa-check-double"></i> Submit Answer
+                        </button>
+                    </div>
+
+                    <div
+                        class="feedback-section"
+                        id="feedback-section"
+                        style="display: none;"
+                    >
+                        <div class="feedback-content">
+                            <div class="feedback-header">
+                                <i id="feedback-icon"></i>
+                                <span id="feedback-title"></span>
+                            </div>
+                            <div class="explanation" id="explanation"></div>
+                        </div>
+                    </div>
+
+                    <div class="navigation">
+                        <button class="nav-btn" id="prev-btn" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <button class="nav-btn primary" id="next-btn" disabled>
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section
+                id="results-section"
+                class="results-section"
+                style="display: none;"
+            >
+                <div class="results-card">
+                    <div class="results-header">
+                        <i class="fas fa-trophy"></i>
+                        <h2>Quiz Complete!</h2>
+                    </div>
+                    <div class="results-content">
+                        <div class="score-circle">
+                            <div class="score-text">
+                                <span id="final-score">0</span>%
+                            </div>
+                        </div>
+                        <div class="results-details">
+                            <div class="result-item">
+                                <span class="label">Correct Answers:</span>
+                                <!-- Add class="value" -->
+                                <span id="correct-count" class="value">0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">Total Questions:</span>
+                                <!-- Add class="value" -->
+                                <span id="total-count" class="value">0</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">Accuracy:</span>
+                                <!-- Add class="value" -->
+                                <span id="accuracy" class="value">0%</span>
+                            </div>
+                            <div
+                                class="result-item"
+                                id="time-result-item"
+                                style="display: none;"
+                            >
+                                <span class="label">Time Taken:</span>
+                                <!-- Add class="value" -->
+                                <span id="time-taken" class="value"
+                                    >00:00:00</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="results-actions">
+                        <button class="action-btn" id="restart-quiz">
+                            <i class="fas fa-redo"></i> Restart Quiz
+                        </button>
+                        <button class="action-btn secondary" id="upload-new">
+                            <i class="fas fa-undo"></i> Back to Setup
+                        </button>
+                    </div>
+                </div>
+            </section>
         </div>
 
-        <div class="file-info" id="file-info" style="display:none;">
-          <div class="file-details">
-            <div class="file-icon"><i class="fas fa-file-word"></i></div>
-            <div class="file-meta">
-              <div class="file-name" id="file-name"></div>
-              <div class="file-size" id="file-size"></div>
-            </div>
-          </div>
-          <button class="convert-btn" id="convert-btn"><i class="fas fa-file-pdf"></i> Convert to PDF</button>
-          <button class="reset-btn" id="reset-btn"><i class="fas fa-times"></i> Remove File</button>
-        </div>
-
-        <div class="progress-section" id="progress-section" style="display:none;">
-          <div class="progress-bar"><div class="progress-fill"></div></div>
-          <p class="progress-text" id="progress-text"></p>
-          <div class="progress-log small" id="progress-log"></div>
-        </div>
-
-        <div class="preview-section" id="preview-section" style="display:none;">
-          <h3><i class="fas fa-eye"></i> PDF Preview</h3>
-          <div class="preview-container">
-            <iframe id="pdf-preview-iframe" title="PDF Preview" style="width:100%;height:700px;border:1px solid #e6eef8;border-radius:6px"></iframe>
-          </div>
-          <div class="preview-actions">
-            <button class="download-btn" id="download-btn"><i class="fas fa-download"></i> Download PDF</button>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- Inline client script — uses the global browser builds loaded above -->
-    <script is:inline>
-      (function () {
-        // DOM elements
-        const elements = {
-          fileInput: document.getElementById('file-input'),
-          uploadArea: document.getElementById('upload-area'),
-          fileInfo: document.getElementById('file-info'),
-          fileName: document.getElementById('file-name'),
-          fileSize: document.getElementById('file-size'),
-          convertBtn: document.getElementById('convert-btn'),
-          resetBtn: document.getElementById('reset-btn'),
-          progressSection: document.getElementById('progress-section'),
-          progressText: document.getElementById('progress-text'),
-          progressLog: document.getElementById('progress-log'),
-          previewSection: document.getElementById('preview-section'),
-          previewIframe: document.getElementById('pdf-preview-iframe'),
-          downloadBtn: document.getElementById('download-btn'),
-        };
-
-        let currentFile = null;
-        let generatedPdfBlob = null;
-        let lastObjectUrl = null;
-
-        // Helpers
-        function setProgress(msg, log) {
-          elements.progressText.textContent = msg || '';
-          elements.progressLog.textContent = log || '';
-          elements.progressSection.style.display = 'block';
-          console.log('[converter]', msg, log || '');
-        }
-        function hideProgress() {
-          elements.progressSection.style.display = 'none';
-        }
-        function sanitizeHtml(rawHtml) {
-          // Remove unsupported color functions; strip Word-specific CSS tokens and script/style/xml blocks
-          return rawHtml
-            .replace(/oklch\([^)]*\)/gi, '#000')
-            .replace(/mso-[^:;"]+:[^;"]+;?/gi, '')   // remove mso- properties
-            .replace(/<style[\s\S]*?<\/style>/gi, '')
-            .replace(/<xml[\s\S]*?<\/xml>/gi, '')
-            .replace(/<!--[\s\S]*?-->/g, '')
-            .replace(/<script[\s\S]*?<\/script>/gi, '');
-        }
-
-        // File helpers
-        elements.fileInput.addEventListener('change', (e) => handleFileSelect(e.target.files));
-        elements.uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); e.currentTarget.classList.add('dragover'); });
-        elements.uploadArea.addEventListener('dragleave', (e) => e.currentTarget.classList.remove('dragover'));
-        elements.uploadArea.addEventListener('drop', (e) => { e.preventDefault(); e.currentTarget.classList.remove('dragover'); handleFileSelect(e.dataTransfer.files); });
-
-        elements.convertBtn.addEventListener('click', convertFile);
-        elements.resetBtn.addEventListener('click', resetConverter);
-        elements.downloadBtn.addEventListener('click', downloadPdf);
-
-        function handleFileSelect(files) {
-          if (!files || files.length === 0) return;
-          const file = files[0];
-          if (!file.name.toLowerCase().endsWith('.docx')) {
-            alert('Please select a valid .docx file.');
-            return;
-          }
-          currentFile = file;
-          elements.fileName.textContent = file.name;
-          elements.fileSize.textContent = formatFileSize(file.size);
-          elements.uploadArea.style.display = 'none';
-          elements.fileInfo.style.display = 'block';
-          elements.previewSection.style.display = 'none';
-          elements.progressSection.style.display = 'none';
-        }
-
-        function formatFileSize(bytes) {
-          if (bytes === 0) return '0 Bytes';
-          const k = 1024;
-          const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-          const i = Math.floor(Math.log(bytes) / Math.log(k));
-          return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-
-        async function readFileAsArrayBuffer(file) {
-          return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = (e) => resolve(e.target.result);
-            reader.onerror = (e) => reject(e);
-            reader.readAsArrayBuffer(file);
-          });
-        }
-
-        // The main conversion: mammoth -> sanitize -> render (html2canvas) -> slice -> jsPDF
-        async function convertFile() {
-          if (!currentFile) return;
-          setProgress('Reading file...', currentFile.name);
-
-          try {
-            // ensure browser libs are available
-            if (!window.mammoth) throw new Error('mammoth (browser build) is not loaded.');
-            if (!window.html2canvas) throw new Error('html2canvas is not loaded.');
-            if (!window.jspdf && !window.jspdf?.jsPDF) throw new Error('jsPDF is not loaded.');
-            const arrayBuffer = await readFileAsArrayBuffer(currentFile);
-
-            setProgress('Converting .docx → HTML...');
-            const mammothResult = await window.mammoth.convertToHtml({ arrayBuffer });
-            const rawHtml = mammothResult && mammothResult.value ? mammothResult.value : '';
-
-            setProgress('Sanitizing HTML...');
-            const cleanHtml = sanitizeHtml(rawHtml);
-
-            setProgress('Preparing DOM for rendering...');
-
-            // Create wrapper and style it for consistent rendering
-            const wrapper = document.createElement('div');
-            wrapper.innerHTML = cleanHtml;
-            wrapper.style.boxSizing = 'border-box';
-            wrapper.style.background = '#ffffff';
-            wrapper.style.color = '#000000';
-            wrapper.style.fontFamily = 'Arial, Helvetica, sans-serif';
-            wrapper.style.fontSize = '14px';
-            wrapper.style.lineHeight = '1.4';
-            wrapper.style.padding = '18px';
-            wrapper.style.maxWidth = '800px';
-            wrapper.style.margin = '0 auto';
-
-            // Ensure images scale nicely
-            Array.from(wrapper.querySelectorAll('img')).forEach(img => {
-              img.style.maxWidth = '100%';
-              img.style.height = 'auto';
-              img.setAttribute('crossorigin', 'anonymous');
-            });
-
-            // Render off-screen so it doesn't affect layout
-            wrapper.style.position = 'fixed';
-            wrapper.style.left = '-9999px';
-            wrapper.style.top = '0';
-            document.body.appendChild(wrapper);
-
-            setProgress('Rendering HTML to canvas (html2canvas)...');
-
-            const scale = 2; // capture higher-res
-            const canvas = await window.html2canvas(wrapper, {
-              scale,
-              useCORS: true,
-              backgroundColor: '#ffffff',
-              logging: false,
-            });
-
-            // cleanup wrapper
-            document.body.removeChild(wrapper);
-
-            setProgress('Compositing PDF (jsPDF)...');
-
-            // Use jsPDF from the UMD bundle
-            const jsPDF = window.jspdf && window.jspdf.jsPDF ? window.jspdf.jsPDF : window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
-
-            // Page setup (mm)
-            const pageWidthMM = 210;
-            const pageHeightMM = 297;
-            const marginMM = 10;
-            const availWidthMM = pageWidthMM - marginMM * 2;
-            const availHeightMM = pageHeightMM - marginMM * 2;
-
-            // Convert mm <-> px approximation using 96 DPI baseline and our scale
-            const mmPerPx = 25.4 / (96 * scale);
-
-            // Determine slice height in px that corresponds to the available PDF page height
-            const sliceHeightPx = Math.floor(availHeightMM / mmPerPx);
-            const totalHeightPx = canvas.height;
-            const totalPages = Math.ceil(totalHeightPx / sliceHeightPx);
-
-            for (let page = 0; page < totalPages; page++) {
-              const sy = page * sliceHeightPx;
-              const sh = Math.min(sliceHeightPx, totalHeightPx - sy);
-
-              // draw slice into temporary canvas
-              const tmpCanvas = document.createElement('canvas');
-              tmpCanvas.width = canvas.width;
-              tmpCanvas.height = sh;
-              const ctx = tmpCanvas.getContext('2d');
-              ctx.drawImage(canvas, 0, sy, canvas.width, sh, 0, 0, tmpCanvas.width, tmpCanvas.height);
-
-              // convert slice to JPEG
-              const imgData = tmpCanvas.toDataURL('image/jpeg', 0.95);
-
-              // compute final dimensions in mm while fitting availWidthMM
-              const finalWidthMM = availWidthMM;
-              const finalHeightMM = (tmpCanvas.height / tmpCanvas.width) * finalWidthMM;
-
-              if (page > 0) pdf.addPage();
-              pdf.addImage(imgData, 'JPEG', marginMM, marginMM, finalWidthMM, finalHeightMM);
-            }
-
-            // produce blob and preview
-            const pdfBlob = pdf.output('blob');
-            generatedPdfBlob = pdfBlob;
-
-            // revoke last object URL if any
-            if (lastObjectUrl) URL.revokeObjectURL(lastObjectUrl);
-            lastObjectUrl = URL.createObjectURL(pdfBlob);
-            elements.previewIframe.src = lastObjectUrl;
-
-            elements.previewSection.style.display = 'block';
-            elements.fileInfo.style.display = 'none';
-            setProgress('Done — preview ready', `Pages: ${totalPages} · ${(pdfBlob.size / 1024).toFixed(0)} KB`);
-            elements.downloadBtn.style.display = 'inline-block';
-            elements.downloadBtn.disabled = false;
-          } catch (err) {
-            console.error('Conversion Error:', err);
-            setProgress('Conversion failed', String(err && err.message ? err.message : err));
-            alert('Conversion failed. The document may contain unsupported features. See console for details.');
-          } finally {
-            // leave progress visible so user sees final status
-          }
-        }
-
-        function downloadPdf() {
-          if (!generatedPdfBlob || !currentFile) {
-            alert('No PDF to download. Convert a file first.');
-            return;
-          }
-          const name = currentFile.name.replace(/\.docx$/i, '.pdf');
-          const a = document.createElement('a');
-          a.href = lastObjectUrl || URL.createObjectURL(generatedPdfBlob);
-          a.download = name;
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-        }
-
-        function resetConverter() {
-          currentFile = null;
-          generatedPdfBlob = null;
-          elements.fileInput.value = '';
-          elements.fileInfo.style.display = 'none';
-          elements.uploadArea.style.display = 'block';
-          elements.previewSection.style.display = 'none';
-          elements.progressSection.style.display = 'none';
-          if (lastObjectUrl) { URL.revokeObjectURL(lastObjectUrl); lastObjectUrl = null; }
-          elements.previewIframe.src = 'about:blank';
-        }
-
-        // Initialize
-        resetConverter();
-
-        // expose download for button
-        elements.downloadBtn.addEventListener('click', downloadPdf);
-      })();
-    </script>
-  </body>
+        <!-- SCRIPTS -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"
+        ></script>
+        <script defer src="/quiztrainer/quiztrainer.js"></script>
+    </body>
 </html>
