@@ -5,56 +5,154 @@ import type { ProjectSchema } from "../../content/config";
 import { getCollection } from "astro:content";
 import dayjs from "dayjs";
 
-interface Pages {
-	data: ProjectSchema[];
-}
+// 1. Get the FULL collection of projects first.
+const allProjects = await getCollection("projects");
 
+// 2. Sort the FULL collection before pagination. This is the correct way.
+allProjects.sort((a: ProjectSchema, b: ProjectSchema) => {
+	if (a.data.order === b.data.order) {
+		return dayjs(b.data.creationDate).valueOf() - dayjs(a.data.creationDate).valueOf();
+	}
+	return a.data.order - b.data.order;
+});
+
+// 3. Generate tags from the FULL collection so the list is always complete.
+const allTags = [...new Set(allProjects.flatMap(project => project.data.tags || []))].sort();
+
+// Now, define the static paths using the pre-sorted collection.
 export async function getStaticPaths({ paginate }) {
+	// We re-fetch here because getStaticPaths runs in a separate context,
+	// but we use the same logic.
 	const projects = await getCollection("projects");
+	projects.sort((a: ProjectSchema, b: ProjectSchema) => {
+		if (a.data.order === b.data.order) {
+			return dayjs(b.data.creationDate).valueOf() - dayjs(a.data.creationDate).valueOf();
+		}
+		return a.data.order - b.data.order;
+	});
 	return paginate(projects, { pageSize: 50 });
 }
 
 interface Props {
-	page: Pages;
+	page: {
+		data: ProjectSchema[];
+	};
 }
 
 const { page } = Astro.props;
-
-page.data.sort((a: ProjectSchema, b: ProjectSchema) => {
-	if (a.data.order === b.data.order) {
-		const aDate = dayjs(a.data.creationDate);
-		const bDate = dayjs(b.data.creationDate);
-		return bDate.valueOf() - aDate.valueOf();
-	}
-	return a.data.order - b.data.order;
-});
 ---
 
 <BaseLayout title="Projects">
-	<div>
-		<div class="text-3xl w-full font-bold mb-5">Projects</div>
+	<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5">
+		<div class="text-3xl w-full sm:w-auto font-bold">Projects</div>
+		
+		<div class="w-full sm:w-auto flex flex-col sm:flex-row gap-2">
+			<input
+				type="text"
+				id="searchInput"
+				placeholder="Search projects..."
+				class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-64"
+			/>
+			<select
+				id="tagFilter"
+				class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-48"
+			>
+				<option value="">All Tags</option>
+				{allTags.map(tag => (
+					<option value={tag}>{tag}</option>
+				))}
+			</select>
+		</div>
 	</div>
 
-	<ul>
+	<ul id="projectList">
 		{
-			page.data.sort().map((project: ProjectSchema) => (
-				<>
-					<HorizontalCard
-						title={project.data.title}
-						img={project.data.heroImage}
-						desc={project.data.description}
-						url={"/projects/" + project.slug}
-						target="_self"
-						teamSize={project.data.teamSize}
-						timeFrame={project.data.timeFrame}
-						toolUsed={project.data.toolUsed}
-						creationDate={dayjs(project.data.creationDate).format(
-							"MMMM YYYY",
-						)}
-					/>
-					<div class="divider my-0" />
-				</>
-			))
+			page.data.map((project: ProjectSchema) => {
+				const tags = project.data.tags || [];
+				return (
+					<li 
+						class="project-item"
+						data-title={project.data.title.toLowerCase()}
+						data-description={project.data.description?.toLowerCase() || ""}
+						data-tags={tags.join(",").toLowerCase()}
+					>
+						<HorizontalCard
+							title={project.data.title}
+							img={project.data.heroImage}
+							desc={project.data.description}
+							url={"/projects/" + project.slug}
+							target="_self"
+							teamSize={project.data.teamSize}
+							timeFrame={project.data.timeFrame}
+							toolUsed={project.data.toolUsed}
+							creationDate={dayjs(project.data.creationDate).format(
+								"MMMM YYYY",
+							)}
+							tags={tags}
+						/>
+						<div class="divider my-0" />
+					</li>
+				)
+			})
 		}
 	</ul>
+
+	<div id="noResults" class="hidden text-center py-12 text-gray-500">
+		No projects found matching your search criteria.
+	</div>
+
+	<!-- SCRIPT UPDATED FOR VIEW TRANSITIONS -->
+	<script>
+		function setupProjectFilters() {
+			const searchInput = document.getElementById('searchInput');
+			const tagFilter = document.getElementById('tagFilter');
+			
+			// Exit if the filter elements don't exist on the page
+			if (!searchInput || !tagFilter) return;
+
+			const projectItems = document.querySelectorAll('.project-item');
+			const noResults = document.getElementById('noResults');
+			
+			function filterProjects() {
+				const searchTerm = searchInput.value.toLowerCase();
+				const selectedTag = tagFilter.value.toLowerCase();
+				
+				let visibleCount = 0;
+				
+				projectItems.forEach((item) => {
+					const title = item.getAttribute('data-title') || '';
+					const description = item.getAttribute('data-description') || '';
+					const tags = item.getAttribute('data-tags') || '';
+					
+					const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+					const matchesTag = !selectedTag || tags.split(',').includes(selectedTag);
+					
+					if (matchesSearch && matchesTag) {
+						item.style.display = 'block';
+						visibleCount++;
+					} else {
+						item.style.display = 'none';
+					}
+				});
+				
+				if (noResults) {
+					noResults.classList.toggle('hidden', visibleCount === 0);
+				}
+			}
+			
+			// Use flags to prevent adding listeners multiple times
+			if (!searchInput.dataset.listenerAttached) {
+				searchInput.addEventListener('input', filterProjects);
+				searchInput.dataset.listenerAttached = 'true';
+			}
+			if (!tagFilter.dataset.listenerAttached) {
+				tagFilter.addEventListener('change', filterProjects);
+				tagFilter.dataset.listenerAttached = 'true';
+			}
+		}
+		
+		// Run the setup function on initial load and after every Astro View Transition
+		setupProjectFilters();
+		document.addEventListener('astro:page-load', setupProjectFilters);
+	</script>
 </BaseLayout>
