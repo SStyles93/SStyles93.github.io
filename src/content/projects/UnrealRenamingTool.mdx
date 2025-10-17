@@ -15,7 +15,7 @@ import * as images from "/src/assets/images";
 
 ## Introduction
 
-During my studies, I worked for projects at Styles Studio SàRL. During that time I sometimes had to integrate objects from divers origins into Unreal projects. Since the naming conventions weren't strictly established I often had to rename objects and folder.
+During my studies, I worked for projects at [Styles Studio SàRL](https://styles-studio.com/). During that time I sometimes had to integrate objects from divers origins into Unreal projects. Since the naming conventions weren't strictly established I often had to rename objects and folder.
 
 Renaming a unique object isn't a problem, but when there are thousands it can be time consuming.
 For that reason I decided to create a script that would automatically rename object according to the desired input.
@@ -28,7 +28,7 @@ It gives a basic understanding of how to procede.
 To avoid having to call a script with its absolute path it is possible to "drag and drop" it in the Engines folder.
 Following the "normal" installation it should be located in the following path:  
 ```
-C:\Program Files\Epic Games\UE\_\{version}\Engine\Plugins\Experimental\PythonScriptPlugin\Content\Python
+C:\Program Files\Epic Games\UE_{version}\Engine\Plugins\Experimental\PythonScriptPlugin\Content\Python
 ```
 
 ## Renaming script
@@ -83,7 +83,7 @@ rename_assets(sys.argv[1], sys.argv[2])
 ```
 
 With this code placed in the correct folder (see: [Installation](#installation)) it is possible 
-to run it by typing: "rename_asset.py \{the search patterns}\ \{the replacement\}" in the console after selecting the object to operate on.
+to run it by typing: `rename_asset.py {the search patterns} {the replacement}` in the console after selecting the object to operate on.
 
 <MdImage src={images.uepython_UeConsole_png} alt="UE Materials & Python Console"/>
 
@@ -93,7 +93,7 @@ The Result should be the following:
 
 ## Consolidation script
 This second script uses the "consolidate_assets" for Unreal Engine, it is used to merge duplicate objects contained in folder
-it is used by typing: "consolidate_to_file.py \{file destination}\ ".
+it is used by typing: `consolidate_to_file.py {file destination}`.
 ### Code
 ```python
 import unreal
