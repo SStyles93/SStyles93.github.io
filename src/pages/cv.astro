@@ -11,13 +11,169 @@ import Button from "../components/Button.astro";
 </style>
 
 <BaseLayout title="Resume" sideBarActiveItemID="cv">
-  <div class="flex justify-center">
+  <div class="flex justify-center mb-5">
     <Button href="/pdf/Samuel_Styles_CV.pdf">PDF Version</Button>
   </div>
-  &nbsp;
+
+  <!-- EXPERIENCE -->
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Work Experiences</div>
+  </div>
+  <div class="time-line-container grid gap-4 mb-10">
+    <TimeLineElement
+      title="Co-Founder – Programmer & Digital Asset Creator"
+      subtitle="PixelPulse (PxP), September 2022 – Present"
+    >
+      <ul class="list-disc mx-6">
+        <li>
+          Co-founded a 2-person studio producing tools, shaders, and asset packs
+          for Unity marketplace
+        </li>
+        <li>
+          Programmed, organized, validated, and published 3D assets optimized
+          for real-time engines
+        </li>
+        <li>
+          Managed product pipeline: pricing, product pages, analytics, website,
+          and description
+        </li>
+      </ul>
+      <ul class="list-disc mx-6 mt-2">
+        <li>Released 12 commercial asset packs in 8 months</li>
+        <li>Generated 1,000+ total sales with a 21.98% conversion rate</li>
+        <li>Achieved 4,400+ page views with no paid advertising</li>
+      </ul>
+    </TimeLineElement>
+
+    <TimeLineElement
+      title="Software Engineer Intern"
+      subtitle="Lab4Tech, Lausanne, Switzerland, June 2025 – September 2025"
+    >
+      <ul class="list-disc mx-6">
+        <li>
+          Developed a web-based quiz tool, converting documents with JSON data
+          serialization (Quiz Trainer)
+        </li>
+        <li>
+          Created a C++/Unity native DLL for procedural 2D map generation,
+          accelerating workflow for senior developers
+        </li>
+        <li>
+          Enhanced the C++ training materials for CPE, CPA, and CPP
+          certifications
+        </li>
+      </ul>
+      <ul class="list-disc mx-6 mt-2">
+        <li>Contributed to 3 interns achieving 2 certifications each</li>
+        <li>
+          Procedural generation tool adopted by senior staff, improving map
+          creation speed
+        </li>
+      </ul>
+    </TimeLineElement>
+
+    <TimeLineElement
+      title="Co-Founder – Programmer"
+      subtitle="Styles Studio SàRL, Lausanne, Switzerland, Jan 2022 – Jul 2024"
+    >
+      <ul class="list-disc mx-6">
+        <li>
+          Architected and managed the IT infrastructure and development tools
+        </li>
+        <li>
+          Led the development of Run4YourLight from prototype to full Steam
+          release
+        </li>
+        <li>Led technical operations and strategy for Styles Studio</li>
+        <li>
+          Mentored junior developers, delivered training courses for the Swiss
+          Digital Academy
+        </li>
+      </ul>
+      <ul class="list-disc mx-6 mt-2">
+        <li>Built a scalable development pipeline and IT infrastructure</li>
+        <li>Indie Game Nation Jury & Public Award for Run4YourLight</li>
+        <li>
+          Showcased Run4YourLight to 5,000+ attendees at Fantasy-Basel, Zurich
+          Pop Con, Numerik Games, Japan Tours Festival
+        </li>
+      </ul>
+    </TimeLineElement>
+
+    <!-- KEEPING PREVIOUS EXPERIENCES -->
+    <TimeLineElement
+      title="Teacher & Speaker"
+      subtitle="From 2023 to 2025 at the Swiss Game Academy, HEIA-FR Fribourg, Switzerland"
+    >
+      <ul class="list-disc mx-6">
+        <li>Teaching advanced coding principles</li>
+        <li>Guiding student to accomplish their projects.</li>
+      </ul>
+      &nbsp;
+    </TimeLineElement>
+
+    <TimeLineElement
+      title="Producer"
+      subtitle="From September 2023 to September 2024 at SAE-Institute, Geneva, Switzerland"
+    >
+      <ul class="list-disc mx-6">
+        <li>
+          Assumed the role of a producer for two specialized projects during my
+          third year at SAE Institute Geneva.
+        </li>
+        <li>
+          Managed the entire production cycle, gaining in-depth knowledge of
+          Unreal Engine.
+        </li>
+        <li>
+          Organized project schedules, defined key milestones, and ensured
+          adherence to timelines to meet deadlines.
+        </li>
+        <li>
+          Facilitated communication and collaboration among game programmers,
+          artists, and audio engineers to maintain a cohesive project vision and
+          ensure successful execution.
+        </li>
+      </ul>
+      &nbsp;
+    </TimeLineElement>
+
+    <TimeLineElement
+      title="Game Programmer"
+      subtitle="From 2021 to Mai 2021 at Dama Dama Games, Lausanne, Switzerland"
+    >
+      <ul class="list-disc mx-6">
+        <li>
+          Began career in game development by co-founding Dama Dama Games, a
+          Swiss indie game studio.
+        </li>
+        <li>
+          Applied commercial knowledge and learned game development using Unity.
+        </li>
+        <li>
+          Stopped working at Dama Dama Games to start a bachelor's degree at SAE
+          Institute.
+        </li>
+      </ul>
+      &nbsp;
+    </TimeLineElement>
+
+    <TimeLineElement
+      title="Mecatronics Engineering & Other experiences"
+      subtitle="From 2008 to 2021"
+    >
+      <ul class="list-disc mx-6">
+        <li>Mecatronics Engineering</li>
+        <li>Receptionist</li>
+        <li>Mecatronics Apprentice</li>
+        <li>Divers Commerical work experiences</li>
+        <li>Divers IT work experiences</li>
+      </ul>
+      &nbsp;
+    </TimeLineElement>
+  </div>
 
   <!-- SKILLS -->
-
   <div class="mb-5">
     <div class="text-3xl w-full font-bold">Skills</div>
   </div>
@@ -49,27 +205,7 @@ import Button from "../components/Button.astro";
   </ul>
   &nbsp;
 
-  <!-- <div class="mb-5">
-      <div class="text-3xl w-full font-bold">Soft Skills</div>
-    </div>
-    <ul class="list-disc md:columns-5 columns-2 mx-6">
-      <li>Adaptability</li>
-      <li>Empathy</li>
-      <li>Collaboration</li>
-      <li>Communication</li>
-      <li>Conflict resolution</li>
-      <li>Creativity</li>
-      <li>Leadership</li>
-      <li>Open-mindedness</li>
-      <li>Patience</li>
-      <li>Problem-solving</li>
-      <li>Teamwork</li>
-      <li>Time management</li>
-    </ul>
-    &nbsp; -->
-
   <!-- LANGUAGES -->
-
   <div class="mb-5">
     <div class="text-3xl w-full font-bold">Languages</div>
   </div>
@@ -81,283 +217,51 @@ import Button from "../components/Button.astro";
   </ul>
   &nbsp;
 
-  <!-- CERTIFIACTIONS -->
-
+  <!-- CERTIFICATIONS -->
   <div class="mb-5">
     <div class="text-3xl w-full font-bold">Certifications</div>
   </div>
   <div class="time-line-container grid gap-4 mb-10">
     <TimeLineElement
-      title="UCPP-520 - Unity Certified Professional Programmer"
-      subtitle="08/2025, ISEIG, Lausanne, Switzerland"
+      title="Unity Certified Professional Programmer - UCPP-520"
+      subtitle="Completed: 08/2025, ISEIG, Lausanne, Switzerland"
     >
-      <Button href="/pdf/Samuel_Styles_UCPP520.pdf">
-        UCPP-520 Certificate
-      </Button>
+      <Button href="/pdf/Samuel_Styles_UCPP520.pdf">UCPP-520 Certificate</Button
+      >
     </TimeLineElement>
 
     <TimeLineElement
-      title="PSPO-I - Professional Scrum Product Owner™ I"
-      subtitle="08/2025, Lab4Tech, Lausanne, Switzerland"
+      title="Professional Scrum Product Owner™ I - PSPO-I"
+      subtitle="Completed: 08/2025, Lab4Tech, Lausanne, Switzerland"
     >
       <Button href="/pdf/Samuel_Styles_PSPO_I.pdf">PSPO-I Certificate</Button>
     </TimeLineElement>
 
     <TimeLineElement
-      title="CPA - C++ Certified Associate Programmer"
-      subtitle="07/2025 ISEIG, Lausanne, Switzerland"
+      title="C++ Certified Associate Programmer - C++ CPA"
+      subtitle="Completed: 07/2025, ISEIG, Lausanne, Switzerland"
     >
-      <Button href="/pdf/Samuel_Styles_C++_CPA_Certificate.pdf">
-        C++ CPA Certificate
-      </Button>
+      <Button href="/pdf/Samuel_Styles_C++_CPA_Certificate.pdf"
+        >C++ CPA Certificate</Button
+      >
     </TimeLineElement>
 
     <TimeLineElement
       title="Bachelor's Degree (First Hon.)"
-      subtitle="07/2024 SAE-Institute, Geneva, Switzerland"
+      subtitle="Completed: 2024, University of Hertfordshire, UK"
     >
-      <Button href="/pdf/Samuel_Styles_BachelorDegree.pdf">
-        Bachelor's Degree
-      </Button>
+      <Button href="/pdf/Samuel_Styles_BachelorDegree.pdf"
+        >Bachelor's Degree</Button
+      >
     </TimeLineElement>
 
     <TimeLineElement
       title="CFC of Mecatronics"
-      subtitle=" 07/2019 Epsic, Lausanne, Switzerland"
+      subtitle="Completed: 2019, EPSIC, Lausanne, Switzerland"
     >
-      <Button href="/pdf/Samuel_Styles_CFC_2019.pdf">
-        Mecatronics Certificate
-      </Button>
+      <Button href="/pdf/Samuel_Styles_CFC_2019.pdf"
+        >Mecatronics Certificate</Button
+      >
     </TimeLineElement>
-  </div>
-
-  <!-- EXPERIENCES -->
-
-  <div class="mb-5">
-    <div class="mb-5">
-      <div class="text-3xl w-full font-bold">Experience</div>
-    </div>
-    <div class="time-line-container grid gap-4 mb-10">
-      <TimeLineElement
-        title="Software Engineer"
-        subtitle="From June 2025 to September 2025 at Lab4Tech, Lausanne, Switzerland"
-      >
-        <ul class="list-disc mx-6">
-          <li>Creation of Web based Learning tools</li>
-          <li>Improvement of training material and libraries</li>
-        </ul>
-        &nbsp;
-      </TimeLineElement>
-      <TimeLineElement
-        title="Teacher & Speaker"
-        subtitle="From 2023 to 2025 at the Swiss Game Academy, HEIA-FR Fribourg, Switzerland"
-      >
-        <ul class="list-disc mx-6">
-          <li>Teaching advanced coding principles</li>
-          <li>Guiding student to accomplish their projects.</li>
-        </ul>
-        &nbsp;
-      </TimeLineElement>
-      <TimeLineElement
-        title="Co-Founder & CTO"
-        subtitle="From 2022 to September 2024 at Styles Studio, Lausanne, Switzerland"
-      >
-        <ul class="list-disc mx-6">
-          <li>
-            In early 2022, co-founded Styles Studio SàRL to secure various
-            contracts.
-          </li>
-          <li>
-            Assumed the role of CTO, overseeing all associated responsibilities.
-          </li>
-          <li>
-            Handled server and tool setup, code review, and technical problem
-            resolution.
-          </li>
-          <li>Focused on continual improvement of the development pipeline.</li>
-        </ul>
-        &nbsp;
-      </TimeLineElement>
-      <TimeLineElement
-        title="Producer"
-        subtitle="From September 2023 to September 2024 at SAE-Institute, Geneva, Switzerland"
-      >
-        <ul class="list-disc mx-6">
-          <li>
-            Assumed the role of a producer for two specialized projects during
-            my third year at SAE Institute Geneva.
-          </li>
-          <li>
-            Managed the entire production cycle, gaining in-depth knowledge of
-            Unreal Engine.
-          </li>
-          <li>
-            Organized project schedules, defined key milestones, and ensured
-            adherence to timelines to meet deadlines.
-          </li>
-          <li>
-            Facilitated communication and collaboration among game programmers,
-            artists, and audio engineers to maintain a cohesive project vision
-            and ensure successful execution.
-          </li>
-        </ul>
-        &nbsp;
-      </TimeLineElement>
-      <TimeLineElement
-        title="Game Programmer"
-        subtitle="From 2021 to Mai 2021 at Dama Dama Games, Lausanne, Switzerland"
-      >
-        <ul class="list-disc mx-6">
-          <li>
-            Began my career in game development in 2021 by co-founding Dama Dama
-            Games, a Swiss indie game studio.
-          </li>
-          <li>
-            Applied commercial knowledge and learned game development using
-            Unity.
-          </li>
-          <li>
-            Stopped working at Dama Dama Games to start a bachelor's degree at
-            the SAE Institute.
-          </li>
-        </ul>
-        &nbsp;
-      </TimeLineElement>
-      <TimeLineElement
-        title="Mecatronics Engineering & Other experiences"
-        subtitle="From 2008 to 2021"
-      >
-        <ul class="list-disc mx-6">
-          <li>Mecatronics Engineering</li>
-          <li>Receptionist</li>
-          <li>Mecatronics Apprentice</li>
-          <li>Divers Commerical work experiences</li>
-          <li>Divers IT work experiences</li>
-        </ul>
-        &nbsp;
-      </TimeLineElement>
-    </div>
-
-    <!-- EDUCATION -->
-
-    <div class="mb-5">
-      <div class="text-3xl w-full font-bold">Education</div>
-    </div>
-    <div class="time-line-container grid gap-4 mb-10">
-      <TimeLineElement
-        title="Bachelor - Game Programming"
-        subtitle="2021 to 2024 at SAE-Institute, Geneva, Switzerland"
-      >
-        <ul class="list-disc mx-6">
-          <li>Game creation (Unity, Unreal, C++, C#, Python)</li>
-          <li>Physics Programming</li>
-          <li>Networking</li>
-          <li>Optimisation</li>
-          <li>Graphics Programming (GLSL, HLSL, Divers nodal systems)</li>
-          <li>Source control (Git, Perforce)</li>
-          <li>Game Production (SCRUM methodology, Trello, Miro)</li>
-          <li>Web Development (HTML, CSS, SQL)</li>
-          <li>Video compositing (Adode After Effect)</li>
-        </ul>
-      </TimeLineElement>
-
-      <TimeLineElement
-        title="Federal Diploma of Higher Education - Diagnostician"
-        subtitle="2019 to 2020 at UPSA-VD, Yverdon-les-Bain, Switzerland"
-      >
-        <ul class="list-disc mx-6">
-          <li>Advanced Electronics</li>
-          <li>Embeded Systems</li>
-          <li>Advanced Physics</li>
-          <li>Client relationship & managment</li>
-          <li>Team managment</li>
-        </ul>
-      </TimeLineElement>
-
-      <TimeLineElement
-        title="Federal Capacity Certification (CFC) - Mecatronics"
-        subtitle="2014 to 2019 at EPSIC, Lausanne, Switzerland"
-      >
-        <ul class="list-disc mx-6">
-          <li>Mecanics</li>
-          <li>Electronics</li>
-          <li>Physics</li>
-          <li>Chemistry Bases</li>
-        </ul>
-      </TimeLineElement>
-
-      <TimeLineElement
-        title="Gymnasium Diploma - Economics, Business, Marketing and Law"
-        subtitle="2009 to 2013 at Gymnase de la Cité, Provence & Bugnon, Lausanne, Switzerland"
-      >
-        <ul class="list-disc mx-6">
-          <li>Accounting</li>
-          <li>Marketing</li>
-          <li>Law</li>
-          <li>Office Suite</li>
-          <li>Excels advanced programming</li>
-          <li>Italian</li>
-        </ul>
-      </TimeLineElement>
-
-      <TimeLineElement
-        title="Secondary Certificate - General"
-        subtitle="2004 to 2009 at Isabelle-de-Montolieu, Lausanne, Switzerland"
-      />
-    </div>
-
-    <!-- ORGANIZATIONS -->
-
-    <div class="mb-5">
-      <div class="text-3xl w-full font-bold">Ogranizations</div>
-    </div>
-    <div class="time-line-container grid gap-4 mb-10">
-      <TimeLineElement
-        title="Swiss Game Academy (SGA)"
-        subtitle="Board Member, From 2022 to Today"
-      >
-        <ul class="list-disc mx-6">
-          <li>Organization</li>
-          <li>Presentation</li>
-          <li>Public speech</li>
-          <li>Game publishing</li>
-          <li>Steamworks</li>
-          <li>Teaching</li>
-        </ul>
-        &nbsp;
-      </TimeLineElement>
-
-      <TimeLineElement
-        title="Swiss Game Center (SGC)"
-        subtitle="Honorary Member, From 2023 to Today"
-      >
-        &nbsp;
-      </TimeLineElement>
-
-      <TimeLineElement
-        title="RGB Conference"
-        subtitle="Staff, From 2023 to 2024"
-      >
-        <ul class="list-disc mx-6">
-          <li>Reception</li>
-          <li>Organization</li>
-        </ul>
-        &nbsp;
-      </TimeLineElement>
-
-      <TimeLineElement
-        title="Swiss Game Developers Association (SDGA)"
-        subtitle="Member, From 2021 to 2024"
-      >
-        <ul class="list-disc mx-6">
-          <li>Booth preparation</li>
-          <li>Communication (FR-EN)</li>
-          <li>Marketing</li>
-          <li>Organization</li>
-          <li>Presentation</li>
-        </ul>
-        &nbsp;
-      </TimeLineElement>
-    </div>
   </div>
 </BaseLayout>
