@@ -73,6 +73,13 @@ public void OnPointerExit(PointerEventData eventData)
 
 Once these steps are completed, the script will recognize mouse interactions in the same way it did before the new Input System was introduced.
 
+The same update is required for all methods regarding Mouse events such as 
+- `IPointerClickHandler` & `OnPointerClick()`
+- `IPointerDownHandler` & `OnPointerDown()`
+- `IPointerUpHandler` & `OnPointerUp()`
+
+The list of **interfaces** related to **Mouse Events** can be found [here](https://docs.unity3d.com/2019.1/Documentation/ScriptReference/EventSystems.IBeginDragHandler.html)
+
 I hope this proves useful.
 
 import SocialShare from "../../components/SocialShare.astro";
