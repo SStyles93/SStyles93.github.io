@@ -131,6 +131,10 @@ export declare const images: {
   filefusion_FileFusion_Main_png: string;
   filefusion_Main_png: string;
   filefusion_Qt_Designer_png: string;
+  jobat_dialogbox_png: string;
+  jobat_icon_JobAT_png: string;
+  jobat_mainwindow_png: string;
+  jobat_searchfilter_png: string;
   mediablur_after_png: string;
   mediablur_before_png: string;
   mediablur_hero_png: string;

@@ -1,0 +1,107 @@
+---
+title: "JobAT - Job Applications Tracker"
+description: "A lightweight Python/PyQt tool to track and manage job applications."
+heroImage: "/src/assets/images/jobat/icon_JobAT.png"
+order: 0
+creationDate: "8 Jan 2026"
+teamSize: 1
+timeFrame: "1 week"
+toolUsed: "Python/PyQt/Qt-Designer"
+tags: ["Python", "Tool"]
+---
+
+import Downloadable from '../../components/Downloadable.astro';
+import Dropdown from '../../components/Dropdown.astro';
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+## Why ?
+
+I wanted a simple way to track all my job applications in one place.  
+Most job boards don't provide a good history of the applications 
+you’ve sent, their statuses, deadlines, or links.  
+I decided to build **JobAT** — the **Job Application Tracker** — 
+to manage everything locally on my computer, without relying on online tools.
+
+## How ?
+
+JobAT is built using **Python** and **PyQt5** for the GUI.  
+
+Key libraries and features:
+
+- [PyQt5](https://pypi.org/project/PyQt5/) for GUI windows and dialogs.
+- [JSON](https://docs.python.org/3/library/json.html) for storing all applications locally.
+- [datetime](https://docs.python.org/3/library/datetime.html) for managing dates.
+- High-DPI support for 4K displays.
+- Dark mode styling via a `.qss` stylesheet.
+- Exportable as a single `.exe` using [PyInstaller](https://www.pyinstaller.org/).
+
+The main interface includes:
+
+- **Search filters** for company, job name, status, date range.
+- **Application table** showing company, job, date, status, link, and comments.
+- **Add/Edit/Delete buttons** to manage applications quickly.
+
+<MdImage src={images.jobat_mainwindow_png} alt="JobAT main window screenshot" class="w-full"/>  
+
+### Adding a New Application
+
+Adding a new application opens a dialog where you can fill:
+
+- Company name
+- Job name
+- Date applied (defaults to today)
+- Status (dropdown)
+- Link to the job
+- Comment
+
+<MdImage src={images.jobat_dialogbox_png} alt="Add Application dialog" class="w-full"/>
+
+```python
+dialog = ApplicationDialog(self, app_icon=self.windowIcon())
+if dialog.exec_():
+    self.controller.create_application(dialog.get_data())
+    self.refresh_table(self.controller.database.applications)
+```
+
+The dialog automatically inherits the dark mode styling and the JobAT icon from the main window.
+
+### Search & Filtering
+
+You can filter your applications by:
+- Company
+- Job Name
+- Status
+- Date range (defaults to today)
+
+The table updates in real-time based on your search filters.
+
+<MdImage src={images.jobat_searchfilter_png} alt="Search filters in JobAT" class="w-full"/>
+
+### Dark Mode Styling
+
+JobAT comes with a clean dark theme. All windows including dialogs automatically inherit this style.
+Font size and spacing are adjusted for readability, even on high-DPI screens.
+
+### Data Persistence
+
+All applications are stored locally in applications.json, in the same folder as the .exe.
+This allows the app to be fully portable — you can copy the folder and keep your data intact.
+
+```python
+database = ApplicationDatabase(resource_path("data/applications.json"))
+controller = Controller(database)
+```
+
+## Try it yourself !
+
+You can download JobAT as a single .exe (no Python installation required).
+Just unzip it and launch JobAT.exe — your data will be saved in the same folder.
+
+<Downloadable url="https://github.com/SStyles93/PythonProjects/releases/download/JobAT-V1.0.0/JobAT.zip" fileName="JobAT"/>
+
+Please note: Running the .exe may trigger a security warning since it’s unsigned. This is normal for personal tools.
+
+import SocialShare from "../../components/SocialShare.astro";
+
+<div class="flex justify-center"> <SocialShare description={frontmatter.description} title={frontmatter.title} /></div>
