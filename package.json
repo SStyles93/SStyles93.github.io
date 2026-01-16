@@ -15,22 +15,22 @@
   "dependencies": {
     "@astrojs/mdx": "^3.1.9",
     "@astrojs/partytown": "^2.1.4",
-    "@astrojs/rss": "^4.0.12",
-    "@astrojs/sitemap": "^3.5.1",
+    "@astrojs/rss": "^4.0.14",
+    "@astrojs/sitemap": "^3.6.1",
     "@astrojs/tailwind": "^5.1.5",
     "astro": "^4.16.19",
     "daisyui": "^4.12.24",
-    "dayjs": "^1.11.18",
+    "dayjs": "^1.11.19",
     "glightbox": "^3.3.1",
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.12.1",
-    "jspdf": "^3.0.3",
+    "jspdf": "^3.0.4",
     "mammoth": "^1.11.0",
     "sharp": "^0.33.5",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.19"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.16",
-    "sass": "^1.91.0"
+    "@tailwindcss/typography": "^0.5.19",
+    "sass": "^1.97.2"
   }
 }
