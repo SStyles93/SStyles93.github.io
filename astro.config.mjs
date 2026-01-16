@@ -10,9 +10,7 @@ export default defineConfig({
   site: 'https://sstyles93.github.io/',
   integrations: [
     mdx(),
-    sitemap({
-      filter: (page) => page !== undefined
-    }),
+    //sitemap(),
     tailwind(),
     partytown()
   ]
