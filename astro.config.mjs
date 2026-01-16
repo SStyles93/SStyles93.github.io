@@ -7,6 +7,13 @@ import partytown from '@astrojs/partytown';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://SStyles93.github.io',
-  integrations: [mdx(), sitemap(), tailwind(), partytown()]
+  site: 'https://sstyles93.github.io/',
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) => page !== undefined
+    }),
+    tailwind(),
+    partytown()
+  ]
 });
