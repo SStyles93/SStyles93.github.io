@@ -1,0 +1,327 @@
+---
+title: "MarbleMaze: Bézier Curve Currency Animations"
+description: "How quadratic Bézier curves, staggered coroutine batching, and a custom cubic easing function drive the coin and star collection arcs in MarbleMaze: Galactic Stars."
+creationDate: "Feb 07 2026"
+order: 0
+heroImage: "/src/assets/images/marblemaze/Feature01.png"
+teamSize: 2
+timeFrame: "3 Months"
+toolUsed: "Unity/C#"
+pinned: false
+tags: ["Unity", "C#", "Mobile"]
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import Video from "../../components/Video.astro";
+import * as images from "/src/assets/images";
+
+<div class="flex justify-center my-5">
+  <Button href="/blog/marblemaze-galactic-stars">← Back to Project Overview</Button>
+</div>
+
+When a player collects coins or stars at the end of a level, the icons don't just vanish — they **arc
+smoothly across the screen** to their respective HUD counter. This post covers the full implementation:
+the math behind the curves, the staggered batch system, the custom easing function, and how the
+completion callbacks wire together to drive the counter update.
+
+---
+
+## The Math: Quadratic Bézier Curves
+
+A quadratic Bézier curve is defined by three control points and a parameter `t ∈ [0, 1]`:
+
+```
+P(t) = (1-t)² · A  +  2(1-t)t · B  +  t² · C
+```
+
+- **A** — the start point (where the icon spawns: the star or coin on-screen position)
+- **B** — the control point (determines the shape of the arc)
+- **C** — the end point (the HUD counter the icon flies toward)
+
+The curve passes through A at t=0 and C at t=1, but is pulled toward B without touching it —
+exactly the right behaviour for a looping arc animation. The implementation evaluates this
+formula every frame using `Mathf.Pow`:
+
+```csharp
+rect.position =
+    Mathf.Pow(1 - t, 2) * A +
+    2 * (1 - t) * t * B +
+    Mathf.Pow(t, 2) * C;
+```
+
+---
+
+## Data Model: CurrencyAnimationRequest
+
+Each animation batch is described by a plain serializable class. The inspector wires up the sprite,
+start positions, and destination counter at design time:
+
+```csharp
+[System.Serializable]
+public class CurrencyAnimationRequest
+{
+    public Sprite sprite;
+    public List<RectTransform> startPoints = new List<RectTransform>();
+    public RectTransform endPoint;
+    public int amount;
+}
+```
+
+`startPoints` is a list so multiple spawn origins can be used — for a level with three stars, each
+icon can originate from a different on-screen star position. `amount` is set at runtime from
+`LevelManager` data just before the animation plays.
+
+---
+
+## Batch Orchestration: PlayRoutine
+
+`UICurrencyAnimator.Play` accepts a list of requests (coins and stars simultaneously) and a
+completion callback. The orchestrating coroutine sums the total icon count up front, then fires
+all request sub-coroutines in parallel:
+
+```csharp
+public void Play(List<CurrencyAnimationRequest> requests, System.Action onComplete = null)
+{
+    StartCoroutine(PlayRoutine(requests, onComplete));
+}
+
+private IEnumerator PlayRoutine(
+    List<CurrencyAnimationRequest> requests,
+    System.Action onComplete)
+{
+    int totalIcons = 0;
+
+    foreach (var request in requests)
+    {
+        if (request.amount > maxCurrencySpawn)
+            request.amount = maxCurrencySpawn;
+        totalIcons += request.amount;
+    }
+
+    if (totalIcons == 0)
+    {
+        onComplete?.Invoke();
+        yield break;
+    }
+
+    int completedIcons = 0;
+
+    foreach (var request in requests)
+    {
+        StartCoroutine(AnimateRequest(request, () =>
+            {
+                completedIcons++;
+
+                if (completedIcons == 1)
+                    CoinManager.Instance.UpdateCounts();
+
+                if (completedIcons >= totalIcons)
+                    onComplete?.Invoke();
+            }));
+    }
+}
+```
+
+A shared `completedIcons` counter is captured in each lambda closure. The HUD counter updates as
+soon as the **first** icon lands — giving immediate feedback — and `onComplete` fires only once
+all icons from all requests have finished. `maxCurrencySpawn` caps the batch at 10 icons regardless
+of how many coins were earned, keeping the screen readable.
+
+---
+
+## Staggered Spawning: AnimateRequest
+
+Each request spawns its icons one at a time with a `delayBetween` yield between them. The control
+point B is calculated per-icon with a random offset on top of a fixed `arcHeight`, so no two icons
+follow exactly the same path:
+
+```csharp
+private IEnumerator AnimateRequest(CurrencyAnimationRequest request, System.Action onIconComplete)
+{
+    for (int i = 0; i < request.amount; i++)
+    {
+        RectTransform start =
+            request.startPoints.Count > 1
+            ? request.startPoints[i % request.startPoints.Count]
+            : request.startPoints[0];
+
+        Image icon = Instantiate(iconPrefab, canvasRect);
+        RectTransform rect = icon.rectTransform;
+
+        icon.sprite = request.sprite;
+        rect.position = start.position;
+
+        Vector2 randomOffset = Random.insideUnitCircle * scatterRadius;
+
+        Vector3 A = start.position;
+        Vector3 C = request.endPoint.position;
+        Vector3 B = A + (Vector3)randomOffset + Vector3.up * arcHeight;
+
+        StartCoroutine(AnimateIcon(rect, icon, A, B, C, onIconComplete));
+
+        yield return new WaitForSeconds(delayBetween);
+    }
+}
+```
+
+Key details:
+- **Start point cycling** — `i % startPoints.Count` distributes icons across multiple spawn origins evenly.
+- **Control point construction** — B sits above A by `arcHeight` world units, then scattered within a
+  circle of radius `scatterRadius` using `Random.insideUnitCircle`. The result is a fan of distinct arcs
+  all converging on the same HUD destination.
+- Each icon is parented to `canvasRect` (the root Canvas `RectTransform`) so its world-space position
+  maps correctly onto the screen regardless of layout.
+
+---
+
+## Per-Frame Curve Evaluation: AnimateIcon
+
+The actual flight happens in a manual time-accumulation loop rather than a DOTween call, keeping
+the Bézier evaluation explicit and avoidance of allocation from tween objects:
+
+```csharp
+private IEnumerator AnimateIcon(RectTransform rect, Image icon,
+    Vector3 A, Vector3 B, Vector3 C, System.Action onComplete)
+{
+    float time = 0f;
+
+    while (time < duration)
+    {
+        float t = time / duration;
+        t = EaseInOutCubic(t);
+
+        rect.position =
+            Mathf.Pow(1 - t, 2) * A +
+            2 * (1 - t) * t * B +
+            Mathf.Pow(t, 2) * C;
+
+        time += Time.deltaTime;
+        yield return null;
+    }
+
+    Destroy(icon.gameObject);
+    onComplete?.Invoke();
+}
+```
+
+`t` is normalized to `[0,1]` then passed through `EaseInOutCubic` before being fed into the Bézier
+formula. The eased `t` accelerates out of A and decelerates into C, while the raw curve geometry
+creates the arc — the two concerns are cleanly separated.
+
+---
+
+## Custom Easing: EaseInOutCubic
+
+Rather than relying on an animation library's preset, the easing is implemented directly using the
+standard cubic formula:
+
+```csharp
+private float EaseInOutCubic(float t)
+{
+    return t < 0.5f
+        ? 4f * t * t * t
+        : 1f - Mathf.Pow(-2f * t + 2f, 3f) / 2f;
+}
+```
+
+- For `t < 0.5`: `4t³` — cubic ease-in, starts slow and accelerates.
+- For `t ≥ 0.5`: `1 - (-2t+2)³/2` — cubic ease-out, decelerates symmetrically into the destination.
+
+The result is an icon that launches gently, reaches peak speed at the midpoint of the arc, then
+glides smoothly into the HUD counter.
+
+---
+
+## Wiring It Up: EndPannelManager
+
+`EndPannelManager` owns two `CurrencyAnimationRequest` fields configured in the inspector (one for
+coins, one for stars). At `Start()` it populates their `amount` fields from `LevelManager`:
+
+```csharp
+private void Start()
+{
+    coinAnimationRequest.amount = levelManager.CurrencyEarnedThisLevel;
+    starAnimationRequest.amount = levelManager.CurrentStarCount;
+
+    levelText.text = $"Level {levelManager.CurrentLevelIndex}";
+
+    if (levelManager.CurrentLevelData.numberOfStars >= 3)
+    {
+        AudioManager.Instance?.PlayWinSound();
+        if (GoogleReviewManager.Instance != null)
+            GoogleReviewManager.Instance.RequestReview();
+    }
+}
+```
+
+The animation is triggered separately (not on Start) so the end panel can display first, then
+launch icons once the player taps Continue. On completion the callback drives the scene transition:
+
+```csharp
+public void StartCurrencyAnimation()
+{
+    PannelVisuals.SetActive(false);
+    currencyAnimator.Play(
+        new List<CurrencyAnimationRequest> { coinAnimationRequest, starAnimationRequest },
+        () => ReturnToGamesMenu()
+    );
+}
+```
+
+Passing both requests in a single `Play` call means coin and star icons fly simultaneously — the
+`completedIcons` counter in `PlayRoutine` ensures `ReturnToGamesMenu` fires only after every icon
+from both batches has landed.
+
+---
+
+## HUD Counter: CurrencyPannel
+
+Each HUD counter subscribes to `CoinManager` events for live updates. When the first icon lands,
+`CoinManager.UpdateCounts()` fires `OnCoinChanged`, which `CurrencyPannel` receives:
+
+```csharp
+protected virtual void OnEnable()
+{
+    coinManagerRef = CoinManager.Instance;
+    coinManagerRef.OnCoinSet += SetCurrencyValue;
+    coinManagerRef.OnCoinChanged += UpdateCurrencyValue;
+}
+
+protected virtual void UpdateCurrencyValue(CoinType type, int value, int previousValue)
+{
+    if (type != m_coinType) return;
+    text.AnimateCurrency(previousValue, value, 1.0f);
+}
+```
+
+`AnimateCurrency` is an extension method on `TMP_Text` that tweens the displayed number from the
+old value to the new value over 1 second — so as the last few icons are still in flight, the
+counter is already counting up. The visual effect of icons arriving to "fill" the counter is an
+emergent result of these two independent timings rather than explicit synchronization.
+
+---
+
+## Results
+
+The full pipeline — Bézier geometry, random control-point scatter, cubic easing, staggered spawning,
+and event-driven counter updates — is under 170 lines of code with no animation library dependency.
+The only runtime allocations are the `Image` prefab instantiations themselves, which are destroyed
+immediately on landing.
+
+<MdImage src={images.marblemaze_currency_gif} alt="Coin and star icons arcing to their HUD counters" class="w-full"/>
+
+<div class="flex justify-center my-5">
+  <Button href="/blog/marblemaze-save-system">Next: Save System & Data Persistence →</Button>
+</div>
+
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+<div class="flex justify-center">
+  <SocialShare
+    title={frontmatter.title}
+    description={frontmatter.description}
+  />
+</div>

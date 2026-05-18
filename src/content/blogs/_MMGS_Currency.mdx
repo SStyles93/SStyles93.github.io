@@ -1,0 +1,278 @@
+---
+title: "MarbleMaze: Currency & Life Regeneration"
+description: "How five currencies stored in a Dictionary<CoinType, int> combine with DateTime-based heart regeneration, a live countdown event bus, and a rewarded-video safety window."
+creationDate: "Feb 07 2026"
+order: 0
+heroImage: "/src/assets/images/marblemaze/Feature01.png"
+teamSize: 2
+timeFrame: "3 Months"
+toolUsed: "Unity/C#"
+pinned: false
+tags: ["Unity", "C#", "Mobile"]
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+<div class="flex justify-center my-5">
+  <Button href="/blog/marblemaze-galactic-stars">← Back to Project Overview</Button>
+</div>
+
+MarbleMaze tracks five currencies — coins, stars, hearts, rockets, and UFOs — through a single
+`Dictionary<CoinType, int>`. Hearts regenerate over real-world time using `DateTime` comparison
+rather than running a game-time timer, which means they accumulate correctly while the app is
+closed. A parallel event system drives all HUD updates so `CoinManager` never touches UI directly.
+
+---
+
+## The Currency Store
+
+`CoinManager` maintains two parallel dictionaries — current amounts and previous amounts:
+
+```csharp
+private Dictionary<CoinType, int> coins = new Dictionary<CoinType, int>();
+private Dictionary<CoinType, int> previousCoins = new Dictionary<CoinType, int>();
+```
+
+`previousCoins` exists solely for the HUD animation system: `OnCoinChanged` broadcasts both values
+so `CurrencyPannel` can tween the displayed number from the old value to the new one. Any time a
+currency is written, `LevelPreviousCoinAmount` levels the two dictionaries back into sync:
+
+```csharp
+public void LevelPreviousCoinAmount(CoinType type)
+{
+    previousCoins[type] = coins[type];
+}
+```
+
+Adding a new currency type requires only a new enum entry and a `coins.Add` in `Start` — no other
+code changes.
+
+---
+
+## Events: Decoupled UI Updates
+
+`CoinManager` exposes four events and no direct UI references:
+
+```csharp
+public event Action<CoinType, int, int> OnCoinChanged;  // type, newValue, previousValue
+public event Action<CoinType, int>      OnCoinSet;       // type, value (hard set, no animation)
+public event Action<TimeSpan>           OnHeartTimerTick;
+public event Action<TimeSpan>           OnCoinTimerTick;
+```
+
+`OnCoinChanged` carries both the new and previous value so subscribers can decide whether to
+animate. `OnCoinSet` is used during session restore when the displayed value should snap
+immediately rather than tween. Every UI panel subscribes in `OnEnable` and unsubscribes in
+`OnDisable` — no persistent references:
+
+```csharp
+protected virtual void OnEnable()
+{
+    coinManagerRef = CoinManager.Instance;
+    coinManagerRef.OnCoinSet     += SetCurrencyValue;
+    coinManagerRef.OnCoinChanged += UpdateCurrencyValue;
+}
+protected virtual void OnDisable()
+{
+    coinManagerRef.OnCoinSet     -= SetCurrencyValue;
+    coinManagerRef.OnCoinChanged -= UpdateCurrencyValue;
+}
+```
+
+---
+
+## Heart Regeneration: DateTime Arithmetic
+
+Hearts regenerate at a fixed rate (`timeToRegainHeartInMinutes`) using two `DateTime` fields
+persisted across sessions. The core logic sits in `RecalculateHearts`, called every frame while
+the app is focused:
+
+```csharp
+private void RecalculateHearts()
+{
+    if (coins[CoinType.HEART] >= maxHeartAmount)
+    {
+        coins[CoinType.HEART] = maxHeartAmount;
+        currentMinutesUntilFullHearts = -1;
+        return;
+    }
+
+    DateTime now = DateTime.UtcNow;
+    TimeSpan elapsed = now - lastHeartRefillTime;
+
+    int heartsToAdd = (int)(elapsed.TotalMinutes / timeToRegainHeartInMinutes);
+
+    if (heartsToAdd <= 0)
+        return;
+
+    int totalHeartsAmount = Mathf.Min(coins[CoinType.HEART] + heartsToAdd, maxHeartAmount);
+    SetCurrencyAmount(CoinType.HEART, totalHeartsAmount);
+
+    // Advance the refill timestamp by exactly the time consumed
+    lastHeartRefillTime = lastHeartRefillTime.AddMinutes(
+        heartsToAdd * timeToRegainHeartInMinutes
+    );
+}
+```
+
+The key is the last line: `lastHeartRefillTime` is advanced by `heartsToAdd * interval`, not set
+to `DateTime.UtcNow`. This preserves sub-interval remainder time — if the player was owed 1.7
+hearts, the 0.7 partial interval carries forward into the next calculation rather than being
+discarded. The result is mathematically exact regeneration regardless of call frequency.
+
+---
+
+## Refill Timer: When It Starts
+
+The refill timer only starts when the heart count **drops from the maximum**:
+
+```csharp
+public void ReduceCurrencyAmount(CoinType type, int amount)
+{
+    coins[type] -= amount;
+
+    if (type == CoinType.HEART)
+    {
+        if (coins[CoinType.HEART] == maxHeartAmount - 1)
+        {
+            // Start refill timer ONLY when dropping from max
+            lastHeartRefillTime = DateTime.UtcNow;
+        }
+        RecalculateHearts();
+
+        if (coins[CoinType.HEART] == 0)
+            FirebaseManager.Instance.LogEvent("no_hearts_left");
+    }
+
+    OnCoinChanged?.Invoke(type, coins[type], previousCoins[type]);
+    LevelPreviousCoinAmount(type);
+}
+```
+
+If the player already has fewer than the maximum, the existing `lastHeartRefillTime` is preserved
+and continues to accumulate — losing a second heart doesn't reset the timer for the first.
+
+---
+
+## Live Countdown: OnHeartTimerTick
+
+A coroutine fires every real second and emits both timers as `TimeSpan` values. UI panels
+subscribe to format and display them without any polling:
+
+```csharp
+IEnumerator TimerTickRoutine()
+{
+    var wait = new WaitForSecondsRealtime(1f);
+
+    TimeSpan remainingHeartTime = TimeUntilNextHeart();
+    OnHeartTimerTick?.Invoke(remainingHeartTime);
+
+    TimeSpan remainingCoinVideoTime = TimeUntilNextCoinVideo();
+    OnCoinTimerTick?.Invoke(remainingCoinVideoTime);
+
+    yield return wait;
+}
+
+public TimeSpan TimeUntilNextHeart()
+{
+    if (coins[CoinType.HEART] >= maxHeartAmount)
+        return TimeSpan.Zero;
+
+    DateTime nextHeartTime = lastHeartRefillTime.AddMinutes(timeToRegainHeartInMinutes);
+    return nextHeartTime > DateTime.UtcNow ? nextHeartTime - DateTime.UtcNow : TimeSpan.Zero;
+}
+```
+
+The coroutine is restarted each `Update` frame so it's always in sync with the focused-app
+check — the timer only ticks while `Application.isFocused` is true.
+
+---
+
+## Rewarded Video Safety Window
+
+Hearts and coins can be granted by rewarded video ads, but rapid re-claims must be prevented.
+Both `RewardHearts` and `RewardCoins` check a shared `rewardedVideoSafeTime` countdown:
+
+```csharp
+public void RewardHearts(int amount)
+{
+    if (rewardedVideoSafeTime > 0) return;
+    rewardedVideoSafeTime = 20.0f;
+
+    coins[CoinType.HEART] += amount;
+    RecalculateHearts();
+
+    OnCoinChanged?.Invoke(CoinType.HEART, coins[CoinType.HEART], previousCoins[CoinType.HEART]);
+    LevelPreviousCoinAmount(CoinType.HEART);
+
+    SavingManager.Instance.SavePlayer();
+}
+```
+
+`rewardedVideoSafeTime` is a float decremented every `Update` tick. The 20-second window
+gives enough time for any pending ad callbacks to fire without triggering a double-grant if the
+user taps the reward button twice in quick succession. Coins have an additional `lastVideoRewardTime`
+persisted to disk, enforcing a 4-hour cooldown across sessions:
+
+```csharp
+public TimeSpan TimeUntilNextCoinVideo()
+{
+    DateTime nextPossibleVideo = lastVideoRewardTime.AddHours(hoursBetweenRewardedCoins);
+    return nextPossibleVideo > DateTime.UtcNow ? nextPossibleVideo - DateTime.UtcNow : TimeSpan.Zero;
+}
+```
+
+---
+
+## LifeManager: In-Game Heart Representation
+
+`CoinManager` tracks the full persistent heart count (up to the configured maximum). `LifeManager`
+wraps it with an in-game cap of 3, so the player can have 15 hearts stored but only 3 on any given
+level:
+
+```csharp
+public void ResetLife()
+{
+    currentLife = Mathf.Clamp(
+        CoinManager.Instance.GetCoinAmount(CoinType.HEART), 0, 3);
+}
+```
+
+`ResetLife` is called at the start of each level and at the end panel before returning to the menu,
+so `currentLife` always reflects the current heart balance up to the in-game maximum. Losing a life
+reduces both `currentLife` and the persistent `CoinType.HEART` amount simultaneously:
+
+```csharp
+public void RemoveLife()
+{
+    if (currentLife > 0)
+    {
+        currentLife--;
+        CoinManager.Instance.ReduceCurrencyAmount(CoinType.HEART, 1);
+    }
+
+    LevelManager.Instance.IncreaseLivesLostToThisLevel();
+    OnLifeRemoved?.Invoke();
+}
+```
+
+`OnLifeRemoved` is what `PlayerMovement` subscribes to in order to increase its ground-detection
+sphere radius after each life lost — a mechanical accessibility assist that comes naturally from
+the existing event without any additional coupling.
+
+<div class="flex justify-center my-5">
+  <Button href="/blog/marblemaze-architecture">Next: Manager Architecture & Event System →</Button>
+</div>
+
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+<div class="flex justify-center">
+  <SocialShare
+    title={frontmatter.title}
+    description={frontmatter.description}
+  />
+</div>

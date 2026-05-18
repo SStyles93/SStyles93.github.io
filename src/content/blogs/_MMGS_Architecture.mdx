@@ -1,0 +1,262 @@
+---
+title: "MarbleMaze: Event-Driven Manager Architecture"
+description: "How 20+ singleton managers coordinate through C# Action<T> events with zero direct cross-references, and how a Fluent Builder scene controller ties the whole system together."
+creationDate: "Feb 07 2026"
+order: 0
+heroImage: "/src/assets/images/marblemaze/Feature01.png"
+teamSize: 2
+timeFrame: "3 Months"
+toolUsed: "Unity/C#"
+pinned: false
+tags: ["Unity", "C#", "Mobile"]
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+<div class="flex justify-center my-5">
+  <Button href="/blog/marblemaze-galactic-stars">← Back to Project Overview</Button>
+</div>
+
+MarbleMaze is coordinated by more than 20 singleton managers — audio, levels, currencies, lives,
+customisation, achievements, notifications, cloud save, scene transitions, and more. None of them
+hold a direct reference to another. Instead, they publish and subscribe to C# `Action<T>` events,
+leaving each system completely replaceable in isolation. This post is an architectural walkthrough
+of how the pieces fit together.
+
+---
+
+## The Singleton Backbone
+
+Every manager follows the same lightweight pattern: a static `Instance` property, a null-check
+guard in `Awake` that destroys duplicates, and no `DontDestroyOnLoad`:
+
+```csharp
+public static LevelManager Instance { get; private set; }
+
+private void Awake()
+{
+    if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+    Instance = this;
+}
+```
+
+`DontDestroyOnLoad` is intentionally absent. Each scene owns its own manager objects. Scene
+loading and unloading handles the lifetime — a manager is only alive while its scene is loaded.
+`SceneController` manages which scenes are loaded at any given moment, so managers never need
+to protect themselves from early destruction.
+
+---
+
+## Bootstrap: CoreManager
+
+The entry point of the whole game is `CoreManager.Start`:
+
+```csharp
+void Start()
+{
+    GoogleUpdateManager.Instance?.CheckForUpdate();
+
+    SavingManager.Instance.LoadSession();
+
+    SceneController.Instance
+        .NewTransition()
+        .Load(SceneDatabase.Slots.Menu, SceneDatabase.Scenes.StartMenu)
+        .Perform();
+}
+```
+
+Three things happen in sequence: a Play Store update check, a full session restore from disk (which
+populates all managers with persisted state), and the first scene transition. The rest of the game
+unfolds from events and user input — `CoreManager` never touches anything again.
+
+---
+
+## No Direct Manager References: The Event Contract
+
+The defining constraint is that managers do not call methods on each other. Instead, each publishes
+what it knows and subscribes to what it needs.
+
+A concrete example: when the player loses a life, three systems need to react — the in-game HUD
+needs to update its heart icons, the difficulty engine needs to know for the next level, and
+`PlayerMovement` needs to expand its ground-detection radius. None of those systems call `LifeManager`
+directly. `LifeManager.RemoveLife` fires two events and both updates propagate outward:
+
+```csharp
+public void RemoveLife()
+{
+    if (currentLife > 0)
+    {
+        currentLife--;
+        CoinManager.Instance.ReduceCurrencyAmount(CoinType.HEART, 1);
+    }
+
+    LevelManager.Instance.IncreaseLivesLostToThisLevel();
+    OnLifeRemoved?.Invoke();
+}
+```
+
+`CoinManager.ReduceCurrencyAmount` then fires `OnCoinChanged`:
+
+```csharp
+OnCoinChanged?.Invoke(type, coins[type], previousCoins[type]);
+```
+
+`CoinManager.OnCoinChanged` → `LifePannel.UpdateCurrencyValue` (HUD)
+`LevelManager.OnLifeLostToThisLevel` → `PlayerMovement` (ground radius)
+`LifeManager.OnLifeRemoved` → `LifePannel.OnLifeRemoved` (shake/flash animation)
+
+A single player death fans out to three independent subsystems with no coupling between any of them.
+
+---
+
+## The Event Map
+
+| Event | Publisher | Subscribers |
+|---|---|---|
+| `OnCoinChanged(CoinType, int, int)` | `CoinManager` | All `CurrencyPannel` instances, `LifePannel` |
+| `OnCoinSet(CoinType, int)` | `CoinManager` | All `CurrencyPannel` instances (snap, no animation) |
+| `OnHeartTimerTick(TimeSpan)` | `CoinManager` | `HeartPannelManager` (live countdown) |
+| `OnCoinTimerTick(TimeSpan)` | `CoinManager` | Rewarded video button cooldown UI |
+| `OnLifeRemoved` | `LifeManager` | `LifePannel`, game-over check |
+| `OnLifeLostToThisLevel(int)` | `LevelManager` | `PlayerMovement` (adaptive radius) |
+| `OnStarCountChanged(int)` | `LevelManager` | `StarPannel` (in-game star counter) |
+| `OnPowerUpStateChanged(PowerUpState)` | `PowerUpManager` | `PowerUpButtonManager`, audio |
+| `OnCloudSaveCompleted` | `CloudSaveManager` | `UserInfoManager` (toast notification) |
+| `OnCloudLoadCompleted` | `CloudSaveManager` | `SavingManager` (session restore trigger) |
+| `OnAuthenticationReady` | `LoginManager` | `CloudSaveManager`, `AchievementManager` |
+
+All events are plain C# `Action<T>` or `Action` delegates — no UnityEvent overhead, no
+message-passing framework, no ScriptableObject event channels. The subscribers register in
+`OnEnable` and deregister in `OnDisable`, so scene unloading automatically cleans up every
+subscription.
+
+---
+
+## Fluent Builder: SceneController
+
+Scene transitions follow a **Fluent Builder** pattern. `SceneTransitionPlan` accumulates the
+load/unload list and options through chained calls, then executes when `Perform()` is called:
+
+```csharp
+SceneController.Instance
+    .NewTransition()
+    .Load(SceneDatabase.Slots.Content, SceneDatabase.Scenes.Game)
+    .Unload(SceneDatabase.Scenes.GamesMenu)
+    .WithOverlay()
+    .Perform();
+```
+
+The builder methods each return `this`, enabling the chain:
+
+```csharp
+public SceneTransitionPlan Load(SceneDatabase.Slots slot, SceneDatabase.Scenes scene, bool setActive = true)
+{
+    ScenesToLoad[slot.ToString()] = scene.ToString();
+    if (setActive) ActiveScene = scene.ToString();
+    return this;
+}
+
+public SceneTransitionPlan WithOverlay()
+{
+    Overlay = true;
+    return this;
+}
+
+public void Perform()
+{
+    SceneController.Instance.StartCoroutine(
+        SceneController.Instance.ExecutePlan(this));
+}
+```
+
+`Perform` hands the plan to `ExecutePlan`, which runs the full async pipeline: fade-in overlay →
+unload scenes → optional `Resources.UnloadUnusedAssets()` → load scenes additively → set active
+scene → fade-out overlay. The `isBusy` guard prevents overlapping transitions:
+
+```csharp
+private IEnumerator ExecutePlan(SceneTransitionPlan plan)
+{
+    if (isBusy) yield break;
+    isBusy = true;
+    yield return StartCoroutine(ChangeSceneRoutine(plan));
+}
+```
+
+`SceneDatabase.Slots` and `SceneDatabase.Scenes` are enums that make call sites
+type-safe — no raw strings in the codebase.
+
+---
+
+## Pattern Inventory
+
+Every major design pattern in the codebase serves a specific architectural goal:
+
+| Pattern | Where | Why |
+|---|---|---|
+| **Strategy** | `IDataService` / `JsonDataService` | Swap storage backend without touching call sites |
+| **State Machine** | `PlayerMovement`, `PowerUpManager`, `FlapingDoorsAnimation` | Controlled transitions, no illegal state combinations |
+| **Composite** | `OrderedCondition` (tutorial) | Sequence sub-conditions without nesting coroutines |
+| **Fluent Builder** | `SceneController.NewTransition()` | Readable multi-step scene transitions at call sites |
+| **Observer** | All `Action<T>` events | Zero coupling between publishers and subscribers |
+| **Factory** | `GridFactory`, `PhysicalMazeGenerator` | Centralize complex object construction |
+| **Singleton** | All managers | Single source of truth per system, discoverable via `Instance` |
+
+---
+
+## Dependency Flow: Session Startup
+
+The startup sequence illustrates how the architecture handles a complex multi-system initialization
+without any direct wiring:
+
+```
+CoreManager.Start()
+  └─ SavingManager.LoadSession()
+       ├─ RestorePlayerDataFromFile()
+       │    └─ CoinManager.SetCurrencyAmount(CoinType.HEART, n)
+       │         └─ OnCoinSet → CurrencyPannel.SetCurrencyValue() [all subscribed panels]
+       ├─ RestoreGameDataFromFile()
+       │    └─ LevelManager.levelDataDictionnary populated
+       └─ RestoreTutorialDataFromFile()
+            └─ TutorialManager flags set
+  └─ CloudSaveManager (async, via OnAuthenticationReady event)
+       └─ ForceCloudLoad() if needed
+            └─ ApplyCloudPayload()
+                 └─ SavingManager.ForceLocalOverwrite<T>()
+                      └─ OnCloudLoadCompleted → SavingManager.LoadSession() [second pass with cloud data]
+```
+
+`CoreManager` triggers the chain with one line. Cloud sync happens independently and asynchronously
+— if it completes before the first scene loads, managers get cloud data; if it completes after, a
+second `LoadSession` call updates them in-place and events propagate the changes to any already-open UI.
+
+---
+
+## What This Enables
+
+The zero-coupling rule has two practical payoffs:
+
+**Isolated testing** — any manager can be removed from a scene without breaking others. The null
+check (`CoinManager.Instance?.ReduceCurrencyAmount(...)`) is the only concession to this; it
+prevents crashes in scenes that only load a subset of managers.
+
+**Predictable event ordering** — because no manager calls another's methods directly, there are
+no hidden call chains to trace. The subscriber list is the entire blast radius of any event. When
+a bug appears in the HUD, the search space is every subscriber of `OnCoinChanged` — a known,
+finite list — rather than "somewhere in the systems that write to CoinManager."
+
+<div class="flex justify-center my-5">
+  <Button href="/blog/marblemaze-galactic-stars">← Back to Project Overview</Button>
+</div>
+
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+<div class="flex justify-center">
+  <SocialShare
+    title={frontmatter.title}
+    description={frontmatter.description}
+  />
+</div>

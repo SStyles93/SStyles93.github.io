@@ -1,0 +1,328 @@
+---
+title: "MarbleMaze: Save System & Data Persistence"
+description: "A Strategy-pattern JSON save system with six independent data structures, a generic type-dispatch API, and Unity Cloud Save conflict resolution via a versioned payload."
+creationDate: "Feb 07 2026"
+order: 0
+heroImage: "/src/assets/images/marblemaze/Feature01.png"
+teamSize: 2
+timeFrame: "3 Months"
+toolUsed: "Unity/C#"
+pinned: false
+tags: ["Unity", "C#", "Mobile"]
+---
+
+import Button from "../../components/Button.astro";
+import MdImage from "../../components/MdImage.astro";
+import * as images from "/src/assets/images";
+
+<div class="flex justify-center my-5">
+  <Button href="/blog/marblemaze-galactic-stars">← Back to Project Overview</Button>
+</div>
+
+Every mobile game needs save data that survives restarts, device swaps, and account changes. MarbleMaze
+has six independent data structures (game progress, player currencies, shop state, settings, tutorial
+flags, achievements) persisted through a **Strategy pattern** — `IDataService` / `JsonDataService` —
+so the storage backend can be swapped without touching a single call site. On top of that, a Unity
+Cloud Save layer handles cross-device sync using a versioned payload and a `SemaphoreSlim`-guarded
+conflict resolution pipeline.
+
+---
+
+## The Strategy Interface: IDataService
+
+The entire save stack rests on a three-method interface:
+
+```csharp
+public interface IDataService
+{
+    bool Save<T>(T data, string fileName, bool overwrite = false);
+    T Load<T>(string fileName);
+    void Delete(string fileName);
+    void ClearAllData();
+}
+```
+
+`SavingManager` holds a single `IDataService` field and constructs the implementation in `Awake`:
+
+```csharp
+private IDataService dataService;
+
+private void Awake()
+{
+    // ...
+    dataService = new JsonDataService();
+}
+```
+
+Nothing downstream ever references `JsonDataService` directly. Swapping to a binary, encrypted, or
+cloud-direct backend is a one-line change here.
+
+---
+
+## JSON Persistence: JsonDataService
+
+`JsonDataService` uses **Newtonsoft.Json** (not Unity's built-in `JsonUtility`) for full
+support of `Dictionary`, `DateTime`, and polymorphic types. Path resolution is
+platform-aware via conditional compilation:
+
+```csharp
+private string GetFolderPath(string folderName)
+{
+#if UNITY_EDITOR
+    return Path.Combine(Application.dataPath, folderName);
+#else
+    return Path.Combine(Application.persistentDataPath, folderName);
+#endif
+}
+```
+
+In the editor, files land inside `Assets/Data/` (visible in the Project window for inspection).
+On device, they go to `Application.persistentDataPath` — the OS-protected sandbox path that
+survives app updates.
+
+The save path includes automatic folder creation:
+
+```csharp
+public bool Save<T>(T data, string fileName, bool overwrite)
+{
+    string path = GetFilePath(fileName);
+
+    if (!Directory.Exists(GetFolderPath("Data")))
+        Directory.CreateDirectory(GetFolderPath("Data"));
+
+    try
+    {
+        if (File.Exists(path) && !overwrite)
+            return false;
+
+        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+        File.WriteAllText(path, json);
+        return true;
+    }
+    catch (System.Exception e)
+    {
+        Debug.LogError($"Could not save data to {path}: {e.Message}");
+        return false;
+    }
+}
+```
+
+---
+
+## Six Data Structures
+
+`SavingManager` holds one typed field per data category:
+
+| Field | Type | Contents |
+|---|---|---|
+| `currentGameData` | `GameData` | Level dictionary, difficulty debt, global modifier |
+| `currentPlayerData` | `PlayerData` | All 5 currency amounts, `DateTime` timers, skin/color index |
+| `currentSkinShopData` | `SkinShopData` | `Dictionary<string, bool>` per-item lock state by stable string ID |
+| `currentSettingsData` | `SettingsData` | Audio on/off, music on/off, vibration on/off |
+| `currentTutorialData` | `TutorialData` | Completion flags for 4 tutorials, gift claim flags |
+| `currentAchievementData` | `AchievementData` | 6 integer counters (levels, perfect, marbles, premium, rockets, UFOs) |
+
+Each has a corresponding `SaveXDataInFile` and `RestoreXDataFromFile` method. Granular saves
+(`SaveGame`, `SavePlayer`, `SaveShop`) allow only the changed category to be written to disk
+rather than flushing all six files on every action.
+
+---
+
+## Generic Read API: SavingManager.Get<T>
+
+Any manager that needs to read saved state calls a single generic method:
+
+```csharp
+public T Get<T>() where T : SaveableData
+{
+    if (typeof(T) == typeof(GameData))    return currentGameData as T;
+    if (typeof(T) == typeof(PlayerData))  return currentPlayerData as T;
+    if (typeof(T) == typeof(SkinShopData)) return currentSkinShopData as T;
+    if (typeof(T) == typeof(TutorialData)) return currentTutorialData as T;
+    if (typeof(T) == typeof(AchievementData)) return currentAchievementData as T;
+    return null;
+}
+```
+
+Call sites are one line with no casting required:
+
+```csharp
+PlayerData p = SavingManager.Instance.Get<PlayerData>();
+```
+
+---
+
+## Bootstrap: LoadSession and SaveSession
+
+On startup, `CoreManager` calls `SavingManager.Instance.LoadSession()`, which restores all
+six categories in sequence and pushes their values into the relevant managers:
+
+```csharp
+public void LoadSession()
+{
+    RestoreGameDataFromFile(GameDataFileName);
+    RestorePlayerDataFromFile(PlayerDataFileName);
+    RestoreSkinShopDataFromFile(SkinDataFileName);
+    RestoreSettingsDataFromFile(SettingsDataFileName);
+    RestoreTutorialDataFromFile(TutorialDataFileName);
+    RestoreAchievementDataFromFile(AchievementDataFileName);
+}
+```
+
+Each `Restore` method creates a default object when the file is missing — so first-time
+installs work without any special-case code. Missing files set `isDataPresent = false`, which
+`CloudSaveManager` reads to decide whether to force a cloud load on the next authentication.
+
+`SaveSession` is the symmetric full flush, used when writing to the cloud:
+
+```csharp
+public void SaveSession()
+{
+    SaveGameDataInFile(GameDataFileName);
+    SavePlayerDataInFile(PlayerDataFileName);
+    SaveCustomizationShopDataInFile(SkinDataFileName);
+    SaveSettingsDataInFile(SettingsDataFileName);
+    SaveTutorialDataInFile(TutorialDataFileName);
+    SaveAchievementDataInFile(AchievementDataFileName);
+
+    if (CloudSaveManager.Instance != null)
+        CloudSaveManager.Instance.BuildPayload();
+}
+```
+
+At the end of `SaveSession`, `BuildPayload()` bundles all six structures into a single
+`CloudSavePayload` stamped with an incrementing version number.
+
+---
+
+## Cloud Save: Versioned Payload and Conflict Resolution
+
+The cloud key is a single JSON document containing all five persisted structures plus a
+monotonically increasing `version` field and the device identifier:
+
+```csharp
+[Serializable]
+public class CloudSavePayload : SaveableData
+{
+    public string deviceId;
+    public long version;
+
+    public PlayerData player;
+    public SkinShopData skinShop;
+    public GameData game;
+    public TutorialData tutorial;
+    public AchievementData achievement;
+}
+```
+
+Conflict resolution in `SaveWithConflictResolutionAsync` uses a `SemaphoreSlim(1,1)` to
+prevent concurrent uploads from racing each other:
+
+```csharp
+private readonly SemaphoreSlim saveSemaphore = new(1, 1);
+
+private async Task SaveWithConflictResolutionAsync()
+{
+    await saveSemaphore.WaitAsync();
+    try
+    {
+        CloudSavePayload localPayload = currentPayload;
+        CloudSavePayload cloudPayload = await LoadFromCloudAsync();
+
+        if (cloudPayload != null)
+        {
+            if (cloudPayload.version > localPayload.version)
+            {
+                // Cloud is ahead — apply it and abort the upload
+                ApplyCloudPayload(cloudPayload);
+                lastKnownCloudVersion = cloudPayload.version;
+                isDirty = false;
+                return;
+            }
+
+            if (localPayload.version == cloudPayload.version)
+                return; // Nothing to do
+        }
+
+        await SaveToCloudAsync(localPayload);
+        lastKnownCloudVersion = localPayload.version;
+        OnCloudSaveCompleted?.Invoke();
+    }
+    catch (Exception e)
+    {
+        OnCloudOperationFailed?.Invoke(e);
+    }
+    finally
+    {
+        saveSemaphore.Release();
+    }
+}
+```
+
+The resolution rule is simple: **higher version wins**. If the cloud version is ahead (another device
+played since the last sync), the cloud payload is applied locally and the upload is skipped.
+If versions match, the data is already in sync so no upload is needed. Only when the local
+version is strictly newer does the upload proceed.
+
+---
+
+## Automatic Sync Triggers
+
+Cloud save runs automatically on two triggers:
+
+**Time-based:** `CloudSaveManager.Update` accumulates real play time using `Time.deltaTime`.
+When total accumulated time (stored in `PlayerPrefs` across sessions) exceeds `saveIntervalHours`,
+`TrySaveAllToCloud` fires and resets the counter.
+
+**Event-based (dirty flag):** `LevelManager` calls `CloudSaveManager.Instance.MarkDirty()` every
+`levelsPerCycle * 2` level completions:
+
+```csharp
+if (index % (levelsPerCycle * 2) == 0)
+    CloudSaveManager.Instance.MarkDirty();
+```
+
+The `Update` loop checks `isDirty` on every frame — when set, a cloud save runs on the next tick
+regardless of the time accumulator. This ensures milestone progress is never lost even in short
+sessions.
+
+---
+
+## Account Change Detection
+
+When the user authenticates, `CloudSaveManager` compares the current Unity `PlayerId` against
+the last known ID stored in `PlayerPrefs`. A mismatch means a different account logged in on
+the same device:
+
+```csharp
+string currentPlayerId = AuthenticationService.Instance.PlayerId;
+string lastPlayerId = PlayerPrefs.GetString(LastPlayerIdKey, "");
+bool isNewPlayer = currentPlayerId != lastPlayerId;
+
+if (isNewPlayer)
+{
+    SavingManager.Instance.DeleteAllData();
+    lastKnownCloudVersion = -1;
+    await ForceCloudLoad();
+    OnCloudLoadCompleted?.Invoke();
+}
+```
+
+Local data is wiped and replaced with the account's cloud state. `OnCloudLoadCompleted` triggers
+`SavingManager.LoadSession()`, which pushes the fresh data into all managers before the first
+scene loads.
+
+<div class="flex justify-center my-5">
+  <Button href="/blog/marblemaze-currency-system">Next: Currency & Life Regeneration →</Button>
+</div>
+
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+<div class="flex justify-center">
+  <SocialShare
+    title={frontmatter.title}
+    description={frontmatter.description}
+  />
+</div>
