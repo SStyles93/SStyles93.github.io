@@ -32,8 +32,5 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
     "sass": "^1.99.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": ["@parcel/watcher", "core-js", "esbuild", "sharp"]
   }
 }
