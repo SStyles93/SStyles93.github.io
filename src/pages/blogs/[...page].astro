@@ -56,7 +56,7 @@ const allTags = [
           <option value="/blogs/">All Tags</option>
           {
             allTags.map((tag) => (
-              <option value={`/blogs/tags/${encodeURIComponent(tag)}/`}>{tag}</option>
+              <option value={`/blogs/tags/${tag}/`}>{tag}</option>
             ))
           }
         </select>
@@ -88,7 +88,7 @@ const allTags = [
                     <div class="flex flex-wrap gap-2 mb-4">
                       {tags.map((tag) => (
                         <a
-                          href={`/blogs/tags/${encodeURIComponent(tag)}/`}
+                          href={`/blogs/tags/${tag}/`}
                           class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200"
                         >
                           {tag}
