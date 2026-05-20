@@ -11,12 +11,19 @@ import dayjs from "dayjs";
 // --- Your getStaticPaths function remains exactly the same ---
 export async function getStaticPaths({ paginate }) {
   const allBlogs = await getCollection("blogs");
-  const allTags = [...new Set(allBlogs.flatMap(blog => blog.data.tags || []))];
-  return allTags.flatMap(tag => {
-    const filteredBlogs = allBlogs.filter(blog => blog.data.tags?.includes(tag));
+  const allTags = [
+    ...new Set(allBlogs.flatMap((blog) => blog.data.tags || [])),
+  ];
+  return allTags.flatMap((tag) => {
+    const filteredBlogs = allBlogs.filter((blog) =>
+      blog.data.tags?.includes(tag),
+    );
     filteredBlogs.sort((a: BlogSchema, b: BlogSchema) => {
       if (a.data.order === b.data.order) {
-        return dayjs(b.data.creationDate).valueOf() - dayjs(a.data.creationDate).valueOf();
+        return (
+          dayjs(b.data.creationDate).valueOf() -
+          dayjs(a.data.creationDate).valueOf()
+        );
       }
       return a.data.order - b.data.order;
     });
@@ -30,7 +37,7 @@ export async function getStaticPaths({ paginate }) {
 interface Props {
   page: {
     data: BlogSchema[];
-    url: { prev?: string; next?: string; };
+    url: { prev?: string; next?: string };
   };
 }
 const { page } = Astro.props;
@@ -39,16 +46,19 @@ const { tag } = Astro.params;
 
 <BaseLayout title={`Posts tagged with "${tag}"`}>
   <div class="flex flex-col">
-
     <!-- Header Section -->
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5">
+    <div
+      class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5"
+    >
       <!-- Left Side: Title -->
       <div class="text-3xl w-full sm:w-auto font-bold">
         Posts tagged with: <span class="text-blue-500">{tag}</span>
       </div>
-      
+
       <!-- Right Side: Search Input and Back Link -->
-      <div class="w-full sm:w-auto flex flex-col sm:flex-row items-center gap-2">
+      <div
+        class="w-full sm:w-auto flex flex-col sm:flex-row items-center gap-2"
+      >
         <!-- NEW: Search input added here -->
         <input
           type="text"
@@ -56,52 +66,76 @@ const { tag } = Astro.params;
           placeholder="Search within this tag..."
           class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-64"
         />
-        <a href="/blogs" class="text-blue-500 hover:underline w-full sm:w-auto text-center sm:text-left mt-2 sm:mt-0">&larr; Back to all posts</a>
+        <a
+          href="/blogs"
+          class="text-blue-500 hover:underline w-full sm:w-auto text-center sm:text-left mt-2 sm:mt-0"
+          >&larr; Back to all posts</a
+        >
       </div>
     </div>
 
     <!-- Blog Post List (with full card content) -->
     <ul class="space-y-12" id="blogList">
-      {await Promise.all(
-        page.data.map(async (blog: BlogSchema) => {
-          const { Content } = await render(blog);
-          const isProject = blog.data.isProject === true;
-          const tags = blog.data.tags || [];
+      {
+        await Promise.all(
+          page.data.map(async (blog: BlogSchema) => {
+            const { Content } = await render(blog);
+            const isProject = blog.data.isProject === true;
+            const tags = blog.data.tags || [];
 
-          return (
-            <li 
-              class="border rounded-xl shadow p-4 sm:p-6 prose max-w-none flex flex-col blog-item"
-              data-title={blog.data.title.toLowerCase()}
-              data-description={blog.data.description?.toLowerCase() || ""}
-              data-tags={tags.join(",")}
-            >
-              {/* The full card content is here */}
-              <div class="flex-grow">
-                <h2 class="text-2xl font-bold mb-4">{blog.data.title}</h2>
-                {tags.length > 0 && (
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    {tags.map(t => (
-                      <a href={`/blogs/tags/${t}/`} class:list={["px-2 py-1 text-xs rounded-full transition-colors", t === tag ? "bg-blue-500 text-white cursor-default" : "bg-gray-200 text-gray-800 hover:bg-gray-300"]}>
-                        {t}
-                      </a>
-                    ))}
+            return (
+              <li
+                class="border rounded-xl shadow p-4 sm:p-6 prose max-w-none flex flex-col blog-item"
+                data-title={blog.data.title.toLowerCase()}
+                data-description={blog.data.description?.toLowerCase() || ""}
+                data-tags={tags.join(",")}
+              >
+                {/* The full card content is here */}
+                <div class="flex-grow">
+                  <h2 class="text-2xl font-bold mb-4">{blog.data.title}</h2>
+                  {tags.length > 0 && (
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      {tags.map((t) => (
+                        <a
+                          href={`/blogs/tags/${t}/`}
+                          class:list={[
+                            "px-2 py-1 text-xs rounded-full transition-colors",
+                            t === tag
+                              ? "bg-blue-500 text-white cursor-default"
+                              : "bg-gray-200 text-gray-800 hover:bg-gray-300",
+                          ]}
+                        >
+                          {t}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                  <div class={isProject ? "" : "mdx-preview"}>
+                    <Content />
                   </div>
-                )}
-                <div class={isProject ? "" : "mdx-preview"}><Content /></div>
-                {!isProject && (
-                  <>
-                    <div class="flex justify-center my-5 preview-only"><Button href={`/blogs/${blog.slug}/`}>Read More</Button></div>
-                    <div class="my-5 flex justify-center"><SocialShare title={blog.data.title} description={blog.data.description} url={Astro.url.origin + `/blogs/${blog.slug}/`}/></div>
-                  </>
-                )}
-              </div>
-              <div class="text-sm text-gray-500 mt-auto text-center pt-4">
-                Created on {dayjs(blog.data.creationDate).format("MMMM YYYY")}
-              </div>
-            </li>
-          );
-        })
-      )}
+                  {!isProject && (
+                    <>
+                      <div class="flex justify-center my-5 preview-only">
+                        <Button href={`/blogs/${blog.id.toLowerCase()}/`}>Read More</Button>
+                      </div>
+                      <div class="my-5 flex justify-center">
+                        <SocialShare
+                          title={blog.data.title}
+                          description={blog.data.description}
+                          url={Astro.url.origin + `/blogs/${blog.id.toLowerCase()}/`}
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div class="text-sm text-gray-500 mt-auto text-center pt-4">
+                  Created on {dayjs(blog.data.creationDate).format("MMMM YYYY")}
+                </div>
+              </li>
+            );
+          }),
+        )
+      }
     </ul>
 
     <!-- NEW: No Results Message -->
@@ -111,57 +145,66 @@ const { tag } = Astro.params;
 
     <!-- Pagination Navigation -->
     <nav class="flex justify-between mt-12">
-      {page.url.prev ? <Button href={page.url.prev}>← Previous</Button> : <span />}
+      {
+        page.url.prev ? (
+          <Button href={page.url.prev}>← Previous</Button>
+        ) : (
+          <span />
+        )
+      }
       {page.url.next ? <Button href={page.url.next}>Next →</Button> : <span />}
     </nav>
-
   </div>
 </BaseLayout>
 
 <!-- Your <style> tag remains the same -->
 <style is:global>
-  .mdx-preview > *:nth-child(n+5) { display: none; }
-  .preview-only { margin-top: 1rem; }
+  .mdx-preview > *:nth-child(n + 5) {
+    display: none;
+  }
+  .preview-only {
+    margin-top: 1rem;
+  }
 </style>
 
 <script>
   function setupTagPageSearch() {
     console.log("Setting up tag page search script...");
 
-    const searchInput = document.getElementById('searchInput');
+    const searchInput = document.getElementById("searchInput");
     if (!searchInput) return; // Exit if no search input is on the page
 
-    const blogItems = document.querySelectorAll('.blog-item');
-    const noResults = document.getElementById('noResults');
+    const blogItems = document.querySelectorAll(".blog-item");
+    const noResults = document.getElementById("noResults");
 
     if (!searchInput.dataset.listenerAttached) {
-      searchInput.addEventListener('input', () => {
+      searchInput.addEventListener("input", () => {
         const searchTerm = searchInput.value.toLowerCase();
         let visibleCount = 0;
 
         blogItems.forEach((item) => {
-          const title = item.getAttribute('data-title') || '';
-          const description = item.getAttribute('data-description') || '';
-          const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+          const title = item.getAttribute("data-title") || "";
+          const description = item.getAttribute("data-description") || "";
+          const matchesSearch =
+            title.includes(searchTerm) || description.includes(searchTerm);
 
           if (matchesSearch) {
-            item.style.display = 'flex';
+            item.style.display = "flex";
             visibleCount++;
           } else {
-            item.style.display = 'none';
+            item.style.display = "none";
           }
         });
 
         if (noResults) {
-          noResults.classList.toggle('hidden', visibleCount > 0);
+          noResults.classList.toggle("hidden", visibleCount > 0);
         }
       });
-      searchInput.dataset.listenerAttached = 'true';
+      searchInput.dataset.listenerAttached = "true";
     }
   }
 
   // Run on initial load and every subsequent View Transition
   setupTagPageSearch();
-  document.addEventListener('astro:page-load', setupTagPageSearch);
+  document.addEventListener("astro:page-load", setupTagPageSearch);
 </script>
-

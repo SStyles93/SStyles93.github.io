@@ -3,7 +3,6 @@
 // all pages through the use of the <BaseHead /> component.
 import "../styles/global.css";
 import Lightbox from "./Lightbox.astro";
-import { ViewTransitions } from "astro:transitions";
 
 export interface Props {
 	title: string;
@@ -27,7 +26,6 @@ const {
 <meta name="generator" content={Astro.generator} />
 
 <Lightbox />
-<ViewTransitions />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>

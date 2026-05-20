@@ -11,13 +11,18 @@ const allProjects = await getCollection("projects");
 // 2. Sort the FULL collection before pagination. This is the correct way.
 allProjects.sort((a: ProjectSchema, b: ProjectSchema) => {
 	if (a.data.order === b.data.order) {
-		return dayjs(b.data.creationDate).valueOf() - dayjs(a.data.creationDate).valueOf();
+		return (
+			dayjs(b.data.creationDate).valueOf() -
+			dayjs(a.data.creationDate).valueOf()
+		);
 	}
 	return a.data.order - b.data.order;
 });
 
 // 3. Generate tags from the FULL collection so the list is always complete.
-const allTags = [...new Set(allProjects.flatMap(project => project.data.tags || []))].sort();
+const allTags = [
+	...new Set(allProjects.flatMap((project) => project.data.tags || [])),
+].sort();
 
 // Now, define the static paths using the pre-sorted collection.
 export async function getStaticPaths({ paginate }) {
@@ -26,7 +31,10 @@ export async function getStaticPaths({ paginate }) {
 	const projects = await getCollection("projects");
 	projects.sort((a: ProjectSchema, b: ProjectSchema) => {
 		if (a.data.order === b.data.order) {
-			return dayjs(b.data.creationDate).valueOf() - dayjs(a.data.creationDate).valueOf();
+			return (
+				dayjs(b.data.creationDate).valueOf() -
+				dayjs(a.data.creationDate).valueOf()
+			);
 		}
 		return a.data.order - b.data.order;
 	});
@@ -43,9 +51,11 @@ const { page } = Astro.props;
 ---
 
 <BaseLayout title="Projects">
-	<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5">
+	<div
+		class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5"
+	>
 		<div class="text-3xl w-full sm:w-auto font-bold">Projects</div>
-		
+
 		<div class="w-full sm:w-auto flex flex-col sm:flex-row gap-2">
 			<input
 				type="text"
@@ -58,9 +68,7 @@ const { page } = Astro.props;
 				class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-48"
 			>
 				<option value="">All Tags</option>
-				{allTags.map(tag => (
-					<option value={tag}>{tag}</option>
-				))}
+				{allTags.map((tag) => <option value={tag}>{tag}</option>)}
 			</select>
 		</div>
 	</div>
@@ -70,29 +78,31 @@ const { page } = Astro.props;
 			page.data.map((project: ProjectSchema) => {
 				const tags = project.data.tags || [];
 				return (
-					<li 
+					<li
 						class="project-item"
 						data-title={project.data.title.toLowerCase()}
-						data-description={project.data.description?.toLowerCase() || ""}
+						data-description={
+							project.data.description?.toLowerCase() || ""
+						}
 						data-tags={tags.join(",").toLowerCase()}
 					>
 						<HorizontalCard
 							title={project.data.title}
 							img={project.data.heroImage}
 							desc={project.data.description}
-							url={"/projects/" + project.slug}
+							url={"/projects/" + project.id.toLowerCase()}
 							target="_self"
 							teamSize={project.data.teamSize}
 							timeFrame={project.data.timeFrame}
 							toolUsed={project.data.toolUsed}
-							creationDate={dayjs(project.data.creationDate).format(
-								"MMMM YYYY",
-							)}
+							creationDate={dayjs(
+								project.data.creationDate,
+							).format("MMMM YYYY")}
 							tags={tags}
 						/>
 						<div class="divider my-0" />
 					</li>
-				)
+				);
 			})
 		}
 	</ul>
@@ -104,55 +114,59 @@ const { page } = Astro.props;
 	<!-- SCRIPT UPDATED FOR VIEW TRANSITIONS -->
 	<script>
 		function setupProjectFilters() {
-			const searchInput = document.getElementById('searchInput');
-			const tagFilter = document.getElementById('tagFilter');
-			
+			const searchInput = document.getElementById("searchInput");
+			const tagFilter = document.getElementById("tagFilter");
+
 			// Exit if the filter elements don't exist on the page
 			if (!searchInput || !tagFilter) return;
 
-			const projectItems = document.querySelectorAll('.project-item');
-			const noResults = document.getElementById('noResults');
-			
+			const projectItems = document.querySelectorAll(".project-item");
+			const noResults = document.getElementById("noResults");
+
 			function filterProjects() {
 				const searchTerm = searchInput.value.toLowerCase();
 				const selectedTag = tagFilter.value.toLowerCase();
-				
+
 				let visibleCount = 0;
-				
+
 				projectItems.forEach((item) => {
-					const title = item.getAttribute('data-title') || '';
-					const description = item.getAttribute('data-description') || '';
-					const tags = item.getAttribute('data-tags') || '';
-					
-					const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
-					const matchesTag = !selectedTag || tags.split(',').includes(selectedTag);
-					
+					const title = item.getAttribute("data-title") || "";
+					const description =
+						item.getAttribute("data-description") || "";
+					const tags = item.getAttribute("data-tags") || "";
+
+					const matchesSearch =
+						title.includes(searchTerm) ||
+						description.includes(searchTerm);
+					const matchesTag =
+						!selectedTag || tags.split(",").includes(selectedTag);
+
 					if (matchesSearch && matchesTag) {
-						item.style.display = 'block';
+						item.style.display = "block";
 						visibleCount++;
 					} else {
-						item.style.display = 'none';
+						item.style.display = "none";
 					}
 				});
-				
+
 				if (noResults) {
-					noResults.classList.toggle('hidden', visibleCount === 0);
+					noResults.classList.toggle("hidden", visibleCount === 0);
 				}
 			}
-			
+
 			// Use flags to prevent adding listeners multiple times
 			if (!searchInput.dataset.listenerAttached) {
-				searchInput.addEventListener('input', filterProjects);
-				searchInput.dataset.listenerAttached = 'true';
+				searchInput.addEventListener("input", filterProjects);
+				searchInput.dataset.listenerAttached = "true";
 			}
 			if (!tagFilter.dataset.listenerAttached) {
-				tagFilter.addEventListener('change', filterProjects);
-				tagFilter.dataset.listenerAttached = 'true';
+				tagFilter.addEventListener("change", filterProjects);
+				tagFilter.dataset.listenerAttached = "true";
 			}
 		}
-		
+
 		// Run the setup function on initial load and after every Astro View Transition
 		setupProjectFilters();
-		document.addEventListener('astro:page-load', setupProjectFilters);
+		document.addEventListener("astro:page-load", setupProjectFilters);
 	</script>
 </BaseLayout>

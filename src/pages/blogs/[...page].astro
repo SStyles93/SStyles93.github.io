@@ -12,7 +12,10 @@ export async function getStaticPaths({ paginate }) {
   const blogs = await getCollection("blogs");
   blogs.sort((a: BlogSchema, b: BlogSchema) => {
     if (a.data.order === b.data.order) {
-      return dayjs(b.data.creationDate).valueOf() - dayjs(a.data.creationDate).valueOf();
+      return (
+        dayjs(b.data.creationDate).valueOf() -
+        dayjs(a.data.creationDate).valueOf()
+      );
     }
     return a.data.order - b.data.order;
   });
@@ -22,19 +25,22 @@ export async function getStaticPaths({ paginate }) {
 interface Props {
   page: {
     data: BlogSchema[];
-    url: { prev?: string; next?: string; };
+    url: { prev?: string; next?: string };
   };
 }
 const { page } = Astro.props;
 const allBlogs = await getCollection("blogs");
-const allTags = [...new Set(allBlogs.flatMap(blog => blog.data.tags || []))].sort();
+const allTags = [
+  ...new Set(allBlogs.flatMap((blog) => blog.data.tags || [])),
+].sort();
 ---
 
 <BaseLayout title="Blog">
   <div class="flex flex-col">
-
     <!-- Header with Title and Filters -->
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5">
+    <div
+      class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5"
+    >
       <div class="text-3xl w-full sm:w-auto font-bold">Posts</div>
       <div class="w-full sm:w-auto flex flex-col sm:flex-row gap-2">
         <input
@@ -48,74 +54,81 @@ const allTags = [...new Set(allBlogs.flatMap(blog => blog.data.tags || []))].sor
           class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-48"
         >
           <option value="/blogs/">All Tags</option>
-          {allTags.map(tag => (
-            <option value={`/blogs/tags/${tag}/`}>{tag}</option>
-          ))}
+          {
+            allTags.map((tag) => (
+              <option value={`/blogs/tags/${tag}/`}>{tag}</option>
+            ))
+          }
         </select>
       </div>
     </div>
 
     <!-- Blog Post List -->
     <ul class="space-y-12" id="blogList">
-      {await Promise.all(
-        page.data.map(async (blog: BlogSchema) => {
-          const { Content } = await render(blog);
-          const isProject = blog.data.isProject === true;
-          const tags = blog.data.tags || [];
+      {
+        await Promise.all(
+          page.data.map(async (blog: BlogSchema) => {
+            const { Content } = await render(blog);
+            const isProject = blog.data.isProject === true;
+            const tags = blog.data.tags || [];
 
-          return (
-            <li 
-              class="border rounded-xl shadow p-4 sm:p-6 prose max-w-none flex flex-col blog-item"
-              data-title={blog.data.title.toLowerCase()}
-              data-description={blog.data.description?.toLowerCase() || ""}
-              data-tags={tags.join(",")}
-            >
-              {/* --- FULL CARD CONTENT RESTORED --- */}
-              <div class="flex-grow">
-                <h2 class="text-2xl font-bold mb-4">{blog.data.title}</h2>
+            return (
+              <li
+                class="border rounded-xl shadow p-4 sm:p-6 prose max-w-none flex flex-col blog-item"
+                data-title={blog.data.title.toLowerCase()}
+                data-description={blog.data.description?.toLowerCase() || ""}
+                data-tags={tags.join(",")}
+              >
+                {/* --- FULL CARD CONTENT RESTORED --- */}
+                <div class="flex-grow">
+                  <h2 class="text-2xl font-bold mb-4">{blog.data.title}</h2>
 
-                {/* Display Tags */}
-                {tags.length > 0 && (
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    {tags.map(tag => (
-                      <a href={`/blogs/tags/${tag}/`} class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200">
-                        {tag}
-                      </a>
-                    ))}
+                  {/* Display Tags */}
+                  {tags.length > 0 && (
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      {tags.map((tag) => (
+                        <a
+                          href={`/blogs/tags/${tag}/`}
+                          class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full hover:bg-blue-200"
+                        >
+                          {tag}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Display Content Preview */}
+                  <div class={isProject ? "" : "mdx-preview"}>
+                    <Content />
                   </div>
-                )}
 
-                {/* Display Content Preview */}
-                <div class={isProject ? "" : "mdx-preview"}>
-                  <Content />
+                  {/* Display Buttons and Social Share */}
+                  {!isProject ? (
+                    <>
+                      <div class="flex justify-center my-5 preview-only">
+                        <Button href={`/blogs/${blog.id.toLowerCase()}/`}>Read More</Button>
+                      </div>
+                      <div class="my-5 flex justify-center">
+                        <SocialShare
+                          title={blog.data.title}
+                          description={blog.data.description}
+                          url={Astro.url.origin + `/blogs/${blog.id.toLowerCase()}/`}
+                        />
+                      </div>
+                    </>
+                  ) : null}
                 </div>
 
-                {/* Display Buttons and Social Share */}
-                {!isProject ? (
-                  <>
-                    <div class="flex justify-center my-5 preview-only">
-                      <Button href={`/blogs/${blog.slug}/`}>Read More</Button>
-                    </div>
-                    <div class="my-5 flex justify-center">
-                      <SocialShare
-                        title={blog.data.title}
-                        description={blog.data.description}
-                        url={Astro.url.origin + `/blogs/${blog.slug}/`}
-                      />
-                    </div>
-                  </>
-                ) : null}
-              </div>
-
-              {/* Display Creation Date */}
-              <div class="text-sm text-gray-500 mt-auto text-center pt-4">
-                Created on {dayjs(blog.data.creationDate).format("MMMM YYYY")}
-              </div>
-              {/* --- END OF RESTORED CONTENT --- */}
-            </li>
-          );
-        })
-      )}
+                {/* Display Creation Date */}
+                <div class="text-sm text-gray-500 mt-auto text-center pt-4">
+                  Created on {dayjs(blog.data.creationDate).format("MMMM YYYY")}
+                </div>
+                {/* --- END OF RESTORED CONTENT --- */}
+              </li>
+            );
+          }),
+        )
+      }
     </ul>
 
     <!-- No Results Message -->
@@ -125,17 +138,26 @@ const allTags = [...new Set(allBlogs.flatMap(blog => blog.data.tags || []))].sor
 
     <!-- Pagination Navigation -->
     <nav class="flex justify-between mt-12">
-      {page.url.prev ? <Button href={page.url.prev}>← Previous</Button> : <span />}
+      {
+        page.url.prev ? (
+          <Button href={page.url.prev}>← Previous</Button>
+        ) : (
+          <span />
+        )
+      }
       {page.url.next ? <Button href={page.url.next}>Next →</Button> : <span />}
     </nav>
-
   </div>
 </BaseLayout>
 
 <!-- Your <style> and <script> tags remain the same -->
 <style is:global>
-  .mdx-preview > *:nth-child(n+5) { display: none; }
-  .preview-only { margin-top: 1rem; }
+  .mdx-preview > *:nth-child(n + 5) {
+    display: none;
+  }
+  .preview-only {
+    margin-top: 1rem;
+  }
 </style>
 
 <script>
@@ -144,51 +166,52 @@ const allTags = [...new Set(allBlogs.flatMap(blog => blog.data.tags || []))].sor
     console.log("Setting up blog page scripts..."); // Helpful for debugging
 
     // --- Tag Navigation Logic ---
-    const tagNavigator = document.getElementById('tagNavigator');
+    const tagNavigator = document.getElementById("tagNavigator");
     if (tagNavigator) {
       // We need a way to avoid adding the same listener multiple times.
       // A simple flag on the element works well.
       if (!tagNavigator.dataset.listenerAttached) {
-        tagNavigator.addEventListener('change', (event) => {
+        tagNavigator.addEventListener("change", (event) => {
           const destination = event.target.value;
           if (destination) {
             window.location.href = destination;
           }
         });
-        tagNavigator.dataset.listenerAttached = 'true';
+        tagNavigator.dataset.listenerAttached = "true";
       }
     }
 
     // --- Live Text Search Logic ---
-    const searchInput = document.getElementById('searchInput');
-    const blogItems = document.querySelectorAll('.blog-item');
-    const noResults = document.getElementById('noResults');
+    const searchInput = document.getElementById("searchInput");
+    const blogItems = document.querySelectorAll(".blog-item");
+    const noResults = document.getElementById("noResults");
 
     if (searchInput) {
       // The input event is safe to re-add, but for consistency, we can also guard it.
       if (!searchInput.dataset.listenerAttached) {
-        searchInput.addEventListener('input', () => {
+        searchInput.addEventListener("input", () => {
           const searchTerm = searchInput.value.toLowerCase();
           let visibleCount = 0;
 
           blogItems.forEach((item) => {
-            const title = item.getAttribute('data-title') || '';
-            const description = item.getAttribute('data-description') || '';
-            const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+            const title = item.getAttribute("data-title") || "";
+            const description = item.getAttribute("data-description") || "";
+            const matchesSearch =
+              title.includes(searchTerm) || description.includes(searchTerm);
 
             if (matchesSearch) {
-              item.style.display = 'flex';
+              item.style.display = "flex";
               visibleCount++;
             } else {
-              item.style.display = 'none';
+              item.style.display = "none";
             }
           });
 
           if (noResults) {
-            noResults.classList.toggle('hidden', visibleCount > 0);
+            noResults.classList.toggle("hidden", visibleCount > 0);
           }
         });
-        searchInput.dataset.listenerAttached = 'true';
+        searchInput.dataset.listenerAttached = "true";
       }
     }
   }
@@ -197,6 +220,5 @@ const allTags = [...new Set(allBlogs.flatMap(blog => blog.data.tags || []))].sor
   setupBlogPage();
 
   // 3. Add an event listener for Astro's 'page-load' event to run it again on every navigation.
-  document.addEventListener('astro:page-load', setupBlogPage);
+  document.addEventListener("astro:page-load", setupBlogPage);
 </script>
-
