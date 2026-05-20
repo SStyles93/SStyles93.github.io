@@ -135,159 +135,132 @@ const displayDate = dayjs(creationDate).format("MMMM YYYY");
 
   </main>
 
-<script type="module">
-const content = document.getElementById('post-content');
-const toc = document.querySelector('#toc ul');
-const headings = content?.querySelectorAll('h2, h3');
+<script>
+let _tocController = null;
 
-// Simple slugify function to create safe IDs
-function slugify(text) {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')   // remove special chars
-    .replace(/\s+/g, '-')       // spaces → dashes
-    .replace(/^-+/, '');        // no leading dashes
-}
+function initTOC() {
+  _tocController?.abort();
+  _tocController = new AbortController();
+  const signal = _tocController.signal;
 
-// Ensure headings have valid IDs
-headings?.forEach(h => {
-  let rawId = h.id || slugify(h.textContent);
-  if (/^\d/.test(rawId)) rawId = '_' + rawId;
-  h.id = rawId;
-});
+  const content = document.getElementById('post-content');
+  const toc = document.querySelector('#toc ul');
+  if (!content || !toc) return;
 
-// Build TOC
-headings?.forEach(h => 
-{
-  if (h.tagName.toLowerCase() === 'h2') 
-{
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.href = '#' + h.id;
-    a.textContent = h.textContent;
-    a.classList.add('h2');
-    li.appendChild(a);
+  toc.innerHTML = '';
 
-    // container for h3 children
-    const subUl = document.createElement('ul');
-    subUl.classList.add('sub-toc', 'hidden'); // start hidden
-    li.appendChild(subUl);
+  const headings = content.querySelectorAll('h2, h3');
 
-    toc?.appendChild(li);
-	} else if (h.tagName.toLowerCase() === 'h3') {
-		const lastH2 = toc?.querySelector('li:last-child ul.sub-toc');
-		if (lastH2) 
-			{
-				const li = document.createElement('li');
-				const a = document.createElement('a');
-				a.href = '#' + h.id;
-				a.textContent = h.textContent;
-				a.classList.add('h3');
-				li.appendChild(a);
-				lastH2.appendChild(li);
-			}
-		}
-});
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/^-+/, '');
+  }
 
-const tocLinks = document.querySelectorAll('#toc a');
-const headingArray = Array.from(headings); // easier indexing
-let currentH2Index = -1;
-
-// Dynamically compute scroll offset for sticky navs
-function getScrollOffset() {
-  let offset = 0;
-  const mainNav = document.querySelector('.sticky.lg\\:hidden.top-0');
-  if (mainNav) offset += mainNav.offsetHeight;
-  const tocBar = document.getElementById('toc');
-  if (tocBar && window.innerWidth <= 1023) offset += tocBar.offsetHeight;
-  return offset || 0;
-}
-
-// Update TOC highlighting and sub-toc visibility
-function updateTOC() {
-  const offset = getScrollOffset();
-  let currentH2Index = -1;
-  let currentH3Id = null;
-
-  headingArray.forEach((h, idx) => {
-    const rect = h.getBoundingClientRect();
-    if (h.tagName.toLowerCase() === 'h2' && rect.top - offset <= 0) {
-      currentH2Index = idx;
-    }
-    if (h.tagName.toLowerCase() === 'h3' && rect.top - offset <= 0) {
-      currentH3Id = h.id;
-    }
+  headings.forEach(h => {
+    let rawId = h.id || slugify(h.textContent);
+    if (/^\d/.test(rawId)) rawId = '_' + rawId;
+    h.id = rawId;
   });
 
-  // Highlight h2
-  headingArray.forEach(h => {
-    const link = document.querySelector(`#toc a[href="#${h.id}"]`);
-    if (!link) return;
-
+  headings.forEach(h => {
     if (h.tagName.toLowerCase() === 'h2') {
-      link.classList.toggle('active', headingArray[currentH2Index] === h);
-      const subToc = link.parentElement?.querySelector('.sub-toc');
-      if (subToc) {
-        subToc.classList.toggle('hidden', headingArray[currentH2Index] !== h);
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      a.classList.add('h2');
+      li.appendChild(a);
+      const subUl = document.createElement('ul');
+      subUl.classList.add('sub-toc', 'hidden');
+      li.appendChild(subUl);
+      toc.appendChild(li);
+    } else if (h.tagName.toLowerCase() === 'h3') {
+      const lastH2 = toc.querySelector('li:last-child ul.sub-toc');
+      if (lastH2) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.classList.add('h3');
+        li.appendChild(a);
+        lastH2.appendChild(li);
       }
     }
-
-    if (h.tagName.toLowerCase() === 'h3') {
-      link.classList.toggle('active', h.id === currentH3Id);
-    }
-  });
-}
-
-window.addEventListener('scroll', updateTOC);
-window.addEventListener('resize', updateTOC);
-updateTOC(); // Initial call
-
-// Scroll listener to detect current h2
-window.addEventListener('scroll', () => {
-  let lastVisibleH2Index = -1;
-  const offset = getScrollOffset();
-
-  headingArray.forEach((h, idx) => {
-    if (h.tagName.toLowerCase() === 'h2') {
-      const rect = h.getBoundingClientRect();
-      if (rect.top - offset <= 0) lastVisibleH2Index = idx;
-    }
   });
 
-  if (lastVisibleH2Index !== currentH2Index) {
-    currentH2Index = lastVisibleH2Index;
-    updateTOC();
+  const headingArray = Array.from(headings);
+
+  function getScrollOffset() {
+    let offset = 0;
+    const mainNav = document.querySelector('.sticky.lg\\:hidden.top-0');
+    if (mainNav) offset += mainNav.offsetHeight;
+    const tocBar = document.getElementById('toc');
+    if (tocBar && window.innerWidth <= 1023) offset += tocBar.offsetHeight;
+    return offset || 0;
   }
-});
 
-// Smooth scroll when clicking TOC links
-tocLinks.forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (!target) return;
+  function updateTOC() {
     const offset = getScrollOffset();
-    const top = target.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top, behavior: 'smooth' });
-  });
-});
+    let curH2Index = -1;
+    let curH3Id = null;
 
-// TOC toggle button (collapse/expand)
-const tocNav = document.getElementById('toc');
-const tocToggle = document.getElementById('toc-toggle');
-const savedState = localStorage.getItem('toc-collapsed');
-if (savedState === 'true') {
-  tocNav?.classList.add('collapsed');
-  tocToggle.textContent = '📕';
+    headingArray.forEach((h, idx) => {
+      const rect = h.getBoundingClientRect();
+      if (h.tagName.toLowerCase() === 'h2' && rect.top - offset <= 0) curH2Index = idx;
+      if (h.tagName.toLowerCase() === 'h3' && rect.top - offset <= 0) curH3Id = h.id;
+    });
+
+    headingArray.forEach(h => {
+      const link = document.querySelector(`#toc a[href="#${h.id}"]`);
+      if (!link) return;
+      if (h.tagName.toLowerCase() === 'h2') {
+        link.classList.toggle('active', headingArray[curH2Index] === h);
+        const subToc = link.parentElement?.querySelector('.sub-toc');
+        if (subToc) subToc.classList.toggle('hidden', headingArray[curH2Index] !== h);
+      }
+      if (h.tagName.toLowerCase() === 'h3') {
+        link.classList.toggle('active', h.id === curH3Id);
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateTOC, { signal });
+  window.addEventListener('resize', updateTOC, { signal });
+  updateTOC();
+
+  document.querySelectorAll('#toc a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      const offset = getScrollOffset();
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }, { signal });
+  });
+
+  const tocNav = document.getElementById('toc');
+  const tocToggle = document.getElementById('toc-toggle');
+  const savedState = localStorage.getItem('toc-collapsed');
+  if (savedState === 'true') {
+    tocNav?.classList.add('collapsed');
+    if (tocToggle) tocToggle.textContent = '📕';
+  }
+
+  tocToggle?.addEventListener('click', () => {
+    tocNav?.classList.toggle('collapsed');
+    const isCollapsed = tocNav?.classList.contains('collapsed');
+    if (tocToggle) tocToggle.textContent = isCollapsed ? '📕' : '📖';
+    localStorage.setItem('toc-collapsed', String(isCollapsed));
+  }, { signal });
 }
 
-tocToggle?.addEventListener('click', () => {
-  tocNav?.classList.toggle('collapsed');
-  const isCollapsed = tocNav.classList.contains('collapsed');
-  tocToggle.textContent = isCollapsed ? '📕' : '📖';
-  localStorage.setItem('toc-collapsed', isCollapsed);
-});
+initTOC();
+document.addEventListener('astro:page-load', initTOC);
 </script>
 
 <style is:global>
