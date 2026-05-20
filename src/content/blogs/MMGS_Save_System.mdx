@@ -15,10 +15,6 @@ import Button from "../../components/Button.astro";
 import MdImage from "../../components/MdImage.astro";
 import * as images from "/src/assets/images";
 
-<div class="flex justify-center my-5">
-  <Button href="/blog/marblemaze-galactic-stars">← Back to Project Overview</Button>
-</div>
-
 Every mobile game needs save data that survives restarts, device swaps, and account changes. MarbleMaze
 has six independent data structures (game progress, player currencies, shop state, settings, tutorial
 flags, achievements) persisted through a **Strategy pattern** — `IDataService` / `JsonDataService` —
@@ -128,7 +124,7 @@ rather than flushing all six files on every action.
 
 ---
 
-## Generic Read API: SavingManager.Get<T>
+## Generic Read API: SavingManager
 
 Any manager that needs to read saved state calls a single generic method:
 
@@ -313,7 +309,8 @@ Local data is wiped and replaced with the account's cloud state. `OnCloudLoadCom
 scene loads.
 
 <div class="flex justify-center my-5">
-  <Button href="/blog/marblemaze-currency-system">Next: Currency & Life Regeneration →</Button>
+<Button href="/projects/mmgs_project">← Back to Project Overview</Button>
+<Button href="/blogs/mmgs_currency">Next: Currency & Life Regeneration →</Button>
 </div>
 
 ---

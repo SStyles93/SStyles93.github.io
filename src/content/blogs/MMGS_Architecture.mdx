@@ -15,10 +15,6 @@ import Button from "../../components/Button.astro";
 import MdImage from "../../components/MdImage.astro";
 import * as images from "/src/assets/images";
 
-<div class="flex justify-center my-5">
-  <Button href="/blog/marblemaze-galactic-stars">← Back to Project Overview</Button>
-</div>
-
 MarbleMaze is coordinated by more than 20 singleton managers — audio, levels, currencies, lives,
 customisation, achievements, notifications, cloud save, scene transitions, and more. None of them
 hold a direct reference to another. Instead, they publish and subscribe to C# `Action<T>` events,
@@ -247,7 +243,7 @@ a bug appears in the HUD, the search space is every subscriber of `OnCoinChanged
 finite list — rather than "somewhere in the systems that write to CoinManager."
 
 <div class="flex justify-center my-5">
-  <Button href="/blog/marblemaze-galactic-stars">← Back to Project Overview</Button>
+<Button href="/projects/mmgs_project">← Back to Project Overview</Button>
 </div>
 
 ---

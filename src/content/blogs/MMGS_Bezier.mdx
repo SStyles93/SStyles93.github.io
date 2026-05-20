@@ -16,10 +16,6 @@ import MdImage from "../../components/MdImage.astro";
 import Video from "../../components/Video.astro";
 import * as images from "/src/assets/images";
 
-<div class="flex justify-center my-5">
-  <Button href="/blog/marblemaze-galactic-stars">← Back to Project Overview</Button>
-</div>
-
 When a player collects coins or stars at the end of a level, the icons don't just vanish — they **arc
 smoothly across the screen** to their respective HUD counter. This post covers the full implementation:
 the math behind the curves, the staggered batch system, the custom easing function, and how the
@@ -312,7 +308,8 @@ immediately on landing.
 <MdImage src={images.marblemaze_currency_gif} alt="Coin and star icons arcing to their HUD counters" class="w-full"/>
 
 <div class="flex justify-center my-5">
-  <Button href="/blog/marblemaze-save-system">Next: Save System & Data Persistence →</Button>
+<Button href="/projects/mmgs_project">← Back to Project Overview</Button>
+<Button href="/blogs/mmgs_save_system">Next: Save System & Data Persistence →</Button>
 </div>
 
 ---
