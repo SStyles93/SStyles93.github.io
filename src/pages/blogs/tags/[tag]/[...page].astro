@@ -29,7 +29,7 @@ export async function getStaticPaths({ paginate }) {
     });
     return paginate(filteredBlogs, {
       pageSize: 10,
-      params: { tag },
+      params: { tag: encodeURIComponent(tag) },
     });
   });
 }
@@ -42,9 +42,10 @@ interface Props {
 }
 const { page } = Astro.props;
 const { tag } = Astro.params;
+const decodedTag = decodeURIComponent(tag);
 ---
 
-<BaseLayout title={`Posts tagged with "${tag}"`}>
+<BaseLayout title={`Posts tagged with "${decodedTag}"`}>
   <div class="flex flex-col">
     <!-- Header Section -->
     <div
@@ -52,7 +53,7 @@ const { tag } = Astro.params;
     >
       <!-- Left Side: Title -->
       <div class="text-3xl w-full sm:w-auto font-bold">
-        Posts tagged with: <span class="text-blue-500">{tag}</span>
+        Posts tagged with: <span class="text-blue-500">{decodedTag}</span>
       </div>
 
       <!-- Right Side: Search Input and Back Link -->
@@ -97,10 +98,10 @@ const { tag } = Astro.params;
                     <div class="flex flex-wrap gap-2 mb-4">
                       {tags.map((t) => (
                         <a
-                          href={`/blogs/tags/${t}/`}
+                          href={`/blogs/tags/${encodeURIComponent(t)}/`}
                           class:list={[
                             "px-2 py-1 text-xs rounded-full transition-colors",
-                            t === tag
+                            t === decodedTag
                               ? "bg-blue-500 text-white cursor-default"
                               : "bg-gray-200 text-gray-800 hover:bg-gray-300",
                           ]}
