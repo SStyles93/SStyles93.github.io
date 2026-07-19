@@ -80,6 +80,34 @@ chmod 755 script.sh     # rwxr-xr-x (owner full, others read+execute)
 chmod 644 file.txt      # rw-r--r-- (owner read+write, others read only)
 ```
 
+There is also a **symbolic mode** using `+`, `-`, and `=` to add, remove, or set permissions,
+and `u` (user/owner), `g` (group), `o` (others), `a` (all) to target who:
+
+```bash
+chmod +x script.sh      # give execute to everyone
+chmod -x script.sh      # remove execute from everyone
+chmod +r file.txt       # give read to everyone
+chmod -w file.txt       # remove write from everyone
+
+chmod u+x script.sh     # give execute to owner only
+chmod g-w file.txt      # remove write from group
+chmod o-r file.txt      # remove read from others
+chmod a+r file.txt      # give read to all (same as +r)
+
+chmod u+rwx,go+rx file  # owner full, group and others read+execute
+chmod o= file.txt       # remove all permissions from others
+```
+
+| Symbol | Meaning         |
+|--------|-----------------|
+| `+`    | add permission  |
+| `-`    | remove permission |
+| `=`    | set exact permissions (removes others) |
+| `u`    | owner (user)    |
+| `g`    | group           |
+| `o`    | others          |
+| `a`    | all (u+g+o)     |
+
 The numeric mode (`755`, `644`) is the most common in practice.
 Each digit is a sum of three base values:
 
@@ -211,12 +239,12 @@ greet "Sam"
 ## Quick Reference
 
 | Command | Purpose |
-|:---:|:---:|
-| `ls -la` | List all files with details |
-| `cd -` | Toggle between last two directories |
-| `cp -r` | Copy directory recursively |
-| `mv` | Move or rename |
-| `chmod +x` | Make file executable |
+|:---|:---|
+| `ls` | List directory contents |
+| `cd` | Change directory |
+| `cp` | Copy files or directories |
+| `mv` | Move or rename files |
+| `chmod` | Change file permissions |
 | `alias` | Create a command shortcut |
 | `source ~/.zshrc` | Reload shell config |
 | `#!/bin/bash` | Shebang — declare Bash interpreter |
