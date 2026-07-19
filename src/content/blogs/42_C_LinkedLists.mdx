@@ -1,0 +1,306 @@
+---
+title: "C Linked Lists"
+description: "How to build and manipulate singly linked lists in C — nodes, traversal, insertion, deletion, and memory management"
+creationDate: "Jul 19 2026"
+order: 0
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC"
+isProject: false
+tags: ["C", "Linux"]
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+A linked list is a chain of nodes where each node holds a value and a pointer to the next node.
+Unlike arrays, nodes are scattered in heap memory — the links are what connect them.
+
+```
+[value | next] → [value | next] → [value | next] → NULL
+   head                                               tail
+```
+
+## The Node Struct
+
+```c
+typedef struct s_node
+{
+    int             value;
+    struct s_node   *next;
+}   t_node;
+```
+
+The `next` pointer uses `struct s_node *` (not `t_node *`) because the typedef is not yet
+complete at that point in the declaration.
+
+For a generic list (storing any type), use `void *` for the content:
+
+```c
+typedef struct s_list
+{
+    void            *content;
+    struct s_list   *next;
+}   t_list;
+```
+
+## Creating a Node
+
+Always allocate on the heap — stack-allocated nodes are destroyed when the function returns:
+
+```c
+t_node  *new_node(int value)
+{
+    t_node *node;
+
+    node = malloc(sizeof(t_node));
+    if (!node)
+        return (NULL);
+    node->value = value;
+    node->next  = NULL;
+    return (node);
+}
+```
+
+Always check the return value of `malloc` — if it returns `NULL`, allocation failed.
+
+## Building a List
+
+### Add to the Front
+
+Prepending is O(1) — no traversal needed:
+
+```c
+void    push_front(t_node **head, int value)
+{
+    t_node *node;
+
+    node = new_node(value);
+    if (!node)
+        return ;
+    node->next = *head;
+    *head = node;
+}
+```
+
+`head` is a double pointer so the function can update the caller's pointer.
+
+```c
+t_node *list = NULL;
+push_front(&list, 3);   // [3]
+push_front(&list, 2);   // [2] → [3]
+push_front(&list, 1);   // [1] → [2] → [3]
+```
+
+### Add to the Back
+
+Appending requires traversing to the last node — O(n):
+
+```c
+void    push_back(t_node **head, int value)
+{
+    t_node *node;
+    t_node *current;
+
+    node = new_node(value);
+    if (!node)
+        return ;
+    if (!*head)
+    {
+        *head = node;
+        return ;
+    }
+    current = *head;
+    while (current->next)
+        current = current->next;
+    current->next = node;
+}
+```
+
+## Traversing a List
+
+Walk from `head` to `NULL`, processing each node:
+
+```c
+void    print_list(t_node *head)
+{
+    t_node *current;
+
+    current = head;
+    while (current)
+    {
+        printf("%d\n", current->value);
+        current = current->next;
+    }
+}
+```
+
+Never modify `head` directly while traversing — use a separate `current` pointer.
+
+## Searching
+
+Return the first node that matches a value, or `NULL` if not found:
+
+```c
+t_node  *find(t_node *head, int target)
+{
+    while (head)
+    {
+        if (head->value == target)
+            return (head);
+        head = head->next;
+    }
+    return (NULL);
+}
+```
+
+## List Size
+
+```c
+int ft_lstsize(t_node *head)
+{
+    int count;
+
+    count = 0;
+    while (head)
+    {
+        count++;
+        head = head->next;
+    }
+    return (count);
+}
+```
+
+## Last Node
+
+```c
+t_node  *ft_lstlast(t_node *head)
+{
+    if (!head)
+        return (NULL);
+    while (head->next)
+        head = head->next;
+    return (head);
+}
+```
+
+## Deleting a Node
+
+To remove a node from the middle, re-link the previous node's `next` to skip it:
+
+```c
+void    delete_node(t_node **head, int target)
+{
+    t_node *current;
+    t_node *prev;
+
+    current = *head;
+    prev = NULL;
+    while (current)
+    {
+        if (current->value == target)
+        {
+            if (prev)
+                prev->next = current->next;
+            else
+                *head = current->next;   // deleting the head
+            free(current);
+            return ;
+        }
+        prev = current;
+        current = current->next;
+    }
+}
+```
+
+## Freeing the Entire List
+
+Walk the list and free each node. Advance the pointer **before** freeing the current node:
+
+```c
+void    free_list(t_node **head)
+{
+    t_node *current;
+    t_node *next;
+
+    current = *head;
+    while (current)
+    {
+        next = current->next;   // save next before freeing
+        free(current);
+        current = next;
+    }
+    *head = NULL;   // prevent dangling pointer
+}
+```
+
+Never call `current = current->next` after `free(current)` — the memory is invalid.
+
+## Applying a Function to Every Node
+
+Iterate over the list and call a function on each node's content:
+
+```c
+void    ft_lstiter(t_list *lst, void (*f)(void *))
+{
+    while (lst)
+    {
+        f(lst->content);
+        lst = lst->next;
+    }
+}
+```
+
+This is the `void *` function pointer pattern — `f` can be any function that takes a `void *`.
+
+## Doubly Linked Lists
+
+A doubly linked list adds a `prev` pointer so you can traverse in both directions:
+
+```c
+typedef struct s_dnode
+{
+    int             value;
+    struct s_dnode  *next;
+    struct s_dnode  *prev;
+}   t_dnode;
+```
+
+Insertion and deletion are more complex (two pointers to update instead of one),
+but moving backwards or deleting a node given only its pointer becomes O(1).
+
+---
+
+## Linked List vs Array
+
+| | Array | Linked List |
+|---|-------|-------------|
+| Access by index | O(1) | O(n) |
+| Insert at front | O(n) | O(1) |
+| Insert at back | O(1) amortised | O(n) singly / O(1) with tail pointer |
+| Insert in middle | O(n) | O(n) to find, O(1) to link |
+| Memory | contiguous — cache friendly | scattered — pointer overhead per node |
+| Resize | realloc needed | just add a node |
+
+Use a linked list when you insert or remove frequently at the front, or when
+the size changes unpredictably. Use an array when you need fast indexed access.
+
+---
+
+## Quick Reference
+
+| Operation | Key point |
+|-----------|-----------|
+| Create node | `malloc(sizeof(t_node))`, check for NULL, set `next = NULL` |
+| Push front | O(1) — new node's `next` = old head, update head |
+| Push back | O(n) — traverse to last, set `last->next` = new node |
+| Traverse | use a `current` pointer, never move `head` |
+| Delete node | re-link `prev->next` to skip the node, then `free` |
+| Free list | save `next` before `free`, set `head = NULL` after |
+| Double pointer `**head` | required when a function must update the caller's head |
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

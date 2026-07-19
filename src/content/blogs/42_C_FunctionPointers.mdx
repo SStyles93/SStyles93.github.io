@@ -1,0 +1,147 @@
+---
+title: "C Function Pointers"
+description: "How to store, pass, and call functions through pointers in C, including void * generic callbacks"
+creationDate: "Jul 19 2026"
+order: 0
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC"
+isProject: false
+tags: ["C"]
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+A function pointer stores the **address of a function** in memory and lets you call it indirectly.
+This enables callbacks, generic utilities, and runtime behaviour selection.
+
+## Syntax
+
+The declaration mirrors a normal pointer but wraps the name in parentheses and includes
+the return type and parameter types:
+
+```c
+int   (*op)(int, int);   // pointer to a function: takes two ints, returns int
+```
+
+Assigning and calling:
+
+```c
+int add(int a, int b) { return (a + b); }
+int sub(int a, int b) { return (a - b); }
+
+int (*op)(int, int);
+
+op = &add;
+printf("%d\n", op(3, 4));   // 7
+
+op = &sub;
+printf("%d\n", op(3, 4));   // -1
+```
+
+The `&` is optional — a function name alone already decays to its address — but writing it
+makes the intent explicit.
+
+## Passing a Function Pointer to a Function
+
+This is the **callback** pattern: a function receives another function as a parameter
+and calls it internally.
+
+```c
+int apply(int a, int b, int (*f)(int, int))
+{
+    return (f(a, b));
+}
+
+printf("%d\n", apply(10, 3, &add));   // 13
+printf("%d\n", apply(10, 3, &sub));   // 7
+```
+
+## void * — Generic Callbacks
+
+When the data type is not known at compile time, use `void *` as the parameter type.
+The caller casts to the right type inside the callback.
+
+```c
+void    apply(void *data, void (*f)(void *))
+{
+    f(data);
+}
+```
+
+Example callback printing an `int`:
+
+```c
+void    print_int(void *data)
+{
+    printf("%d\n", *(int *)data);
+}
+
+int n = 42;
+apply(&n, print_int);   // 42
+```
+
+Example callback printing a `char *`:
+
+```c
+void    print_str(void *data)
+{
+    printf("%s\n", (char *)data);
+}
+
+apply("hello", print_str);   // hello
+```
+
+This pattern is used extensively in linked-list functions like `ft_lstiter`
+and `ft_lstmap`.
+
+## typedef for Readability
+
+Long function pointer types can be aliased with `typedef`:
+
+```c
+typedef void (*t_callback)(void *);
+
+void    run(void *data, t_callback f)
+{
+    f(data);
+}
+```
+
+## Dispatch Tables
+
+An array of function pointers acts as a lookup table — a clean alternative to
+long `if/else` or `switch` chains:
+
+```c
+int add(int a, int b) { return (a + b); }
+int sub(int a, int b) { return (a - b); }
+int mul(int a, int b) { return (a * b); }
+
+int (*ops[3])(int, int) = {add, sub, mul};
+
+int result = ops[1](10, 4);   // calls sub → 6
+```
+
+Indexed by an enum or integer, dispatch tables make it easy to extend behaviour
+without touching existing logic.
+
+---
+
+## Quick Reference
+
+| Syntax | Meaning |
+|--------|---------|
+| `int (*f)(int, int)` | pointer to function returning int, taking two ints |
+| `f = &add` | assign address of function `add` to `f` |
+| `f(a, b)` | call the function through the pointer |
+| `void (*f)(void *)` | generic callback — takes any pointer, returns nothing |
+| `*(int *)data` | cast `void *` back to `int *` then dereference |
+| `typedef void (*t_cb)(void *)` | alias a function pointer type |
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

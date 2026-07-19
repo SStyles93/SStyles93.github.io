@@ -1,0 +1,193 @@
+---
+title: "C Debugging with Valgrind"
+description: "How to use Valgrind to detect memory leaks, invalid reads and writes, and uninitialised values in C programs"
+creationDate: "Jul 19 2026"
+order: 0
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC/Valgrind"
+isProject: false
+tags: ["C", "Linux"]
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+Valgrind is a dynamic analysis tool that runs your program in a controlled environment
+and reports every memory error — leaks, invalid accesses, and use of uninitialised values —
+with the exact line where they happened.
+
+## Step 1 — Compile with Debug Symbols
+
+Like GDB, Valgrind needs the `-g` flag to show source lines instead of raw addresses:
+
+```bash
+gcc -Wall -Wextra -Werror -g main.c -o my_program
+```
+
+## Step 2 — Run Under Valgrind
+
+```bash
+valgrind ./my_program
+```
+
+This runs Memcheck (Valgrind's default tool) and prints a summary at the end.
+For thorough leak detection use the full set of flags:
+
+```bash
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./my_program
+```
+
+| Flag | Effect |
+|------|--------|
+| `--leak-check=full` | report every individual leaked block, not just totals |
+| `--show-leak-kinds=all` | include definitely, indirectly, possibly lost, and still reachable |
+| `--track-origins=yes` | show where an uninitialised value was created |
+| `-s` | print a short error summary at the end |
+
+## Reading the Output
+
+A clean run ends with:
+
+```
+LEAK SUMMARY:
+   definitely lost: 0 bytes in 0 blocks
+   indirectly lost: 0 bytes in 0 blocks
+     possibly lost: 0 bytes in 0 blocks
+   still reachable: 0 bytes in 0 blocks
+        suppressed: 0 bytes in 0 blocks
+
+ERROR SUMMARY: 0 errors from 0 contexts
+```
+
+Any non-zero number is a problem to fix.
+
+---
+
+## Types of Errors
+
+### Memory Leak — `definitely lost`
+
+Memory was allocated but never freed, and no pointer to it remains:
+
+```c
+int *arr = malloc(10 * sizeof(int));
+// forgot to free(arr)
+```
+
+```
+LEAK SUMMARY:
+   definitely lost: 40 bytes in 1 blocks
+```
+
+Fix: add `free(arr)` before the program exits.
+
+### Invalid Read / Write
+
+Accessing memory outside an allocated block — classic buffer overflow or off-by-one:
+
+```c
+int *arr = malloc(3 * sizeof(int));
+arr[3] = 99;   // index 3 is out of bounds (valid: 0, 1, 2)
+```
+
+```
+Invalid write of size 4
+   at 0x... main (main.c:6)
+ Address 0x... is 0 bytes after a block of size 12 alloc'd
+```
+
+Fix: check array sizes and loop bounds.
+
+### Use of Uninitialised Value
+
+Reading a variable that was declared but never assigned:
+
+```c
+int x;
+if (x > 0)   // x has no defined value
+    printf("positive\n");
+```
+
+```
+Conditional jump or move depends on uninitialised value(s)
+   at 0x... main (main.c:5)
+```
+
+With `--track-origins=yes` Valgrind also reports where `x` was allocated,
+making it much easier to trace the root cause.
+
+### Invalid Free
+
+Freeing a pointer that was already freed, or one that was never malloc'd:
+
+```c
+free(ptr);
+free(ptr);   // double free
+```
+
+```
+Invalid free() / delete / delete[] / realloc()
+   at 0x... free (in valgrind)
+   by 0x... main (main.c:8)
+ Address 0x... is 0 bytes inside a block of size 4 free'd
+```
+
+Fix: set `ptr = NULL` immediately after `free(ptr)`.
+
+### Still Reachable
+
+Memory that was never freed but a valid pointer to it still exists at exit.
+Technically not a leak (the pointer is accessible), but still sloppy:
+
+```c
+char *buf = malloc(64);
+// buf is never freed, but main() returns with buf still in scope
+```
+
+These show up under `still reachable` in the summary. Free everything before returning from `main`.
+
+---
+
+## A Typical Workflow
+
+```bash
+# Compile
+gcc -Wall -Wextra -Werror -g main.c utils.c -o my_program
+
+# Run with full checks
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./my_program
+
+# If your program takes arguments
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./my_program arg1 arg2
+```
+
+Read the output top to bottom:
+1. Each error block shows the type, the line, and the call stack
+2. The LEAK SUMMARY groups leaks by category
+3. The ERROR SUMMARY gives the total count
+
+Fix errors from the innermost call stack frame up — that is usually the root cause.
+
+---
+
+## Quick Reference
+
+| Command / Flag | Effect |
+|----------------|--------|
+| `valgrind ./prog` | run with default Memcheck settings |
+| `--leak-check=full` | report each leaked block individually |
+| `--show-leak-kinds=all` | include all leak categories |
+| `--track-origins=yes` | show where uninitialised values come from |
+| `-s` | print error summary at the end |
+| `definitely lost` | malloc'd memory with no surviving pointer — must fix |
+| `still reachable` | pointer exists but memory never freed — fix before exit |
+| `Invalid read/write` | out-of-bounds access |
+| `Uninitialised value` | variable used before being assigned |
+| `Invalid free` | double free or freeing a non-heap pointer |
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

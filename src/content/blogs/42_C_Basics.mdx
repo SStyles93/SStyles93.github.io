@@ -1,0 +1,434 @@
+---
+title: "C Basics"
+description: "Core C programming concepts from variables and pointers to memory allocation"
+creationDate: "Jul 19 2026"
+order: 0
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC"
+isProject: false
+tags: ["C"]
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+This post covers the C foundations — everything from compiling your first file to managing memory manually.
+
+## Compilation
+
+C is a compiled language. You write source code (`.c`), then convert it to an executable using a compiler like GCC.
+
+```bash
+gcc main.c -o my_program   # compile main.c into an executable called my_program
+./my_program               # run it
+```
+
+Common flags:
+
+```bash
+gcc -Wall -Wextra -Werror main.c -o my_program
+```
+
+| Flag | Effect |
+|------|--------|
+| `-Wall` | enable all standard warnings |
+| `-Wextra` | enable extra warnings |
+| `-Werror` | treat warnings as errors |
+
+Code must compile with all three. No warning tolerance.
+
+## Variables and Types
+
+C is statically typed — every variable has a fixed type declared at creation.
+
+```c
+int     age = 25;
+float   price = 9.99;
+double  pi = 3.14159265;
+char    letter = 'A';
+char    name[] = "Sam";
+```
+
+| Type | Size | Use |
+|------|------|-----|
+| `char` | 1 byte | single character or small integer |
+| `int` | 4 bytes | whole numbers |
+| `float` | 4 bytes | decimal numbers (less precise) |
+| `double` | 8 bytes | decimal numbers (more precise) |
+
+Constants are declared with `#define` or `const`:
+
+```c
+#define MAX 100
+const int LIMIT = 50;
+```
+
+## Standard Output
+
+C has no `print` built-in. You use `write` (low-level) or `printf` (formatted):
+
+```c
+#include <unistd.h>
+
+write(1, "Hello\n", 6);   // file descriptor 1 = stdout
+```
+
+```c
+#include <stdio.h>
+
+printf("Hello, %s! You are %d years old.\n", name, age);
+```
+
+Common format specifiers:
+
+| Specifier | Type |
+|-----------|------|
+| `%d` | integer |
+| `%f` | float |
+| `%c` | char |
+| `%s` | string |
+| `%p` | pointer address |
+
+A common exercise is to rewrite `printf` yourself as `ft_printf`.
+
+## Conditionals
+
+```c
+if (age >= 18)
+{
+    printf("Adult\n");
+}
+else if (age >= 13)
+{
+    printf("Teenager\n");
+}
+else
+{
+    printf("Child\n");
+}
+```
+
+Comparison and logical operators:
+
+| Operator | Meaning |
+|----------|---------|
+| `==` | equal |
+| `!=` | not equal |
+| `>` `<` | greater / less than |
+| `>=` `<=` | greater or equal / less or equal |
+| `&&` | logical AND |
+| `\|\|` | logical OR |
+| `!` | logical NOT |
+
+## Bitwise & Bit Shift Operators
+
+Bitwise operators work directly on the binary representation of integers, bit by bit.
+
+| Operator | Name | Example | Result |
+|----------|------|---------|--------|
+| `&` | AND | `5 & 3` | `1` |
+| `\|` | OR | `5 \| 3` | `7` |
+| `^` | XOR | `5 ^ 3` | `6` |
+| `~` | NOT | `~5` | `-6` |
+| `<<` | left shift | `1 << 3` | `8` |
+| `>>` | right shift | `8 >> 1` | `4` |
+
+### How They Work
+
+Each integer is a sequence of bits. The operators act on each pair of bits independently:
+
+```
+  5  =  0101
+  3  =  0011
+        ----
+& AND:  0001  =  1
+| OR:   0111  =  7
+^ XOR:  0110  =  6
+```
+
+`~` flips every bit (bitwise NOT). Because of two's complement, `~5` gives `-6`.
+
+### Bit Shifts
+
+`<<` shifts bits to the left (multiplies by powers of 2).
+`>>` shifts bits to the right (divides by powers of 2).
+
+```c
+int x = 1;        // 0001
+x = x << 1;       // 0010 = 2
+x = x << 2;       // 1000 = 8
+x = x >> 1;       // 0100 = 4
+```
+
+Shifting left by `n` is equivalent to multiplying by `2^n`, and is faster than actual multiplication:
+
+```c
+int n = 3;
+int result = n << 2;   // 3 * 4 = 12
+```
+
+### Practical Uses
+
+**Check if a number is odd:**
+```c
+if (n & 1)
+    printf("odd\n");
+```
+
+**Set a bit** (turn on bit at position `i`):
+```c
+flags = flags | (1 << i);
+```
+
+**Clear a bit** (turn off bit at position `i`):
+```c
+flags = flags & ~(1 << i);
+```
+
+**Toggle a bit:**
+```c
+flags = flags ^ (1 << i);
+```
+
+**Check if a specific bit is set:**
+```c
+if (flags & (1 << i))
+    printf("bit %d is set\n", i);
+```
+
+This pattern is common in systems programming, graphics (color channels), game states, and flags.
+
+## Loops
+
+### while
+
+```c
+int i = 0;
+while (i < 5)
+{
+    printf("%d\n", i);
+    i++;
+}
+```
+
+### for
+
+```c
+for (int i = 0; i < 5; i++)
+    printf("%d\n", i);
+```
+
+The Norminette forbids `for` loops — use `while` instead.
+
+### do…while
+
+Executes at least once before checking the condition:
+
+```c
+int i = 0;
+do
+{
+    printf("%d\n", i);
+    i++;
+} while (i < 5);
+```
+
+The Norminette also forbids `do…while` loops.
+
+## Functions
+
+Functions in C must be declared before they are used (either defined above `main`, or via a prototype):
+
+```c
+int add(int a, int b);   // prototype
+
+int main(void)
+{
+    printf("%d\n", add(3, 4));
+    return (0);
+}
+
+int add(int a, int b)
+{
+    return (a + b);
+}
+```
+
+A function that returns nothing uses `void`:
+
+```c
+void greet(char *name)
+{
+    printf("Hello, %s\n", name);
+}
+```
+
+## Pointers
+
+A pointer stores the **memory address** of another variable, not its value.
+
+```c
+int  x = 42;
+int *p = &x;      // p holds the address of x
+
+printf("%d\n", x);    // 42  — the value
+printf("%p\n", p);    // 0x... — the address
+printf("%d\n", *p);   // 42  — dereference: value at address
+```
+
+| Syntax | Meaning |
+|--------|---------|
+| `&x` | address of x |
+| `*p` | value at address stored in p |
+| `int *p` | declare p as a pointer to int |
+
+Pointers are how C passes variables **by reference** to functions:
+
+```c
+void increment(int *n)
+{
+    *n = *n + 1;
+}
+
+int main(void)
+{
+    int x = 5;
+    increment(&x);
+    printf("%d\n", x);   // 6
+}
+```
+
+## Arrays
+
+An array is a contiguous block of memory holding multiple values of the same type:
+
+```c
+int scores[5] = {10, 20, 30, 40, 50};
+
+printf("%d\n", scores[0]);   // 10
+printf("%d\n", scores[4]);   // 50
+```
+
+The name of an array is a pointer to its first element:
+
+```c
+int *p = scores;   // equivalent to &scores[0]
+printf("%d\n", *p);         // 10
+printf("%d\n", *(p + 2));   // 30
+```
+
+## Strings
+
+In C, a string is an array of `char` ending with a null terminator `'\0'`:
+
+```c
+char name[] = "Sam";
+// equivalent to: {'S', 'a', 'm', '\0'}
+```
+
+Common string operations (from `<string.h>`):
+
+```c
+#include <string.h>
+
+strlen(str);           // length (not counting '\0')
+strcpy(dest, src);     // copy src into dest
+strcat(dest, src);     // append src to dest
+strcmp(s1, s2);        // compare: 0 if equal
+```
+
+A common exercise is to rewrite all of these yourself as `ft_strlen`, `ft_strcpy`, etc.
+
+### Pointer Arithmetic on Strings
+
+```c
+char *s = "Hello";
+
+while (*s)
+{
+    write(1, s, 1);
+    s++;
+}
+```
+
+`s++` advances the pointer one byte — the next character.
+
+## Dynamic Memory
+
+Stack memory (local variables) is freed automatically.
+Heap memory must be managed manually with `malloc` and `free`.
+
+```c
+#include <stdlib.h>
+
+int *arr = malloc(5 * sizeof(int));   // allocate 5 ints on the heap
+if (!arr)
+    return (1);                       // always check for NULL
+
+arr[0] = 10;
+arr[1] = 20;
+
+free(arr);                            // release the memory
+arr = NULL;                           // avoid dangling pointer
+```
+
+**Rules:**
+- Every `malloc` must have a matching `free`
+- Never use memory after freeing it
+- Never free the same pointer twice
+
+### 2D Arrays with malloc
+
+```c
+char **grid = malloc(3 * sizeof(char *));
+int i = 0;
+while (i < 3)
+{
+    grid[i] = malloc(4 * sizeof(char));
+    i++;
+}
+// ... use grid[row][col] ...
+// free each row, then the array itself
+i = 0;
+while (i < 3)
+{
+    free(grid[i]);
+    i++;
+}
+free(grid);
+```
+
+## Norminette
+
+The **Norminette** is a strict code style checker. Key rules:
+
+- Functions must be 25 lines maximum
+- No more than 5 function parameters
+- No `for` loops (only `while`)
+- Variable declarations at the top of the scope only
+- 4-space tabs, specific brace placement
+
+```bash
+norminette my_file.c   # check style compliance
+```
+
+---
+
+## Quick Reference
+
+| Concept | Meaning |
+|---------|---------|
+| `gcc -Wall -Wextra -Werror` | compile with full warnings |
+| `int *p = &x` | pointer to variable x |
+| `*p` | dereference — value at address |
+| `malloc` | allocate heap memory |
+| `free` | release heap memory |
+| `'\0'` | null terminator ending a string |
+| `norminette` | style checker |
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

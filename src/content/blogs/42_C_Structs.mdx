@@ -1,0 +1,156 @@
+---
+title: "C Structs"
+description: "How to group data with structs and typedef in C, and how they underpin linked lists and trees"
+creationDate: "Jul 19 2026"
+order: 0
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC"
+isProject: false
+tags: ["C"]
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+A `struct` groups variables of different types under one name — useful for representing
+real-world objects like a point, a player, or a node in a list.
+
+## Declaring a Struct
+
+```c
+struct s_point
+{
+    int x;
+    int y;
+};
+```
+
+To use it you must write `struct s_point` every time, which is verbose.
+`typedef` solves this by creating an alias:
+
+```c
+typedef struct s_point
+{
+    int x;
+    int y;
+}   t_point;
+
+t_point p;
+p.x = 10;
+p.y = 20;
+printf("(%d, %d)\n", p.x, p.y);
+```
+
+A common convention is `s_` prefix for the struct tag and `t_` prefix for the typedef name.
+
+## Accessing Members
+
+Use `.` to access a member through a variable, and `->` through a pointer:
+
+```c
+t_point  p;
+t_point *ptr = &p;
+
+p.x = 5;          // direct access
+ptr->x = 5;       // pointer access — equivalent to (*ptr).x
+```
+
+## Structs as Function Parameters
+
+Passing a struct by value copies the whole thing. Pass a pointer instead to avoid the copy
+and to allow the function to modify the original:
+
+```c
+void    move(t_point *p, int dx, int dy)
+{
+    p->x += dx;
+    p->y += dy;
+}
+
+t_point pos = {0, 0};
+move(&pos, 3, 5);
+printf("(%d, %d)\n", pos.x, pos.y);   // (3, 5)
+```
+
+## Nested Structs
+
+Structs can contain other structs:
+
+```c
+typedef struct s_rect
+{
+    t_point top_left;
+    t_point bottom_right;
+}   t_rect;
+
+t_rect r;
+r.top_left.x = 0;
+r.bottom_right.x = 100;
+```
+
+## Self-Referential Structs — Linked Lists
+
+A struct can hold a pointer to another struct of the same type.
+This is the foundation of **linked lists**:
+
+```c
+typedef struct s_node
+{
+    int             value;
+    struct s_node   *next;
+}   t_node;
+```
+
+Each node points to the next one. The last node's `next` is `NULL`.
+
+```c
+t_node *head = malloc(sizeof(t_node));
+head->value = 1;
+head->next  = malloc(sizeof(t_node));
+head->next->value = 2;
+head->next->next  = NULL;
+```
+
+Traversing the list:
+
+```c
+t_node *current = head;
+while (current)
+{
+    printf("%d\n", current->value);
+    current = current->next;
+}
+```
+
+## Structs with malloc
+
+For dynamic allocation, use `sizeof` with the struct type:
+
+```c
+t_point *p = malloc(sizeof(t_point));
+if (!p)
+    return (1);
+p->x = 10;
+p->y = 20;
+free(p);
+```
+
+---
+
+## Quick Reference
+
+| Syntax | Meaning |
+|--------|---------|
+| `struct s_foo { ... };` | declare a struct |
+| `typedef struct s_foo { ... } t_foo;` | declare with alias |
+| `p.x` | access member of a variable |
+| `ptr->x` | access member through a pointer |
+| `sizeof(t_foo)` | size of the struct in bytes |
+| `struct s_node *next` | self-referential pointer (linked list) |
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

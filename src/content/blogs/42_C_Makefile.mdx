@@ -1,0 +1,143 @@
+---
+title: "C Makefile"
+description: "How to write a Makefile to automate C compilation, with all, clean, fclean, and re rules"
+creationDate: "Jul 19 2026"
+order: 0
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC/Makefile"
+isProject: false
+tags: ["C"]
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+A `Makefile` automates compilation. Instead of retyping `gcc` commands every time,
+you run `make` and the build system figures out what needs to be rebuilt.
+
+## A Minimal Makefile
+
+```makefile
+NAME    = my_program
+CC      = gcc
+CFLAGS  = -Wall -Wextra -Werror
+SRCS    = main.c utils.c
+OBJS    = $(SRCS:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
+```
+
+## How It Works
+
+### Variables
+
+```makefile
+NAME    = my_program          # output binary name
+CC      = gcc                 # compiler
+CFLAGS  = -Wall -Wextra -Werror  # compiler flags
+SRCS    = main.c utils.c      # source files
+OBJS    = $(SRCS:.c=.o)       # replace .c with .o automatically
+```
+
+`$(VAR)` expands a variable. `$(SRCS:.c=.o)` is a substitution reference —
+it produces `main.o utils.o` from `main.c utils.c`.
+
+### Rules
+
+A rule has the form:
+
+```makefile
+target: prerequisites
+	recipe
+```
+
+- **target** — the file to produce (or a phony label like `clean`)
+- **prerequisites** — files the target depends on; if any are newer, the recipe runs
+- **recipe** — shell commands to run (must be indented with a **real tab**, not spaces)
+
+### Pattern Rule
+
+```makefile
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+```
+
+`%` is a wildcard. `$<` is the first prerequisite (the `.c` file), `$@` is the target (the `.o` file).
+This single rule compiles every `.c` into its matching `.o`.
+
+### .PHONY
+
+```makefile
+.PHONY: all clean fclean re
+```
+
+Tells `make` these targets are not real files. Without this, if a file named `clean` existed,
+`make clean` would do nothing.
+
+## Mandatory Rules
+
+| Rule | Effect |
+|------|--------|
+| `make` / `make all` | compile the program |
+| `make clean` | remove `.o` object files |
+| `make fclean` | remove `.o` files and the binary |
+| `make re` | full rebuild from scratch (`fclean` then `all`) |
+
+Every C project should have all four.
+
+## Incremental Compilation
+
+`make` only recompiles files that changed. If you edit `utils.c`, only `utils.o` is rebuilt —
+`main.o` is untouched. This saves time on large projects.
+
+## Common Mistakes
+
+**Spaces instead of tabs** — the recipe line must start with a tab character.
+Most editors show them the same but `make` will refuse:
+
+```
+Makefile:10: *** missing separator. Stop.
+```
+
+**Forgetting `fclean` removes the binary** — `clean` only removes `.o` files.
+`fclean` also removes `$(NAME)`. Both are required.
+
+**Not listing all source files** — if `SRCS` is incomplete, some files won't compile
+and you'll get linker errors about undefined symbols.
+
+---
+
+## Quick Reference
+
+| Syntax | Meaning |
+|--------|---------|
+| `$(VAR)` | expand variable |
+| `$(SRCS:.c=.o)` | substitution: replace `.c` with `.o` |
+| `$@` | the target of the current rule |
+| `$<` | the first prerequisite |
+| `%.o: %.c` | pattern rule matching any `.c` → `.o` |
+| `.PHONY` | declare targets that are not files |
+| `-c` flag | compile to `.o` without linking |
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

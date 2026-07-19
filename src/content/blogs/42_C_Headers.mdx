@@ -1,0 +1,220 @@
+---
+title: "C Header Files"
+description: "How to write and use header files in C — declarations, include guards, and project organisation"
+creationDate: "Jul 19 2026"
+order: 0
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC"
+isProject: false
+tags: ["C", "Linux"]
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+A header file (`.h`) declares the interface of your code — function prototypes, types,
+constants, and macros — so that multiple `.c` files can share them without duplicating
+declarations.
+
+## Why Header Files
+
+In C, you must declare a function before calling it. When a project grows beyond one file,
+repeating declarations in every `.c` is error-prone. A header file centralises them:
+
+```
+project/
+├── main.c
+├── math_utils.c
+└── math_utils.h
+```
+
+`math_utils.h` declares what `math_utils.c` provides. `main.c` includes the header
+and gains access to those declarations without needing to know the implementation.
+
+## What Goes in a Header
+
+| Put in `.h` | Keep in `.c` |
+|-------------|--------------|
+| Function prototypes | Function bodies |
+| `typedef` / `struct` definitions | Local variables |
+| `#define` constants and macros | `static` helpers |
+| `extern` variable declarations | Variable definitions |
+
+**Never** put function bodies or variable definitions in a header — they would be
+compiled multiple times if the header is included in several files.
+
+## A Minimal Header
+
+```c
+/* math_utils.h */
+#ifndef MATH_UTILS_H
+# define MATH_UTILS_H
+
+int add(int a, int b);
+int sub(int a, int b);
+int clamp(int val, int min, int max);
+
+#endif
+```
+
+The three lines around the content are the **include guard** — explained below.
+
+## Include Guards
+
+If a header is included more than once in the same translation unit (directly or through
+another header), the compiler would see duplicate declarations and error.
+An include guard prevents this:
+
+```c
+#ifndef MATH_UTILS_H   // if not yet defined...
+# define MATH_UTILS_H  // ...define this token...
+
+/* all your declarations */
+
+#endif                 // end of guarded block
+```
+
+On the first inclusion the token is undefined, so the block is processed and the token
+is defined. On any subsequent inclusion the token already exists, so the entire block
+is skipped.
+
+The token name is conventionally the filename in uppercase with `.` replaced by `_`.
+
+## `#include` — Angle Brackets vs Quotes
+
+```c
+#include <stdio.h>    // system / standard library header
+#include "my_file.h"  // your own header (searched relative to the source file first)
+```
+
+| Syntax | Search path |
+|--------|-------------|
+| `<header.h>` | system include paths (GCC's standard library locations) |
+| `"header.h"` | current directory first, then system paths |
+
+Always use quotes for your own headers and angle brackets for standard library ones.
+
+## Sharing Types and Constants
+
+Headers are the right place for types and constants that multiple files need:
+
+```c
+/* types.h */
+#ifndef TYPES_H
+# define TYPES_H
+
+# define BUFFER_SIZE 1024
+# define MAX_PLAYERS 4
+
+typedef struct s_player
+{
+    char    name[64];
+    int     score;
+    int     lives;
+}   t_player;
+
+#endif
+```
+
+Any `.c` file that includes `types.h` can use `t_player`, `BUFFER_SIZE`, and `MAX_PLAYERS`.
+
+## Linking Headers and Sources
+
+The header declares; the source defines. Both must agree on the signature:
+
+```c
+/* math_utils.h */
+int add(int a, int b);
+```
+
+```c
+/* math_utils.c */
+#include "math_utils.h"
+
+int add(int a, int b)
+{
+    return (a + b);
+}
+```
+
+```c
+/* main.c */
+#include <stdio.h>
+#include "math_utils.h"
+
+int main(void)
+{
+    printf("%d\n", add(3, 4));   // 7
+    return (0);
+}
+```
+
+Compile all `.c` files together:
+
+```bash
+gcc -Wall -Wextra -Werror main.c math_utils.c -o my_program
+```
+
+Or let the Makefile handle it with a pattern rule.
+
+## The `extern` Keyword
+
+To share a **variable** across files, declare it `extern` in the header and define it
+once in exactly one `.c` file:
+
+```c
+/* globals.h */
+extern int g_frame_count;
+```
+
+```c
+/* globals.c */
+#include "globals.h"
+int g_frame_count = 0;   // one definition
+```
+
+Any file that includes `globals.h` can read and write `g_frame_count`.
+Global variables should be used sparingly — prefer passing data through function parameters.
+
+## Nested Includes
+
+Headers can include other headers. Include guards ensure there is no infinite loop
+or duplication regardless of the inclusion order.
+
+A common pattern is a single top-level header that bundles everything:
+
+```c
+/* my_project.h */
+#ifndef MY_PROJECT_H
+# define MY_PROJECT_H
+
+# include <stdlib.h>
+# include <unistd.h>
+# include "types.h"
+# include "math_utils.h"
+
+#endif
+```
+
+Then each `.c` file only needs `#include "my_project.h"`.
+
+---
+
+## Quick Reference
+
+| Concept | Key point |
+|---------|-----------|
+| `.h` file | declarations only — no function bodies |
+| include guard | `#ifndef` / `#define` / `#endif` prevents double inclusion |
+| `<header.h>` | system library header |
+| `"header.h"` | your own header |
+| `typedef` in `.h` | share a type across multiple files |
+| `extern` in `.h` | declare a variable defined elsewhere |
+| Makefile | compile all `.c` files together — header is included automatically |
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

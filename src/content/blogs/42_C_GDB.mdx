@@ -1,0 +1,266 @@
+---
+title: "C Debugging with GDB"
+description: "How to compile for debugging and use GDB to step through C code, inspect variables, and set breakpoints"
+creationDate: "Jul 19 2026"
+order: 0
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC/GDB"
+isProject: false
+tags: ["C", "Linux"]
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+GDB (GNU Debugger) lets you run a C program step by step, inspect memory and variables
+at any point, and find exactly where and why something goes wrong.
+
+## Step 1 — Compile with Debug Symbols
+
+By default GCC strips debug information from the binary. The `-g` flag includes it:
+
+```bash
+gcc -Wall -Wextra -Werror -g main.c -o my_program
+```
+
+Without `-g`, GDB can still run the program but cannot show source lines, variable names,
+or meaningful stack frames — just raw addresses.
+
+## Step 2 — Launch GDB
+
+```bash
+gdb ./my_program
+```
+
+This opens the GDB prompt `(gdb)`. The program is loaded but not yet running.
+
+If your program takes command-line arguments, use `--args` so GDB does not consume them:
+
+```bash
+gdb --args ./my_program arg1 arg2
+```
+
+Everything after the binary name is forwarded to your program when you run `r`.
+Without `--args`, passing arguments directly to `gdb` would be interpreted as GDB options.
+
+## Step 3 — Use GDB TUI for a Visual Layout
+
+`gdbtui` launches GDB with a split-screen terminal UI — source code on top,
+command prompt below. It is far easier to follow than the plain prompt:
+
+```bash
+gdbtui ./my_program
+gdbtui --args ./my_program arg1 arg2   # with arguments
+```
+
+The top pane shows the source file with an arrow pointing at the current line.
+The bottom pane is the normal GDB command prompt.
+
+---
+
+## Core Commands
+
+### `r` — Run
+
+Starts (or restarts) the program. Pass arguments after `r` if your program expects them:
+
+```
+(gdb) r
+(gdb) r arg1 arg2
+```
+
+The program runs until it hits a breakpoint, crashes, or finishes.
+
+### `b` — Breakpoint
+
+Pauses execution before a specific line or function:
+
+```
+(gdb) b 42          # break at line 42 of the current file
+(gdb) b main.c:15   # break at line 15 of main.c
+(gdb) b my_function # break at the entry of my_function
+```
+
+List all breakpoints:
+```
+(gdb) info b
+```
+
+Delete a breakpoint by its number:
+```
+(gdb) delete 1
+```
+
+### `n` — Next (step over)
+
+Executes the current line and moves to the next one.
+If the current line is a function call, the entire function runs without stepping into it:
+
+```
+(gdb) n
+```
+
+### `s` — Step (step into)
+
+Like `n`, but if the current line calls a function, GDB steps **inside** that function:
+
+```
+(gdb) s
+```
+
+Use `s` when you want to follow execution into a function you wrote.
+Use `n` when you want to skip over library calls or functions you trust.
+
+### `c` — Continue
+
+Resumes execution at full speed until the next breakpoint (or the end of the program):
+
+```
+(gdb) c
+```
+
+### `print` — Inspect a Value
+
+Evaluates and prints any expression — variable, pointer, arithmetic:
+
+```
+(gdb) print x
+(gdb) print *ptr
+(gdb) print arr[2]
+(gdb) print a + b
+```
+
+You can also modify a variable on the fly:
+```
+(gdb) print x = 10
+```
+
+### `disp` — Display (auto-print on every step)
+
+`display` works like `print` but re-evaluates and shows the value automatically
+after every `n`, `s`, or `c` that pauses execution:
+
+```
+(gdb) disp x
+(gdb) disp *ptr
+(gdb) disp arr[i]
+```
+
+List active displays:
+```
+(gdb) info display
+```
+
+Remove a display by its number:
+```
+(gdb) undisplay 1
+```
+
+---
+
+## Useful Extra Commands
+
+### `bt` — Backtrace
+
+Shows the full call stack at the current point — essential when diagnosing a crash:
+
+```
+(gdb) bt
+```
+
+```
+#0  ft_strlen (s=0x0) at ft_strlen.c:6
+#1  ft_putstr (str=0x0) at ft_putstr.c:12
+#2  main () at main.c:20
+```
+
+Read from bottom to top: `main` called `ft_putstr` which called `ft_strlen` where the crash occurred.
+
+### `p/x` — Print in Hexadecimal
+
+Useful for inspecting raw memory values, addresses, and bitfields:
+
+```
+(gdb) p/x flags
+(gdb) p/x *ptr
+```
+
+### `watch` — Watchpoint
+
+Pauses execution whenever a variable's value changes — useful for tracking down
+unexpected mutations:
+
+```
+(gdb) watch x
+```
+
+### `refresh` — Redraw the TUI
+
+The TUI pane can glitch after terminal output or resizing. `refresh` (or its shorthand `ref`) redraws it cleanly:
+
+```
+(gdb) refresh
+(gdb) ref
+```
+
+Run it any time the source window looks garbled.
+
+### `q` — Quit
+
+```
+(gdb) q
+```
+
+---
+
+## A Typical Session
+
+```bash
+# Compile with debug symbols
+gcc -Wall -Wextra -Werror -g main.c utils.c -o my_program
+
+# Launch with TUI (with optional arguments)
+gdbtui --args ./my_program arg1 arg2
+```
+
+```
+(gdb) b main          # break at entry
+(gdb) r               # run until breakpoint
+(gdb) disp i          # watch variable i on every step
+(gdb) disp *ptr       # watch what ptr points to
+(gdb) n               # step over next line
+(gdb) s               # step into the function call
+(gdb) print result    # inspect a value
+(gdb) c               # continue to next breakpoint
+(gdb) bt              # check the call stack after a crash
+(gdb) q               # quit
+```
+
+---
+
+## Quick Reference
+
+| Command | Effect |
+|---------|--------|
+| `gcc -g` | include debug symbols in the binary |
+| `gdbtui ./prog` | launch GDB with split source/command UI |
+| `gdb --args ./prog a b` | pass arguments to the program, not to GDB |
+| `r` | run (or restart) the program |
+| `b <line>` | set a breakpoint at a line or function |
+| `n` | next line — step over function calls |
+| `s` | step — enter function calls |
+| `c` | continue until next breakpoint |
+| `print <expr>` | evaluate and print an expression once |
+| `disp <expr>` | auto-print an expression after every step |
+| `bt` | show the full call stack |
+| `p/x <expr>` | print value in hexadecimal |
+| `watch <var>` | pause when a variable changes |
+| `refresh` / `ref` | redraw the TUI when it glitches |
+| `q` | quit GDB |
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

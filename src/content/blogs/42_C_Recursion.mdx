@@ -1,0 +1,147 @@
+---
+title: "C Recursion"
+description: "Understanding recursive functions, the call stack, and stack overflow in C"
+creationDate: "Jul 19 2026"
+order: 0
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC"
+isProject: false
+tags: ["C"]
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+A recursive function is a function that calls itself.
+It is an alternative to loops for problems that can be broken into smaller identical sub-problems.
+
+## Structure of a Recursive Function
+
+Every recursive function needs two parts:
+
+- **Base case** — the condition that stops the recursion
+- **Recursive case** — the call that reduces the problem toward the base case
+
+Without a base case the function calls itself forever until the program crashes.
+
+```c
+int factorial(int n)
+{
+    if (n <= 1)                    // base case
+        return (1);
+    return (n * factorial(n - 1)); // recursive case
+}
+```
+
+## The Call Stack
+
+Each time a function is called, the OS pushes a **stack frame** onto the call stack.
+That frame stores the function's local variables, parameters, and return address.
+
+When a recursive function calls itself, a new frame is pushed on top of the previous one.
+They stack up until the base case is reached, then they unwind one by one as each call returns.
+
+```
+factorial(4)
+  └─ factorial(3)
+       └─ factorial(2)
+            └─ factorial(1)  ← base case, returns 1
+         returns 2 × 1 = 2
+    returns 3 × 2 = 6
+  returns 4 × 6 = 24
+```
+
+The call stack has a fixed size. Too many nested calls exhaust it — this is a **stack overflow**,
+which causes a segmentation fault.
+
+## Practical Examples
+
+### Countdown
+
+```c
+void countdown(int n)
+{
+    if (n < 0)
+        return ;
+    printf("%d\n", n);
+    countdown(n - 1);
+}
+```
+
+### Print String in Reverse
+
+Recursion naturally defers work until the stack unwinds:
+
+```c
+void print_reverse(char *str)
+{
+    if (*str == '\0')
+        return ;
+    print_reverse(str + 1);
+    write(1, str, 1);   // printed on the way back up
+}
+```
+
+### Sum of an Array
+
+```c
+int sum(int *arr, int size)
+{
+    if (size == 0)
+        return (0);
+    return (arr[0] + sum(arr + 1, size - 1));
+}
+```
+
+## Recursion vs Iteration
+
+| | Recursion | Iteration |
+|---|-----------|-----------|
+| Readability | often cleaner for tree/list problems | clearer for simple counters |
+| Memory | uses call stack (risk of overflow) | uses a fixed loop variable |
+| Performance | function call overhead per step | generally faster |
+| Norminette rule | allowed | `while` only (`for` forbidden) |
+
+Recursion is the natural fit for problems with a recursive structure: trees, linked lists,
+path-finding, and divide-and-conquer algorithms.
+
+## Common Mistakes
+
+**Missing base case** — infinite recursion, stack overflow:
+```c
+int bad(int n)
+{
+    return (n * bad(n - 1));   // never stops
+}
+```
+
+**Base case never reached** — e.g. decrementing when input is already negative:
+```c
+int bad(int n)
+{
+    if (n == 0)       // never hit if n starts negative
+        return (0);
+    return (bad(n - 1));
+}
+```
+
+Always verify your base case covers every possible entry value.
+
+---
+
+## Quick Reference
+
+| Concept | Key point |
+|---------|-----------|
+| Base case | stops the recursion — must always be reachable |
+| Recursive case | calls itself with a smaller / simpler input |
+| Stack frame | memory pushed per call — holds locals and return address |
+| Stack overflow | too many nested calls exhaust the call stack |
+| Unwind | return values propagate back up through each frame |
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

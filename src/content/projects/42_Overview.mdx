@@ -1,0 +1,302 @@
+---
+title: "C Programming — Full Overview"
+description: "A structured summary of Shell, C fundamentals, debugging, and tooling — from first commands to Valgrind"
+creationDate: "Jul 19 2026"
+order: 0
+pinned: false
+teamSize: 1
+toolUsed: "Shell/C/GCC/GDB/Valgrind/Makefile"
+isProject: true
+tags: ["C", "Linux", "Shell"]
+---
+
+import Button from "../../components/Button.astro";
+import SocialShare from "../../components/SocialShare.astro";
+
+A structured progression through Shell commands, C programming fundamentals, and essential
+development tools. Each section links to its full dedicated post.
+
+---
+
+## Shell
+
+The terminal is your primary interface. Master these commands first:
+
+| Command | Purpose |
+|---------|---------|
+| `ls -la` | list all files with details |
+| `cd -` | toggle between last two directories |
+| `cp -r` | copy directory recursively |
+| `mv` | move or rename |
+| `chmod 755` / `chmod +x` | set permissions |
+| `alias ll="ls -la"` | create a shortcut |
+| `source ~/.zshrc` | reload shell config |
+| `#!/bin/bash` | shebang — declare the Bash interpreter |
+
+Aliases added directly in the terminal are session-only. Persist them in `~/.zshrc`.
+
+<div class="flex justify-center my-4">
+  <Button href="/blogs/42_shellcommands/">Shell — Full Post</Button>
+</div>
+
+---
+
+## C Basics
+
+Compile with `-Wall -Wextra -Werror`. No warnings tolerated.
+
+```c
+gcc -Wall -Wextra -Werror main.c -o my_program
+```
+
+Key concepts:
+
+- **Types** — `char` (1B), `int` (4B), `float` (4B), `double` (8B)
+- **Pointers** — `int *p = &x` stores an address; `*p` dereferences it
+- **Strings** — `char[]` ending with `'\0'`; use pointer arithmetic to walk them
+- **Memory** — `malloc` allocates on the heap; every `malloc` needs a `free`
+- **Bitwise** — `&` AND, `|` OR, `^` XOR, `~` NOT, `<<` / `>>` shifts
+- **Norminette** — max 25 lines per function, no `for`/`do…while`, declarations at top
+
+```c
+int *arr = malloc(5 * sizeof(int));
+if (!arr)
+    return (1);
+free(arr);
+arr = NULL;
+```
+
+<div class="flex justify-center my-4">
+  <Button href="/blogs/42_c_basics/">C Basics — Full Post</Button>
+</div>
+
+---
+
+## Recursion
+
+A recursive function calls itself with a smaller input until a **base case** stops it.
+
+```c
+int factorial(int n)
+{
+    if (n <= 1)
+        return (1);
+    return (n * factorial(n - 1));
+}
+```
+
+Each call pushes a **stack frame**. Too many calls without a base case → **stack overflow** (segfault).
+Recursion is natural for trees, linked lists, and divide-and-conquer problems.
+
+<div class="flex justify-center my-4">
+  <Button href="/blogs/42_c_recursion/">Recursion — Full Post</Button>
+</div>
+
+---
+
+## Header Files
+
+Headers (`.h`) declare the interface; sources (`.c`) define the implementation.
+
+```c
+/* math_utils.h */
+#ifndef MATH_UTILS_H
+# define MATH_UTILS_H
+
+int add(int a, int b);
+
+#endif
+```
+
+- **Include guard** — `#ifndef`/`#define`/`#endif` prevents double inclusion
+- `"file.h"` for your own headers, `<file.h>` for system libraries
+- Never put function bodies in a header — only prototypes, typedefs, and `#define`
+
+<div class="flex justify-center my-4">
+  <Button href="/blogs/42_c_headers/">Header Files — Full Post</Button>
+</div>
+
+---
+
+## Makefile
+
+Automates compilation. Run `make` instead of retyping `gcc` commands.
+
+```makefile
+NAME   = my_program
+CC     = gcc
+CFLAGS = -Wall -Wextra -Werror
+SRCS   = main.c utils.c
+OBJS   = $(SRCS:.c=.o)
+
+all: $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+clean:
+	rm -f $(OBJS)
+fclean: clean
+	rm -f $(NAME)
+re: fclean all
+.PHONY: all clean fclean re
+```
+
+`$<` = the `.c` source, `$@` = the `.o` target. Tabs required — not spaces.
+
+<div class="flex justify-center my-4">
+  <Button href="/blogs/42_c_makefile/">Makefile — Full Post</Button>
+</div>
+
+---
+
+## Structs
+
+Groups variables of different types under one name.
+
+```c
+typedef struct s_point
+{
+    int x;
+    int y;
+}   t_point;
+
+t_point  p = {10, 20};
+t_point *ptr = &p;
+
+p.x;      // access via variable
+ptr->x;   // access via pointer
+```
+
+Self-referential structs are the foundation of linked lists and trees:
+
+```c
+typedef struct s_node
+{
+    int           value;
+    struct s_node *next;
+}   t_node;
+```
+
+<div class="flex justify-center my-4">
+  <Button href="/blogs/42_c_structs/">Structs — Full Post</Button>
+</div>
+
+---
+
+## Linked Lists
+
+A chain of heap-allocated nodes, each pointing to the next.
+
+```
+[val|next] → [val|next] → [val|next] → NULL
+```
+
+- **Push front** O(1) — new node's `next` = old head, update head
+- **Push back** O(n) — traverse to last node, set `last->next` = new node
+- **Traverse** — use a `current` pointer, never move `head`
+- **Free** — save `next` before `free(current)`, set `head = NULL` after
+
+```c
+void free_list(t_node **head)
+{
+    t_node *next;
+    while (*head)
+    {
+        next = (*head)->next;
+        free(*head);
+        *head = next;
+    }
+}
+```
+
+<div class="flex justify-center my-4">
+  <Button href="/blogs/42_c_linkedlists/">Linked Lists — Full Post</Button>
+</div>
+
+---
+
+## Function Pointers
+
+Stores the address of a function and calls it indirectly — enables callbacks and generic utilities.
+
+```c
+int  (*op)(int, int);   // pointer to a function: (int, int) → int
+op = &add;
+op(3, 4);               // calls add
+```
+
+`void *` makes them generic — the caller casts inside the callback:
+
+```c
+void apply(void *data, void (*f)(void *))
+{
+    f(data);
+}
+```
+
+Used in `ft_lstiter`, `ft_lstmap`, and dispatch tables.
+
+<div class="flex justify-center my-4">
+  <Button href="/blogs/42_c_functionpointers/">Function Pointers — Full Post</Button>
+</div>
+
+---
+
+## GDB
+
+Compile with `-g`, then launch with `gdbtui` for the split source/command view:
+
+```bash
+gcc -g main.c -o my_program
+gdbtui --args ./my_program arg1 arg2
+```
+
+| Command | Effect |
+|---------|--------|
+| `b <line>` | breakpoint |
+| `r` | run |
+| `n` | next (step over) |
+| `s` | step (step into) |
+| `c` | continue |
+| `print <expr>` | inspect once |
+| `disp <expr>` | inspect on every step |
+| `bt` | call stack (essential after a crash) |
+| `ref` | redraw TUI |
+
+<div class="flex justify-center my-4">
+  <Button href="/blogs/42_c_gdb/">GDB — Full Post</Button>
+</div>
+
+---
+
+## Valgrind
+
+Detects memory errors at runtime. Always compile with `-g` first:
+
+```bash
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./my_program
+```
+
+| Output | Meaning |
+|--------|---------|
+| `definitely lost` | `malloc` with no surviving pointer — must fix |
+| `still reachable` | pointer exists but never freed — fix before exit |
+| `Invalid read/write` | out-of-bounds access |
+| `Uninitialised value` | variable used before assignment |
+| `Invalid free` | double free or freeing a non-heap pointer |
+
+A clean run shows `ERROR SUMMARY: 0 errors from 0 contexts`.
+
+<div class="flex justify-center my-4">
+  <Button href="/blogs/42_c_valgrind/">Valgrind — Full Post</Button>
+</div>
+
+---
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>
