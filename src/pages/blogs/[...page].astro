@@ -108,13 +108,6 @@ const allTags = [
                       <div class="flex justify-center my-5 preview-only">
                         <Button href={`/blogs/${blog.id.toLowerCase()}/`}>Read More</Button>
                       </div>
-                      <div class="my-5 flex justify-center">
-                        <SocialShare
-                          title={blog.data.title}
-                          description={blog.data.description}
-                          url={Astro.url.origin + `/blogs/${blog.id.toLowerCase()}/`}
-                        />
-                      </div>
                     </>
                   ) : null}
                 </div>
