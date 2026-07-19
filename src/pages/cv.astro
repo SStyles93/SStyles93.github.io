@@ -12,6 +12,11 @@ import { skillLanguages, skillEngines, skillSoftware, experiences, certification
 </style>
 
 <BaseLayout title="Resume" sideBarActiveItemID="cv">
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css"
+  />
   <div class="flex justify-center mb-5">
     <Button href="/pdf/Samuel_Styles_CV.pdf">PDF Version</Button>
   </div>
@@ -34,16 +39,53 @@ import { skillLanguages, skillEngines, skillSoftware, experiences, certification
 
   <!-- SKILLS -->
   <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Skills</div>
+    <div class="text-3xl w-full font-bold">Tech Stack</div>
   </div>
-  <ul class="list-disc md:columns-5 columns-2 mx-6">
-    {skillLanguages.map((s) => <li>{s}</li>)}
-  </ul>
-  &nbsp;
-  <ul class="list-disc md:columns-5 columns-2 mx-6">
-    {[...skillEngines, ...skillSoftware].map((s) => <li>{s}</li>)}
-  </ul>
-  &nbsp;
+
+  <div class="mb-2 text-xs font-semibold uppercase tracking-widest opacity-50">Languages &amp; Tools</div>
+  <div class="flex flex-wrap gap-3 mb-6">
+    {skillLanguages.map((skill) => (
+      <div class="bg-base-200 hover:bg-base-300 transition-colors rounded-xl p-3 flex flex-col items-center gap-1 w-20">
+        {skill.icon
+          ? <i class={`${skill.icon} text-4xl`}></i>
+          : skill.svgPath
+            ? <svg viewBox="0 0 24 24" class="w-9 h-9 fill-current opacity-75" xmlns="http://www.w3.org/2000/svg"><path d={skill.svgPath} /></svg>
+            : <span class="text-2xl font-mono font-bold opacity-40">&lt;/&gt;</span>
+        }
+        <span class="text-[11px] text-center leading-tight">{skill.name}</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="mb-2 text-xs font-semibold uppercase tracking-widest opacity-50">Engines &amp; Graphics</div>
+  <div class="flex flex-wrap gap-3 mb-6">
+    {skillEngines.map((skill) => (
+      <div class="bg-base-200 hover:bg-base-300 transition-colors rounded-xl p-3 flex flex-col items-center gap-1 w-20">
+        {skill.icon
+          ? <i class={`${skill.icon} text-4xl`}></i>
+          : skill.svgPath
+            ? <svg viewBox="0 0 24 24" class="w-9 h-9 fill-current opacity-75" xmlns="http://www.w3.org/2000/svg"><path d={skill.svgPath} /></svg>
+            : <span class="text-2xl font-mono font-bold opacity-40">&lt;/&gt;</span>
+        }
+        <span class="text-[11px] text-center leading-tight">{skill.name}</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="mb-2 text-xs font-semibold uppercase tracking-widest opacity-50">Software</div>
+  <div class="flex flex-wrap gap-3 mb-6">
+    {skillSoftware.map((skill) => (
+      <div class="bg-base-200 hover:bg-base-300 transition-colors rounded-xl p-3 flex flex-col items-center gap-1 w-20">
+        {skill.icon
+          ? <i class={`${skill.icon} text-4xl`}></i>
+          : skill.svgPath
+            ? <svg viewBox="0 0 24 24" class="w-9 h-9 fill-current opacity-75" xmlns="http://www.w3.org/2000/svg"><path d={skill.svgPath} /></svg>
+            : <span class="text-2xl font-mono font-bold opacity-40">&lt;/&gt;</span>
+        }
+        <span class="text-[11px] text-center leading-tight">{skill.name}</span>
+      </div>
+    ))}
+  </div>
 
   <!-- LANGUAGES -->
   <div class="mb-5">
