@@ -4,6 +4,7 @@ import HorizontalCard from "../components/HorizontalCard.astro";
 import { getCollection } from "astro:content";
 import dayjs from "dayjs";
 import Button from "../components/Button.astro";
+import { skillLanguages, skillEngines, experiences } from "../data/cv";
 
 const projects = (await getCollection("projects"))
 	.filter((project) => project.data.pinned)
@@ -15,32 +16,68 @@ const projects = (await getCollection("projects"))
 		}
 		return a.data.order - b.data.order;
 	});
-const MAX_PROJECTS = 5;
+const MAX_PROJECTS = 3;
 const shownProjects = projects.slice(0, MAX_PROJECTS);
+const latestExp = experiences[0];
 // const lastProject = projects[MAX_PROJECTS - 1];
 ---
 
 <BaseLayout sideBarActiveItemID="home">
 	<div class="pb-12 mt-5">
-		<div class="text-xl py-1">Hey there 👋</div>
+		<div class="text-xl py-1">Hi,</div>
 		<div class="text-5xl">I'm <b>Samuel Styles</b></div>
 		<div class="text-3xl py-3">
 			a <b>Software Engineer</b> & <b>Game Developper</b>!
 		</div>
 		<div class="py-2">
 			<text class="text-lg">
-				Thriving at the intersection of technology and creativity,
-				combining programming with a passion for digital art. Eager to
-				contribute to major game productions, crafting immersive and
-				visually striking experiences.
+				Passionate about low-level systems and game programming,
+				I enjoy building efficient software that balances performance,
+				reliability, and maintainability. With a strong interest in graphics,
+				engine architecture, and interactive technologies, I'm eager to contribute
+				to the development of immersive gaming experiences.
+				I also enjoy sharing my knowledge through teaching and mentoring,
+				helping others discover the fundamentals of programming and game development.
 
-				<!-- I obtained a First with Honours <b>Bachelor's degree in Science</b> 
-				<br>from the <a href="https://www.herts.ac.uk/"><b><u>University of Hertfordshire</u></b> 
+				<!-- I obtained a First with Honours <b>Bachelor's degree in Science</b>
+				<br>from the <a href="https://www.herts.ac.uk/"><b><u>University of Hertfordshire</u></b>
 					via the <a href="https://www.sae.edu/ch-ge/"><b><u>SAE-Institute</u></b> in Geneva </a>
 					<br>and I am currently working on other projects on the side.<br /> -->
 			</text>
 		</div>
 	</div>
+
+	<div class="divider my-2" />
+
+	<div>
+		<div class="text-3xl w-full font-bold mb-4">Tech Skills</div>
+		<div class="flex flex-wrap gap-2">
+			{[...skillLanguages, ...skillEngines].map((skill) => (
+				<span class="badge badge-outline badge-lg py-3">{skill}</span>
+			))}
+		</div>
+	</div>
+
+	<div class="divider my-6" />
+
+	<div>
+		<div class="text-3xl w-full font-bold mb-4">Latest Experience</div>
+		<div class="card bg-base-200 p-5">
+			<div class="text-xl font-bold">{latestExp.title}</div>
+			<div class="text-base opacity-70 mt-1">{latestExp.subtitle}</div>
+			<ul class="list-disc mx-6 mt-3 text-base">
+				{latestExp.bulletGroups.flat().map((bullet) => (
+					<li>{bullet}</li>
+				))}
+			</ul>
+		</div>
+		<div class="mt-4">
+			<Button href="/pdf/Samuel_Styles_CV.pdf">View Full CV</Button>
+		</div>
+	</div>
+
+	<div class="divider my-6" />
+
 	<div>
 		<div class="text-3xl w-full font-bold mb-2">Highlighted Projects</div>
 	</div>
@@ -66,6 +103,6 @@ const shownProjects = projects.slice(0, MAX_PROJECTS);
 	}
 
 	<div class="mt-8">
-		<a class="btn btn-outline ml-5" href="/projects">See all projects...</a>
+		<a class="btn btn-outline ml-5" href="/projects">See All Arojects...</a>
 	</div>
 </BaseLayout>

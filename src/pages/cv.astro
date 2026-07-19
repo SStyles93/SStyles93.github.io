@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TimeLineElement from "../components/cv/TimeLine.astro";
 import Button from "../components/Button.astro";
+import { skillLanguages, skillEngines, skillSoftware, experiences, certifications } from "../data/cv";
 ---
 
 <style>
@@ -20,157 +21,15 @@ import Button from "../components/Button.astro";
     <div class="text-3xl w-full font-bold">Work Experiences</div>
   </div>
   <div class="time-line-container grid gap-4 mb-10">
-    <TimeLineElement
-      title="Co-Founder – Programmer & Digital Asset Creator"
-      subtitle="PixelPulse (PxP), January 2025 – Present"
-    >
-      <ul class="list-disc mx-6">
-        <li>
-          Co-founded a 2-person studio producing tools, shaders, and asset packs
-          for Unity marketplace
-        </li>
-        <li>
-          Programmed, organized, validated, and published 3D assets optimized
-          for real-time engines
-        </li>
-        <li>
-          Managed product pipeline: pricing, product pages, analytics, website,
-          and description
-        </li>
-      </ul>
-      <ul class="list-disc mx-6 mt-2">
-        <li>Released 12 commercial asset packs in 8 months</li>
-        <li>Generated 1,000+ total sales with a 21.98% conversion rate</li>
-        <li>Achieved 4,400+ page views with no paid advertising</li>
-      </ul>
-    </TimeLineElement>
-
-    <TimeLineElement
-      title="Software Engineer Intern"
-      subtitle="Lab4Tech, Lausanne, Switzerland, June 2025 – September 2025"
-    >
-      <ul class="list-disc mx-6">
-        <li>
-          Developed a web-based quiz tool, converting documents with JSON data
-          serialization (Quiz Trainer)
-        </li>
-        <li>
-          Created a C++/Unity native DLL for procedural 2D map generation,
-          accelerating workflow for senior developers
-        </li>
-        <li>
-          Enhanced the C++ training materials for CPE, CPA, and CPP
-          certifications
-        </li>
-      </ul>
-      <ul class="list-disc mx-6 mt-2">
-        <li>Contributed to 3 interns achieving 2 certifications each</li>
-        <li>
-          Procedural generation tool adopted by senior staff, improving map
-          creation speed
-        </li>
-      </ul>
-    </TimeLineElement>
-
-    <TimeLineElement
-      title="Co-Founder – Programmer"
-      subtitle="Styles Studio SàRL, Lausanne, Switzerland, Jan 2022 – Jul 2024"
-    >
-      <ul class="list-disc mx-6">
-        <li>
-          Architected and managed the IT infrastructure and development tools
-        </li>
-        <li>
-          Led the development of Run4YourLight from prototype to full Steam
-          release
-        </li>
-        <li>Led technical operations and strategy for Styles Studio</li>
-        <li>
-          Mentored junior developers, delivered training courses for the Swiss
-          Digital Academy
-        </li>
-      </ul>
-      <ul class="list-disc mx-6 mt-2">
-        <li>Built a scalable development pipeline and IT infrastructure</li>
-        <li>Indie Game Nation Jury & Public Award for Run4YourLight</li>
-        <li>
-          Showcased Run4YourLight to 5,000+ attendees at Fantasy-Basel, Zurich
-          Pop Con, Numerik Games, Japan Tours Festival
-        </li>
-      </ul>
-    </TimeLineElement>
-
-    <!-- KEEPING PREVIOUS EXPERIENCES -->
-    <TimeLineElement
-      title="Teacher & Speaker"
-      subtitle="From 2023 to 2025 at the Swiss Game Academy, HEIA-FR Fribourg, Switzerland"
-    >
-      <ul class="list-disc mx-6">
-        <li>Teaching advanced coding principles</li>
-        <li>Guiding student to accomplish their projects.</li>
-      </ul>
-      &nbsp;
-    </TimeLineElement>
-
-    <TimeLineElement
-      title="Producer"
-      subtitle="From September 2023 to September 2024 at SAE-Institute, Geneva, Switzerland"
-    >
-      <ul class="list-disc mx-6">
-        <li>
-          Assumed the role of a producer for two specialized projects during my
-          third year at SAE Institute Geneva.
-        </li>
-        <li>
-          Managed the entire production cycle, gaining in-depth knowledge of
-          Unreal Engine.
-        </li>
-        <li>
-          Organized project schedules, defined key milestones, and ensured
-          adherence to timelines to meet deadlines.
-        </li>
-        <li>
-          Facilitated communication and collaboration among game programmers,
-          artists, and audio engineers to maintain a cohesive project vision and
-          ensure successful execution.
-        </li>
-      </ul>
-      &nbsp;
-    </TimeLineElement>
-
-    <TimeLineElement
-      title="Game Programmer"
-      subtitle="From 2021 to Mai 2021 at Dama Dama Games, Lausanne, Switzerland"
-    >
-      <ul class="list-disc mx-6">
-        <li>
-          Began career in game development by co-founding Dama Dama Games, a
-          Swiss indie game studio.
-        </li>
-        <li>
-          Applied commercial knowledge and learned game development using Unity.
-        </li>
-        <li>
-          Stopped working at Dama Dama Games to start a bachelor's degree at SAE
-          Institute.
-        </li>
-      </ul>
-      &nbsp;
-    </TimeLineElement>
-
-    <TimeLineElement
-      title="Mecatronics Engineering & Other experiences"
-      subtitle="From 2008 to 2021"
-    >
-      <ul class="list-disc mx-6">
-        <li>Mecatronics Engineering</li>
-        <li>Receptionist</li>
-        <li>Mecatronics Apprentice</li>
-        <li>Divers Commerical work experiences</li>
-        <li>Divers IT work experiences</li>
-      </ul>
-      &nbsp;
-    </TimeLineElement>
+    {experiences.map((exp) => (
+      <TimeLineElement title={exp.title} subtitle={exp.subtitle}>
+        {exp.bulletGroups.map((group, i) => (
+          <ul class={`list-disc mx-6${i > 0 ? " mt-2" : ""}`}>
+            {group.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+        ))}
+      </TimeLineElement>
+    ))}
   </div>
 
   <!-- SKILLS -->
@@ -178,30 +37,11 @@ import Button from "../components/Button.astro";
     <div class="text-3xl w-full font-bold">Skills</div>
   </div>
   <ul class="list-disc md:columns-5 columns-2 mx-6">
-    <li>x86_64 ASM</li>
-    <li>SIMD</li>
-    <li>C++</li>
-    <li>C#</li>
-    <li>GLSL</li>
-    <li>HLSL</li>
-    <li>Python</li>
-    <li>SQL</li>
-    <li>HTML</li>
-    <li>CSS</li>
+    {skillLanguages.map((s) => <li>{s}</li>)}
   </ul>
   &nbsp;
   <ul class="list-disc md:columns-5 columns-2 mx-6">
-    <li>Unity</li>
-    <li>Shader Graph</li>
-    <li>Git</li>
-    <li>Unreal Engine</li>
-    <li>Material System</li>
-    <li>Perforce</li>
-    <li>OpenGL</li>
-    <li>Trello</li>
-    <li>Miro</li>
-    <li>Adobe After Effect</li>
-    <li>Office Suite</li>
+    {[...skillEngines, ...skillSoftware].map((s) => <li>{s}</li>)}
   </ul>
   &nbsp;
 
@@ -222,46 +62,10 @@ import Button from "../components/Button.astro";
     <div class="text-3xl w-full font-bold">Certifications</div>
   </div>
   <div class="time-line-container grid gap-4 mb-10">
-    <TimeLineElement
-      title="Unity Certified Professional Programmer - UCPP-520"
-      subtitle="Completed: 08/2025, ISEIG, Lausanne, Switzerland"
-    >
-      <Button href="/pdf/Samuel_Styles_UCPP520.pdf">UCPP-520 Certificate</Button
-      >
-    </TimeLineElement>
-
-    <TimeLineElement
-      title="Professional Scrum Product Owner™ I - PSPO-I"
-      subtitle="Completed: 08/2025, Lab4Tech, Lausanne, Switzerland"
-    >
-      <Button href="/pdf/Samuel_Styles_PSPO_I.pdf">PSPO-I Certificate</Button>
-    </TimeLineElement>
-
-    <TimeLineElement
-      title="C++ Certified Associate Programmer - C++ CPA"
-      subtitle="Completed: 07/2025, ISEIG, Lausanne, Switzerland"
-    >
-      <Button href="/pdf/Samuel_Styles_C++_CPA_Certificate.pdf"
-        >C++ CPA Certificate</Button
-      >
-    </TimeLineElement>
-
-    <TimeLineElement
-      title="Bachelor's Degree (First Hon.)"
-      subtitle="Completed: 2024, University of Hertfordshire, UK"
-    >
-      <Button href="/pdf/Samuel_Styles_BachelorDegree.pdf"
-        >Bachelor's Degree</Button
-      >
-    </TimeLineElement>
-
-    <TimeLineElement
-      title="CFC of Mecatronics"
-      subtitle="Completed: 2019, EPSIC, Lausanne, Switzerland"
-    >
-      <Button href="/pdf/Samuel_Styles_CFC_2019.pdf"
-        >Mecatronics Certificate</Button
-      >
-    </TimeLineElement>
+    {certifications.map((cert) => (
+      <TimeLineElement title={cert.title} subtitle={cert.subtitle}>
+        <Button href={cert.pdfPath}>{cert.buttonLabel}</Button>
+      </TimeLineElement>
+    ))}
   </div>
 </BaseLayout>
