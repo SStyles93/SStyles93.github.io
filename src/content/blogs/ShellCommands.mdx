@@ -1,0 +1,229 @@
+---
+title: "Shell Tips - Commands & Bash Scripting"
+description: "A practical guide to essential Shell commands and writing your first #!/bin/bash script"
+creationDate: "Jul 19 2026"
+order: 0
+pinned: false
+heroImage: "/src/assets/images/quiztrainer/quiztrainer.png"
+teamSize: 1
+toolUsed: "Shell/Bash/Zsh"
+isProject: false
+tags: ["Linux", "Shell"]
+---
+
+import SocialShare from "../../components/SocialShare.astro";
+
+The terminal is one of the most powerful tools in a developer's toolkit.
+Whether you're on Linux, macOS, or WSL on Windows, mastering a handful of Shell commands
+and understanding how to write Bash scripts can dramatically speed up your workflow.
+
+---
+
+## Essential Commands
+
+### ls — List Directory Contents
+
+`ls` shows what's in the current directory. The flags make it genuinely useful:
+
+```bash
+ls          # basic list
+ls -l       # long format: permissions, owner, size, date
+ls -a       # show hidden files (starting with .)
+ls -la      # combine both: long format + hidden files
+```
+
+The `-la` combo is the one you'll use 95% of the time. It gives you the full picture
+of a directory including dotfiles like `.zshrc`, `.gitignore`, etc.
+
+### cd — Change Directory
+
+```bash
+cd /path/to/dir   # absolute path
+cd Documents      # relative path
+cd ..             # go up one level
+cd ~              # go to home directory
+cd -              # go back to previous directory
+```
+
+`cd -` is underrated — it toggles between the last two directories you visited,
+great when you're jumping between two project folders.
+
+### cp — Copy Files or Directories
+
+```bash
+cp file.txt backup.txt          # copy a file
+cp -r folder/ backup_folder/    # copy a directory recursively
+cp *.png ~/Pictures/            # copy all .png files to Pictures
+```
+
+Always use `-r` (recursive) when copying directories, otherwise `cp` will refuse.
+
+### mv — Move or Rename
+
+```bash
+mv old_name.txt new_name.txt    # rename a file
+mv file.txt ~/Documents/        # move a file
+mv folder/ ../other_folder/     # move a directory
+```
+
+`mv` does double duty: moving and renaming are the same operation.
+There's no dedicated rename command in Shell.
+
+### chmod — Change File Permissions
+
+Permissions control who can read, write, or execute a file.
+They apply to three groups: **owner**, **group**, and **others**.
+
+```bash
+chmod +x script.sh      # make a file executable
+chmod 755 script.sh     # rwxr-xr-x (owner full, others read+execute)
+chmod 644 file.txt      # rw-r--r-- (owner read+write, others read only)
+```
+
+The numeric mode (`755`, `644`) is the most common in practice.
+Each digit is a sum of three base values:
+
+| Value | Permission |
+|-------|------------|
+| 4     | read (r)   |
+| 2     | write (w)  |
+| 1     | execute (x)|
+
+Add them together to combine permissions:
+
+| Value | Permissions |
+|-------|-------------|
+| 7     | rwx (4+2+1) |
+| 6     | rw- (4+2)   |
+| 5     | r-x (4+1)   |
+| 4     | r-- (4)     |
+| 0     | ---         |
+
+### alias — Create Command Shortcuts
+
+`alias` lets you define a shortcut for any command or chain of commands:
+
+```bash
+alias ll="ls -la"
+alias gs="git status"
+alias ..="cd .."
+alias ...="cd ../.."
+```
+
+The problem: aliases defined in the terminal only last for the current session.
+
+#### Making Aliases Permanent with .zshrc
+
+To persist aliases across sessions, add them to your shell config file.
+For Zsh (default on macOS and most modern Linux distros), that's `~/.zshrc`:
+
+```bash
+# Open .zshrc with your editor
+nano ~/.zshrc
+
+# Add your aliases at the bottom
+alias ll="ls -la"
+alias gs="git status"
+alias gp="git push"
+alias ..="cd .."
+
+# Reload the config without restarting the terminal
+source ~/.zshrc
+```
+
+For Bash users the file is `~/.bashrc` instead.
+
+---
+
+## Writing a Bash Script
+
+A Bash script is a plain text file containing a sequence of Shell commands.
+The first line — the **shebang** — tells the OS which interpreter to use.
+
+### The Shebang Line
+
+```bash
+#!/bin/bash
+```
+
+This must be the very first line of the file. It points to the Bash binary,
+so the script runs with Bash regardless of what shell the user has active.
+
+### A Practical Example
+
+Here's a script that creates a timestamped backup of a directory:
+
+```bash
+#!/bin/bash
+
+SOURCE="$HOME/Projects"
+DEST="$HOME/Backups"
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M")
+BACKUP_NAME="backup_$TIMESTAMP"
+
+mkdir -p "$DEST/$BACKUP_NAME"
+cp -r "$SOURCE/" "$DEST/$BACKUP_NAME/"
+
+echo "Backup created: $DEST/$BACKUP_NAME"
+```
+
+Save it as `backup.sh`, then make it executable and run it:
+
+```bash
+chmod +x backup.sh
+./backup.sh
+```
+
+### Key Script Concepts
+
+**Variables** — no spaces around `=`:
+```bash
+NAME="Sam"
+echo "Hello, $NAME"
+```
+
+**Conditionals**:
+```bash
+if [ -f "file.txt" ]; then
+  echo "File exists"
+else
+  echo "File not found"
+fi
+```
+
+**Loops**:
+```bash
+for file in *.txt; do
+  echo "Processing $file"
+done
+```
+
+**Functions**:
+```bash
+greet() {
+  echo "Hello, $1"
+}
+greet "Sam"
+```
+
+---
+
+## Quick Reference
+
+| Command | Purpose |
+|:---:|:---:|
+| `ls -la` | List all files with details |
+| `cd -` | Toggle between last two directories |
+| `cp -r` | Copy directory recursively |
+| `mv` | Move or rename |
+| `chmod +x` | Make file executable |
+| `alias` | Create a command shortcut |
+| `source ~/.zshrc` | Reload shell config |
+| `#!/bin/bash` | Shebang — declare Bash interpreter |
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>
