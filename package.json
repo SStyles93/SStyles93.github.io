@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "img:idx": "node scripts/generate-image-index.mjs",
-    "img:replacemdx": "node scripts/replace-images-cli.mjs"
+    "img:replacemdx": "node scripts/replace-images-cli.mjs",
+    "pdf": "node scripts/pdf.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.6",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.20",
+    "puppeteer": "^25.10.0",
     "sass": "^1.101.0"
   }
 }
