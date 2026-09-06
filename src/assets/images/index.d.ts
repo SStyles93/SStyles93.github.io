@@ -131,6 +131,11 @@ export declare const images: {
   filefusion_FileFusion_Main_png: string;
   filefusion_Main_png: string;
   filefusion_Qt_Designer_png: string;
+  git_Github_ssh_png: string;
+  git_Gitlab_ssh_png: string;
+  icons_C_Icon_png: string;
+  icons_Git_Icon_png: string;
+  icons_Linux_png: string;
   jobat_dialogbox_png: string;
   jobat_icon_JobAT_png: string;
   jobat_mainwindow_png: string;
