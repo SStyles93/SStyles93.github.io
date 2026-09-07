@@ -290,6 +290,42 @@ git switch -c feature/login        # create and switch in one step (-c = create)
 
 Both `checkout` and `switch` work. `switch` is preferred in new workflows.
 
+### git reset
+
+Remove files from staging or roll back to a previous state.
+
+```bash
+git reset file.txt     # unstage a file, keep the changes in your working directory
+git reset              # unstage everything, keep all changes
+git reset --hard <commit>   # move HEAD to <commit> and discard all changes
+```
+
+`<commit>` can be a commit hash, branch name, or tag:
+
+```bash
+git reset --hard abc1234   # reset to a specific commit
+git reset --hard main      # reset to the tip of the main branch
+git reset --hard v1.2.0    # reset to a tagged release
+```
+
+> **Warning:** `--hard` permanently discards all uncommitted changes. Any work not yet committed will be lost.
+
+### git revert
+
+Create a new commit that undoes the changes introduced by a previous commit:
+
+```bash
+git revert abc1234    # undo a specific commit by creating a new one
+```
+
+Unlike `git reset`, `git revert` does not rewrite history — the original commit stays.
+This makes it safe to use on shared branches (like `main`) where teammates have already pulled the commit.
+
+| Command | Rewrites history? | Safe on shared branches? |
+|---------|-------------------|--------------------------|
+| `git reset --hard` | Yes | No |
+| `git revert` | No | Yes |
+
 ---
 
 ## Simple Workflow
@@ -535,6 +571,9 @@ git rebase main
 | `git switch -c <name>` | Create and switch (modern) |
 | `git merge <branch>` | Merge a branch into the current one |
 | `git rebase <branch>` | Reapply commits on top of another branch |
+| `git reset` | Unstage files, keep changes |
+| `git reset --hard <commit>` | Move HEAD to a commit and discard all changes |
+| `git revert <commit>` | Undo a commit by creating a new one (safe for shared branches) |
 | `ssh-keygen -t ed25519 -C "..."` | Generate an SSH key pair |
 
 <div class="flex justify-center">
