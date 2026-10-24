@@ -4,6 +4,7 @@ import HorizontalCard from "../components/HorizontalCard.astro";
 import { getCollection } from "astro:content";
 import dayjs from "dayjs";
 import Button from "../components/Button.astro";
+import { skillLanguages, skillEngines, experiences } from "../data/cv";
 
 const projects = (await getCollection("projects"))
 	.filter((project) => project.data.pinned)
@@ -15,32 +16,98 @@ const projects = (await getCollection("projects"))
 		}
 		return a.data.order - b.data.order;
 	});
-const MAX_PROJECTS = 5;
+const MAX_PROJECTS = 3;
 const shownProjects = projects.slice(0, MAX_PROJECTS);
+const latestExp = experiences[0];
 // const lastProject = projects[MAX_PROJECTS - 1];
 ---
 
 <BaseLayout sideBarActiveItemID="home">
+	<link
+		slot="head"
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css"
+	/>
 	<div class="pb-12 mt-5">
-		<div class="text-xl py-1">Hey there 👋</div>
+		<div class="text-xl py-1">Hi,</div>
 		<div class="text-5xl">I'm <b>Samuel Styles</b></div>
 		<div class="text-3xl py-3">
 			a <b>Software Engineer</b> & <b>Game Developper</b>!
 		</div>
 		<div class="py-2">
 			<text class="text-lg">
-				Thriving at the intersection of technology and creativity,
-				combining programming with a passion for digital art. Eager to
-				contribute to major game productions, crafting immersive and
-				visually striking experiences.
+				Passionate about low-level systems and game programming,
+				I enjoy building efficient software that balances performance,
+				reliability, and maintainability. With a strong interest in graphics,
+				engine architecture, and interactive technologies, I'm eager to contribute
+				to the development of immersive gaming experiences.
+				I also enjoy sharing my knowledge through teaching and mentoring,
+				helping others discover the fundamentals of programming and game development.
 
-				<!-- I obtained a First with Honours <b>Bachelor's degree in Science</b> 
-				<br>from the <a href="https://www.herts.ac.uk/"><b><u>University of Hertfordshire</u></b> 
+				<!-- I obtained a First with Honours <b>Bachelor's degree in Science</b>
+				<br>from the <a href="https://www.herts.ac.uk/"><b><u>University of Hertfordshire</u></b>
 					via the <a href="https://www.sae.edu/ch-ge/"><b><u>SAE-Institute</u></b> in Geneva </a>
 					<br>and I am currently working on other projects on the side.<br /> -->
 			</text>
 		</div>
 	</div>
+
+	<div class="divider my-2" />
+
+	<div>
+		<div class="text-3xl w-full font-bold mb-5">Tech Stack</div>
+
+		<div class="mb-2 text-xs font-semibold uppercase tracking-widest opacity-50">Languages &amp; Tools</div>
+		<div class="flex flex-wrap gap-3 mb-6">
+			{skillLanguages.map((skill) => (
+				<div class="bg-base-200 hover:bg-base-300 transition-colors rounded-xl p-3 flex flex-col items-center gap-1 w-20">
+					{skill.icon
+						? <i class={`${skill.icon} text-4xl`}></i>
+						: skill.svgPath
+							? <svg viewBox="0 0 24 24" class="w-9 h-9 fill-current opacity-75" xmlns="http://www.w3.org/2000/svg"><path d={skill.svgPath} /></svg>
+							: <span class="text-2xl font-mono font-bold opacity-40">&lt;/&gt;</span>
+					}
+					<span class="text-[11px] text-center leading-tight">{skill.name}</span>
+				</div>
+			))}
+		</div>
+
+		<div class="mb-2 text-xs font-semibold uppercase tracking-widest opacity-50">Engines &amp; Graphics</div>
+		<div class="flex flex-wrap gap-3">
+			{skillEngines.map((skill) => (
+				<div class="bg-base-200 hover:bg-base-300 transition-colors rounded-xl p-3 flex flex-col items-center gap-1 w-20">
+					{skill.icon
+						? <i class={`${skill.icon} text-4xl`}></i>
+						: skill.svgPath
+							? <svg viewBox="0 0 24 24" class="w-9 h-9 fill-current opacity-75" xmlns="http://www.w3.org/2000/svg"><path d={skill.svgPath} /></svg>
+							: <span class="text-2xl font-mono font-bold opacity-40">&lt;/&gt;</span>
+					}
+					<span class="text-[11px] text-center leading-tight">{skill.name}</span>
+				</div>
+			))}
+		</div>
+	</div>
+
+	<div class="divider my-6" />
+
+	<div>
+		<div class="text-3xl w-full font-bold mb-4">Latest Experience</div>
+		<div class="card bg-base-200 p-5">
+			<div class="text-xl font-bold">{latestExp.title}</div>
+			<div class="text-base opacity-70 mt-1">{latestExp.subtitle}</div>
+			<ul class="list-disc mx-6 mt-3 text-base">
+				{latestExp.bulletGroups.flat().map((bullet) => (
+					<li>{bullet}</li>
+				))}
+			</ul>
+		</div>
+		<div class="mt-4 flex justify-center">
+			<Button href="/pdf/Samuel_Styles_CV.pdf">View Full CV</Button>
+		</div>
+	</div>
+
+	<div class="divider my-6" />
+
 	<div>
 		<div class="text-3xl w-full font-bold mb-2">Highlighted Projects</div>
 	</div>
@@ -65,7 +132,7 @@ const shownProjects = projects.slice(0, MAX_PROJECTS);
 		))
 	}
 
-	<div class="mt-8">
-		<a class="btn btn-outline ml-5" href="/projects">See all projects...</a>
+	<div class="mt-8 flex justify-center">
+		<a class="btn btn-outline ml-5" href="/projects">See All Projects</a>
 	</div>
 </BaseLayout>
