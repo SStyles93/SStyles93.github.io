@@ -1,113 +1,105 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TimeLineElement from "../components/cv/TimeLine.astro";
+import SkillGrid from "../components/cv/SkillGrid.astro";
 import Button from "../components/Button.astro";
-import { skillLanguages, skillEngines, skillSoftware, experiences, certifications } from "../data/cv";
+import {
+  profile,
+  skillLanguages,
+  skillEngines,
+  skillTools,
+  skillMethods,
+  experiences,
+  earlierExperiences,
+  certifications,
+  education,
+  spokenLanguages,
+} from "../data/cv";
+
+const subtitleOf = (exp) => [exp.company, exp.location].filter(Boolean).join(", ");
+// Links inside set:html content don't receive scoped styles, so style them via Tailwind arbitrary variants
+const richText = "[&_a]:underline [&_a]:text-primary";
 ---
 
-<style>
-  a {
-    text-decoration: underline;
-  }
-</style>
-
-<BaseLayout title="Resume" sideBarActiveItemID="cv">
+<BaseLayout
+  title="CV"
+  description="CV of Samuel Styles, software engineer (C++, C#) based in Lausanne, Switzerland."
+  sideBarActiveItemID="cv"
+>
   <link
     slot="head"
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css"
   />
   <div class="flex justify-center mb-5">
-    <Button href="/pdf/Samuel_Styles_CV.pdf">PDF Version</Button>
+    <Button href="/pdf/Samuel_Styles_CV.pdf">Download PDF CV</Button>
+  </div>
+
+  <!-- PROFILE -->
+  <h2 class="text-3xl font-bold mb-3">Profile</h2>
+  <p class="text-lg mb-10">{profile}</p>
+
+  <!-- SKILLS -->
+  <h2 class="text-3xl font-bold mb-5">Technical Skills</h2>
+  <SkillGrid label="Languages" skills={skillLanguages} />
+  <SkillGrid label="Frameworks &amp; Engines" skills={skillEngines} />
+  <SkillGrid label="Tools" skills={skillTools} />
+  <div class="mb-2 text-xs font-semibold uppercase tracking-widest opacity-50">Methods</div>
+  <div class="flex flex-wrap gap-2 mb-10">
+    {skillMethods.map((method) => <span class="badge badge-outline p-3">{method}</span>)}
   </div>
 
   <!-- EXPERIENCE -->
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Work Experiences</div>
-  </div>
-  <div class="time-line-container grid gap-4 mb-10">
+  <h2 class="text-3xl font-bold mb-5">Experience</h2>
+  <div class="time-line-container grid gap-4 mb-6">
     {experiences.map((exp) => (
-      <TimeLineElement title={exp.title} subtitle={exp.subtitle}>
-        {exp.bulletGroups.map((group, i) => (
-          <ul class={`list-disc mx-6${i > 0 ? " mt-2" : ""}`}>
-            {group.map((bullet) => <li>{bullet}</li>)}
-          </ul>
-        ))}
+      <TimeLineElement title={exp.title} subtitle={subtitleOf(exp)} date={`${exp.start} – ${exp.end}`}>
+        <ul class={`list-disc mx-6 ${richText}`}>
+          {exp.bullets.map((bullet) => <li set:html={bullet} />)}
+        </ul>
       </TimeLineElement>
     ))}
   </div>
 
-  <!-- SKILLS -->
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Tech Stack</div>
-  </div>
-
-  <div class="mb-2 text-xs font-semibold uppercase tracking-widest opacity-50">Languages &amp; Tools</div>
-  <div class="flex flex-wrap gap-3 mb-6">
-    {skillLanguages.map((skill) => (
-      <div class="bg-base-200 hover:bg-base-300 transition-colors rounded-xl p-3 flex flex-col items-center gap-1 w-20">
-        {skill.icon
-          ? <i class={`${skill.icon} text-4xl`}></i>
-          : skill.svgPath
-            ? <svg viewBox="0 0 24 24" class="w-9 h-9 fill-current opacity-75" xmlns="http://www.w3.org/2000/svg"><path d={skill.svgPath} /></svg>
-            : <span class="text-2xl font-mono font-bold opacity-40">&lt;/&gt;</span>
-        }
-        <span class="text-[11px] text-center leading-tight">{skill.name}</span>
-      </div>
+  <div class="mb-3 text-xs font-semibold uppercase tracking-widest opacity-50">Earlier experience</div>
+  <div class="time-line-container grid gap-4 mb-10">
+    {earlierExperiences.map((exp) => (
+      <TimeLineElement title={exp.title} subtitle={subtitleOf(exp)} date={`${exp.start} – ${exp.end}`}>
+        <ul class={`list-disc mx-6 ${richText}`}>
+          {exp.bullets.map((bullet) => <li set:html={bullet} />)}
+        </ul>
+      </TimeLineElement>
     ))}
   </div>
 
-  <div class="mb-2 text-xs font-semibold uppercase tracking-widest opacity-50">Engines &amp; Graphics</div>
-  <div class="flex flex-wrap gap-3 mb-6">
-    {skillEngines.map((skill) => (
-      <div class="bg-base-200 hover:bg-base-300 transition-colors rounded-xl p-3 flex flex-col items-center gap-1 w-20">
-        {skill.icon
-          ? <i class={`${skill.icon} text-4xl`}></i>
-          : skill.svgPath
-            ? <svg viewBox="0 0 24 24" class="w-9 h-9 fill-current opacity-75" xmlns="http://www.w3.org/2000/svg"><path d={skill.svgPath} /></svg>
-            : <span class="text-2xl font-mono font-bold opacity-40">&lt;/&gt;</span>
-        }
-        <span class="text-[11px] text-center leading-tight">{skill.name}</span>
-      </div>
+  <!-- CERTIFICATIONS -->
+  <h2 class="text-3xl font-bold mb-5">Certifications</h2>
+  <div class="time-line-container grid gap-4 mb-10">
+    {certifications.map((cert) => (
+      <TimeLineElement title={cert.title} subtitle={cert.issuer} date={cert.date}>
+        <a class="underline text-primary text-sm" href={cert.pdfPath}>{cert.linkLabel} certificate (PDF)</a>
+      </TimeLineElement>
     ))}
   </div>
 
-  <div class="mb-2 text-xs font-semibold uppercase tracking-widest opacity-50">Software</div>
-  <div class="flex flex-wrap gap-3 mb-6">
-    {skillSoftware.map((skill) => (
-      <div class="bg-base-200 hover:bg-base-300 transition-colors rounded-xl p-3 flex flex-col items-center gap-1 w-20">
-        {skill.icon
-          ? <i class={`${skill.icon} text-4xl`}></i>
-          : skill.svgPath
-            ? <svg viewBox="0 0 24 24" class="w-9 h-9 fill-current opacity-75" xmlns="http://www.w3.org/2000/svg"><path d={skill.svgPath} /></svg>
-            : <span class="text-2xl font-mono font-bold opacity-40">&lt;/&gt;</span>
-        }
-        <span class="text-[11px] text-center leading-tight">{skill.name}</span>
-      </div>
+  <!-- EDUCATION -->
+  <h2 class="text-3xl font-bold mb-5">Education</h2>
+  <div class="time-line-container grid gap-4 mb-10">
+    {education.map((entry) => (
+      <TimeLineElement title={entry.title} subtitle={entry.issuer} date={entry.date}>
+        <a class="underline text-primary text-sm" href={entry.pdfPath}>{entry.linkLabel} (PDF)</a>
+      </TimeLineElement>
     ))}
   </div>
 
   <!-- LANGUAGES -->
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Languages</div>
-  </div>
-  <ul class="list-disc md:columns-5 columns-2 mx-6">
-    <li>French (Native)</li>
-    <li>English (Native)</li>
-    <li>Italian (B1)</li>
-    <li>German <br />(basic knowledge)</li>
-  </ul>
-  &nbsp;
-
-  <!-- CERTIFICATIONS -->
-  <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Certifications</div>
-  </div>
-  <div class="time-line-container grid gap-4 mb-10">
-    {certifications.map((cert) => (
-      <TimeLineElement title={cert.title} subtitle={cert.subtitle}>
-        <Button href={cert.pdfPath}>{cert.buttonLabel}</Button>
-      </TimeLineElement>
+  <h2 class="text-3xl font-bold mb-5">Languages</h2>
+  <div class="flex flex-wrap gap-3">
+    {spokenLanguages.map((lang) => (
+      <div class="bg-base-200 rounded-xl px-4 py-2">
+        <span class="font-semibold">{lang.name}</span>
+        <span class="opacity-70"> – {lang.level}</span>
+      </div>
     ))}
   </div>
 </BaseLayout>

@@ -1,5 +1,5 @@
 ---
-const { title, subtitle } = Astro.props;
+const { title, subtitle, date } = Astro.props;
 ---
 
 <div class="flex">
@@ -9,11 +9,14 @@ const { title, subtitle } = Astro.props;
       class="education__line bg-primary block h-full w-[2px] translate-x-[7px]"
     ></span>
   </div>
-  <div class="experience__data bd-grid px-5">
-    <h3 class="font-semibold mb-1">{title}</h3>
-    <span class="font-light text-sm">{subtitle}</span>
-    <p class="my-2 text-justify">
+  <div class="experience__data bd-grid px-5 w-full">
+    <div class="flex flex-wrap justify-between gap-x-4">
+      <h3 class="font-semibold mb-1">{title}</h3>
+      {date && <span class="text-sm opacity-70 whitespace-nowrap">{date}</span>}
+    </div>
+    <span class="font-light text-sm italic">{subtitle}</span>
+    <div class="my-2">
       <slot />
-    </p>
+    </div>
   </div>
 </div>

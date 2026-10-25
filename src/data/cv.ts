@@ -1,186 +1,200 @@
+// Single source of truth for the CV page and the homepage.
+// Keep in sync with the Typst PDF CV (typst - documents/Typst_CV/Samuel_Styles_CV.typ).
+// Bullet strings may contain <strong> and <a> tags; they are rendered with set:html.
+
 export interface SkillItem {
   name: string;
   icon?: string;     // devicon class
   svgPath?: string;  // Simple Icons path (viewBox "0 0 24 24"), rendered inline with fill-current
 }
 
+export const profile =
+  "Software engineer specialized in C++ and C#, with a BSc (First Class Honours) and a background in industrial mechatronics. " +
+  "Experienced from low-level systems and native libraries to developer tooling and commercial products shipped as co-founder and lead programmer. " +
+  "C++ Institute and Unity certified. Looking for a software engineering role building reliable, high-performance systems.";
+
 export const skillLanguages: SkillItem[] = [
-  { name: "Linux",       icon: "devicon-linux-plain" },
-  { name: "C",          icon: "devicon-c-plain colored" },
   { name: "C++",        icon: "devicon-cplusplus-plain colored" },
   { name: "C#",         icon: "devicon-csharp-plain colored" },
+  { name: "C",          icon: "devicon-c-plain colored" },
   { name: "Python",     icon: "devicon-python-plain colored" },
-  { name: "HTML",       icon: "devicon-html5-plain colored" },
-  { name: "CSS",        icon: "devicon-css3-plain colored" },
   { name: "JavaScript", icon: "devicon-javascript-plain colored" },
   { name: "TypeScript", icon: "devicon-typescript-plain colored" },
   { name: "SQL",        icon: "devicon-postgresql-plain colored" },
-  { name: "Git",        icon: "devicon-git-plain colored" },
-  { name: "Perforce",   svgPath: "m7.386 14.957 2.279-1.316-.576-.333A1.48 1.48 0 0 1 8.334 12c0-.262.073-.915.755-1.308l10.31-5.953a1.49 1.49 0 0 1 1.51 0c.228.13.755.52.755 1.308v11.906c0 .788-.527 1.178-.754 1.308s-.828.393-1.51 0l-2.732-1.577-2.334 1.348 3.899 2.251a3.81 3.81 0 0 0 3.845 0A3.81 3.81 0 0 0 24 17.953V6.047a3.81 3.81 0 0 0-1.922-3.33 3.83 3.83 0 0 0-1.923-.52c-.66 0-1.32.173-1.922.52L7.923 8.67A3.81 3.81 0 0 0 6 12c0 1.17.51 2.234 1.386 2.956zm9.228-5.913-2.279 1.316.576.333c.682.393.755 1.046.755 1.308 0 .263-.073.915-.755 1.308l-10.31 5.954a1.49 1.49 0 0 1-1.51 0 1.48 1.48 0 0 1-.755-1.308V6.047c0-.788.527-1.178.754-1.308s.828-.393 1.51 0l2.732 1.577 2.334-1.348-3.899-2.251a3.81 3.81 0 0 0-3.845 0A3.81 3.81 0 0 0 0 6.047v11.906c0 1.39.72 2.635 1.922 3.33a3.83 3.83 0 0 0 1.923.52c.66 0 1.32-.173 1.922-.52l10.31-5.953A3.81 3.81 0 0 0 18 12c0-1.17-.51-2.234-1.386-2.956" },
-  { name: "x86_64 ASM" },
-  { name: "SIMD" },
-  { name: "GLSL" },
   { name: "HLSL" },
-  { name: "JSON" },
-  { name: "YAML" },
+  { name: "GLSL" },
+  { name: "x86-64 ASM" },
 ];
 
 export const skillEngines: SkillItem[] = [
-  { name: "Unity",           icon: "devicon-unity-plain" },
-  { name: "Unreal Engine",   icon: "devicon-unrealengine-original" },
-  { name: "Godot",           icon: "devicon-godot-plain colored" },
-  { name: "OpenGL",          icon: "devicon-opengl-plain colored" },
-  { name: "Shader Graph" },
-  { name: "Material System" },
+  { name: ".NET",          icon: "devicon-dotnetcore-plain colored" },
+  { name: "Unity",         icon: "devicon-unity-plain" },
+  { name: "Unreal Engine", icon: "devicon-unrealengine-original" },
+  { name: "OpenGL",        icon: "devicon-opengl-plain colored" },
+  { name: "Qt (PyQt)",     icon: "devicon-qt-original colored" },
+  { name: "SFML" },
 ];
 
-export const skillSoftware: SkillItem[] = [
-  { name: "Jira",               icon: "devicon-jira-plain colored" },
-  { name: "Trello",             icon: "devicon-trello-plain colored" },
-  { name: "Miro",       svgPath: "M17.392 0H13.9L17 4.808 10.444 0H6.949l3.102 6.3L3.494 0H0l3.05 8.131L0 24h3.494L10.05 6.985 6.949 24h3.494L17 5.494 13.899 24h3.493L24 3.672 17.392 0z" },
-  { name: "Adobe After Effect", icon: "devicon-aftereffects-plain colored" },
-  { name: "Office Suite" },
+export const skillTools: SkillItem[] = [
+  { name: "Git",           icon: "devicon-git-plain colored" },
+  { name: "Perforce",      svgPath: "m7.386 14.957 2.279-1.316-.576-.333A1.48 1.48 0 0 1 8.334 12c0-.262.073-.915.755-1.308l10.31-5.953a1.49 1.49 0 0 1 1.51 0c.228.13.755.52.755 1.308v11.906c0 .788-.527 1.178-.754 1.308s-.828.393-1.51 0l-2.732-1.577-2.334 1.348 3.899 2.251a3.81 3.81 0 0 0 3.845 0A3.81 3.81 0 0 0 24 17.953V6.047a3.81 3.81 0 0 0-1.922-3.33 3.83 3.83 0 0 0-1.923-.52c-.66 0-1.32.173-1.922.52L7.923 8.67A3.81 3.81 0 0 0 6 12c0 1.17.51 2.234 1.386 2.956zm9.228-5.913-2.279 1.316.576.333c.682.393.755 1.046.755 1.308 0 .263-.073.915-.755 1.308l-10.31 5.954a1.49 1.49 0 0 1-1.51 0 1.48 1.48 0 0 1-.755-1.308V6.047c0-.788.527-1.178.754-1.308s.828-.393 1.51 0l2.732 1.577 2.334-1.348-3.899-2.251a3.81 3.81 0 0 0-3.845 0A3.81 3.81 0 0 0 0 6.047v11.906c0 1.39.72 2.635 1.922 3.33a3.83 3.83 0 0 0 1.923.52c.66 0 1.32-.173 1.922-.52l10.31-5.953A3.81 3.81 0 0 0 18 12c0-1.17-.51-2.234-1.386-2.956" },
+  { name: "CMake",         icon: "devicon-cmake-plain colored" },
+  { name: "vcpkg" },
+  { name: "Visual Studio", icon: "devicon-visualstudio-plain colored" },
+  { name: "GDB" },
+  { name: "Valgrind" },
+  { name: "CI/CD",         icon: "devicon-githubactions-plain colored" },
+  { name: "Linux",         icon: "devicon-linux-plain" },
+  { name: "Jira",          icon: "devicon-jira-plain colored" },
 ];
+
+export const skillMethods = ["Agile", "Scrum", "Profiling & optimization", "Technical documentation"];
 
 export interface Experience {
   title: string;
-  subtitle: string;
-  bulletGroups: string[][];
+  company: string;
+  location?: string;
+  start: string;
+  end: string;
+  bullets: string[];
 }
 
 export const experiences: Experience[] = [
   {
     title: "Co-Founder – Programmer & Digital Asset Creator",
-    subtitle: "PixelPulse (PxP), January 2025 – Present",
-    bulletGroups: [
-      [
-        "Co-founded a 2-person studio producing tools, shaders, and asset packs for Unity marketplace",
-        "Programmed, organized, validated, and published 3D assets optimized for real-time engines",
-        "Managed product pipeline: pricing, product pages, analytics, website, and description",
-      ],
-      [
-        "Released 12 commercial asset packs in 8 months",
-        "Generated 1,000+ total sales with a 21.98% conversion rate",
-        "Achieved 4,400+ page views with no paid advertising",
-      ],
+    company: "PixelPulse (PxP)",
+    start: "Jan 2025",
+    end: "Present",
+    bullets: [
+      "Co-founded a 2-person studio building tools, shaders and 3D asset packs for the Unity Asset Store",
+      "Programmed, validated and published assets optimized for real-time engines; released <strong>12 commercial packs in 8 months</strong>",
+      "Ran the product pipeline (pricing, store pages, analytics, website): <strong>1'000+ sales</strong>, ~22% conversion rate and <strong>4'400+ page views</strong> with zero paid advertising",
     ],
   },
   {
-    title: "Software Engineer Intern",
-    subtitle: "Lab4Tech, Lausanne, Switzerland, June 2025 – September 2025",
-    bulletGroups: [
-      [
-        "Developed a web-based quiz tool, converting documents with JSON data serialization (Quiz Trainer)",
-        "Created a C++/Unity native DLL for procedural 2D map generation, accelerating workflow for senior developers",
-        "Enhanced the C++ training materials for CPE, CPA, and CPP certifications",
-      ],
-      [
-        "Contributed to 3 interns achieving 2 certifications each",
-        "Procedural generation tool adopted by senior staff, improving map creation speed",
-      ],
+    title: "Software Engineer (Internship)",
+    company: "Lab4Tech",
+    location: "Lausanne",
+    start: "Jun 2025",
+    end: "Sep 2025",
+    bullets: [
+      "Designed a <strong>native C++ library (DLL)</strong> for procedural map generation (BSP, cellular automata, random walk), integrated into Unity through <strong>C++/C# interop</strong> and custom editor tooling (CMake, vcpkg); <strong>adopted by senior developers</strong> for map creation",
+      "Built <a href=\"/projects/quiztrainer\">Quiz Trainer</a>, a web-based exam training tool (JavaScript) that converts documents into JSON question sets",
+      "Improved the C++ training material for the CPE, CPA and CPP certifications, helping <strong>3 interns obtain 2 certifications each</strong>",
     ],
   },
   {
-    title: "Co-Founder – Programmer",
-    subtitle: "Styles Studio SàRL, Lausanne, Switzerland, Jan 2022 – Jul 2024",
-    bulletGroups: [
-      [
-        "Architected and managed the IT infrastructure and development tools",
-        "Led the development of Run4YourLight from prototype to full Steam release",
-        "Led technical operations and strategy for Styles Studio",
-        "Mentored junior developers, delivered training courses for the Swiss Digital Academy",
-      ],
-      [
-        "Built a scalable development pipeline and IT infrastructure",
-        "Indie Game Nation Jury & Public Award for Run4YourLight",
-        "Showcased Run4YourLight to 5,000+ attendees at Fantasy-Basel, Zurich Pop Con, Numerik Games, Japan Tours Festival",
-      ],
-    ],
-  },
-  {
-    title: "Teacher & Speaker",
-    subtitle: "From 2023 to 2025 at the Swiss Game Academy, HEIA-FR Fribourg, Switzerland",
-    bulletGroups: [
-      [
-        "Teaching advanced coding principles",
-        "Guiding student to accomplish their projects.",
-      ],
-    ],
-  },
-  {
-    title: "Producer",
-    subtitle: "From September 2023 to September 2024 at SAE-Institute, Geneva, Switzerland",
-    bulletGroups: [
-      [
-        "Assumed the role of a producer for two specialized projects during my third year at SAE Institute Geneva.",
-        "Managed the entire production cycle, gaining in-depth knowledge of Unreal Engine.",
-        "Organized project schedules, defined key milestones, and ensured adherence to timelines to meet deadlines.",
-        "Facilitated communication and collaboration among game programmers, artists, and audio engineers to maintain a cohesive project vision and ensure successful execution.",
-      ],
-    ],
-  },
-  {
-    title: "Game Programmer",
-    subtitle: "From 2021 to Mai 2021 at Dama Dama Games, Lausanne, Switzerland",
-    bulletGroups: [
-      [
-        "Began career in game development by co-founding Dama Dama Games, a Swiss indie game studio.",
-        "Applied commercial knowledge and learned game development using Unity.",
-        "Stopped working at Dama Dama Games to start a bachelor's degree at SAE Institute.",
-      ],
-    ],
-  },
-  {
-    title: "Mecatronics Engineering & Other experiences",
-    subtitle: "From 2008 to 2021",
-    bulletGroups: [
-      [
-        "Mecatronics Engineering",
-        "Receptionist",
-        "Mecatronics Apprentice",
-        "Divers Commerical work experiences",
-        "Divers IT work experiences",
-      ],
+    title: "Co-Founder & Lead Programmer",
+    company: "Styles Studio Sàrl",
+    location: "Lausanne",
+    start: "Jan 2022",
+    end: "Jul 2024",
+    bullets: [
+      "Led development of <a href=\"/projects/run4yourlight\">Run4YourLight</a> (Unity/C#, team of 5) from prototype to <strong>commercial Steam release</strong>, including Steamworks integration; <strong>Indie Game Nation Jury &amp; Public Award</strong>",
+      "Set up and managed the company's IT infrastructure and development tools; led technical operations and strategy",
+      "Mentored junior developers and taught programming courses for the <a href=\"https://swiss-digital-academy.com/\">Swiss Digital Academy</a>",
+      "Presented the product to <strong>5'000+ visitors</strong> at Fantasy Basel, Zurich Pop Con, Numerik Games and Japan Tours Festival",
     ],
   },
 ];
 
-export interface Certification {
+// Web-only: older roles, shown below the main experience
+export const earlierExperiences: Experience[] = [
+  {
+    title: "Teacher & Speaker",
+    company: "Swiss Game Academy, HEIA-FR",
+    location: "Fribourg",
+    start: "2023",
+    end: "2025",
+    bullets: [
+      "Taught an <a href=\"/projects/alchemisteddy_course\">advanced programming lab</a> (Unity/C#) and coached students through their projects",
+    ],
+  },
+  {
+    title: "Producer",
+    company: "SAE Institute",
+    location: "Geneva",
+    start: "Sep 2023",
+    end: "Sep 2024",
+    bullets: [
+      "Produced two Unreal Engine specialization projects, coordinating programmers, artists and audio engineers",
+      "Defined milestones and schedules and kept delivery on track",
+    ],
+  },
+  {
+    title: "Co-Founder – Game Programmer",
+    company: "Dama Dama Games",
+    location: "Lausanne",
+    start: "Jan 2021",
+    end: "May 2021",
+    bullets: [
+      "Gameplay and shader programming, visual effects and QA in Unity, before starting a bachelor's degree",
+    ],
+  },
+  {
+    title: "Mechatronics Technician",
+    company: "LARAG SA | MAN Truck & Bus Schweiz AG",
+    start: "Aug 2014",
+    end: "Jan 2021",
+    bullets: [
+      "Diagnosed and fixed faults in electrical, electronic and mechanical vehicle systems using <strong>CAN bus</strong> diagnostic software",
+      "Applied systematic root-cause analysis to complex control systems, working with engineers on interdisciplinary issues",
+    ],
+  },
+];
+
+export interface Credential {
   title: string;
-  subtitle: string;
+  issuer: string;
+  date: string;
   pdfPath: string;
-  buttonLabel: string;
+  linkLabel: string;
 }
 
-export const certifications: Certification[] = [
+export const certifications: Credential[] = [
   {
-    title: "Unity Certified Professional Programmer - UCPP-520",
-    subtitle: "Completed: 08/2025, ISEIG, Lausanne, Switzerland",
+    title: "Unity Certified Professional Programmer",
+    issuer: "ISEIG, Lausanne",
+    date: "Aug 2025",
     pdfPath: "/pdf/Samuel_Styles_UCPP520.pdf",
-    buttonLabel: "UCPP-520 Certificate",
+    linkLabel: "UCPP-520",
   },
   {
-    title: "Professional Scrum Product Owner™ I - PSPO-I",
-    subtitle: "Completed: 08/2025, Lab4Tech, Lausanne, Switzerland",
+    title: "Professional Scrum Product Owner™ I",
+    issuer: "Lab4Tech, Lausanne",
+    date: "Aug 2025",
     pdfPath: "/pdf/Samuel_Styles_PSPO_I.pdf",
-    buttonLabel: "PSPO-I Certificate",
+    linkLabel: "PSPO I",
   },
   {
-    title: "C++ Certified Associate Programmer - C++ CPA",
-    subtitle: "Completed: 07/2025, ISEIG, Lausanne, Switzerland",
+    title: "C++ Certified Associate Programmer",
+    issuer: "ISEIG, Lausanne",
+    date: "Jul 2025",
     pdfPath: "/pdf/Samuel_Styles_C++_CPA_Certificate.pdf",
-    buttonLabel: "C++ CPA Certificate",
+    linkLabel: "CPA",
   },
+];
+
+export const education: Credential[] = [
   {
-    title: "Bachelor's Degree (First Hon.)",
-    subtitle: "Completed: 2024, University of Hertfordshire, UK",
+    title: "BSc (Hons) Games Programming – First Class Honours",
+    issuer: "University of Hertfordshire (UK), via SAE Institute Geneva",
+    date: "2024",
     pdfPath: "/pdf/Samuel_Styles_BachelorDegree.pdf",
-    buttonLabel: "Bachelor's Degree",
+    linkLabel: "Diploma",
   },
   {
-    title: "CFC of Mecatronics",
-    subtitle: "Completed: 2019, EPSIC, Lausanne, Switzerland",
+    title: "CFC Diploma in Mechatronics",
+    issuer: "EPSIC, Lausanne",
+    date: "2019",
     pdfPath: "/pdf/Samuel_Styles_CFC_2019.pdf",
-    buttonLabel: "Mecatronics Certificate",
+    linkLabel: "Diploma",
   },
+];
+
+export const spokenLanguages = [
+  { name: "English", level: "Native" },
+  { name: "French", level: "Native" },
+  { name: "Italian", level: "B1" },
+  { name: "German", level: "Basic" },
 ];
