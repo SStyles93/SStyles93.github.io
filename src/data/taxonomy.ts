@@ -73,6 +73,12 @@ export const series = [
     project: "mmgs_project",
   },
   {
+    id: "42-core",
+    title: "42 Common Core",
+    description: "Rebuilding libc, printf and getline from scratch at 42, and how each one was tested.",
+    project: "42_codetester",
+  },
+  {
     id: "c-fundamentals",
     title: "C & Shell Fundamentals",
     description: "From first shell commands to pointers, linked lists, GDB and Valgrind.",

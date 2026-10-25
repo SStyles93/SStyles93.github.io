@@ -1,0 +1,159 @@
+---
+title: "42 Common Core — ft_printf: Variadic Functions and Format Parsing"
+description: "Recreating printf with va_list, a small format parser and a single layout function for flags, width and precision"
+creationDate: "Oct 21 2026"
+order: 0
+heroImage: "/src/assets/images/42/ft_printfe.png"
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC/Make/stdarg"
+isProject: false
+tags: ["C", "Linux"]
+project: "42_codetester"
+category: "systems"
+kind: "deep-dive"
+series: { id: "42-core", part: 2 }
+---
+
+import Button from "../../components/Button.astro";
+import SocialShare from "../../components/SocialShare.astro";
+
+**ft_printf** asks you to recreate `printf`: the conversions `%c %s %p %d %i %u %x %X %%`, and in
+the bonus part the flags `- 0 . # space +` and a field width. It must return the number of
+characters printed, like the original, and it is packaged as `libftprintf.a` on top of libft.
+
+The project is mostly an exercise in two things: **variadic functions** and **parsing**.
+
+## Variadic functions in C
+
+A function declared with `...` reads its extra arguments through a `va_list`:
+
+```c
+/* condensed: the Norm forbids the ternary, the original uses an if */
+int ft_printf(const char *format, ...)
+{
+    t_data data;
+
+    ft_initialize_data(&data, format);
+    va_start(data.args, format);
+    while (*data.str && !data.error)
+    {
+        if (*data.str == '%')
+            ft_handle_conversion(&data);
+        else
+            ft_put_char(&data, *data.str++);
+    }
+    va_end(data.args);
+    return (data.error ? -1 : data.char_count);
+}
+```
+
+Two rules to remember:
+
+- `va_arg` needs the **promoted** type: a `char` is passed as an `int`, so `%c` reads
+  `va_arg(args, int)`.
+- Nothing tells you how many arguments there are. The format string is the only contract,
+  which is why a wrong format is undefined behaviour.
+
+## One state struct
+
+Instead of passing half a dozen parameters around, everything lives in one struct: the cursor
+in the format string, the `va_list`, the running character count, an error flag (a failed
+`write` makes `ft_printf` return `-1`), and the parsed format of the current conversion.
+
+```c
+typedef struct s_format
+{
+    int  minus, zero, hash, space, plus;
+    int  width;
+    int  precision;     /* -1 means "no precision given" */
+    char specifier;
+}   t_format;
+```
+
+Using `-1` for "no precision" matters: `%.0d` with the value `0` prints **nothing**, while `%d`
+prints `0`.
+
+## Parsing a conversion
+
+The parser reads the pieces of a conversion in the order the C standard defines them: flags,
+width, precision, specifier. It also applies the precedence rules once, so the printers never
+have to:
+
+```c
+parse_flags(data);                      /* any of "-0# +" */
+data->format.width = parse_number(data);
+if (*data->str == '.')
+{
+    data->str++;
+    data->format.precision = parse_number(data);
+}
+if (data->format.minus)
+    data->format.zero = 0;              /* '-' overrides '0' */
+if (data->format.plus)
+    data->format.space = 0;             /* '+' overrides ' ' */
+```
+
+A dispatcher then reads the argument with the right type and calls the matching printer.
+
+## One layout function for every number
+
+`%d`, `%u`, `%x`, `%X` and `%p` all produce the same shape:
+
+```
+[spaces] [prefix] [zeros] [digits] [spaces]
+```
+
+The prefix is the sign (`-`, `+` or space) or `0x` / `0X`. Precision adds leading zeros; width
+adds padding, with spaces on the left by default, zeros after the prefix with `0`, or spaces on
+the right with `-`. Once the digits are converted into a small buffer, a single function lays
+everything out:
+
+```c
+zeros = precision - dlen;               /* zeros required by the precision */
+pad   = width - prefix_len - zeros - dlen;
+if (!minus && !zero) put_pad(' ', pad);
+put(prefix);
+if (zero)            put_pad('0', pad);
+put_pad('0', zeros);
+put(digits);
+if (minus)           put_pad(' ', pad);
+```
+
+One more rule: when a precision is given, the `0` flag is ignored for numbers. With this in
+place, `%-8.3x`, `%+05d` and `%#x` all reuse the same code instead of each conversion
+reimplementing padding.
+
+## Platform differences
+
+`printf` isn't identical everywhere. A `NULL` pointer printed with `%p` gives `(nil)` with glibc
+and `0x0` on macOS, so the header detects the platform with `__linux__` and matches the local
+libc.
+
+## How CodeTester checks it
+
+The [CodeTester](/projects/42_codetester/) printf suites never hard-code expected output. Every
+case calls **`snprintf` with the same arguments** and compares:
+
+- the exact bytes written to stdout (captured by redirecting the file descriptor);
+- the return value.
+
+Suites cover each conversion, every flag pair (`-0`, `#`, space, `+`, `.`), mixed combinations,
+and `INT_MIN`, `UINT_MAX` and `NULL` values. Behaviour the subject leaves undefined, such as
+unknown specifiers or contradictory flags, sits in an **informational** category that reports
+differences from the real printf without counting them as failures.
+
+Result: **125/125** (mandatory and bonus).
+
+---
+
+<div class="flex justify-center">
+<Button href="https://github.com/SStyles93/42_printf">ft_printf on GitHub</Button>
+</div>
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

@@ -1,0 +1,165 @@
+---
+title: "CodeTester — An Interactive C Tester for 42 Projects"
+description: "A crash-isolated, cross-platform test runner for libft, ft_printf and get_next_line, with malloc-failure injection, sanitizers and subject checks"
+creationDate: "Oct 24 2026"
+order: 0
+heroImage: "/src/assets/images/icons/C_Icon.png"
+pinned: false
+teamSize: 1
+timeFrame: "2 weeks"
+toolUsed: "C/GCC/Make/GNU ld/ASan/UBSan/Valgrind"
+isProject: true
+tags: ["C", "Linux"]
+category: "systems"
+---
+
+import Button from "../../components/Button.astro";
+import SocialShare from "../../components/SocialShare.astro";
+
+When I started the **42 Common Core**, I quickly noticed that passing my own quick `main()` tests
+said very little about whether a project would survive peer evaluation. The interesting bugs
+were the ones I didn't think of: an allocation that fails halfway through `ft_split`, a
+`BUFFER_SIZE` of 1, a `%#.0x` with the value 0.
+
+So, alongside the projects themselves, I built **CodeTester**: an interactive C test runner that
+checks **libft**, **ft_printf** and **get_next_line** the way an evaluator (or a hostile input)
+would.
+
+| Project | Coverage | Grade |
+|---|---|---|
+| **Libft** | Full, including the linked-list functions | 100/100 |
+| **ft_printf** | Mandatory, bonus and original `printf` behaviour | 125/125 |
+| **get_next_line** | Mandatory and bonus | — |
+
+---
+
+## Design goals
+
+- **One bad function must not stop the run.** A segfault in `ft_strtrim` should be reported as a
+  failure, and the 42 other suites should still run.
+- **Test what the subject actually asks for**, including the parts nobody tests by hand:
+  allocation failures, Makefile relinking, forbidden functions, buffer sizes.
+- **Zero configuration.** Clone it next to your projects, type `make`, and it finds them.
+- **Run anywhere.** Linux, macOS and Windows, with features degrading gracefully where a
+  platform lacks a tool.
+
+## Crash isolation with `fork()` and shared memory
+
+Every suite (and some individual cases) runs in a **forked child process**. The parent waits
+for it and turns a signal into a readable result:
+
+- `SIGSEGV` / `SIGBUS` → `✗ CRASH ft_split: Segmentation fault`
+- `SIGALRM` → `✗ TIMEOUT` (the child arms `alarm()` before running, default 10 s)
+- non-zero exit → a leak or memory error reported by ASan or Valgrind
+
+The tricky part is keeping the results a child recorded *before* it crashed. The pass/fail
+counters live in an anonymous shared mapping, so they survive the child:
+
+```c
+shared = mmap(NULL, sizeof(t_ctx), PROT_READ | PROT_WRITE,
+        MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+*shared = *ctx;
+pid = fork();
+if (pid == 0)
+{
+    alarm(g_test_timeout);
+    fn(shared, arg);
+    exit(0);    /* exit, not _exit: lets LeakSanitizer / Valgrind report */
+}
+waitpid(pid, &status, 0);
+*ctx = *shared;
+```
+
+On Windows (MinGW) there is no `fork()`, so the same function simply runs the suite in-process.
+
+## Reporting missing functions instead of breaking the build
+
+A student who hasn't written `ft_lstmap` yet should still be able to test everything else. Every
+tested function is declared **weak**:
+
+```c
+__attribute__((weak)) char **ft_split(char const *s, char c);
+```
+
+If the symbol isn't in `libft.a`, the linker resolves it to `NULL` instead of failing, and the
+runner prints `? ft_lstmap MISSING` for that suite.
+
+## Malloc-failure injection
+
+On Linux the tester links with `-Wl,--wrap=malloc,--wrap=calloc,--wrap=free`. Every allocation,
+from the tester **and** from the student's library, goes through `__wrap_malloc`, which can:
+
+- record each live block, so a suite can report exactly what was never freed;
+- make the **N-th allocation return `NULL`**, then check that the function returns `NULL` and
+  frees everything it had already allocated.
+
+Running a function once per allocation it makes (fail the 1st, then the 2nd, …) catches the
+classic `ft_split` leak where the words allocated before the failure are never freed.
+
+## Comparing against the real `printf`
+
+The ft_printf suites don't hard-code expected strings. Each case runs **`snprintf` with the same
+arguments** and compares both the bytes written and the return value. The reference is whatever
+the host libc prints (glibc on Linux, libSystem on macOS), which is what an evaluator compares
+against too.
+
+Behaviour the subject leaves undefined, such as unknown specifiers or contradictory flags, is
+grouped in an **informational** category: differences are shown in yellow and never counted as
+failures.
+
+## Subject checks
+
+Beyond the functions themselves, CodeTester checks the rules evaluators look at:
+
+- required Makefile rules (`all`, `clean`, `fclean`, `re`) and **no relinking** on a second `make`
+- library and header names, compilation flags (`-Wall -Wextra -Werror`)
+- **forbidden external functions**, by reading the undefined symbols of the object files with `nm`
+- global or static variables where they aren't allowed
+- the README format required by the subject
+
+## get_next_line at every buffer size
+
+get_next_line has no Makefile, so the tester compiles its sources directly, with mandatory and
+bonus files side by side in the same binary. `make gnl-sizes` reruns the suites with
+`BUFFER_SIZE` set to **1, 42, 9999 and 10 000 000**, the values the evaluation sheet asks about.
+
+## Using it
+
+```sh
+parent/
+├── CodeTester/
+├── libft/
+├── printf/
+└── get_next_line/
+
+make run              # interactive menu
+./tester all          # every suite of every detected project
+./tester -v ft_split  # one suite, showing expected/got on failure
+make asan             # rebuild everything with ASan + UBSan, run all
+make valgrind         # full leak check (Linux)
+```
+
+## What I learned
+
+- Process isolation, signals and shared memory, applied to a real problem rather than an exercise.
+- How the linker resolves symbols: weak declarations and `--wrap` are both tools I'll reuse.
+- Writing a portable Makefile that detects its environment, finds sibling projects
+  case-insensitively and only builds what is present.
+- Testing is a design problem: the hardest part was deciding *what* "correct" means for
+  undefined `printf` behaviour.
+
+The articles in the **42 Common Core** series go through each project, its design decisions and
+how CodeTester checks it.
+
+---
+
+<div class="flex justify-center">
+<Button href="https://github.com/SStyles93/42_CodeTester">CodeTester on GitHub</Button>
+</div>
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

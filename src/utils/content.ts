@@ -46,7 +46,7 @@ export function postUrl(post: CollectionEntry<"blogs">) {
     : `/blogs/${post.id.toLowerCase()}/`;
 }
 
-export const projectUrl = (project: CollectionEntry<"projects">) => `/projects/${project.id.toLowerCase()}/`;
+export const projectUrl =(project: CollectionEntry<"projects">) => `/projects/${project.id.toLowerCase()}/`;
 
 export async function countByCategory(category: CategoryId) {
   const [projects, articles] = await Promise.all([getProjects(), getArticles()]);

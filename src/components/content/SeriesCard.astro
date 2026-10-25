@@ -14,7 +14,14 @@ const cover = parts[0]?.data.heroImage;
   href={`/blogs/series/${id}/`}
   class="card bg-base-200 hover:bg-base-300 transition-colors overflow-hidden"
 >
-  {cover && <Image src={cover} alt="" width={480} class="h-28 w-full object-cover" />}
+  {cover && (
+    <Image
+      src={cover}
+      alt=""
+      width={480}
+      class="h-28 w-full object-contain py-2 bg-base-300"
+    />
+  )}
   <div class="p-4">
     <div class="text-xs uppercase tracking-widest opacity-60">{parts.length} parts</div>
     <h3 class="font-bold text-lg leading-snug">{info.title}</h3>

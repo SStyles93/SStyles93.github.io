@@ -45,6 +45,7 @@ const displayDate = dayjs(creationDate).format("MMMM YYYY");
 							src={heroImage}
 							alt={title}
 							class="w-full mb-6 max-w-[900px]"
+							style={{ maxWidth: `${Math.min(900, heroImage.width)}px` }}
 						/>
 					</div>
 				)

@@ -1,0 +1,137 @@
+---
+title: "42 Common Core — get_next_line: Reading a File One Line at a Time"
+description: "Buffered reads, static state between calls and a linked list of chunks, plus the bonus: several file descriptors at once"
+creationDate: "Oct 24 2026"
+order: 0
+heroImage: "/src/assets/images/42/get_next_linee.png"
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC/read()"
+isProject: false
+tags: ["C", "Linux"]
+project: "42_codetester"
+category: "systems"
+kind: "deep-dive"
+series: { id: "42-core", part: 3 }
+---
+
+import Button from "../../components/Button.astro";
+import SocialShare from "../../components/SocialShare.astro";
+
+**get_next_line** asks for one function:
+
+```c
+char *get_next_line(int fd);
+```
+
+Each call returns the next line read from `fd`, including its `\n` when there is one, and `NULL`
+at the end of the file or on error. The only way to read is `read()`, in chunks of `BUFFER_SIZE`
+bytes, a value chosen **at compile time** (`-D BUFFER_SIZE=42`) that can be 1 or 10 million.
+
+That creates the whole problem: a single `read()` can return half a line, or three lines and a
+bit. Whatever comes after the `\n` has to be kept for the **next** call.
+
+## Keeping state between calls
+
+Since the function only takes a file descriptor, the leftover data has to live in a **`static`
+variable**, which keeps its value from one call to the next. This is the project that makes
+`static` click.
+
+## Why a linked list of chunks
+
+The simplest approach joins every chunk into one growing string (`strjoin` after each `read`).
+That copies the whole line again on every read: with `BUFFER_SIZE=1`, a 10 000-character line
+means 10 000 growing copies.
+
+I stored each chunk in its **own list node** instead:
+
+```c
+typedef struct s_list
+{
+    char            *content;   /* one chunk returned by read() */
+    struct s_list   *next;
+}   t_list;
+```
+
+A call then runs in four steps:
+
+1. **Fill.** Read chunks and append them to the list until one contains a `\n`, or `read()`
+   returns 0.
+2. **Measure.** Walk the list up to the first `\n` to get the line's length.
+3. **Copy.** Allocate exactly that many bytes, plus one, and copy the line once.
+4. **Clean up.** Free every node except the last, then shift the last node's leftover characters
+   (after the `\n`) to the start of its buffer, ready for the next call.
+
+```c
+/* condensed: the original spells out each error branch */
+char *get_next_line(int fd)
+{
+    static t_list *lst;
+    char          *line;
+
+    if (fd < 0 || BUFFER_SIZE <= 0)
+        return (NULL);
+    if (read(fd, NULL, 0) < 0 || !lst_init(&lst, fd))
+        return (free_list(&lst), NULL);
+    line = get_line(lst);
+    if (!line)
+        return (free_list(&lst), NULL);
+    clear_list(&lst);
+    return (line);
+}
+```
+
+Each byte is copied once into the returned line, whatever the buffer size.
+
+## Errors and the end of the file
+
+- `read(fd, NULL, 0)` is a cheap way to test that `fd` is valid and readable **before** touching
+  the stored state.
+- On any error, a failed `read` or a failed `malloc`, the stored list is freed, so nothing leaks
+  and the next call starts clean.
+- The last line may have no `\n`; it's returned as is, and the following call returns `NULL`.
+- When the leftover is empty after a line, the list is freed right away instead of keeping an
+  empty node.
+
+## Bonus: several file descriptors
+
+The bonus asks for get_next_line to handle several files **at the same time**, alternating
+calls between them without losing each one's position. The change is small: one list per file
+descriptor.
+
+```c
+static t_list *lst[MAX_ARRAY];   /* MAX_ARRAY = 1024 */
+...
+lst_init(&lst[fd], fd);
+```
+
+Every helper already took a `t_list **`, so the rest of the code didn't change.
+
+## How CodeTester checks it
+
+get_next_line has no Makefile, so [CodeTester](/projects/42_codetester/) compiles the sources
+itself, mandatory and bonus side by side in the same binary, and runs suites for:
+
+- **lines**: empty files, files with only `\n`, no final newline, very long lines;
+- **edge cases**: a newline as the first character, single characters with and without `\n`;
+- **sources**: invalid file descriptors, standard input, and, for the bonus, several files
+  read alternately;
+- **memory**: allocation failures injected at each `malloc`, and leak checks after reading part
+  of a file;
+- **project rules**: file names, forbidden functions, no global variables.
+
+`make gnl-sizes` reruns everything with `BUFFER_SIZE` at **1, 42, 9999 and 10 000 000**, the
+sizes the evaluation sheet asks about.
+
+---
+
+<div class="flex justify-center">
+<Button href="https://github.com/SStyles93/ft_get_next_line">get_next_line on GitHub</Button>
+</div>
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>

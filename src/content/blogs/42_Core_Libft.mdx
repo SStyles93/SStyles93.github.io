@@ -1,0 +1,119 @@
+---
+title: "42 Common Core — Libft: Rebuilding the C Standard Library"
+description: "Re-implementing libc string, memory and list functions from scratch, and the edge cases that matter: overlapping copies, size-bounded strings and allocation failures"
+creationDate: "Oct 13 2026"
+order: 0
+heroImage: "/src/assets/images/42/libfte.png"
+pinned: false
+teamSize: 1
+toolUsed: "C/GCC/Make/ar"
+isProject: false
+tags: ["C", "Linux"]
+project: "42_codetester"
+category: "systems"
+kind: "deep-dive"
+series: { id: "42-core", part: 1 }
+---
+
+import Button from "../../components/Button.astro";
+import SocialShare from "../../components/SocialShare.astro";
+
+**Libft** is the first project of the 42 Common Core: write your own C library, `libft.a`, that
+re-implements a selection of `libc` functions plus a set of utilities the standard library
+doesn't provide. Almost every later project forbids most of `libc`, so this library becomes the
+foundation for everything that follows.
+
+The rules are strict: only `malloc`, `free` and `write` from the outside world, everything
+compiled with `-Wall -Wextra -Werror`, and the code must follow the **42 Norm** (at most 25
+lines per function, 5 functions per file, declarations at the top…).
+
+## What's in the library
+
+| Part | Contents |
+|---|---|
+| **Libc functions** | `ctype` checks, `memset` / `memcpy` / `memmove`, `strlen`, `strlcpy` / `strlcat`, `strnstr`, `atoi`, `calloc`, `strdup`… |
+| **Additional functions** | `substr`, `strjoin`, `strtrim`, `split`, `itoa`, `strmapi`, `striteri`, the `put*_fd` family |
+| **Linked lists** | `lstnew`, `lstadd_front/back`, `lstsize`, `lstlast`, `lstdelone`, `lstclear`, `lstiter`, `lstmap` |
+
+All prototypes live in a single `libft.h`, and the Makefile packs the objects into a static
+archive with `ar rcs`, so any later project only needs `#include "libft.h"` and `libft.a`.
+
+## Overlapping memory: `memcpy` vs `memmove`
+
+`memcpy` is allowed to assume the two areas don't overlap; `memmove` isn't. If the destination
+starts *inside* the source and you copy forwards, you overwrite bytes before you've read them.
+The fix is to pick the copy direction from the pointer order:
+
+```c
+if (d < s)
+    while (n--)
+        *d++ = *s++;     /* destination before source: copy forwards */
+else
+    while (n--)
+        d[n] = s[n];     /* destination after source: copy backwards */
+```
+
+## Size-bounded strings: `strlcpy` and `strlcat`
+
+These BSD functions are easy to get almost right. The details that count:
+
+- they always NUL-terminate when `size > 0`;
+- they return the length of the string they **tried** to create (`strlen(src)`, or
+  `dst_len + src_len`), so the caller can detect truncation with `ret >= size`;
+- `strlcat` must not read past `size` bytes of `dst` when it isn't terminated within them.
+
+The return value is what most tests catch: returning the number of bytes actually copied looks
+fine on short strings and fails as soon as truncation happens.
+
+## Clean failure in allocating functions
+
+Every function that returns a pointer can fail. `ft_split` is the classic trap: it makes one
+allocation for the array, then one per word. If the fourth word fails, the first three must be
+freed, or they leak.
+
+```c
+strs[index] = (char *)malloc(str - from_ptr + 1);
+if (!strs[index])
+    return (free_all(strs, index));   /* frees words 0..index-1, then the array */
+```
+
+The same rule applies to `ft_lstmap`: if creating a node fails, the partly built list must be
+cleared with `del`, and the content `f` just returned must be freed too, before returning `NULL`.
+
+## Edge cases worth knowing
+
+- `ft_itoa(INT_MIN)`: `-INT_MIN` overflows an `int`, so the conversion has to work on a wider or
+  unsigned type.
+- `ft_calloc(nmemb, size)`: `nmemb * size` can overflow `size_t`; a correct implementation
+  checks for it before allocating.
+- `ft_substr` with `start` beyond the string must return an empty string, not `NULL`.
+- The `ctype` functions take an `int` that may be `EOF` or a value above 127.
+
+## How CodeTester checks it
+
+Writing a good tester taught me more about these functions than writing them. For libft,
+[CodeTester](/projects/42_codetester/) runs:
+
+- **one suite per function** (all 43), each in a forked process, so a crash in one doesn't hide
+  the others; missing functions are reported as `MISSING` thanks to weak symbols;
+- comparisons against the real `libc` function wherever one exists;
+- a **memory suite** that wraps `malloc` and makes the 1st, 2nd, 3rd… allocation fail in turn,
+  checking that `ft_split`, `ft_strjoin`, `ft_strtrim`, `ft_itoa` and the other allocating
+  functions return `NULL` and free everything they had already allocated;
+- **subject checks**: Makefile rules, no relinking, flags, library and header names, forbidden
+  functions.
+
+Result: **100/100**, including the linked-list functions.
+
+---
+
+<div class="flex justify-center">
+<Button href="https://github.com/SStyles93/42_libft">Libft on GitHub</Button>
+</div>
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>
