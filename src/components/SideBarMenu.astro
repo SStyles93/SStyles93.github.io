@@ -1,32 +1,85 @@
 ---
-const { sideBarActiveItemID } = Astro.props;
-const activeClass = "bg-base-300"; // For primary color replace with `active` class
+import { categories } from "../data/taxonomy";
+
+// The active section comes from the URL; activeCategory lets detail pages
+// (a project or an article) highlight the area they belong to.
+const { sideBarActiveItemID, activeCategory } = Astro.props;
+const path = Astro.url.pathname;
+
+const sections = [
+  { id: "home", label: "Home", href: "/", match: (p: string) => p === "/" },
+  { id: "projects", label: "Projects", href: "/projects/", base: "/projects", match: (p: string) => p.startsWith("/projects") },
+  { id: "blog", label: "Blog", href: "/blogs/", base: "/blogs", match: (p: string) => p.startsWith("/blogs") },
+  { id: "cv", label: "CV", href: "/cv/", match: (p: string) => p.startsWith("/cv") },
+];
+const activeSection = sections.find((s) => s.match(path))?.id ?? sideBarActiveItemID;
+const categoryFromPath = path.match(/\/category\/([^/]+)/)?.[1];
+const currentCategory = categoryFromPath ?? activeCategory;
+const isSectionIndex = (base: string) => path === base || path === `${base}/`;
+
+const tab = "py-3 text-base border-l-4";
+const activeTab = "bg-base-300 border-primary font-semibold";
+const idleTab = "border-transparent";
+const subItem = "py-2 text-sm";
 ---
 
 <ul class="menu grow shrink menu-md overflow-y-auto">
-    <li>
-        <a class="py-3 text-base" id="home" href="/">Home</a>
-    </li>
-    <li>
-        <a class="py-3 text-base" id="projects" href="/projects">Projects</a>
-    </li>
-    <li>
-        <a class="py-3 text-base" id="blog" href="/blogs">Blog</a>
-    </li>
-    <li>
-        <a class="py-3 text-base" id="cv" href="/cv">CV</a>
-    </li>
-    <li>
-        <a class="py-3 text-base" href="mailto:samuel.styles93@gmail.com" target="_blank" referrerpolicy="no-referrer-when-downgrade">Contact</a>
-    </li>
+  {sections.map((section) => {
+    const active = section.id === activeSection;
+    return (
+      <li>
+        <a
+          class:list={[tab, active ? activeTab : idleTab]}
+          id={section.id}
+          href={section.href}
+          aria-current={active && path === section.href ? "page" : undefined}
+        >
+          {section.label}
+          {section.base && (
+            <svg
+              class:list={["w-4 h-4 ml-auto transition-transform", active && "rotate-90"]}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 0 1 .02-1.06L11.17 10 7.23 6.29a.75.75 0 1 1 1.04-1.08l4.5 4.25a.75.75 0 0 1 0 1.08l-4.5 4.25a.75.75 0 0 1-1.06-.02Z" clip-rule="evenodd" />
+            </svg>
+          )}
+        </a>
+        {section.base && active && (
+          <ul>
+            <li>
+              <a
+                class:list={[subItem, isSectionIndex(section.base) && "active"]}
+                href={`${section.base}/`}
+              >
+                All
+              </a>
+            </li>
+            {categories.map((category) => (
+              <li>
+                <a
+                  class:list={[subItem, currentCategory === category.id && "active"]}
+                  href={`${section.base}/category/${category.id}/`}
+                >
+                  {category.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    );
+  })}
+  <li>
+    <a
+      class:list={[tab, idleTab]}
+      href="mailto:samuel.styles93@gmail.com"
+      target="_blank"
+      referrerpolicy="no-referrer-when-downgrade"
+    >
+      Contact
+    </a>
+  </li>
 </ul>
-
-<script
-    define:vars={{
-        sideBarActiveItemID: sideBarActiveItemID,
-        activeClass: activeClass,
-    }}
->
-    const activeItemElem = document.getElementById(sideBarActiveItemID);
-    activeItemElem && activeItemElem.classList.add(activeClass);
-</script>

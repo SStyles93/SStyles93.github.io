@@ -21,7 +21,7 @@ const {
 dayjs.extend(localizedFormat);
 const displayDate = dayjs(creationDate).format("MMMM YYYY");
 ---
-<BaseLayout title={title} description={description} image={heroImage}>
+<BaseLayout title={title} description={description} image={heroImage} activeCategory={category}>
   <main class="toc-layout">
     
 <!-- TOC Sidebar / Top Bar -->

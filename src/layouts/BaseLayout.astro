@@ -20,6 +20,7 @@ const {
   description = SITE_DESCRIPTION,
   includeSidebar = true,
   sideBarActiveItemID,
+  activeCategory,
   ogType,
 } = Astro.props;
 ---
@@ -50,7 +51,7 @@ const {
         <Footer />
         <!-- <ConsentManager/> -->
       </div>
-      {includeSidebar && <SideBar sideBarActiveItemID={sideBarActiveItemID} />}
+      {includeSidebar && <SideBar sideBarActiveItemID={sideBarActiveItemID} activeCategory={activeCategory} />}
     </div>
     <!-- <CookieBanner /> -->
   </body>
