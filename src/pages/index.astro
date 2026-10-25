@@ -5,6 +5,8 @@ import { getCollection } from "astro:content";
 import dayjs from "dayjs";
 import Button from "../components/Button.astro";
 import SkillGrid from "../components/cv/SkillGrid.astro";
+import { categories } from "../data/taxonomy";
+import { countByCategory } from "../utils/content";
 import { skillLanguages, skillEngines, skillTools, experiences } from "../data/cv";
 
 const projects = (await getCollection("projects"))
@@ -20,6 +22,9 @@ const projects = (await getCollection("projects"))
 const MAX_PROJECTS = 3;
 const shownProjects = projects.slice(0, MAX_PROJECTS);
 const latestExp = experiences[0];
+const areas = await Promise.all(
+	categories.map(async (category) => ({ ...category, ...(await countByCategory(category.id)) })),
+);
 // const lastProject = projects[MAX_PROJECTS - 1];
 ---
 
@@ -70,6 +75,26 @@ const latestExp = experiences[0];
 		</div>
 		<div class="mt-4 flex justify-center">
 			<Button href="/pdf/Samuel_Styles_CV.pdf">View Full CV</Button>
+		</div>
+	</div>
+
+	<div class="divider my-6" />
+
+	<div>
+		<div class="text-3xl w-full font-bold mb-4">Explore by Area</div>
+		<div class="grid sm:grid-cols-2 gap-4">
+			{areas.map((area) => (
+				<a
+					href={`/projects/category/${area.id}/`}
+					class="card bg-base-200 hover:bg-base-300 transition-colors p-5"
+				>
+					<div class="text-lg font-bold">{area.label}</div>
+					<p class="text-sm opacity-80 mt-1">{area.description}</p>
+					<div class="text-xs uppercase tracking-widest opacity-60 mt-3">
+						{area.projects} projects · {area.articles} articles
+					</div>
+				</a>
+			))}
 		</div>
 	</div>
 

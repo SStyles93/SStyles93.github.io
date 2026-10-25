@@ -1,5 +1,6 @@
 import { z, defineCollection, type CollectionEntry } from "astro:content";
 import { glob } from "astro/loaders";
+import { categoryIds, techIds, kindIds, seriesIds } from "./data/taxonomy";
 
 const projectCollection = defineCollection({
 	loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
@@ -13,7 +14,8 @@ const projectCollection = defineCollection({
 		teamSize: z.number().optional(),
 		timeFrame: z.string().optional(),
 		toolUsed: z.string().optional(),
-		tags: z.array(z.string()).optional()
+		category: z.enum(categoryIds),
+		tags: z.array(z.enum(techIds)).optional()
 	})
 });
 
@@ -29,8 +31,14 @@ const blogCollection = defineCollection({
 		teamSize: z.number().optional(),
 		timeFrame: z.string().optional(),
 		toolUsed: z.string().optional(),
+		// Short teaser for a project page: hidden from listings, its URL redirects to the project
 		isProject: z.boolean().default(false),
-		tags: z.array(z.string()).optional()
+		// Id of the related project (e.g. "mmgs_project"); required for teasers
+		project: z.string().optional(),
+		category: z.enum(categoryIds),
+		kind: z.enum(kindIds).optional(),
+		series: z.object({ id: z.enum(seriesIds), part: z.number() }).optional(),
+		tags: z.array(z.enum(techIds)).optional()
 	})
 });
 

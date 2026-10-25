@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+import type { SeriesId } from "../../data/taxonomy";
+import { getSeries } from "../../data/taxonomy";
+import { getSeriesParts } from "../../utils/content";
+
+const { id } = Astro.props as { id: SeriesId };
+const info = getSeries(id);
+const parts = await getSeriesParts(id);
+const cover = parts[0]?.data.heroImage;
+---
+
+<a
+  href={`/blogs/series/${id}/`}
+  class="card bg-base-200 hover:bg-base-300 transition-colors overflow-hidden"
+>
+  {cover && <Image src={cover} alt="" width={480} class="h-28 w-full object-cover" />}
+  <div class="p-4">
+    <div class="text-xs uppercase tracking-widest opacity-60">{parts.length} parts</div>
+    <h3 class="font-bold text-lg leading-snug">{info.title}</h3>
+    <p class="text-sm opacity-80 line-clamp-2">{info.description}</p>
+  </div>
+</a>

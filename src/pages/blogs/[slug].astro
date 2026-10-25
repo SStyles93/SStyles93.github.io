@@ -1,9 +1,11 @@
 ---
-import { type CollectionEntry, getCollection, render } from "astro:content";
+import { getCollection, render } from "astro:content";
 import type { BlogSchema } from "../../content/config";
 import ProjectLayout from "../../layouts/ProjectLayout.astro";
 import Hr from "../../components/Hr.astro";
 import MdImage from "../../components/MdImage.astro";
+import SeriesNav from "../../components/content/SeriesNav.astro";
+import { postUrl } from "../../utils/content";
 
 export async function getStaticPaths() {
 	const blogEntries = await getCollection("blogs");
@@ -19,20 +21,51 @@ interface Props {
 
 const { entry } = Astro.props;
 const blog = entry.data;
-const { Content } = await render(entry);
+// Teasers duplicate their project page: keep the old URL working by redirecting to it
+const isTeaser = blog.isProject && !!blog.project;
+const target = postUrl(entry);
+const { Content } = isTeaser ? { Content: null } : await render(entry);
+const project = blog.project && !isTeaser
+	? (await getCollection("projects")).find((p) => p.id === blog.project)
+	: undefined;
 ---
 
-<ProjectLayout
-	title={blog.title}
-	description={blog.description}
-	creationDate={blog.creationDate}
-	order={blog.order}
-	heroImage={blog.heroImage}
-	teamSize={blog.teamSize}
-	timeFrame={blog.timeFrame}
-	toolUsed={blog.toolUsed}
-	isBlog={blog.isProject}
-	tags={blog.tags}
->
-	<Content components={{ hr: Hr, img: MdImage }} />
-</ProjectLayout>
+{isTeaser ? (
+	<html lang="en">
+		<head>
+			<meta charset="utf-8" />
+			<title>{blog.title}</title>
+			<meta http-equiv="refresh" content={`0; url=${target}`} />
+			<link rel="canonical" href={new URL(target, Astro.site)} />
+			<meta name="robots" content="noindex" />
+		</head>
+		<body>
+			<a href={target}>{blog.title}</a>
+		</body>
+	</html>
+) : (
+	<ProjectLayout
+		title={blog.title}
+		description={blog.description}
+		creationDate={blog.creationDate}
+		order={blog.order}
+		heroImage={blog.heroImage}
+		teamSize={blog.teamSize}
+		timeFrame={blog.timeFrame}
+		toolUsed={blog.toolUsed}
+		category={blog.category}
+		categoryBase="/blogs"
+		kind={blog.kind}
+		tags={blog.tags}
+	>
+		{project && (
+			<p class="not-prose text-sm opacity-80">
+				Part of the project{" "}
+				<a class="underline font-semibold" href={`/projects/${project.id}/`}>{project.data.title}</a>
+			</p>
+		)}
+		<SeriesNav post={entry} position="top" />
+		{Content && <Content components={{ hr: Hr, img: MdImage }} />}
+		<SeriesNav post={entry} position="bottom" />
+	</ProjectLayout>
+)}

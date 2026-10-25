@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getSeries } from "../../data/taxonomy";
+import { getSeriesParts, postUrl } from "../../utils/content";
+
+// position "top": series banner with the list of parts; "bottom": previous/next links
+const { post, position = "top" } = Astro.props as {
+  post: CollectionEntry<"blogs">;
+  position?: "top" | "bottom";
+};
+const seriesRef = post.data.series;
+const parts = seriesRef ? await getSeriesParts(seriesRef.id) : [];
+const index = parts.findIndex((p) => p.id === post.id);
+const prev = parts[index - 1];
+const next = parts[index + 1];
+const info = seriesRef && getSeries(seriesRef.id);
+---
+
+{info && position === "top" && (
+  <details class="not-prose bg-base-200 rounded-xl px-4 py-3 my-4">
+    <summary class="cursor-pointer">
+      Part {index + 1} of {parts.length} in{" "}
+      <a class="font-semibold underline" href={`/blogs/series/${seriesRef.id}/`}>{info.title}</a>
+    </summary>
+    <ol class="list-decimal ml-6 mt-2 space-y-1 text-sm">
+      {parts.map((part) => (
+        <li>
+          {part.id === post.id
+            ? <span class="font-semibold">{part.data.title}</span>
+            : <a class="hover:underline" href={postUrl(part)}>{part.data.title}</a>}
+        </li>
+      ))}
+    </ol>
+  </details>
+)}
+
+{info && position === "bottom" && (
+  <nav class="not-prose grid sm:grid-cols-2 gap-3 mt-12" aria-label="Series navigation">
+    {prev ? (
+      <a href={postUrl(prev)} class="card bg-base-200 hover:bg-base-300 p-4">
+        <span class="text-xs opacity-60">← Previous in {info.title}</span>
+        <span class="font-semibold">{prev.data.title}</span>
+      </a>
+    ) : <span />}
+    {next && (
+      <a href={postUrl(next)} class="card bg-base-200 hover:bg-base-300 p-4 sm:text-right">
+        <span class="text-xs opacity-60">Next in {info.title} →</span>
+        <span class="font-semibold">{next.data.title}</span>
+      </a>
+    )}
+  </nav>
+)}

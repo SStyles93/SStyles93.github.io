@@ -1,0 +1,47 @@
+---
+import { Image } from "astro:assets";
+import dayjs from "dayjs";
+import type { CollectionEntry } from "astro:content";
+import { getCategory, getSeries, kinds, techLabel } from "../../data/taxonomy";
+import { postUrl } from "../../utils/content";
+
+const { post, showSeries = true } = Astro.props as {
+  post: CollectionEntry<"blogs">;
+  showSeries?: boolean;
+};
+const { title, description, heroImage, creationDate, kind, series, category, tags = [] } = post.data;
+---
+
+<li
+  class="article-item"
+  data-search={`${title} ${description}`.toLowerCase()}
+  data-tags={tags.join(",")}
+  data-kind={kind ?? ""}
+>
+  <a
+    href={postUrl(post)}
+    class="flex gap-4 p-3 rounded-xl hover:bg-base-200 transition-colors"
+  >
+    <Image
+      src={heroImage}
+      alt=""
+      width={240}
+      class="w-24 h-24 sm:w-32 sm:h-24 object-cover rounded-lg shrink-0"
+    />
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-2 text-xs mb-1">
+        {kind && <span class="badge badge-primary badge-sm">{kinds[kind]}</span>}
+        {showSeries && series && (
+          <span class="badge badge-ghost badge-sm">{getSeries(series.id).title} · Part {series.part}</span>
+        )}
+        <span class="opacity-60">{getCategory(category).label}</span>
+      </div>
+      <h3 class="font-bold text-lg leading-snug">{title}</h3>
+      <p class="text-sm opacity-80 line-clamp-2">{description}</p>
+      <div class="flex flex-wrap items-center gap-2 mt-1 text-xs opacity-60">
+        <span>{dayjs(creationDate).format("MMM YYYY")}</span>
+        {tags.map((tag) => <span>· {techLabel(tag)}</span>)}
+      </div>
+    </div>
+  </a>
+</li>

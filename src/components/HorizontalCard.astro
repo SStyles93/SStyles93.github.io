@@ -15,6 +15,7 @@ const {
 	creationDate,
 } = Astro.props;
 import { Image } from "astro:assets";
+import { techLabel } from "../data/taxonomy";
 ---
 
 <div
@@ -53,7 +54,7 @@ import { Image } from "astro:assets";
 				{tags && (
 					<div class="card-actions justify-end flex flex-wrap gap-2 mt-2">
 						{tags.map((tag: string) => (
-							<div class="badge badge-outline">{tag}</div>
+							<div class="badge badge-outline">{techLabel(tag)}</div>
 						))}
 					</div>
 				)}

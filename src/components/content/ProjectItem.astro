@@ -1,0 +1,29 @@
+---
+import dayjs from "dayjs";
+import type { CollectionEntry } from "astro:content";
+import HorizontalCard from "../HorizontalCard.astro";
+import { projectUrl } from "../../utils/content";
+
+const { project } = Astro.props as { project: CollectionEntry<"projects"> };
+const tags = project.data.tags || [];
+---
+
+<li
+  class="project-item"
+  data-search={`${project.data.title} ${project.data.description}`.toLowerCase()}
+  data-tags={tags.join(",")}
+>
+  <HorizontalCard
+    title={project.data.title}
+    img={project.data.heroImage}
+    desc={project.data.description}
+    url={projectUrl(project)}
+    target="_self"
+    teamSize={project.data.teamSize}
+    timeFrame={project.data.timeFrame}
+    toolUsed={project.data.toolUsed}
+    creationDate={dayjs(project.data.creationDate).format("MMMM YYYY")}
+    tags={tags}
+  />
+  <div class="divider my-0"></div>
+</li>

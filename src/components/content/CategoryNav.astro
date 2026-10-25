@@ -1,0 +1,19 @@
+---
+import { categories } from "../../data/taxonomy";
+
+// base: "/projects" or "/blogs"; active: a category id, or undefined for "All"
+const { base, active } = Astro.props;
+const chip = "btn btn-sm rounded-full normal-case";
+---
+
+<nav class="flex flex-wrap gap-2 mb-8" aria-label="Categories">
+  <a href={`${base}/`} class:list={[chip, active ? "btn-ghost border-base-300" : "btn-primary"]}>All</a>
+  {categories.map((c) => (
+    <a
+      href={`${base}/category/${c.id}/`}
+      class:list={[chip, active === c.id ? "btn-primary" : "btn-ghost border-base-300"]}
+    >
+      {c.label}
+    </a>
+  ))}
+</nav>

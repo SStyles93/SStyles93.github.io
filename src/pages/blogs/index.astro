@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CategoryNav from "../../components/content/CategoryNav.astro";
+import ListFilter from "../../components/content/ListFilter.astro";
+import ArticleCard from "../../components/content/ArticleCard.astro";
+import SeriesCard from "../../components/content/SeriesCard.astro";
+import { categories, series, techIds } from "../../data/taxonomy";
+import { getArticles } from "../../utils/content";
+
+const articles = await getArticles();
+const usedTags = techIds.filter((t) => articles.some((a) => a.data.tags?.includes(t)));
+---
+
+<BaseLayout title="Blog" sideBarActiveItemID="blog">
+  <h1 class="text-3xl font-bold mb-5">Blog</h1>
+
+  <h2 class="text-xs font-semibold uppercase tracking-widest opacity-60 mb-3">Series</h2>
+  <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-12">
+    {series.map((s) => <SeriesCard id={s.id} />)}
+  </div>
+
+  <h2 class="text-2xl font-bold mb-4">All articles <span class="opacity-50 text-lg">({articles.length})</span></h2>
+  <CategoryNav base="/blogs" />
+  <ListFilter tags={usedTags} showKinds placeholder="Search articles..." />
+  {categories.map((category) => {
+    const items = articles.filter((a) => a.data.category === category.id);
+    return items.length > 0 && (
+      <section class="mb-10" data-filter-group>
+        <div class="flex flex-wrap items-baseline justify-between gap-x-4 mb-2">
+          <h3 class="text-xl font-bold">{category.label}</h3>
+          <a class="text-sm underline opacity-70" href={`/blogs/category/${category.id}/`}>View all →</a>
+        </div>
+        <ul class="grid gap-1">
+          {items.map((post) => <ArticleCard post={post} />)}
+        </ul>
+      </section>
+    );
+  })}
+</BaseLayout>

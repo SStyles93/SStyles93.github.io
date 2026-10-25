@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CategoryNav from "../../../components/content/CategoryNav.astro";
+import ProjectItem from "../../../components/content/ProjectItem.astro";
+import ArticleCard from "../../../components/content/ArticleCard.astro";
+import { categories } from "../../../data/taxonomy";
+import { getArticles, getProjects } from "../../../utils/content";
+
+export function getStaticPaths() {
+  return categories.map((category) => ({ params: { category: category.id }, props: { category } }));
+}
+
+const { category } = Astro.props;
+const projects = (await getProjects()).filter((p) => p.data.category === category.id);
+const articles = (await getArticles()).filter((a) => a.data.category === category.id);
+---
+
+<BaseLayout title={`${category.label} – Projects`} description={category.description} sideBarActiveItemID="projects">
+  <h1 class="text-3xl font-bold mb-2">{category.label}</h1>
+  <p class="opacity-70 mb-5">{category.description}</p>
+  <CategoryNav base="/projects" active={category.id} />
+
+  <h2 class="text-2xl font-bold mb-3">Projects <span class="opacity-50 text-lg">({projects.length})</span></h2>
+  <ul class="mb-12">
+    {projects.map((project) => <ProjectItem project={project} />)}
+  </ul>
+
+  {articles.length > 0 && (
+    <>
+      <h2 class="text-2xl font-bold mb-3">Articles <span class="opacity-50 text-lg">({articles.length})</span></h2>
+      <ul class="grid gap-1">
+        {articles.map((post) => <ArticleCard post={post} />)}
+      </ul>
+    </>
+  )}
+</BaseLayout>

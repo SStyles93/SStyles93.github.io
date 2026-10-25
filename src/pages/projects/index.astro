@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CategoryNav from "../../components/content/CategoryNav.astro";
+import ListFilter from "../../components/content/ListFilter.astro";
+import ProjectItem from "../../components/content/ProjectItem.astro";
+import { categories, techIds } from "../../data/taxonomy";
+import { getProjects } from "../../utils/content";
+
+const projects = await getProjects();
+const usedTags = techIds.filter((t) => projects.some((p) => p.data.tags?.includes(t)));
+---
+
+<BaseLayout title="Projects" sideBarActiveItemID="projects">
+  <h1 class="text-3xl font-bold mb-5">Projects</h1>
+  <CategoryNav base="/projects" />
+  <ListFilter tags={usedTags} placeholder="Search projects..." />
+
+  {categories.map((category) => {
+    const items = projects.filter((p) => p.data.category === category.id);
+    return items.length > 0 && (
+      <section class="mb-12" data-filter-group>
+        <div class="flex flex-wrap items-baseline justify-between gap-x-4 mb-1">
+          <h2 class="text-2xl font-bold">{category.label}</h2>
+          <a class="text-sm underline opacity-70" href={`/projects/category/${category.id}/`}>
+            View area & articles →
+          </a>
+        </div>
+        <p class="opacity-70 mb-3">{category.description}</p>
+        <ul>
+          {items.map((project) => <ProjectItem project={project} />)}
+        </ul>
+      </section>
+    );
+  })}
+</BaseLayout>

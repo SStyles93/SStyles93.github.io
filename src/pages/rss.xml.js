@@ -3,7 +3,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 
 export async function GET(context) {
-  const blogs = await getCollection("blogs");
+  // Teasers redirect to their project page, so only real articles go in the feed
+  const blogs = await getCollection("blogs", (post) => !post.data.isProject);
   return rss({
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,

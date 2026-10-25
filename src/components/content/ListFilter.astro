@@ -1,0 +1,67 @@
+---
+// Client-side search + tech filter for any list of `.project-item` / `.article-item` elements.
+// Items expose data-search, data-tags (and optionally data-kind); groups marked
+// [data-filter-group] are hidden when none of their items match.
+import { kinds, techLabel } from "../../data/taxonomy";
+
+const { tags = [], showKinds = false, placeholder = "Search..." } = Astro.props as {
+  tags?: string[];
+  showKinds?: boolean;
+  placeholder?: string;
+};
+const inputClass = "input input-bordered input-sm w-full sm:w-auto";
+---
+
+<div class="flex flex-col sm:flex-row gap-2 mb-6" data-list-filter>
+  <input type="search" placeholder={placeholder} class:list={[inputClass, "sm:w-64"]} data-filter-search />
+  <select class:list={["select select-bordered select-sm", "w-full sm:w-auto"]} data-filter-tag>
+    <option value="">All technologies</option>
+    {tags.map((tag) => <option value={tag}>{techLabel(tag)}</option>)}
+  </select>
+  {showKinds && (
+    <select class="select select-bordered select-sm w-full sm:w-auto" data-filter-kind>
+      <option value="">All formats</option>
+      {Object.entries(kinds).map(([id, label]) => <option value={id}>{label}</option>)}
+    </select>
+  )}
+</div>
+<p class="hidden text-center py-12 opacity-60" data-filter-empty>Nothing matches these filters.</p>
+
+<script>
+  function setupListFilter() {
+    const root = document.querySelector<HTMLElement>("[data-list-filter]");
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = "true";
+
+    const search = root.querySelector<HTMLInputElement>("[data-filter-search]")!;
+    const tag = root.querySelector<HTMLSelectElement>("[data-filter-tag]")!;
+    const kind = root.querySelector<HTMLSelectElement>("[data-filter-kind]");
+    const empty = document.querySelector<HTMLElement>("[data-filter-empty]");
+    const items = document.querySelectorAll<HTMLElement>(".project-item, .article-item");
+    const groups = document.querySelectorAll<HTMLElement>("[data-filter-group]");
+
+    function apply() {
+      const term = search.value.trim().toLowerCase();
+      let visible = 0;
+      items.forEach((item) => {
+        const match =
+          (!term || (item.dataset.search ?? "").includes(term)) &&
+          (!tag.value || (item.dataset.tags ?? "").split(",").includes(tag.value)) &&
+          (!kind?.value || item.dataset.kind === kind.value);
+        item.hidden = !match;
+        if (match) visible++;
+      });
+      groups.forEach((group) => {
+        group.hidden = !group.querySelector(".project-item:not([hidden]), .article-item:not([hidden])");
+      });
+      empty?.classList.toggle("hidden", visible > 0);
+    }
+
+    search.addEventListener("input", apply);
+    tag.addEventListener("change", apply);
+    kind?.addEventListener("change", apply);
+  }
+
+  setupListFilter();
+  document.addEventListener("astro:page-load", setupListFilter);
+</script>

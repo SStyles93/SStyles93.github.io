@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import ArticleCard from "../../../../components/content/ArticleCard.astro";
+import { techIds, techLabel } from "../../../../data/taxonomy";
+import { getArticles } from "../../../../utils/content";
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return techIds
+    .map((tag) => ({ tag, posts: articles.filter((a) => a.data.tags?.includes(tag)) }))
+    .filter(({ posts }) => posts.length > 0)
+    .map(({ tag, posts }) => ({ params: { tag }, props: { posts } }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout title={`${techLabel(tag)} – Blog`} sideBarActiveItemID="blog">
+  <a class="text-sm underline opacity-70" href="/blogs/">← All articles</a>
+  <h1 class="text-3xl font-bold mt-2 mb-5">
+    Articles about {techLabel(tag)} <span class="opacity-50 text-lg">({posts.length})</span>
+  </h1>
+  <ul class="grid gap-1">
+    {posts.map((post) => <ArticleCard post={post} />)}
+  </ul>
+</BaseLayout>

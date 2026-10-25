@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ArticleCard from "../../../components/content/ArticleCard.astro";
+import { getCollection } from "astro:content";
+import { series as allSeries } from "../../../data/taxonomy";
+import { getSeriesParts } from "../../../utils/content";
+
+export function getStaticPaths() {
+  return allSeries.map((info) => ({ params: { series: info.id }, props: { info } }));
+}
+
+const { info } = Astro.props;
+const parts = await getSeriesParts(info.id);
+const project = "project" in info
+  ? (await getCollection("projects")).find((p) => p.id === info.project)
+  : undefined;
+---
+
+<BaseLayout title={info.title} description={info.description} sideBarActiveItemID="blog">
+  <a class="text-sm underline opacity-70" href="/blogs/">← All articles</a>
+  <h1 class="text-3xl font-bold mt-2 mb-2">{info.title}</h1>
+  <p class="opacity-80 mb-2">{info.description}</p>
+  {project && (
+    <p class="text-sm opacity-80 mb-6">
+      Project overview: <a class="underline font-semibold" href={`/projects/${project.id}/`}>{project.data.title}</a>
+    </p>
+  )}
+
+  <ol class="grid gap-1 mt-6">
+    {parts.map((post) => <ArticleCard post={post} showSeries={false} />)}
+  </ol>
+</BaseLayout>

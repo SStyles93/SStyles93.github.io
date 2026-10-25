@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import CategoryNav from "../../../components/content/CategoryNav.astro";
+import ArticleCard from "../../../components/content/ArticleCard.astro";
+import { categories } from "../../../data/taxonomy";
+import { getArticles } from "../../../utils/content";
+
+export function getStaticPaths() {
+  return categories.map((category) => ({ params: { category: category.id }, props: { category } }));
+}
+
+const { category } = Astro.props;
+const articles = (await getArticles()).filter((a) => a.data.category === category.id);
+---
+
+<BaseLayout title={`${category.label} – Blog`} description={category.description} sideBarActiveItemID="blog">
+  <h1 class="text-3xl font-bold mb-2">{category.label}</h1>
+  <p class="opacity-70 mb-5">{category.description}</p>
+  <CategoryNav base="/blogs" active={category.id} />
+
+  {articles.length > 0 ? (
+    <ul class="grid gap-1">
+      {articles.map((post) => <ArticleCard post={post} />)}
+    </ul>
+  ) : (
+    <p class="opacity-70">
+      No articles yet. See the <a class="underline" href={`/projects/category/${category.id}/`}>projects in this area</a>.
+    </p>
+  )}
+</BaseLayout>

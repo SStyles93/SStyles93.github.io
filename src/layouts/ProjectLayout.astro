@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { Image } from "astro:assets";
+import { getCategory, kinds, techLabel } from "../data/taxonomy";
 
 const {
 	title,
@@ -11,7 +12,11 @@ const {
 	heroImage,
 	teamSize,
 	timeFrame,
-	toolUsed
+	toolUsed,
+	category,
+	kind,
+	tags = [],
+	categoryBase = "/projects",
 } = Astro.props;
 dayjs.extend(localizedFormat);
 const displayDate = dayjs(creationDate).format("MMMM YYYY");
@@ -45,6 +50,19 @@ const displayDate = dayjs(creationDate).format("MMMM YYYY");
 				)
 			}
 			<h1 class="title my-2 text-4xl font-bold">{title}</h1>
+			{
+				(category || kind || tags.length > 0) && (
+					<div class="not-prose flex flex-wrap items-center gap-2 mb-3">
+						{category && (
+							<a class="badge badge-primary" href={`${categoryBase}/category/${category}/`}>
+								{getCategory(category).label}
+							</a>
+						)}
+						{kind && <span class="badge badge-secondary">{kinds[kind]}</span>}
+						{tags.map((tag) => <span class="badge badge-outline">{techLabel(tag)}</span>)}
+					</div>
+				)
+			}
 			{
 				creationDate && (
 					<>
