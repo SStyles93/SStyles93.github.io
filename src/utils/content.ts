@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import dayjs from "dayjs";
-import type { CategoryId, SeriesId } from "../data/taxonomy";
+import { seriesIds, type CategoryId, type SeriesId } from "../data/taxonomy";
 
 type Entry = CollectionEntry<"projects"> | CollectionEntry<"blogs">;
 
@@ -16,9 +16,22 @@ export async function getProjects() {
   return (await getCollection("projects")).sort(byOrderThenDate);
 }
 
-/** Real articles: blog posts that are not short teasers for a project page. */
+// Series posts are grouped in taxonomy order with the latest part on top; standalone posts follow
+function bySeriesThenPart(a: CollectionEntry<"blogs">, b: CollectionEntry<"blogs">) {
+  const rank = (post: CollectionEntry<"blogs">) =>
+    post.data.series ? seriesIds.indexOf(post.data.series.id) : seriesIds.length;
+  const diff = rank(a) - rank(b);
+  if (diff !== 0) return diff;
+  if (a.data.series && b.data.series) return b.data.series.part - a.data.series.part;
+  return byOrderThenDate(a, b);
+}
+
+/**
+ * Articles for listings: real posts, plus teasers that are a part of a series
+ * (they keep the series numbering complete and link to their project page).
+ */
 export async function getArticles() {
-  return (await getCollection("blogs", (post) => !post.data.isProject)).sort(byOrderThenDate);
+  return (await getCollection("blogs", (post) => !post.data.isProject || !!post.data.series)).sort(bySeriesThenPart);
 }
 
 export async function getSeriesParts(id: SeriesId) {

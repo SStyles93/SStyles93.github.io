@@ -5,6 +5,7 @@ import ProjectLayout from "../../layouts/ProjectLayout.astro";
 import Hr from "../../components/Hr.astro";
 import MdImage from "../../components/MdImage.astro";
 import ArticleCard from "../../components/content/ArticleCard.astro";
+import SeriesNav from "../../components/content/SeriesNav.astro";
 import { getArticles } from "../../utils/content";
 
 export async function getStaticPaths() {
@@ -22,8 +23,11 @@ interface Props {
 const { entry } = Astro.props;
 const project = entry.data;
 const { Content } = await render(entry);
-const relatedArticles = (await getArticles())
-	.filter((post) => post.data.project === entry.id)
+const articles = await getArticles();
+// A project can itself be a series part, through the teaser post that points to it
+const seriesPost = articles.find((post) => post.data.isProject && post.data.project === entry.id);
+const relatedArticles = articles
+	.filter((post) => !post.data.isProject && post.data.project === entry.id)
 	.sort((a, b) => (a.data.series?.part ?? 0) - (b.data.series?.part ?? 0));
 ---
 
@@ -39,7 +43,9 @@ const relatedArticles = (await getArticles())
 	category={project.category}
 	tags={project.tags}
 >
+	{seriesPost && <SeriesNav post={seriesPost} position="top" />}
 	<Content components={{ hr: Hr, img: MdImage }} />
+	{seriesPost && <SeriesNav post={seriesPost} position="bottom" />}
 
 	{relatedArticles.length > 0 && (
 		<section class="not-prose mt-12">
