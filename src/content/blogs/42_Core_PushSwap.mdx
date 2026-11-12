@@ -1,0 +1,319 @@
+---
+title: "42 Common Core — push_swap: Sorting with Two Stacks"
+description: "Sorting integers with a fixed 11-operation instruction set: an adaptive dispatcher that picks between O(n²) selection sort, O(n√n) range sort and O(n log n) radix sort based on how disordered the input is"
+creationDate: "Nov 7 2026"
+order: 0
+heroImage: "/src/assets/images/42/push_swapm.png"
+pinned: false
+teamSize: 2
+toolUsed: "C/GCC/Make"
+isProject: false
+tags: ["C", "Linux"]
+project: "42_codetester"
+category: "systems"
+kind: "deep-dive"
+series: { id: "42-core", part: 4 }
+---
+
+import Button from "../../components/Button.astro";
+import SocialShare from "../../components/SocialShare.astro";
+
+**push_swap** gives you a stack `a` pre-loaded with `n` unsorted integers and an empty stack `b`.
+Your program must print the shortest sequence of operations that leaves `a` sorted ascending, `b`
+empty. The grader counts operations and awards marks based on thresholds: for 100 numbers, under
+700 is the full score; for 500, under 5 500.
+
+The only allowed operations are:
+
+| Op | Effect |
+|----|--------|
+| `sa` / `sb` / `ss` | swap the top two elements of a / b / both |
+| `pa` / `pb` | push the top of b onto a / top of a onto b |
+| `ra` / `rb` / `rr` | rotate: top → bottom in a / b / both |
+| `rra` / `rrb` / `rrr` | reverse rotate: bottom → top in a / b / both |
+
+The challenge is not the syntax — it is choosing which algorithm to run, and doing so at runtime
+based on how disordered the input actually is.
+
+## Data structures
+
+Every stack element is a node in a singly linked list:
+
+```c
+typedef struct s_stack {
+    int          value;   /* the parsed integer */
+    int          index;   /* rank: 0 = smallest, n-1 = biggest */
+    struct s_stack *next; /* element below, NULL at the bottom */
+} t_stack;
+```
+
+The `index` field (rank) is computed once at startup. Working on small non-negative ranks instead
+of raw integers means the algorithms never have to handle negatives or large gaps between values,
+and radix sort needs a compact non-negative domain.
+
+Runtime state is kept in `t_state` (both stacks, their sizes, 11 operation counters) and
+`t_ctx` (selected strategy, `--bench` flag, parsed values, disorder).
+
+## Two-layer architecture
+
+A clean split separates **what moves the data** from **what gets printed**:
+
+- **Silent primitives** (`swap`, `push`, `rotate`, `reverse_rotate`) only move pointers and
+  return `1` if the stack changed, `0` otherwise. They produce no output and increment no counter.
+- **Operations** (`op_sa` … `op_rrr`) call the matching primitive, then `record_op`, which
+  increments the counter and writes the operation name with a single `write` call.
+
+The bonus `checker` reuses the same primitives without output, so the two programs share one
+implementation of every move.
+
+## Parsing
+
+Parsing runs in two passes over `argv` to avoid reallocating the integer array.
+
+**First pass** reads every flag (`--simple`, `--medium`, `--complex`, `--adaptive`, `--bench`)
+and counts the words in the remaining arguments so the array is allocated at its exact size.
+
+**Second pass** splits each argument on spaces (`ft_split`) and converts every word with
+`ft_atoi_safe`:
+
+```c
+int ft_atoi_safe(const char *s, int *out)
+{
+    long long n    = 0;
+    int       sign = 1;
+
+    if (*s == '+' || *s == '-')
+        sign = (*s++ == '-') ? -1 : 1;
+    if (!*s)
+        return (0);             /* bare sign is not a number */
+    while (*s)
+    {
+        if (!ft_isdigit(*s))
+            return (0);
+        n = n * 10 + (*s - '0');
+        if (n * sign > INT_MAX || n * sign < INT_MIN)
+            return (0);         /* range checked after every digit */
+        s++;
+    }
+    *out = (int)(n * sign);
+    return (1);
+}
+```
+
+The key detail: overflow is checked **after every digit**, so `99999999999999999999` is rejected
+rather than wrapping silently like a plain `atoi` would. After conversion, every pair is compared
+to catch duplicates — including `0` and `-0`, which parse to the same integer.
+
+## Rank indexing
+
+`build_stack` builds the linked list and assigns each element its rank in one pass:
+
+```c
+static int get_rank(const int *values, int size, int value)
+{
+    int rank = 0;
+    for (int i = 0; i < size; i++)
+        if (values[i] < value)
+            rank++;
+    return rank;
+}
+```
+
+Because all values are unique, ranks go from `0` to `n − 1` without gaps. This O(n²) step is
+paid once, before any measured operation.
+
+## Disorder metric
+
+Before sorting, the program measures how far the stack is from sorted:
+
+```
+disorder = mistakes / total_pairs
+```
+
+where `mistakes` counts pairs `(upper, lower)` where `upper->value > lower->value` — the number
+of **inversions**. The result is `0` for a sorted stack, `1` for a reversed one, and around
+`0.5` for a random permutation. It is computed in O(n²) on the values before any move.
+
+## Adaptive dispatch
+
+The disorder drives strategy selection:
+
+| Disorder | Strategy | Complexity |
+|----------|----------|------------|
+| `< 0.2` | Simple (selection sort) | O(n²) |
+| `0.2 ≤ d < 0.5` | Medium (range sort) | O(n√n) |
+| `≥ 0.5` | Complex (radix sort) | O(n log n) |
+
+`0.5` is the average disorder of a random permutation, so a stack at or above it is treated as
+random and gets the input-independent algorithm. Below `0.2` the stack is nearly sorted and the
+quadratic class is accepted. The range `[0.2, 0.5)` goes to the intermediate strategy.
+
+If the stack is already sorted (disorder `= 0`) the program prints nothing. Stacks of 5 or fewer
+elements always go to `sort_small`, regardless of the strategy flag.
+
+## sort_small — up to 5 elements
+
+**2 elements:** one `sa`.
+
+**3 elements:** `sort_three` reads the three ranks, decides which of the 6 possible orderings it
+has, and applies at most 2 operations:
+
+```c
+static void sort_three(t_state *state)
+{
+    int first  = state->a->index;
+    int second = state->a->next->index;
+    int third  = state->a->next->next->index;
+
+    if (first > second && first > third)
+        op_ra(state);        /* biggest is on top → rotate it down */
+    else if (second > first && second > third)
+        op_rra(state);       /* biggest is in the middle → reverse rotate */
+    if (state->a->index > state->a->next->index)
+        op_sa(state);        /* top two still need a swap */
+}
+```
+
+**4 and 5 elements:** push the minimum to `b` (brought to the top using whichever of `ra` / `rra`
+is cheaper), repeat until 3 remain, `sort_three`, then `pa` for each element still in `b`.
+At most 10 operations for 5 numbers.
+
+## sort_simple — selection sort, O(n²)
+
+Because ranks are known, the next element to push to `b` is always the one whose rank equals the
+current size of `b`. It is rotated to the top of `a` by the cheapest direction and pushed:
+
+```c
+void sort_simple(t_state *state)
+{
+    while (state->size_a > 0)
+    {
+        bring_to_top_a(state, state->size_b); /* next rank = size_b */
+        op_pb(state);
+    }
+    while (state->size_b > 0)
+        op_pa(state);
+}
+```
+
+After phase 1, `b` holds ranks from the biggest on top to 0 at the bottom, so `n` × `pa`
+rebuilds `a` in ascending order. At most `n/2` rotations per push gives **O(n²)** total — about
+1 450 operations for 100 random numbers.
+
+## sort_medium — range sort with a sliding window, O(n√n)
+
+The window width is `⌈√n⌉ × 1.5` (computed as integer arithmetic, no `sqrt`).
+
+**Phase 1** empties `a` into `b`. For each top of `a`:
+
+| Rank of top | Action | Why |
+|-------------|--------|-----|
+| `≤ pushed` (below window) | `pb` then `rb` | small elements sink to the bottom of `b` |
+| `≤ pushed + offset` (inside window) | `pb` | stays near the top of `b` |
+| above window | `ra` | too big for now, comes back later |
+
+`pushed` increments on every `pb`, so the window slides right. At the end, `b` is roughly sorted:
+large values near the top, small values at the bottom.
+
+**Phase 2** repeatedly finds the element with rank `size_b − 1` (the current maximum of `b`),
+rotates it to the top with the shorter of `rb` / `rrb`, then `pa`. Elements arrive in `a` from
+largest to smallest, so `a` ends sorted.
+
+```c
+void sort_medium(t_state *state)
+{
+    push_window(state, get_offset(state->size_a));
+    while (state->size_b > 0)
+    {
+        bring_to_top_b(state, state->size_b - 1);
+        op_pa(state);
+    }
+}
+```
+
+Each element of `b` is at most `~√n` positions from the nearest end of `b`, giving O(√n)
+rotations per `pa` and **O(n√n)** total.
+
+## sort_complex — LSD radix sort, O(n log n)
+
+Radix sort never compares two elements. It sorts by one binary digit at a time, starting from the
+least significant bit (LSD), using ranks — which are always non-negative and compact.
+
+One pass for bit `k`:
+
+1. Walk every element of `a` exactly once: bit `k` of its rank is `0` → `pb`; bit `k` is `1` →
+   `ra`.
+2. `pa` everything back from `b`.
+
+After the pass, elements whose bit `k` is `0` are on top, then the `1`s. The order from previous
+passes is preserved inside each group: the `1`s were rotated one by one (order unchanged); the
+`0`s were reversed by `pb` then reversed back by `pa`.
+
+```c
+static void radix_pass(t_state *state, int bit)
+{
+    int i     = 0;
+    int count = state->size_a;
+
+    while (i++ < count)
+    {
+        if (((state->a->index >> bit) & 1) == 0)
+            op_pb(state);
+        else
+            op_ra(state);
+    }
+    while (state->size_b > 0)
+        op_pa(state);
+}
+```
+
+500 numbers need ranks up to 499, so `⌈log₂ 500⌉ = 9` passes. Each pass costs at most `2n`
+operations: **O(n log n)**, about 6 700 for 500 numbers regardless of the initial order.
+
+Small trace, `a = [2 3 0 1]` in binary `[10 11 00 01]`:
+
+```
+bit 0:  2→pb  3→ra  0→pb  1→ra    →  a=[3 1]  b=[0 2]
+        pa pa                      →  a=[2 0 3 1]
+bit 1:  2→ra  0→pb  3→ra  1→pb    →  a=[2 3]  b=[1 0]
+        pa pa                      →  a=[0 1 2 3]  sorted
+```
+
+## Results
+
+The 42 subject thresholds for the full score are **< 700 operations for 100 numbers** and
+**< 5 500 for 500 numbers**. Rough operation counts by strategy:
+
+| Input | Strategy | Approximate ops |
+|-------|----------|-----------------|
+| ≤ 5 | sort_small | ≤ 10 |
+| 100 | simple | ~ 1 450 |
+| 100 | medium | ~ 650–680 |
+| 100 | complex | ~ 1 050 |
+| 500 | medium | ~ 5 100–5 300 |
+| 500 | complex | ~ 6 700 |
+
+For 100 numbers a random permutation has disorder around `0.5`, landing on the boundary between
+medium and complex. The medium strategy (O(n√n)) is the one that fits under 700. For 500 numbers
+the medium strategy also beats the 5 500 ceiling. Run `--bench` to measure the exact counts for
+any input.
+
+## Contributions
+
+| Learner | Work |
+|---------|------|
+| sstyles (Sam) | Parsing and error handling, Makefile, stack initialisation with ranks, `t_state` / `t_ctx` and operation counters, disorder metric, dispatch and strategy selection, `--bench`, `sort_small`, radix sort (`sort_complex`) |
+| mpiervit (Maho) | Stack primitives (`stack_primitives.c`), `sort_simple`, `sort_medium`, fix of `pa`/`pb` counting, bonus checker |
+
+---
+
+<div class="flex justify-center">
+<Button href="https://github.com/SStyles93/42_push_swap">push_swap on GitHub</Button>
+</div>
+
+<div class="flex justify-center">
+  <SocialShare
+    description={frontmatter.description}
+    title={frontmatter.title}
+  />
+</div>
